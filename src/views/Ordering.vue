@@ -143,21 +143,15 @@ export default {
 
 .grid-container {
   display: grid;
-<<<<<<< HEAD
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
-=======
   background-color: rgba(211, 211, 211, 0.65); 
   border-radius: 7%;
   width: 80%;
   height: 80%;
   padding: 3%;
   margin: auto;
-  grid-template-columns: 1fr 1fr 1fr 1.2fr 0.8fr 1fr;
-  grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
-  grid-template-areas: "Top Top Top Top Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "Done Done Done Done Done Done";
->>>>>>> 69610adf915f11395c07fa58e989055447baa47b
 }
 
 
