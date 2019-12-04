@@ -17,7 +17,6 @@
 
 
   <div class="OrderList">
-    <h1>{{ uiLabels.ingredients }} </h1>
     <Ingredient
 
             ref="ingredient"
