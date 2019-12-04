@@ -1,4 +1,5 @@
 // Inspired by https://gist.github.com/icebob/0dda386fceb8e14b91d84d057fac676f
+//HEJHEJ EMMA!
 "use strict";
 
 // Generate webpack config with CLI service
