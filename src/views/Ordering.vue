@@ -9,16 +9,18 @@
 
 
   <div class="OrderList">
-    <h1>{{ uiLabels.ingredients }} </h1>
-
     <Ingredient
+
             ref="ingredient"
             v-for="item in ingredients"
             v-on:increment="addToOrder(item)"
+            v-on:decrement="delFromOrder(item)"
             :item="item"
             :lang="lang"
-            :key="item.ingredient_id">
+            :key="item.ingredient_id"
+    v-on:click="addToOrder(item)">
     </Ingredient>
+
   </div>
 
 
@@ -82,8 +84,14 @@ export default {
   methods: {
     addToOrder: function (item) {
       this.chosenIngredients.push(item);
-      this.price += +item.selling_price;
+      this.price += item.selling_price;
     },
+
+    delFromOrder: function(item) {
+      this.chosenIngredients.pop(item);
+      this.price -= item.selling_price;
+    },
+
     placeOrder: function () {
       var i,
       //Wrap the order in an object
@@ -140,7 +148,12 @@ export default {
 
 .OrderList { grid-area: OrderList;
       display: grid;
+<<<<<<< HEAD
       grid-template-columns: repeat(auto-fill, 7em);
+=======
+      grid-template-columns: repeat(auto-fill, 8em);
+      grid-gap: 7%;
+>>>>>>> feefea927c9718ce030368608365a05be29f2ba8
       height: 400px;
       overflow-y: scroll;}
 
