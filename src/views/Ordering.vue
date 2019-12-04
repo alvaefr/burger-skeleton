@@ -1,6 +1,14 @@
+
+
+
+
 <template >
-  <div id="ordering" class="grid-container">
-    <img class="example-panel" src="@/assets/exampleImage.jpg">
+<section class="example-panel">
+    
+
+  <div class="grid-container">
+  
+      
 
 
     <div class="Top">
@@ -47,7 +55,9 @@
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
     </div>
   </div>
+</section>
 </template>
+
 <script>
 
 //import the components that are used in the template, the name that you
@@ -113,16 +123,13 @@ export default {
 </script>
 <style scoped>
 /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
-#ordering {
-  margin:auto;
-  width: 40em;
-}
+
 
 .example-panel {
-  position: fixed;
+
   left:0;
   top:0;
-  z-index: -2;
+
 }
 .ingredient {
   border: 1px solid #ccd;
@@ -136,9 +143,21 @@ export default {
 
 .grid-container {
   display: grid;
+<<<<<<< HEAD
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
+=======
+  background-color: rgba(211, 211, 211, 0.65); 
+  border-radius: 7%;
+  width: 80%;
+  height: 80%;
+  padding: 3%;
+  margin: auto;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr 0.8fr 1fr;
+  grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
+  grid-template-areas: "Top Top Top Top Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "Done Done Done Done Done Done";
+>>>>>>> 69610adf915f11395c07fa58e989055447baa47b
 }
 
 
