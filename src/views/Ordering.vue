@@ -148,12 +148,9 @@ export default {
 
 .OrderList { grid-area: OrderList;
       display: grid;
-<<<<<<< HEAD
-      grid-template-columns: repeat(auto-fill, 7em);
-=======
+
       grid-template-columns: repeat(auto-fill, 8em);
       grid-gap: 7%;
->>>>>>> feefea927c9718ce030368608365a05be29f2ba8
       height: 400px;
       overflow-y: scroll;}
 
