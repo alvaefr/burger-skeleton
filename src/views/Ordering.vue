@@ -1,26 +1,33 @@
-<template>
-  <div id="ordering">
+<template >
+  <div id="ordering" class="grid-container">
     <img class="example-panel" src="@/assets/exampleImage.jpg">
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
-    <h1>{{ uiLabels.ingredients }}</h1>
+
+    <div class="Top">
+      <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+    </div>
+
+
+  <div class="OrderList">
+    <h1>{{ uiLabels.ingredients }} </h1>
 
     <Ingredient
-      ref="ingredient"
-      v-for="item in ingredients"
-      v-on:increment="addToOrder(item)"  
-      :item="item" 
-      :lang="lang"
-      :key="item.ingredient_id">
+            ref="ingredient"
+            v-for="item in ingredients"
+            v-on:increment="addToOrder(item)"
+            :item="item"
+            :lang="lang"
+            :key="item.ingredient_id">
     </Ingredient>
+  </div>
 
-    <h1>{{ uiLabels.order }}</h1>
-    {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr
-    <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-    <h1>{{ uiLabels.ordersInQueue }}</h1>
-    <div>
-      <OrderItem 
+
+    <div class="Burger">
+      <h1>{{ uiLabels.ordersInQueue }}</h1>
+      <h1>{{ uiLabels.order }}</h1>
+      {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr
+      <OrderItem
         v-for="(order, key) in orders"
         v-if="order.status !== 'done'"
         :order-id="key"
@@ -29,6 +36,10 @@
         :lang="lang"
         :key="key">
       </OrderItem>
+    </div>
+
+    <div class="Done">
+      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
     </div>
   </div>
 </template>
@@ -108,4 +119,23 @@ export default {
   background-image: url('~@/assets/exampleImage.jpg');
   color: white;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr 0.8fr 1fr;
+  grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
+  grid-template-areas: "Top Top Top Top Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "Done Done Done Done Done Done";
+}
+
+.Top { grid-area: Top; }
+
+.OrderList { grid-area: OrderList;
+      height: 400px;
+      overflow-y: scroll;}
+
+.Done { grid-area: Done; }
+
+.Burger { grid-area: Burger; }
+
+
 </style>
