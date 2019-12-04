@@ -36,7 +36,10 @@
         :lang="lang"
         :key="key">
       </OrderItem>
+      <footer id="BurgerFooter"> Totalt</footer>
     </div>
+
+    <div class="Total">Totalt</div>
 
     <div class="Done">
       <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
@@ -120,22 +123,40 @@ export default {
   color: white;
 }
 
+
+
+
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.2fr 0.8fr 1fr;
-  grid-template-rows: 0.8fr 1.2fr 1.2fr 0.8fr;
-  grid-template-areas: "Top Top Top Top Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "OrderList OrderList OrderList OrderList Burger Burger" "Done Done Done Done Done Done";
+  grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
 }
+
+
+
 
 .Top { grid-area: Top; }
 
 .OrderList { grid-area: OrderList;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 7em);
       height: 400px;
       overflow-y: scroll;}
 
 .Done { grid-area: Done; }
 
-.Burger { grid-area: Burger; }
+.Total { grid-area: Total;
+  background-color: rgba(0,0,0,0.2);
+  }
+
+.Burger { grid-area: Burger;}
+
+
+
+
+
+
 
 
 </style>
