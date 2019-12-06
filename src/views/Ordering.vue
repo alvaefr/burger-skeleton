@@ -150,6 +150,13 @@ export default {
 <style scoped>
 /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
 
+    section {
+    font-family: "Courier new", monospace;
+    
+    color: dimgrey;
+    font-variant: inherit;
+    }
+    
 
 .example-panel {
 
@@ -158,10 +165,12 @@ export default {
 
 }
 .ingredient {
-  border: 1px solid #ccd;
+  border: 1px solid grey;
+  border-radius: 1.4em;
   padding: 1em;
-  background-image: url('~@/assets/exampleImage.jpg');
-  color: white;
+  font-size:1.7vh;
+  background-color: #bccfbc;
+  color: dimgray;
 }
 
 
@@ -172,8 +181,10 @@ export default {
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
-  background-color: rgba(211, 211, 211, 0.65); 
-  border-radius: 7%;
+  
+  background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+  border-radius: 4em;
+  border: 1px solid #FFF;
   width: 80%;
   height: 80%;
   padding: 3%;
@@ -187,62 +198,107 @@ export default {
 
 .OrderList { grid-area: OrderList;
       display: grid;
-
+      background-color: rgba(232, 232, 232, 0.92);
+      padding: 5% 0% 4% 4%;
+      margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
       grid-gap: 7%;
       height: 400px;
-      overflow-y: scroll;}
+      overflow-y: scroll;
+      border-left: 3px solid #FFF;
+      border-right: 3px solid #FFF;
+      border-bottom: 3px solid #FFF;
+      border-radius: 0em 0em 3em 3em;
+      margin-top: -16%;
+      
+    
+    }
 
 .Done { grid-area: Done; }
 
 .Total { grid-area: Total;
-  background-color: rgba(0,0,0,0.2);
+    background-color: rgba(232, 232, 232, 0.92);
+    border-bottom: 3px solid #FFF;
+    border-right: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    border-top: 3px dotted #FFF;
+    border-radius: 0em 0em 2em 2em;
+    margin-left: -2em;
+
   }
 
-.Burger { grid-area: Burger;}
+.Burger { 
+    padding: 1em;
+    margin-left: -2em;
+    grid-area: Burger;
+    border-top: 3px solid #FFFFFF;
+    border-right: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    border-radius: 2em 2em 0 0;
+    background-color: rgba(232, 232, 232, 0.92);
+}
+    
+
 
 
 /* Style the tab */
 .tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  border-radius: 5%;
+  margin: 2% 15% 0% 0%;
+  border-bottom: 3px solid #FFFFFF;
+ 
+
+ 
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  background-color: inherit;
-  float: left;
+  
+  background-color: rgba(232, 232, 232, 0.92);
+  width: 16.66667%;
+  
+ font-size: 90%;
+  float: auto;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  border-radius: 5%;
+  border-radius: 1.5em 1.5em 0em 0em;
+  border: 3px solid #FFF;
+  border-bottom: 3px solid #FFFFFF;
+  
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: burlywood;
+ background-color: whitesmoke;
+  border: 3px solid #FFF;
+
 }
 .tab button:focus{
-    background-color:#ddd;
+    background-color: whitesmoke;
+    border: 3px solid #FFF;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
   background-color: #ddd;
+  
 }
 
 /* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   border-top: none;
   background-color: #ddd;
+    
 }
+    
+    .tablinks {
+    font-family: "Courier new", monospace;
+    }
     
    
 
