@@ -2,7 +2,7 @@
 
 
 
-<template >
+<template>
 <section class="example-panel">
     
 
@@ -13,7 +13,19 @@
 
     <div class="Top">
       <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-    </div>
+        <div class="tab">
+  <button class="tablinks" v-on:click="setcategory(1)">Puck</button>
+  <button class="tablinks" v-on:click="setcategory(4)">Bröd</button>
+  <button class="tablinks" v-on:click="setcategory(2)">Pålägg</button>
+  <button class="tablinks" v-on:click="setcategory(3)">Sås</button>
+  <button class="tablinks" v-on:click="setcategory(5)">Tillbehör</button>   
+        <button class="tablinks" v-on:click="setcategory(6)">Dryck</button>   
+ 
+</div>
+     
+       
+      </div>
+
 
 
   <div class="OrderList">
@@ -21,7 +33,8 @@
 
             ref="ingredient"
             v-for="item in ingredients"
-            v-on:counter="keepCount"
+
+            v-if="item.category===categorynumber"
             v-on:increment="addToOrder(item)"
             v-on:decrement="delFromOrder(item)"
 
@@ -30,7 +43,11 @@
             :lang="lang"
             :key="item.ingredient_id"
     v-on:click="addToOrder(item)">
+        
+        
     </Ingredient>
+      
+    
 
   </div>
 
@@ -95,7 +112,10 @@ export default {
       chosenIngredients: [],
       price: 0,
       orderNumber: "",
-      count:0
+      count:0,
+     brodcategory: false,
+    categorynumber: 1
+
     }
   },
   created: function () {
@@ -124,6 +144,7 @@ export default {
       this.price += item.selling_price;
       //item.counter = this.count;
     },
+
     countNumberOfIngredients: function (id) {
       let counter = 0;
 
@@ -143,13 +164,21 @@ export default {
       },
 
 
+      
+    setcategory: function(number) {
+            this.categorynumber = number;
+        
+        
+    },
+
+
     delFromOrder: function (item) {
       this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
       this.price -= item.selling_price;
     },
-    keepCount: function(counter){
-      this.count = counter;
-    },
+
+      
+
 
     placeOrder: function () {
       var i,
@@ -173,6 +202,13 @@ export default {
 <style scoped>
 /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
 
+    section {
+    font-family: "Courier new", monospace;
+    
+    color: dimgrey;
+    font-variant: inherit;
+    }
+    
 
 .example-panel {
 
@@ -181,10 +217,12 @@ export default {
 
 }
 .ingredient {
-  border: 1px solid #ccd;
+  border: 1px solid grey;
+  border-radius: 1.4em;
   padding: 1em;
-  background-image: url('~@/assets/exampleImage.jpg');
-  color: white;
+  font-size:1.7vh;
+  background-color: #bccfbc;
+  color: dimgray;
 }
 
 
@@ -195,8 +233,10 @@ export default {
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
-  background-color: rgba(211, 211, 211, 0.65); 
-  border-radius: 7%;
+  
+  background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+  border-radius: 4em;
+  border: 1px solid #FFF;
   width: 80%;
   height: 80%;
   padding: 3%;
@@ -210,19 +250,29 @@ export default {
 
 .OrderList { grid-area: OrderList;
       display: grid;
-
+      background-color: rgba(232, 232, 232, 0.92);
+      padding: 5% 0% 4% 4%;
+      margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
       grid-gap: 7%;
       height: 400px;
-      overflow-y: scroll;}
+      overflow-y: scroll;
+      border-left: 3px solid #FFF;
+      border-right: 3px solid #FFF;
+      border-bottom: 3px solid #FFF;
+      border-radius: 0em 0em 3em 3em;
+      margin-top: -16%;
+      
+    
+    }
 
 .Done { grid-area: Done; }
 
 
 
 .Total { grid-area: Total;
-  background-color: rgba(0,0,0,0.2);
-  border-radius: 1em;
+    background-color: rgba(232, 232, 232, 0.92);
+    border-radius: 1em;
 }
 .Total h2,
 .Total p {
@@ -230,7 +280,7 @@ export default {
   display: inline-block;
   padding: 5px;
   padding-top: 1em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;  /*                                                      här */
   font-size: 30px;
   line-height: 28px;
 }
@@ -243,11 +293,92 @@ export default {
   padding-right:2em;
   float:unset;
 }
+/*
 
-.Burger { grid-area: Burger;}
+    border-bottom: 3px solid #FFF;  Vi synkar Total-fönstret med resten på söndag! Detta ska vara ^
+    border-right: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    border-top: 3px dotted #FFF;
+    border-radius: 0em 0em 2em 2em;
+    margin-left: -2em;
+
+  }*/
+
+
+.Burger { 
+    padding: 1em;
+    margin-left: -2em;
+    grid-area: Burger;
+    border-top: 3px solid #FFFFFF;
+    border-right: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    border-radius: 2em 2em 0 0;
+    background-color: rgba(232, 232, 232, 0.92);
+}
+    
 
 
 
+/* Style the tab */
+.tab {
+  margin: 2% 15% 0% 0%;
+  border-bottom: 3px solid #FFFFFF;
+ 
+
+ 
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  
+  background-color: rgba(232, 232, 232, 0.92);
+  width: 16.66667%;
+  
+ font-size: 90%;
+  float: auto;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  border-radius: 1.5em 1.5em 0em 0em;
+  border: 3px solid #FFF;
+  border-bottom: 3px solid #FFFFFF;
+  
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+ background-color: whitesmoke;
+  border: 3px solid #FFF;
+
+}
+.tab button:focus{
+    background-color: whitesmoke;
+    border: 3px solid #FFF;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ddd;
+  
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 3px solid #ddd;
+  border-top: none;
+  background-color: #ddd;
+    
+}
+    
+    .tablinks {
+    font-family: "Courier new", monospace;
+    }
+    
+   
 
 
 
