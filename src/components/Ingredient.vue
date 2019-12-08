@@ -18,19 +18,26 @@ export default {
   name: 'Ingredient',
   props: {
     item: Object,
-    lang: String
+    lang: String,
+    cunt:0,
+
+
   },
-    data: function () {
+    data:
+            function () {
     return {
       counter: 0
     };
+
   },
+
   methods: {
     incrementCounter: function () {
       this.counter += 1;
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('increment');
+      this.$emit('counter', this.counter)
     },
     decrementCounter: function () {
         this.counter -= 1;

@@ -19,5 +19,12 @@
   "language" : "English",
   "glutenFilter": "Glutenfri",
   "lactoseFilter": "Laktosfri",
-  "veganFilter": "Vegan"
+  "veganFilter": "Vegan",
+  "puck": "Puck",
+  "bread": "Bröd",
+  "topping": "Pålägg", 
+  "sauce": "Sås",
+  "sides": "Tillbehör",   
+  "drink": "Dryck",
+  "total": "Totalt"   
 }
