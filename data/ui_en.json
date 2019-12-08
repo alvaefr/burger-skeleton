@@ -16,5 +16,9 @@
   "ingredients" : "Ingredients",
   "ready" : "Done",
   "order" : "My burger",
-  "language" : "Svenska"
+  "language" : "Svenska",
+  "glutenFilter": "Gluten free",
+  "lactoseFilter": "Lactose free",
+  "veganFilter": "Vegan"
+    
 }

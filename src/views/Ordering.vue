@@ -1,7 +1,3 @@
-
-
-
-
 <template >
 <section class="example-panel">
     
@@ -17,8 +13,9 @@
 
 
   <div class="OrderList">
-    <Ingredient
 
+    
+    <Ingredient
             ref="ingredient"
             v-for="item in ingredients"
             v-on:increment="addToOrder(item)"
@@ -28,12 +25,14 @@
             :key="item.ingredient_id"
     v-on:click="addToOrder(item)">
     </Ingredient>
+    
 
   </div>
 
 
 
     <div class="Burger">
+        
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
       {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr
@@ -52,7 +51,9 @@
     <div class="Total">Totalt</div>
 
     <div class="Done">
-      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+      <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+    
+      <button id=glutenButton v-on:click="showGlutenFree()" > Gluten free</button>
     </div>
   </div>
 </section>
@@ -84,6 +85,7 @@ export default {
       chosenIngredients: [],
       price: 0,
       orderNumber: "",
+      glutenFilter: false
     }
   },
   created: function () {
@@ -109,6 +111,7 @@ export default {
           ingredients: this.chosenIngredients,
           price: this.price
         };
+            
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       this.$store.state.socket.emit('order', {order: order});
       //set all counters to 0. Notice the use of $refs
@@ -117,7 +120,13 @@ export default {
       }
       this.price = 0;
       this.chosenIngredients = [];
-    }
+    },
+
+      
+      showGlutenFree: function(){
+          this.glutenFilter = !this.glutenFilter
+          //sätt så bara glutenfria alternativ visas
+      }
   }
 }
 </script>
@@ -137,8 +146,6 @@ export default {
   background-image: url('~@/assets/exampleImage.jpg');
   color: white;
 }
-
-
 
 
 .grid-container {
@@ -175,7 +182,16 @@ export default {
 
 .Burger { grid-area: Burger;}
 
-
+    #glutenButton { 
+        border-radius: 50%;
+        height: 50px;
+        width: 50px}
+    
+    #PlaceOrderButton{
+        border-radius: 50%;
+        height: 50px;
+        width: 50px
+    }
 
 
 

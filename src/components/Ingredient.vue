@@ -2,7 +2,11 @@
   <div class="ingredient">
     <label>
       {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, {{item.stock}} pcs
-      <button v-on:click="incrementCounter">+</button>
+    <span v-if="item.gluten_free"> G </span>
+    <span v-if="item.vegan"> V </span>
+    <span v-if="item.milk_free"> L </span>
+    
+    <button v-on:click="incrementCounter">+</button>
     </label>
     {{ counter }}
     <button v-if="counter > 0" v-on:click="decrementCounter">-</button>
