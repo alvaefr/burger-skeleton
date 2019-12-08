@@ -266,32 +266,46 @@ export default {
     
     }
 
-.Done { grid-area: Done; }
+.Done { 
+    grid-area: Done; 
+}
 
 
 
-.Total { grid-area: Total;
+.Total { 
+    grid-area: Total;
     background-color: rgba(232, 232, 232, 0.92);
     border-radius: 1em;
+    border-bottom: 3px solid #FFF;  
+    border-right: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    border-top: 3px dotted #FFF;
+    border-radius: 0em 0em 2em 2em;
+    margin-left: -2em;
 }
-.Total h2,
+    
+
+    
+.Total h2 { 
+  margin: 0;
+  padding: 0.5em;
+  padding-top: 1em;
+  line-height: 0.5em;
+  display: inline-block;
+  text-align: right;
+  font-weight: bold;
+  font-size: 2em;
+}
+    
 .Total p {
   margin: 0;
-  display: inline-block;
-  padding: 5px;
+  padding: 0.5em;
   padding-top: 1em;
-  font-family: 'Open Sans', sans-serif;  /*                                                      här */
-  font-size: 30px;
-  line-height: 28px;
-}
-.Total h2 {
-  font-weight: bold;
-  font-size: 30px;
-}
-.Total p{
-  text-align:center;
-  padding-right:2em;
-  float:unset;
+  line-height: 0.5em;
+  display: inline-block;
+  text-align: center;
+  padding-right: 2em;
+  float: unset;
 }
 /*
 
