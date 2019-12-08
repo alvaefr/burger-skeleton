@@ -5,8 +5,6 @@
   <div class="grid-container">
   
       
-
-
     <div class="Top">
       <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
     </div>
