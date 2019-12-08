@@ -1,43 +1,36 @@
-
-
-
-
 <template>
+
 <section class="example-panel">
 
 
-  <div class="grid-container">
+<div class="grid-container">
 
-
-
-
-    <div class="Top">
-      <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-        <div class="tab">
-  <button class="tablinks" v-on:click="setcategory(1)">Puck</button>
-  <button class="tablinks" v-on:click="setcategory(4)">Bröd</button>
-  <button class="tablinks" v-on:click="setcategory(2)">Pålägg</button>
-  <button class="tablinks" v-on:click="setcategory(3)">Sås</button>
-  <button class="tablinks" v-on:click="setcategory(5)">Tillbehör</button>
-            <button class="tablinks" v-on:click="setcategory(6)">Dryck</button>
+<div class="Top">
+<button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+<div class="tab">
+  <button class="tablinks" v-on:click="setcategory(1)">{{ uiLabels.puck }}</button>
+  <button class="tablinks" v-on:click="setcategory(4)">{{ uiLabels.bread }}</button>
+  <button class="tablinks" v-on:click="setcategory(2)">{{ uiLabels.topping }}</button>
+  <button class="tablinks" v-on:click="setcategory(3)">{{ uiLabels.sauce }}</button>
+  <button class="tablinks" v-on:click="setcategory(5)">{{ uiLabels.sides }}</button>
+  <button class="tablinks" v-on:click="setcategory(6)">{{ uiLabels.drink }}</button>
 
 </div>
 
 
-      </div>
+</div>
 
 
 
   <div class="OrderList">
-    <Ingredient
 
+
+    <Ingredient
             ref="ingredient"
             v-for="item in ingredients"
-
             v-if="item.category===categorynumber"
             v-on:increment="addToOrder(item)"
             v-on:decrement="delFromOrder(item)"
-
             :item="item"
             :count="item.counter"
             :lang="lang"
@@ -48,12 +41,12 @@
     </Ingredient>
 
 
-
   </div>
 
 
 
     <div class="Burger">
+
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
       <div v-for="countIng in countAllIngredients"
@@ -77,11 +70,13 @@
 
 
     <div class="Total">
-      <h2>Totalt:</h2>
+      <h2>{{ uiLabels.total }}:</h2>
       <p> {{ price }}:-</p></div>
 
     <div class="Done">
-      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+      <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+
+      <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
     </div>
   </div>
 </section>
@@ -114,9 +109,11 @@ export default {
       chosenIngredients: [],
       price: 0,
       orderNumber: "",
+      glutenFilter: false,
       count:0,
       brodcategory: false,
       categorynumber: 1
+
 
     }
   },
@@ -127,25 +124,36 @@ export default {
   },
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
-      let ingredientTuples = []
-      for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-          ingredientTuples[i] = {};//Skippa for-satsen?
+        let ingredientTuples = []
+        let exist = true;
 
-          for(let j = 0; j < this.chosenIngredients.length; j +=1) {
+        //console.log(exist)
+        for (let j = 0; j < this.chosenIngredients.length; j += 1) {
+            for (let i = 0; i < this.chosenIngredients.length; i += 1){
+                ingredientTuples[i] = {};
+                console.log(ingredientTuples)
 
-              if (ingredientTuples[j].name === ((this.chosenIngredients[i]['ingredient_' + this.lang]))) {
-                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                  // return ingredientTuples
+
+                console.log(ingredientTuples[i])
+                //console.log(2 + this.chosenIngredients[i]['ingredient_' + this.lang])
+                if (ingredientTuples[i].name === this.chosenIngredients[i]['ingredient_' + this.lang]) {
+                    exist = false;
+                    //console.log(exist)
+
+                }
+            }
+            ingredientTuples[j] = {};
+              if (ingredientTuples[j].name === this.chosenIngredients[j]['ingredient_' + this.lang]) {
+                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[j].ingredient_id);
+              }// return ingredientTuples
+              if (exist) {
+                  ingredientTuples[j].name = this.chosenIngredients[j]['ingredient_' + this.lang];
+                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[j].ingredient_id);
               }
-                  ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-                  ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                  return ingredientTuples
-
 
 
           }
 
-      }
        //console.log(this.chosenIngredients[i].ingredient_id)
       //console.log(ingredientTuples)
       return ingredientTuples;
@@ -165,7 +173,7 @@ export default {
       for (let order in this.chosenIngredients) {
         //console.log(order);
         console.log(this.chosenIngredients[order])
-        //let toppings = this.chosenIngredients[order]; //hittaar inte ingerdient_id utan index på chosenIngredients
+        //let toppings = this.chosenIngredients[order];
         //console.log(toppings.length)
         //for (var i = 0; i < toppings.length; i += 1) ;
         //{
@@ -201,6 +209,7 @@ export default {
           ingredients: this.chosenIngredients,
           price: this.price
         };
+
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       this.$store.state.socket.emit('order', {order: order});
       //set all counters to 0. Notice the use of $refs
@@ -209,7 +218,13 @@ export default {
       }
       this.price = 0;
       this.chosenIngredients = [];
-    }
+    },
+
+
+      showGlutenFree: function(){
+          this.glutenFilter = !this.glutenFilter
+          //sätt så bara glutenfria alternativ visas
+      }
   }
 }
 </script>
@@ -240,8 +255,6 @@ export default {
 }
 
 
-
-
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -268,6 +281,7 @@ export default {
       padding: 5% 0% 4% 4%;
       margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
+      grid-template-rows: repeat(auto-fill, 4em);
       grid-gap: 7%;
       height: 400px;
       overflow-y: scroll;
@@ -345,12 +359,23 @@ export default {
 }
 
 
+    #glutenButton {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px}
+
+    #PlaceOrderButton{
+        border-radius: 50%;
+        height: 50px;
+        width: 50px
+    }
 
 
 /* Style the tab */
 .tab {
   margin: 2% 15% 0% 0%;
   border-bottom: 3px solid #FFFFFF;
+
 
 
 
@@ -405,11 +430,6 @@ export default {
     .tablinks {
     font-family: "Courier new", monospace;
     }
-
-
-
-
-
 
 
 </style>
