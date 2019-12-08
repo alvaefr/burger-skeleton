@@ -254,7 +254,7 @@ export default {
       padding: 5% 0% 4% 4%;
       margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
-      grid-template-rows: repeat(auto-fill, 4em);
+      grid-template-rows: repeat(auto-fill, 17%);
       grid-gap: 7%;
       height: 400px;
       overflow-y: scroll;
