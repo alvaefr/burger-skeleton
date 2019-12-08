@@ -16,5 +16,15 @@
   "ingredients" : "Ingredients",
   "ready" : "Done",
   "order" : "My burger",
-  "language" : "Svenska"
+  "language" : "Svenska",
+  "glutenFilter": "Gluten free",
+  "lactoseFilter": "Lactose free",
+  "veganFilter": "Vegan",
+  "puck": "Puck",
+  "bread": "Bread",
+  "topping": "Topping", 
+  "sauce": "Sauce",
+  "sides": "Sides", 
+  "drink": "drink",
+  "total": "Total"    
 }

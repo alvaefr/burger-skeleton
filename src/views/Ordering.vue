@@ -4,11 +4,11 @@
 
 <template>
 <section class="example-panel">
-    
+
 
   <div class="grid-container">
-  
-      
+
+
 
 
     <div class="Top">
@@ -20,10 +20,10 @@
   <button class="tablinks" v-on:click="setcategory(3)">Sås</button>
   <button class="tablinks" v-on:click="setcategory(5)">Tillbehör</button>
             <button class="tablinks" v-on:click="setcategory(6)">Dryck</button>
- 
+
 </div>
-     
-       
+
+
       </div>
 
 
@@ -43,11 +43,11 @@
             :lang="lang"
             :key="item.ingredient_id"
     v-on:click="addToOrder(item)">
-        
-        
+
+
     </Ingredient>
-      
-    
+
+
 
   </div>
 
@@ -68,7 +68,7 @@
         v-for="(order, key) in orders"
         v-if="order.status !== 'done'"
         :order-id="key"
-        :order="order" 
+        :order="order"
         :ui-labels="uiLabels"
         :lang="lang"
         :key="key">
@@ -107,7 +107,7 @@ export default {
     Ingredient,
     OrderItem
   },
-  mixins: [sharedVueStuff], // include stuff that is used in both 
+  mixins: [sharedVueStuff], // include stuff that is used in both
                             // the ordering system and the kitchen
   data: function() { //Not that data is a function!
     return {
@@ -178,11 +178,11 @@ export default {
       },
 
 
-      
+
     setcategory: function(number) {
             this.categorynumber = number;
-        
-        
+
+
     },
 
 
@@ -191,7 +191,7 @@ export default {
       this.price -= item.selling_price;
     },
 
-      
+
 
 
     placeOrder: function () {
@@ -218,11 +218,11 @@ export default {
 
     section {
     font-family: "Courier new", monospace;
-    
+
     color: dimgrey;
     font-variant: inherit;
     }
-    
+
 
 .example-panel {
 
@@ -247,7 +247,7 @@ export default {
   grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
-  
+
   background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
   border-radius: 4em;
   border: 1px solid #FFF;
@@ -276,31 +276,31 @@ export default {
       border-bottom: 3px solid #FFF;
       border-radius: 0em 0em 3em 3em;
       margin-top: -16%;
-      
-    
+
+
     }
 
-.Done { 
-    grid-area: Done; 
+.Done {
+    grid-area: Done;
 }
 
 
 
-.Total { 
+.Total {
     grid-area: Total;
     background-color: rgba(232, 232, 232, 0.92);
     border-radius: 1em;
-    border-bottom: 3px solid #FFF;  
+    border-bottom: 3px solid #FFF;
     border-right: 3px solid #FFF;
     border-left: 3px solid #FFF;
     border-top: 3px dotted #FFF;
     border-radius: 0em 0em 2em 2em;
     margin-left: -2em;
 }
-    
 
-    
-.Total h2 { 
+
+
+.Total h2 {
   margin: 0;
   padding: 0.5em;
   padding-top: 1em;
@@ -310,7 +310,7 @@ export default {
   font-weight: bold;
   font-size: 2em;
 }
-    
+
 .Total p {
   margin: 0;
   padding: 0.5em;
@@ -333,7 +333,7 @@ export default {
   }*/
 
 
-.Burger { 
+.Burger {
     padding: 1em;
     margin-left: -2em;
     grid-area: Burger;
@@ -343,7 +343,7 @@ export default {
     border-radius: 2em 2em 0 0;
     background-color: rgba(232, 232, 232, 0.92);
 }
-    
+
 
 
 
@@ -351,17 +351,17 @@ export default {
 .tab {
   margin: 2% 15% 0% 0%;
   border-bottom: 3px solid #FFFFFF;
- 
 
- 
+
+
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  
+
   background-color: rgba(232, 232, 232, 0.92);
   width: 16.66667%;
-  
+
  font-size: 90%;
   float: auto;
   border: none;
@@ -372,7 +372,7 @@ export default {
   border-radius: 1.5em 1.5em 0em 0em;
   border: 3px solid #FFF;
   border-bottom: 3px solid #FFFFFF;
-  
+
 }
 
 /* Change background color of buttons on hover */
@@ -389,7 +389,7 @@ export default {
 /* Create an active/current tablink class */
 .tab button.active {
   background-color: #ddd;
-  
+
 }
 
 /* Style the tab content */
@@ -399,14 +399,14 @@ export default {
   border: 3px solid #ddd;
   border-top: none;
   background-color: #ddd;
-    
+
 }
-    
+
     .tablinks {
     font-family: "Courier new", monospace;
     }
-    
-   
+
+
 
 
 
