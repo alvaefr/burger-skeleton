@@ -18,8 +18,8 @@
   <button class="tablinks" v-on:click="setcategory(4)">Bröd</button>
   <button class="tablinks" v-on:click="setcategory(2)">Pålägg</button>
   <button class="tablinks" v-on:click="setcategory(3)">Sås</button>
-  <button class="tablinks" v-on:click="setcategory(5)">Tillbehör</button>   
-        <button class="tablinks" v-on:click="setcategory(6)">Dryck</button>   
+  <button class="tablinks" v-on:click="setcategory(5)">Tillbehör</button>
+            <button class="tablinks" v-on:click="setcategory(6)">Dryck</button>
  
 </div>
      
@@ -57,11 +57,13 @@
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
       <div v-for="countIng in countAllIngredients"
-           :key="countAllIngredients.indexOf(countIng)">
-        {{countIng.name}}: {{countIng.count}}
+           :key="countAllIngredients.indexOf(countIng)"
+            v-if="countIng.count>0">
+             {{countIng.name}}: {{countIng.count}}
       </div>
-      <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
-<!--      v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
+        <div>{{  countAllIngredients }}</div>
+           <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
+           v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
         <OrderItem
         v-for="(order, key) in orders"
         v-if="order.status !== 'done'"
@@ -113,8 +115,8 @@ export default {
       price: 0,
       orderNumber: "",
       count:0,
-     brodcategory: false,
-    categorynumber: 1
+      brodcategory: false,
+      categorynumber: 1
 
     }
   },
@@ -126,13 +128,25 @@ export default {
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
       let ingredientTuples = []
-      for (let i = 0; i < this.chosenIngredients.length; i += 1) { //Skippa for-satsen?
-        ingredientTuples[i] = {};
-        ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-        ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+      for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+          ingredientTuples[i] = {};//Skippa for-satsen?
 
-       //console.log(this.chosenIngredients[i].ingredient_id)
+          for(let j = 0; j < this.chosenIngredients.length; j +=1) {
+
+              if (ingredientTuples[j].name === ((this.chosenIngredients[i]['ingredient_' + this.lang]))) {
+                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+                  // return ingredientTuples
+              }
+                  ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
+                  ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+                  return ingredientTuples
+
+
+
+          }
+
       }
+       //console.log(this.chosenIngredients[i].ingredient_id)
       //console.log(ingredientTuples)
       return ingredientTuples;
 
