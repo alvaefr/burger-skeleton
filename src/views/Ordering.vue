@@ -71,9 +71,9 @@
       <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
       <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
-      <div id="nextPage">
-        <button id="next" onclick="switchLocation(0)">next</button>
-      </div>
+
+      <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>>
+
     </div>
   </div>
 </section>
@@ -200,17 +200,6 @@ export default {
       showGlutenFree: function(){
           this.glutenFilter = !this.glutenFilter
           //sätt så bara glutenfria alternativ visas
-      },
-
-      switchLocation: function(counter) {
-          if (counter == 0) {
-            counter = 1;
-            setTimeout(function() {
-               switchLocation(counter);
-                }, 1000);
-          } else {
-                window.location = "page2.html";
-          }
       }
   }
 }
