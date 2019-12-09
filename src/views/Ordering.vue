@@ -7,17 +7,15 @@
 
 <div class="Top">
 <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-<div class="tab">
-  <button class="tablinks" v-on:click="setcategory(1)">{{ uiLabels.puck }}</button>
-  <button class="tablinks" v-on:click="setcategory(4)">{{ uiLabels.bread }}</button>
-  <button class="tablinks" v-on:click="setcategory(2)">{{ uiLabels.topping }}</button>
-  <button class="tablinks" v-on:click="setcategory(3)">{{ uiLabels.sauce }}</button>
-  <button class="tablinks" v-on:click="setcategory(5)">{{ uiLabels.sides }}</button>
-  <button class="tablinks" v-on:click="setcategory(6)">{{ uiLabels.drink }}</button>
+  <div class="tab">
+  <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
+  <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
+  <button class="tablinks" v-on:click="setCategory(2)">{{ uiLabels.topping }}</button>
+  <button class="tablinks" v-on:click="setCategory(3)">{{ uiLabels.sauce }}</button>
+  <button class="tablinks" v-on:click="setCategory(5)">{{ uiLabels.sides }}</button>
+  <button class="tablinks" v-on:click="setCategory(6)">{{ uiLabels.drink }}</button>
 
-</div>
-
-
+  </div>
 </div>
 
 
@@ -34,10 +32,7 @@
             :item="item"
             :count="item.counter"
             :lang="lang"
-            :key="item.ingredient_id"
-    v-on:click="addToOrder(item)">
-
-
+            :key="item.ingredient_id">
     </Ingredient>
 
 
@@ -46,15 +41,13 @@
 
 
     <div class="Burger">
-
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
       <div v-for="countIng in countAllIngredients"
-           :key="countAllIngredients.indexOf(countIng)"
-            v-if="countIng.count>0">
-             {{countIng.name}}: {{countIng.count}}
+           :key="countAllIngredients.indexOf(countIng)">
+             {{countIng.name}}: {{countIng.count}} <br>
       </div>
-        <div>{{  countAllIngredients }}</div>
+        <!-- <div>{{  countAllIngredients }}</div>-->
            <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
            v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
         <OrderItem
@@ -66,6 +59,7 @@
         :lang="lang"
         :key="key">
       </OrderItem>
+
     </div>
 
 
@@ -77,6 +71,9 @@
       <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
       <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
+      <div id="nextPage">
+        <button id="next" onclick="switchLocation(0)">next</button>
+      </div>
     </div>
   </div>
 </section>
@@ -125,40 +122,23 @@ export default {
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
         let ingredientTuples = []
-        let exist = true;
-
-        //console.log(exist)
-        for (let j = 0; j < this.chosenIngredients.length; j += 1) {
-            for (let i = 0; i < this.chosenIngredients.length; i += 1){
-                ingredientTuples[i] = {};
-                console.log(ingredientTuples)
-
-
-                console.log(ingredientTuples[i])
-                //console.log(2 + this.chosenIngredients[i]['ingredient_' + this.lang])
-                if (ingredientTuples[i].name === this.chosenIngredients[i]['ingredient_' + this.lang]) {
-                    exist = false;
-                    //console.log(exist)
-
-                }
-            }
-            ingredientTuples[j] = {};
-              if (ingredientTuples[j].name === this.chosenIngredients[j]['ingredient_' + this.lang]) {
-                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[j].ingredient_id);
-              }// return ingredientTuples
-              if (exist) {
-                  ingredientTuples[j].name = this.chosenIngredients[j]['ingredient_' + this.lang];
-                  ingredientTuples[j].count = this.countNumberOfIngredients(this.chosenIngredients[j].ingredient_id);
-              }
-
-
-          }
-
-       //console.log(this.chosenIngredients[i].ingredient_id)
-      //console.log(ingredientTuples)
-      return ingredientTuples;
-
+      for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+        ingredientTuples[i] = {};
+        ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
+        ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+      }
+      var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+              .map(name => {
+                return {
+                  name: name,
+                  count: ingredientTuples.find(o => o.name === name).count
+                };
+              });
+      console.log(ingredientTuples)
+      console.log(difIngredients)
+      return difIngredients;
     }
+
   },
   methods: {
     addToOrder: function (item) {
@@ -187,10 +167,8 @@ export default {
 
 
 
-    setcategory: function(number) {
+    setCategory: function(number) {
             this.categorynumber = number;
-
-
     },
 
 
@@ -198,8 +176,6 @@ export default {
       this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
       this.price -= item.selling_price;
     },
-
-
 
 
     placeOrder: function () {
@@ -224,6 +200,17 @@ export default {
       showGlutenFree: function(){
           this.glutenFilter = !this.glutenFilter
           //sätt så bara glutenfria alternativ visas
+      },
+
+      switchLocation: function(counter) {
+          if (counter == 0) {
+            counter = 1;
+            setTimeout(function() {
+               switchLocation(counter);
+                }, 1000);
+          } else {
+                window.location = "page2.html";
+          }
       }
   }
 }
@@ -421,7 +408,7 @@ export default {
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  border: 3px solid #ddd;
+  border: 3em solid #ddd;
   border-top: none;
   background-color: #ddd;
 
