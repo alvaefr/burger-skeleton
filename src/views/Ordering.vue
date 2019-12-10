@@ -50,15 +50,7 @@
         <!-- <div>{{  countAllIngredients }}</div>-->
            <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
            v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
-        <OrderItem
-        v-for="(order, key) in orders"
-        v-if="order.status !== 'done'"
-        :order-id="key"
-        :order="order"
-        :ui-labels="uiLabels"
-        :lang="lang"
-        :key="key">
-      </OrderItem>
+
 
     </div>
 
@@ -72,7 +64,7 @@
 
       <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
 
-      <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>>
+      <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>>
 
     </div>
   </div>
@@ -118,6 +110,7 @@ export default {
     this.$store.state.socket.on('orderNumber', function (data) {
       this.orderNumber = data;
     }.bind(this));
+    this.$store.state.socket.on('')
   },
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
@@ -134,7 +127,6 @@ export default {
                   count: ingredientTuples.find(o => o.name === name).count
                 };
               });
-      console.log(ingredientTuples)
       console.log(difIngredients)
       return difIngredients;
     }
@@ -166,7 +158,6 @@ export default {
       },
 
 
-
     setCategory: function(number) {
             this.categorynumber = number;
     },
@@ -177,6 +168,14 @@ export default {
       this.price -= item.selling_price;
     },
 
+    doneBurger: function() {
+      var burger = {
+          ingredients: this.chosenIngredients,
+          price: this.price
+              };
+     // this.$store.state.socket.emit('burger', {burger: burger});
+      this.chosenIngredients = [];
+    },
 
     placeOrder: function () {
       var i,
