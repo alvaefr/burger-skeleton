@@ -16,5 +16,18 @@
   "ingredients" : "Ingredienser",
   "ready" : "Klart",
   "order" : "Min burgare",
-  "language" : "English"
+  "language" : "English",
+  "glutenFilter": "Glutenfri",
+  "lactoseFilter": "Laktosfri",
+  "veganFilter": "Vegan",
+  "puck": "Puck",
+  "bread": "Bröd",
+  "topping": "Pålägg", 
+  "sauce": "Sås",
+  "sides": "Tillbehör",   
+  "drink": "Dryck",
+  "total": "Totalt",   
+  "togo": "Ta med",
+  "eathere": "Äta här", 
+  "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE"   
 }
