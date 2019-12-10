@@ -48,7 +48,7 @@
 
 
     <Ingredient
-            class="ingredient"
+            ref="ingredient"
             v-for="item in ingredients"
             v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
             v-on:increment="addToOrder(item)"
@@ -252,7 +252,7 @@ export default {
           ingredients: this.chosenIngredients,
           price: this.price
         };
-        
+
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       this.$store.state.socket.emit('order', {order: order});
       //set all counters to 0. Notice the use of $refs
