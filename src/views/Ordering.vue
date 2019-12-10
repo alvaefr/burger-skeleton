@@ -31,10 +31,11 @@
   <div class="OrderList">
     <Ingredient
 
-            ref="ingredient"
+            class="ingredient"
             v-for="item in ingredients"
 
-            v-if="item.category===categorynumber"
+            v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1)  "
+ 
             v-on:increment="addToOrder(item)"
             v-on:decrement="delFromOrder(item)"
 
@@ -79,8 +80,20 @@
       <p> {{ price }}:-</p></div>
 
     <div class="Done">
-      <button v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
-    </div>
+        <button id=placeOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+            <div class="foodFilter">
+                <div class="glutenFilter">
+                    <button class="glutenButton" v-on:click="showGlutenFree(1)" > Gluten free</button>
+                </div>
+                <div class="milkFilter">
+                    <button class="milkButton" v-on:click="showMilkFree(1)" > Milk free</button>
+                </div>
+                <div class="veganFilter">
+                    <button class="veganButton" v-on:click="showVegan(1)" > Vegan</button>
+                </div>
+  
+            </div>
+   </div>
   </div>
 </section>
 </template>
@@ -113,8 +126,11 @@ export default {
       price: 0,
       orderNumber: "",
       count:0,
-     brodcategory: false,
-    categorynumber: 1
+      gluten: 0,
+      milk: 0,
+      vegan: 0,
+      categorynumber: 1
+
 
     }
   },
@@ -170,6 +186,22 @@ export default {
         
         
     },
+      
+       showGlutenFree: function(number) {
+           this.gluten = number;
+        
+        
+    },
+        showMilkFree: function(number) {
+           this.milk = number;
+        
+        
+    },
+        showVegan: function(number) {
+           this.vegan = number;
+        
+        
+    },
 
 
     delFromOrder: function (item) {
@@ -220,6 +252,7 @@ export default {
   border: 1px solid grey;
   border-radius: 1.4em;
   padding: 1em;
+  height: 5em;
   font-size:1.7vh;
   background-color: #bccfbc;
   color: dimgray;
@@ -254,6 +287,7 @@ export default {
       padding: 5% 0% 4% 4%;
       margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
+
       grid-gap: 7%;
       height: 400px;
       overflow-y: scroll;
@@ -270,7 +304,44 @@ export default {
     grid-area: Done; 
 }
 
+    .glutenFilter button:hover {
+         background-color: greenyellow;
+        
+    }
+    
+     .glutenFilter button:focus{
+    background-color: green;
+   
+}
+    
+      .glutenFilter button:active{
+    background-color: springgreen;
+   
+}
+    .milkFilter button:hover {
+         background-color: #98d5ee;
+        
+    }
+    
+    .milkFilter button:focus{
+    background-color: cornflowerblue;
+   
+}
+    
+      .veganFilter button:hover {
+         background-color: #de7d9c;
+        
+    }
+    
+    .veganFilter button:focus{
+    background-color: #b35b78;
+   
+}
 
+     .veganFilter button:visited{
+    background-color: #b35b78;
+   
+}
 
 .Total { 
     grid-area: Total;
@@ -333,14 +404,38 @@ export default {
 
 
 
-/* Style the tab */
+
+
+    .foodFilter {
+    margin-left: 35%;
+
+        
+    }
+    
+ .foodFilter button {
+  background-color: rgba(232, 232, 232, 0.92);
+  width: 5em;
+  height: 5em;
+  font-size: 90%;
+  float:left;
+  margin: 2%;
+  cursor: pointer;
+  padding: 14px 14px;
+  transition: 1s;
+  border-radius: 50%;
+  border: 3px solid #FFF;
+
+  
+}
+    
+    
+    /* Style the tab */
 .tab {
   margin: 2% 15% 0% 0%;
   border-bottom: 3px solid #FFFFFF;
- 
 
- 
 }
+
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
@@ -378,15 +473,7 @@ export default {
   
 }
 
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 3px solid #ddd;
-  border-top: none;
-  background-color: #ddd;
-    
-}
+
     
     .tablinks {
     font-family: "Courier new", monospace;
@@ -394,6 +481,12 @@ export default {
     
    
 
+    
+#placeOrderButton {
+        border-radius: 2%;
+        height: 50px;
+        width: 50px
+    }
 
 
 
