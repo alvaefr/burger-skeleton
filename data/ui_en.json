@@ -25,6 +25,9 @@
   "topping": "Topping", 
   "sauce": "Sauce",
   "sides": "Sides", 
-  "drink": "drink",
-  "total": "Total"    
+  "drink": "Drink",
+  "total": "Total" ,
+  "togo": "Take away",
+  "eathere": "Eat here",
+  "welcome": "WELCOME TO BIFFENS BURGER"     
 }

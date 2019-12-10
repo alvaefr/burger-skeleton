@@ -1,12 +1,35 @@
+
 <template>
 
+
+   
+    
 <section class="example-panel">
 
+<div v-show="showFront" class="grid-containerFront">
+  
+    <div class="welcome">
+    {{ uiLabels.welcome }}
+    </div> 
+    
+    <div class="mealLocation">
+    <p>Starta din order genom att välja var du vill äta</p><br>
+    <button v-on:click="showFront = !showFront">{{ uiLabels.eathere }}</button>  
+    <button v-on:click="showFront = !showFront">{{ uiLabels.togo }}</button>    
+    </div>        
 
+    <div class="switchLang">   
+    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+    </div> 
+</div>
+    
+      
+
+<div v-show="!showFront">    
 <div class="grid-container">
 
 <div class="Top">
-<button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+
   <div class="tab">
   <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
   <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -68,14 +91,21 @@
       <p> {{ price }}:-</p></div>
 
     <div class="Done">
+      <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
       <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
       <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
 
-      <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>>
+      <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>
+      <button v-on:click="showFront = !showFront">Tillbaka till första sidan</button>    
 
     </div>
   </div>
+        
+
+    </div>
+
+
 </section>
 </template>
 
@@ -95,9 +125,11 @@ import sharedVueStuff from '@/components/sharedVueStuff.js'
 necessary Vue instance (found in main.js) to import your data and methods */
 export default {
   name: 'Ordering',
+
+    
   components: {
     Ingredient,
-    OrderItem
+    OrderItem,  
   },
   mixins: [sharedVueStuff], // include stuff that is used in both
                             // the ordering system and the kitchen
@@ -109,7 +141,8 @@ export default {
       glutenFilter: false,
       count:0,
       brodcategory: false,
-      categorynumber: 1
+      categorynumber: 1,
+      showFront: true
 
 
     }
@@ -185,7 +218,7 @@ export default {
           ingredients: this.chosenIngredients,
           price: this.price
         };
-
+        
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       this.$store.state.socket.emit('order', {order: order});
       //set all counters to 0. Notice the use of $refs
@@ -195,7 +228,6 @@ export default {
       this.price = 0;
       this.chosenIngredients = [];
     },
-
 
       showGlutenFree: function(){
           this.glutenFilter = !this.glutenFilter
@@ -241,15 +273,58 @@ export default {
   border-radius: 4em;
   border: 1px solid #FFF;
   width: 80%;
-  height: 80%;
+  height: 37em;
   padding: 3%;
   margin: auto;
 }
+    
+.grid-containerFront{
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto auto auto;
+        
+        
+      background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+      border-radius: 4em;
+      border: 1px solid #FFF;
+      width: 80%;
+      height: 37em;
+      padding: 3%;
+      margin: auto;
+      color: white
+    } 
 
+
+    .welcome{
+        font-size: 5em;
+        overflow: hidden;
+        text-align: center;
+    }    
+    
+    .mealLocation{
+        text-align: center;
+        font-size: 2em;
+        background-color: darkgray;
+        border-radius: 1em;
+    }
+    
+    .switchLang{
+        text-align: center;
+            
+    }
+    
+    
+
+ 
 
 
 
 .Top { grid-area: Top; }
+    
+    .SwitchL {
+        margin: -10%;
+        
+    }
 
 .OrderList { grid-area: OrderList;
       display: grid;
@@ -259,7 +334,7 @@ export default {
       grid-template-columns: repeat(auto-fill, 8em);
       grid-template-rows: repeat(auto-fill, 17%);
       grid-gap: 7%;
-      height: 400px;
+      height: 20em;
       overflow-y: scroll;
       border-left: 3px solid #FFF;
       border-right: 3px solid #FFF;
@@ -349,7 +424,7 @@ export default {
 
 /* Style the tab */
 .tab {
-  margin: 2% 15% 0% 0%;
+  margin: -2% 15% 0% 0%;
   border-bottom: 3px solid #FFFFFF;
 
 

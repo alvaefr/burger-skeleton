@@ -1,14 +1,11 @@
 <template>
     <section>
-        hejhejhej då
+        <h1> hejhejhej då </h1>
     </section>
 
 </template>
 
 <script>
-
-    import Ingredient from '@/components/Ingredient.vue'
-    import OrderItem from '@/components/OrderItem.vue'
 
 
 </script>

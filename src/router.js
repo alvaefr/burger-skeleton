@@ -30,7 +30,7 @@ let router = new Router({
       meta: {
         title: 'Overview',
       },
-      name: 'Overview',
+      name: 'overview',
       component: () => import( './views/Overview.vue')
     }
   ]
