@@ -1,12 +1,14 @@
 <template>
   <div class="ingredient">
     <label>
-      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, {{item.stock}} pcs
+
+      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, {{item.stock}} pcs 
     <span v-if="item.gluten_free"> G </span>
     <span v-if="item.vegan"> V </span>
     <span v-if="item.milk_free"> L </span>
-    
+    <br>
     <button v-on:click="incrementCounter">+</button>
+
     </label>
     {{ counter }}
     <button v-if="counter > 0" v-on:click="decrementCounter">-</button>
