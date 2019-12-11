@@ -6,17 +6,25 @@
 
         <div class="Burgers">
 
+<!--            <OrderItemToPrepare-->
+<!--                    class="OrderItemToPrepare"-->
+<!--                    v-for="order in orders"-->
+<!--                    :order="order"-->
+<!--                    :ui-labels="uiLabels"-->
+<!--                    :lang="lang">-->
+
+<!--                &lt;!&ndash;v-on:done="changeOrder(key)"&ndash;&gt;-->
+<!--                &lt;!&ndash;:order-id="key" : denna säger vilken order det är-->
+<!--                :key="key"-->
+<!--                 v-if="order.status !== 'done'"&ndash;&gt;-->
+<!--            </OrderItemToPrepare>-->
             <OrderItemToPrepare
-                    class="OrderItemToPrepare"
-                    v-for="order in orders"
+                    v-for="(order, key) in orders"
+                    :order-id="key"
                     :order="order"
                     :ui-labels="uiLabels"
-                    :lang="lang">
-
-                <!--v-on:done="changeOrder(key)"-->
-                <!--:order-id="key" : denna säger vilken order det är
-                :key="key"
-                 v-if="order.status !== 'done'"-->
+                    :lang="lang"
+                    :key="key">
             </OrderItemToPrepare>
 
         </div>
@@ -51,7 +59,10 @@
                 chosenIngredients: [],
                 price: 0
             }
-        }
+        },
+
+        created: {}
+
     }
 
 </script>

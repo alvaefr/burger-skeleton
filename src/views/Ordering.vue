@@ -51,8 +51,8 @@
             ref="ingredient"
             v-for="item in ingredients"
             v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-            v-on:increment="addToOrder(item)"
-            v-on:decrement="delFromOrder(item)"
+            v-on:increment="addToBurger(item)"
+            v-on:decrement="delFromBurger(item)"
             :item="item"
             :count="item.counter"
             :lang="lang"
@@ -102,7 +102,8 @@
             </div>
 
       <button v-on:click="showFront = !showFront">Tillbaka till första sidan</button>    
-      <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>>
+      <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>
+        <button v-on:click="addToOrder()"> Ny burgare {{ uiLabels.addToOrder }}</button>
 
 
     </div>
@@ -132,11 +133,9 @@ import sharedVueStuff from '@/components/sharedVueStuff.js'
 necessary Vue instance (found in main.js) to import your data and methods */
 export default {
   name: 'Ordering',
-
-    
   components: {
-    Ingredient,
-    OrderItem,  
+        Ingredient,
+        OrderItem,
   },
   mixins: [sharedVueStuff], // include stuff that is used in both
                             // the ordering system and the kitchen
@@ -152,10 +151,10 @@ export default {
       vegan: 0,
       brodcategory: false,
       categorynumber: 1,
-      showFront: true
-
-
-
+      showFront: true,
+      currentOrder: {
+          burgers: []
+      }
     }
   },
   created: function () {
@@ -185,11 +184,40 @@ export default {
 
   },
   methods: {
-    addToOrder: function (item) {
-      this.chosenIngredients.push(item);
-      this.price += item.selling_price;
-      //item.counter = this.count;
+
+    addToBurger: function (item) {
+        this.chosenIngredients.push(item);
+        this.price += item.selling_price;
     },
+    delFromBurger: function (item) {
+        let removeIndex = 0;
+        for (let i = 0; i < this.chosenIngredients.length; i += 1 ) {
+            if (this.chosenIngredients[i] === item) {
+                removeIndex = i;
+                break;
+            }
+        }
+    },
+
+    addToOrder: function (item) {
+        // Add the burger to an order array
+        this.currentOrder.burgers.push({
+            ingredients: this.chosenIngredients.splice(0),
+            price: this.price
+        });
+        //set all counters to 0. Notice the use of $refs
+        for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+            this.$refs.ingredient[i].resetCounter();
+        }
+        this.chosenIngredients = [];
+        this.price = 0;
+    },
+
+
+        delFromOrder: function (item) {
+            this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
+            this.price -= item.selling_price;
+        },
 
     countNumberOfIngredients: function (id) {
       let counter = 0;
@@ -231,36 +259,20 @@ export default {
     },
 
 
-    delFromOrder: function (item) {
-      this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
-      this.price -= item.selling_price;
-    },
-
     doneBurger: function() {
       var burger = {
           ingredients: this.chosenIngredients,
           price: this.price
               };
-     // this.$store.state.socket.emit('burger', {burger: burger});
+      this.$store.state.socket.emit('burger', {burger: burger});
       this.chosenIngredients = [];
     },
 
     placeOrder: function () {
-      var i,
-      //Wrap the order in an object
-        order = {
-          ingredients: this.chosenIngredients,
-          price: this.price
-        };
-
-      // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-      this.$store.state.socket.emit('order', {order: order});
-      //set all counters to 0. Notice the use of $refs
-      for (i = 0; i < this.$refs.ingredient.length; i += 1) {
-        this.$refs.ingredient[i].resetCounter();
-      }
-      this.price = 0;
-      this.chosenIngredients = [];
+        // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+        console.log(this.currentOrder)
+        this.$store.state.socket.emit('order', this.currentOrder);
+        this.currentOrder = [];
     },
 
       showGlutenFree: function(){
