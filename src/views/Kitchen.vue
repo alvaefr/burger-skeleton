@@ -32,7 +32,7 @@
       :ui-labels="uiLabels"
       :key="key">
     </OrderItem>
-    <button v-on:click=setCategory_view('')">Back</button>
+    <button v-on:click="setCategory_view('')">Back</button>
   </div>
 </div>
 <div v-show="category_view == ''">
@@ -62,7 +62,7 @@ export default {
       chosenIngredients: [],
       price: 0,
         burger_view: false,
-        category_view: 'hej'
+        category_view: ''
     }
   },
   methods: {
