@@ -19,11 +19,11 @@
     <div class="switchLang">
     <button v-on:click="switchLang()">  </button>
     </div> 
-    </div>
+</div>
     
 
-<div v-show="showMenu === this.view">
-<div class="grid-container">
+<div v-show="showMenu === this.view"  class="grid-container">
+
 
 <div class="Top">
 
@@ -102,7 +102,7 @@
 
     </div>
 
-  </div>
+
   
 
     </div>
@@ -618,6 +618,14 @@ export default {
     grid-template-areas: "Top" "Burgers" "Bottom";
     margin-top: 3em;
     margin-left: 6em;
+    background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+    border-radius: 4em;
+    border: 1px solid #FFF;
+    width: 80%;
+    height: 37em;
+    padding: 3%;
+    margin: auto;
+    color: white
 }
 
 .burgerOverview {
