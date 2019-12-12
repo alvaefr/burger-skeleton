@@ -30,5 +30,7 @@
   "togo": "Ta med",
   "eathere": "Äta här", 
   "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE",
-  "beginOrder": "Starta din order genom att välja var du vill äta"    
+  "beginOrder": "Starta din order genom att välja var du vill äta",
+  "addBurger": "Klicka här för att lägga till burgare",
+  "yourOrder": "Din order"
 }

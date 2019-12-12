@@ -110,7 +110,7 @@
     <div v-show="showOverview === this.view" class="grid-containerOverview">
 
         <div class="overviewTop">
-            Your order
+            {{uiLabels.yourOrder}}
         </div>
 
         <div class="burgerOverview">
@@ -121,7 +121,7 @@
             </span>
                 {{burger.price}}
             </div>
-            <button class="burgerAdd" v-on:click="setView(showMenu)">Lägg till ny burgare</button>
+            <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
 
         </div>
 
@@ -345,7 +345,6 @@ export default {
 
 
     .welcome{
-        
         font-size: 5em;
         overflow: hidden;
         text-align: center;
@@ -384,8 +383,6 @@ export default {
         background-color: black;
         color: white;
         cursor: pointer;
-        
-
     }
     
 
@@ -640,7 +637,15 @@ export default {
 
 }
 
-.overviewTop { grid-area: Top; }
+.overviewTop { 
+    grid-area: Top;
+    font-size: 4em;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;    
+    
+    
+    }
 
 .overviewBottom { grid-area: Bottom; }
     .burgerScroll{
@@ -655,7 +660,14 @@ export default {
         background-color: darkgray;
         border-radius: 2em;
         padding: 2em;
-        
+        font-family: "Courier new", monospace;
+        color: white;
+        font-size: 2em;
+    }
+        .burgerAdd:hover{
+        background-color: black;
+        color: white;
+        cursor: pointer;
     }
 
 </style>

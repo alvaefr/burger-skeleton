@@ -30,5 +30,7 @@
   "togo": "Take away",
   "eathere": "Eat here",
   "welcome": "WELCOME TO BIFFENS BURGER",
-  "beginOrder": "Begin your order by choosing where to eat"
+  "beginOrder": "Begin your order by choosing where to eat",
+  "addBurger": "Click here to add burger",
+  "yourOrder": "Your order"
 }
