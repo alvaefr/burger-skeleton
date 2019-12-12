@@ -8,7 +8,7 @@
 
         {{burgers}}
 
-            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
+            <div v-for="(burger, key) in currentOrder.burgers" :key="key" :burger="burger">
                 {{key}}:
                 <span v-for="(item, key2) in burger.ingredients" :key="key2">
           {{ item['ingredient_' + lang] }}
@@ -78,7 +78,7 @@
         },
 
         created: function () {
-            this.$store.state. socket.on('addBurger', function (burgers) {
+            this.$store.state.socket.on('addBurger', function (burgers) {
                 this.currentOrder = burgers;
                 console.log(this.currentOrder)
             }.bind(this))

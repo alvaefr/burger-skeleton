@@ -3,7 +3,7 @@
 
 <section class="example-panel">
 
-<div v-show="showFront" class="grid-containerFront">
+<div v-show="showFront === this.view" class="grid-containerFront">
   
     <div class="welcome">
     {{ uiLabels.welcome }}
@@ -11,8 +11,8 @@
     
     <div class="mealLocation">
     <p>Starta din order genom att välja var du vill äta</p><br>
-    <button v-on:click="showFront = !showFront">{{ uiLabels.eathere }}</button>  
-    <button v-on:click="showFront = !showFront">{{ uiLabels.togo }}</button>    
+    <button v-on:click="setView(showMenu)">{{ uiLabels.eathere }}</button>
+    <button v-on:click="setView(showMenu)">{{ uiLabels.togo }}</button>
     </div>        
 
     <div class="switchLang">   
@@ -20,9 +20,8 @@
     </div> 
 </div>
     
-      
 
-<div v-show="!showFront">    
+<div v-show="showMenu === this.view">
 <div class="grid-container">
 
 <div class="Top">
@@ -71,8 +70,6 @@
         <!-- <div>{{  countAllIngredients }}</div>-->
            <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
            v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
-
-
     </div>
 
 
@@ -98,9 +95,9 @@
   
             </div>
 
-      <button v-on:click="showFront = !showFront">Tillbaka till första sidan</button>    
-      <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>
-        <button v-on:click="addToOrder()"> Ny burgare {{ uiLabels.addToOrder }}</button>
+      <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
+      <button id="nextPage" v-on:click="setView(showOverview)"> See burgers</button>
+        <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>
 
 
     </div>
@@ -110,6 +107,22 @@
 
     </div>
 
+    <div v-show="showOverview === this.view" class="grid-containerBack">
+
+        <div class="overview">
+            Your order
+        </div>
+
+        <div class="burgerOverview">
+            <p>Starta din order genom att välja var du vill äta</p><br>
+            <button >{{ uiLabels.eathere }}</button>
+            <button >{{ uiLabels.togo }}</button>
+        </div>
+
+        <div class="switchLang">
+            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+        </div>
+    </div>
 
 </section>
 </template>
@@ -148,7 +161,11 @@ export default {
       vegan: 0,
       brodcategory: false,
       categorynumber: 1,
-      showFront: true,
+      showFront: "showFront",
+      showMenu: "showMenu",
+      showOverview: "showOverview",
+      view: "showFront",
+
       currentOrder: {
           burgers: []
       }
@@ -208,9 +225,6 @@ export default {
         this.price = 0;
     },
 
-
-
-
     countNumberOfIngredients: function (id) {
       let counter = 0;
 
@@ -229,6 +243,9 @@ export default {
       return counter;
       },
 
+    setView: function (window) {
+        this.view = window;
+    },
 
     setCategory: function(number) {
             this.categorynumber = number;
