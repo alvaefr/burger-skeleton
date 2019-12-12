@@ -35,7 +35,7 @@
     <button v-on:click="setCategory_view('')">Back</button>
   </div>
 </div>
-<div v-show="category_view == ''">
+<div v-show="category_view === ''">
 <button v-on:click= "setCategory_view('Burger')">Burger</button>
 <button v-on:click="setCategory_view('Drinks and sides')">Drinks and sides</button>
 <button v-on:click="setCategory_view('Done orders')">Done orders</button>

@@ -6,6 +6,16 @@
 
         <div class="Burgers">
 
+        {{burgers}}
+
+            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
+                {{key}}:
+                <span v-for="(item, key2) in burger.ingredients" :key="key2">
+          {{ item['ingredient_' + lang] }}
+        </span>
+                {{burger.price}}
+            </div>
+
 <!--            <OrderItemToPrepare-->
 <!--                    class="OrderItemToPrepare"-->
 <!--                    v-for="order in orders"-->
@@ -46,22 +56,33 @@
 
     export default {
         name: 'Overview',
+//        props: {
+//            order: Object
+//        },
         components: {
             Ingredient,
             OrderItem,
             Ordering,
-            OrderItemToPrepare
+            OrderItemToPrepare,
         },
         mixins: [sharedVueStuff],
 
         data: function(){
             return {
                 chosenIngredients: [],
-                price: 0
+                price: 0,
+                currentOrder: {
+                    burgers: []
+                }
             }
         },
 
-        created: {}
+        created: function () {
+            this.$store.state. socket.on('addBurger', function (burgers) {
+                this.currentOrder = burgers;
+                console.log(this.currentOrder)
+            }.bind(this))
+        }
 
     }
 

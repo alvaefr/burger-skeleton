@@ -1,9 +1,6 @@
 
 <template>
 
-
-   
-    
 <section class="example-panel">
 
 <div v-show="showFront" class="grid-containerFront">
@@ -189,22 +186,20 @@ export default {
         this.chosenIngredients.push(item);
         this.price += item.selling_price;
     },
-    delFromBurger: function (item) {
-        let removeIndex = 0;
-        for (let i = 0; i < this.chosenIngredients.length; i += 1 ) {
-            if (this.chosenIngredients[i] === item) {
-                removeIndex = i;
-                break;
-            }
-        }
-    },
+      delFromBurger: function (item) {
+          this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
+          this.price -= item.selling_price;
+      },
 
-    addToOrder: function (item) {
+    addToOrder: function () {
         // Add the burger to an order array
         this.currentOrder.burgers.push({
             ingredients: this.chosenIngredients.splice(0),
             price: this.price
         });
+        console.log(this.currentOrder.burgers)
+        this.$store.state.socket.emit("addBurger", this.currentOrder.burgers);
+
         //set all counters to 0. Notice the use of $refs
         for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
             this.$refs.ingredient[i].resetCounter();
@@ -214,10 +209,7 @@ export default {
     },
 
 
-        delFromOrder: function (item) {
-            this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
-            this.price -= item.selling_price;
-        },
+
 
     countNumberOfIngredients: function (id) {
       let counter = 0;
@@ -575,14 +567,6 @@ export default {
   background-color: #ddd;
 
 }
-
-
-    
-   
-
-    
-
-
 
 /* Style the tab content */
 .tabcontent {
