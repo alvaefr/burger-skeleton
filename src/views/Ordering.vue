@@ -113,7 +113,7 @@
         </div>
 
         <div class="burgerOverview">
-            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
+            <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">
                 {{key}}:
                 <span v-for="(item, key2) in burger.ingredients" :key="key2">
                     {{ item['ingredient_' + lang] }}
@@ -616,10 +616,18 @@ export default {
     overflow-x: scroll;
     text-align: center;
     margin-top: 1em;
+
 }
 
 .overviewTop { grid-area: Top; }
 
 .overviewBottom { grid-area: Bottom; }
+    .burgerScroll{
+        background-color: aquamarine;
+        width: 15em;
+        height: 15em;
+        border-radius: 2em;
+        padding: 2em;
+    }
 
 </style>
