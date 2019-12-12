@@ -1,25 +1,24 @@
 
 <template>
 
-
-   
     
 <section class="example-panel">
 
 <div v-show="showFront" class="grid-containerFront">
   
     <div class="welcome">
+<!--    <img class="logo" src="/.jp" alt="BB">-->
     {{ uiLabels.welcome }}
     </div> 
     
     <div class="mealLocation">
-    <p>Starta din order genom att välja var du vill äta</p><br>
-    <button v-on:click="showFront = !showFront">{{ uiLabels.eathere }}</button>  
-    <button v-on:click="showFront = !showFront">{{ uiLabels.togo }}</button>    
+    <p>{{ uiLabels.beginOrder }}</p><br>
+    <button class="mealButton" v-on:click="showFront = !showFront">{{ uiLabels.eathere }}</button>  
+    <button class="mealButton" v-on:click="showFront = !showFront">{{ uiLabels.togo }}</button>    
     </div>        
 
-    <div class="switchLang">   
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+    <div class="switchLang">
+    <button v-on:click="switchLang()">  </button>
     </div> 
 </div>
     
@@ -48,7 +47,7 @@
 
 
     <Ingredient
-            class="ingredient"
+            ref="ingredient"
             v-for="item in ingredients"
             v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
             v-on:increment="addToOrder(item)"
@@ -262,11 +261,8 @@ export default {
       this.price = 0;
       this.chosenIngredients = [];
     },
+       
 
-      showGlutenFree: function(){
-          this.glutenFilter = !this.glutenFilter
-          //sätt så bara glutenfria alternativ visas
-      }
   }
 }
 </script>
@@ -317,8 +313,6 @@ export default {
       display: grid;
       grid-template-columns: auto;
       grid-template-rows: auto auto auto;
-        
-        
       background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
       border-radius: 4em;
       border: 1px solid #FFF;
@@ -331,22 +325,49 @@ export default {
 
 
     .welcome{
+        
         font-size: 5em;
         overflow: hidden;
         text-align: center;
+        font-weight: bold;
     }    
+    
+    .logo {
+    }
     
     .mealLocation{
         text-align: center;
         font-size: 2em;
         background-color: darkgray;
         border-radius: 1em;
+
+
+        
     }
     
     .switchLang{
-        text-align: center;
+        text-align: right;    
             
     }
+    
+    .mealButton{
+        background-color: gray;
+        color: black;
+        font-size: 1.3em;
+        border-radius: 0.25em;
+        margin: 1em;
+        font-family: "Courier new", monospace;
+
+    }
+    
+    .mealButton:hover{
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        
+
+    }
+    
     
     
 
@@ -482,7 +503,6 @@ export default {
     background-color: rgba(232, 232, 232, 0.92);
 }
 
-
     #glutenButton {
         border-radius: 50%;
         height: 50px;
@@ -494,13 +514,9 @@ export default {
         width: 50px
     }
 
-
-
-
     .foodFilter {
     margin-left: 35%;
-
-        
+     
     }
     
  .foodFilter button {
@@ -515,7 +531,6 @@ export default {
   transition: 1s;
   border-radius: 50%;
   border: 3px solid #FFF;
-
   
 }
     
@@ -563,13 +578,6 @@ export default {
   background-color: #ddd;
 
 }
-
-
-    
-   
-
-    
-
 
 
 /* Style the tab content */
