@@ -9,7 +9,7 @@
       <!--<h1>orders:{{ uiLabels.ordersInQueue }}</h1>-->
     <OrderItemToPrepare
       v-for="(order, key) in orders"
-      v-if="order.status !== 'done'"
+      v-if="order.status !== 'done' && order.ingredient === senap"
       v-on:done="markDone(key)"
       :order-id="key"
       :order="order"
@@ -25,7 +25,7 @@
       <h1>Finished: {{ uiLabels.ordersFinished }}</h1>
     <OrderItem
       v-for="(order, key) in orders"
-      v-if="order.status === 'done'"
+      v-if="order.status === 'done' && order"
       :order-id="key"
       :order="order"
       :lang="lang"
@@ -62,7 +62,8 @@ export default {
       chosenIngredients: [],
       price: 0,
         burger_view: false,
-        category_view: ''
+        category_view: '',
+        category_number: 1
     }
   },
   methods: {

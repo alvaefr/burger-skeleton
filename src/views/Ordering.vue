@@ -1,35 +1,12 @@
-
 <template>
 
-
-   
-    
 <section class="example-panel">
 
-<div v-show="showFront" class="grid-containerFront">
-  
-    <div class="welcome">
-    {{ uiLabels.welcome }}
-    </div> 
-    
-    <div class="mealLocation">
-    <p>Starta din order genom att välja var du vill äta</p><br>
-    <button v-on:click="showFront = !showFront">{{ uiLabels.eathere }}</button>  
-    <button v-on:click="showFront = !showFront">{{ uiLabels.togo }}</button>    
-    </div>        
 
-    <div class="switchLang">   
-    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-    </div> 
-</div>
-    
-      
-
-<div v-show="!showFront">    
 <div class="grid-container">
 
 <div class="Top">
-
+<button v-on:click="switchLang()">{{ uiLabels.language }}</button>
   <div class="tab">
   <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
   <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -46,11 +23,10 @@
   <div class="OrderList">
 
 
-
     <Ingredient
-            class="ingredient"
+            ref="ingredient"
             v-for="item in ingredients"
-            v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+            v-if="item.category===categorynumber"
             v-on:increment="addToOrder(item)"
             v-on:decrement="delFromOrder(item)"
             :item="item"
@@ -74,7 +50,15 @@
         <!-- <div>{{  countAllIngredients }}</div>-->
            <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
            v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
-
+        <OrderItem
+        v-for="(order, key) in orders"
+        v-if="order.status !== 'done'"
+        :order-id="key"
+        :order="order"
+        :ui-labels="uiLabels"
+        :lang="lang"
+        :key="key">
+      </OrderItem>
 
     </div>
 
@@ -84,35 +68,14 @@
       <p> {{ price }}:-</p></div>
 
     <div class="Done">
-
-      <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
       <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-  <div class="foodFilter">
-                <div class="glutenFilter">
-                    <button class="glutenButton" v-on:click="showGlutenFree(1)" > Gluten free</button>
-                </div>
-                <div class="milkFilter">
-                    <button class="milkButton" v-on:click="showMilkFree(1)" > Milk free</button>
-                </div>
-                <div class="veganFilter">
-                    <button class="veganButton" v-on:click="showVegan(1)" > Vegan</button>
-                </div>
-  
-            </div>
+      <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
 
-      <button v-on:click="showFront = !showFront">Tillbaka till första sidan</button>    
-      <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>>
-
+      <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>>
 
     </div>
-
   </div>
-  
-
-    </div>
-
-
 </section>
 </template>
 
@@ -132,11 +95,9 @@ import sharedVueStuff from '@/components/sharedVueStuff.js'
 necessary Vue instance (found in main.js) to import your data and methods */
 export default {
   name: 'Ordering',
-
-    
   components: {
     Ingredient,
-    OrderItem,  
+    OrderItem
   },
   mixins: [sharedVueStuff], // include stuff that is used in both
                             // the ordering system and the kitchen
@@ -147,13 +108,8 @@ export default {
       orderNumber: "",
       glutenFilter: false,
       count:0,
-      gluten: 0,
-      milk: 0,
-      vegan: 0,
       brodcategory: false,
-      categorynumber: 1,
-      showFront: true
-
+      categorynumber: 1
 
 
     }
@@ -162,7 +118,6 @@ export default {
     this.$store.state.socket.on('orderNumber', function (data) {
       this.orderNumber = data;
     }.bind(this));
-    this.$store.state.socket.on('')
   },
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
@@ -179,6 +134,7 @@ export default {
                   count: ingredientTuples.find(o => o.name === name).count
                 };
               });
+      console.log(ingredientTuples)
       console.log(difIngredients)
       return difIngredients;
     }
@@ -210,24 +166,9 @@ export default {
       },
 
 
+
     setCategory: function(number) {
             this.categorynumber = number;
-    },
-      
-       showGlutenFree: function(number) {
-           this.gluten = number;
-        
-        
-    },
-        showMilkFree: function(number) {
-           this.milk = number;
-        
-        
-    },
-        showVegan: function(number) {
-           this.vegan = number;
-        
-        
     },
 
 
@@ -236,14 +177,6 @@ export default {
       this.price -= item.selling_price;
     },
 
-    doneBurger: function() {
-      var burger = {
-          ingredients: this.chosenIngredients,
-          price: this.price
-              };
-     // this.$store.state.socket.emit('burger', {burger: burger});
-      this.chosenIngredients = [];
-    },
 
     placeOrder: function () {
       var i,
@@ -252,7 +185,7 @@ export default {
           ingredients: this.chosenIngredients,
           price: this.price
         };
-        
+
       // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
       this.$store.state.socket.emit('order', {order: order});
       //set all counters to 0. Notice the use of $refs
@@ -262,6 +195,7 @@ export default {
       this.price = 0;
       this.chosenIngredients = [];
     },
+
 
       showGlutenFree: function(){
           this.glutenFilter = !this.glutenFilter
@@ -291,7 +225,6 @@ export default {
   border: 1px solid grey;
   border-radius: 1.4em;
   padding: 1em;
-  height: 5em;
   font-size:1.7vh;
   background-color: #bccfbc;
   color: dimgray;
@@ -308,58 +241,15 @@ export default {
   border-radius: 4em;
   border: 1px solid #FFF;
   width: 80%;
-  height: 37em;
+  height: 80%;
   padding: 3%;
   margin: auto;
 }
-    
-.grid-containerFront{
-      display: grid;
-      grid-template-columns: auto;
-      grid-template-rows: auto auto auto;
-        
-        
-      background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
-      border-radius: 4em;
-      border: 1px solid #FFF;
-      width: 80%;
-      height: 37em;
-      padding: 3%;
-      margin: auto;
-      color: white
-    } 
 
-
-    .welcome{
-        font-size: 5em;
-        overflow: hidden;
-        text-align: center;
-    }    
-    
-    .mealLocation{
-        text-align: center;
-        font-size: 2em;
-        background-color: darkgray;
-        border-radius: 1em;
-    }
-    
-    .switchLang{
-        text-align: center;
-            
-    }
-    
-    
-
- 
 
 
 
 .Top { grid-area: Top; }
-    
-    .SwitchL {
-        margin: -10%;
-        
-    }
 
 .OrderList { grid-area: OrderList;
       display: grid;
@@ -367,10 +257,9 @@ export default {
       padding: 5% 0% 4% 4%;
       margin-right: 15%;
       grid-template-columns: repeat(auto-fill, 8em);
-
-
+      grid-template-rows: repeat(auto-fill, 4em);
       grid-gap: 7%;
-      height: 20em;
+      height: 400px;
       overflow-y: scroll;
       border-left: 3px solid #FFF;
       border-right: 3px solid #FFF;
@@ -385,44 +274,7 @@ export default {
     grid-area: Done;
 }
 
-    .glutenFilter button:hover {
-         background-color: greenyellow;
-        
-    }
-    
-     .glutenFilter button:focus{
-    background-color: green;
-   
-}
-    
-      .glutenFilter button:active{
-    background-color: springgreen;
-   
-}
-    .milkFilter button:hover {
-         background-color: #98d5ee;
-        
-    }
-    
-    .milkFilter button:focus{
-    background-color: cornflowerblue;
-   
-}
-    
-      .veganFilter button:hover {
-         background-color: #de7d9c;
-        
-    }
-    
-    .veganFilter button:focus{
-    background-color: #b35b78;
-   
-}
 
-     .veganFilter button:visited{
-    background-color: #b35b78;
-   
-}
 
 .Total {
     grid-area: Total;
@@ -495,38 +347,15 @@ export default {
     }
 
 
-
-
-    .foodFilter {
-    margin-left: 35%;
-
-        
-    }
-    
- .foodFilter button {
-  background-color: rgba(232, 232, 232, 0.92);
-  width: 5em;
-  height: 5em;
-  font-size: 90%;
-  float:left;
-  margin: 2%;
-  cursor: pointer;
-  padding: 14px 14px;
-  transition: 1s;
-  border-radius: 50%;
-  border: 3px solid #FFF;
-
-  
-}
-    
-    
-    /* Style the tab */
+/* Style the tab */
 .tab {
-  margin: -2% 15% 0% 0%;
+  margin: 2% 15% 0% 0%;
   border-bottom: 3px solid #FFFFFF;
 
-}
 
+
+
+}
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
@@ -564,14 +393,6 @@ export default {
 
 }
 
-
-    
-   
-
-    
-
-
-
 /* Style the tab content */
 .tabcontent {
   display: none;
@@ -585,7 +406,6 @@ export default {
     .tablinks {
     font-family: "Courier new", monospace;
     }
-
 
 
 </style>
