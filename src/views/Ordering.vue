@@ -121,7 +121,7 @@
             </span>
                 {{burger.price}}
             </div>
-            <button v-on:click="setView(showMenu)">Lägg till ny burgare</button>
+            <button class="burgerAdd" v-on:click="setView(showMenu)">Lägg till ny burgare</button>
 
         </div>
 
@@ -644,11 +644,18 @@ export default {
 
 .overviewBottom { grid-area: Bottom; }
     .burgerScroll{
-        background-color: aquamarine;
+        background-color: darkgray;
         width: 15em;
         height: 15em;
         border-radius: 2em;
         padding: 2em;
+    }
+    
+    .burgerAdd{
+        background-color: darkgray;
+        border-radius: 2em;
+        padding: 2em;
+        
     }
 
 </style>
