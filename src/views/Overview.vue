@@ -6,9 +6,9 @@
 
         <div class="Burgers">
 
-        {{burgers}}
+        {{burgers}
 
-            <div v-for="(burger, key) in currentOrder.burgers" :key="key" :burger="burger">
+            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
                 {{key}}:
                 <span v-for="(item, key2) in burger.ingredients" :key="key2">
           {{ item['ingredient_' + lang] }}
@@ -71,18 +71,9 @@
             return {
                 chosenIngredients: [],
                 price: 0,
-                currentOrder: {
-                    burgers: []
-                }
+                burgers: []
             }
         },
-
-        created: function () {
-            this.$store.state.socket.on('addBurger', function (burgers) {
-                this.currentOrder = burgers;
-                console.log(this.currentOrder)
-            }.bind(this))
-        }
 
     }
 
@@ -90,7 +81,7 @@
 
 <style scoped>
 
-    .grid-container {
+    .grid-containerOverview {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 0.5fr 1.7fr 0.8fr;
@@ -99,7 +90,7 @@
         margin-left: 6em;
     }
 
-    .Burgers {
+    .burgerOverview {
         grid-area: Burgers;
         display: grid;
         grid-gap: 25px;
@@ -118,9 +109,9 @@
         padding: 2em;
     }
 
-    .Top { grid-area: Top; }
+    .overviewTop { grid-area: Top; }
 
-    .Bottom { grid-area: Bottom; }
+    .overviewBottom { grid-area: Bottom; }
 
 
 

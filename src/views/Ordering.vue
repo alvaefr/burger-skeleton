@@ -80,7 +80,6 @@
     <div class="Done">
 
       <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
-      <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
   <div class="foodFilter">
                 <div class="glutenFilter">
@@ -96,8 +95,8 @@
             </div>
 
       <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-      <button id="nextPage" v-on:click="setView(showOverview)"> See burgers</button>
-        <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>
+      <button id="nextPage" v-on:click="addToOrder()"> See burgers</button>
+       <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
     </div>
@@ -107,20 +106,28 @@
 
     </div>
 
-    <div v-show="showOverview === this.view" class="grid-containerBack">
+    <div v-show="showOverview === this.view" class="grid-containerOverview">
 
-        <div class="overview">
+        <div class="overviewTop">
             Your order
         </div>
 
         <div class="burgerOverview">
-            <p>Starta din order genom att välja var du vill äta</p><br>
-            <button >{{ uiLabels.eathere }}</button>
-            <button >{{ uiLabels.togo }}</button>
+            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
+                {{key}}:
+                <span v-for="(item, key2) in burger.ingredients" :key="key2">
+                    {{ item['ingredient_' + lang] }}
+            </span>
+                {{burger.price}}
+            </div>
+            <button v-on:click="setView(showMenu)">Lägg till ny burgare</button>
+
         </div>
 
-        <div class="switchLang">
+        <div class="overviewBottom">
+
             <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
         </div>
     </div>
 
@@ -215,14 +222,14 @@ export default {
             price: this.price
         });
         console.log(this.currentOrder.burgers)
-        this.$store.state.socket.emit("addBurger", this.currentOrder.burgers);
 
         //set all counters to 0. Notice the use of $refs
         for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
-            this.$refs.ingredient[i].resetCounter();
+             this.$refs.ingredient[i].resetCounter();
         }
         this.chosenIngredients = [];
         this.price = 0;
+        this.view = "showOverview";
     },
 
     countNumberOfIngredients: function (id) {
@@ -263,19 +270,9 @@ export default {
     },
         showVegan: function(number) {
            this.vegan = number;
-        
-        
+
     },
 
-
-    doneBurger: function() {
-      var burger = {
-          ingredients: this.chosenIngredients,
-          price: this.price
-              };
-      this.$store.state.socket.emit('burger', {burger: burger});
-      this.chosenIngredients = [];
-    },
 
     placeOrder: function () {
         // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
@@ -599,6 +596,30 @@ export default {
     font-family: "Courier new", monospace;
     }
 
+/* För overview-sidan*/
 
+.grid-containerOverview {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1.7fr 0.8fr;
+    grid-template-areas: "Top" "Burgers" "Bottom";
+    margin-top: 3em;
+    margin-left: 6em;
+}
+
+.burgerOverview {
+    grid-area: Burgers;
+    display: grid;
+    grid-gap: 25px;
+    width: 65em;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.overviewTop { grid-area: Top; }
+
+.overviewBottom { grid-area: Bottom; }
 
 </style>
