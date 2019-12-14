@@ -114,7 +114,7 @@
 
         <div class="burgerOverview">
 
-            <div v-for="burger in countAllBurgers"
+            <div class="burgerScroll" v-for="burger in countAllBurgers"
                  :key="countAllBurgers.indexOf(burger)">
                 Burger {{ burger.no}} <br>
 
@@ -133,7 +133,7 @@
 <!--            </div>-->
 
 
-
+            <!-- Button that adds new burgers -->
             <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
 
         </div>
@@ -388,55 +388,47 @@ export default {
     } 
 
 
-    .welcome{
-        font-size: 5em;
-        overflow: hidden;
-        text-align: center;
-        font-weight: bold;
-    }    
+.welcome{
+    font-size: 5em;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+}
     
-    .logo {
-    }
+.logo {
+}
     
-    .mealLocation{
+.mealLocation{
         text-align: center;
         font-size: 2em;
         background-color: darkgray;
         border-radius: 1em;
-
-
-        
-    }
+}
     
-    .switchLang{
-        text-align: right;    
-            
-    }
+.switchLang{
+    text-align: right;
+}
     
-    .mealButton{
-        background-color: gray;
-        color: black;
-        font-size: 1.3em;
-        border-radius: 0.25em;
-        margin: 1em;
-        font-family: "Courier new", monospace;
-
-    }
+.mealButton{
+    background-color: gray;
+    color: black;
+    font-size: 1.3em;
+    border-radius: 0.25em;
+    margin: 1em;
+    font-family: "Courier new", monospace;
+}
     
-    .mealButton:hover{
-        background-color: black;
-        color: white;
-        cursor: pointer;
-    }
-    
-
+.mealButton:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
 
 .Top { grid-area: Top; }
     
-    .SwitchL {
-        margin: -10%;
-        
-    }
+.SwitchL {
+    margin: -10%;
+}
 
 .OrderList { grid-area: OrderList;
       display: grid;
@@ -454,25 +446,21 @@ export default {
       border-bottom: 3px solid #FFF;
       border-radius: 0em 0em 3em 3em;
       margin-top: -16%;
-
-
-    }
+}
 
 .Done {
     grid-area: Done;
 }
 
-    .glutenFilter button:hover {
-         background-color: greenyellow;
-        
-    }
-    
-     .glutenFilter button:focus{
-    background-color: green;
-   
+.glutenFilter button:hover {
+    background-color: greenyellow;
 }
-    
-      .glutenFilter button:active{
+
+.glutenFilter button:focus{
+    background-color: green;
+}
+
+.glutenFilter button:active{
     background-color: springgreen;
    
 }
