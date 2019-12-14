@@ -44,7 +44,7 @@
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
-                        v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+                         v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item)"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
@@ -78,18 +78,37 @@
 
                 <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
-                <div class="foodFilter">
-                    <div class="glutenFilter">
-                        <button class="glutenButton" v-on:click="showGlutenFree(1)"> Gluten free</button>
-                    </div>
-                    <div class="milkFilter">
-                        <button class="milkButton" v-on:click="showMilkFree(1)"> Milk free</button>
-                    </div>
-                    <div class="veganFilter">
-                        <button class="veganButton" v-on:click="showVegan(1)"> Vegan</button>
-                    </div>
+               <div class="positionGluten">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Gluten free</p>
+      </span>
+    </span>
+  </label>
+</div>
+           <div class="positionVegan">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Vegan</p>
+      </span>
+    </span>
+  </label>
+</div>
+           <div class="positionMilk">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Milk Free</p>
+      </span>
+    </span>
+  </label>
+</div>
 
-                </div>
 
                 <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
                 <button id="nextPage"  v-on:click="addToOrder()"> See burgers</button>
@@ -174,6 +193,9 @@
                 gluten: 0,
                 milk: 0,
                 vegan: 0,
+                veganBool: true,
+                glutenBool: true,
+                milkBool: true,
                 brodcategory: false,
                 categorynumber: 1,
                 showFront: "showFront",
@@ -298,15 +320,35 @@
             setCategory: function (number) {
                 this.categorynumber = number;
             },
-            showGlutenFree: function (number) {
-                this.gluten = number;
+               showGlutenFree: function () {
+                this.glutenBool = !this.glutenBool;
+                if (!this.glutenBool) {
+                    this.gluten = 1
+                }
+                else {
+                     this.gluten = 0
+                }
             },
-            showMilkFree: function (number) {
-                this.milk = number;
+            showMilkFree: function () {
+                this.milkBool = !this.milkBool;
+                if (!this.milkBool) {
+                    this.milk = 1
+                }
+                else {
+                     this.milk = 0
+                }
             },
-            showVegan: function (number) {
-                this.vegan = number;
+              showVeganFree: function () {
+                this.veganBool = !this.veganBool;
+                if (!this.veganBool) {
+                    this.vegan = 1
+                }
+                else {
+                     this.vegan = 0
+                }
             },
+
+     
             placeOrder: function () {
                 // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
                 console.log(this.currentOrder)
@@ -342,6 +384,7 @@
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+        
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -617,4 +660,101 @@
         color: white;
         cursor: pointer;
     }
+    
+    
+    /* Designing of Foodfilter*/
+    .label__checkbox {
+  display: none;
+
+
+}
+    
+    .positionVegan {
+       margin-left: 30%;
+    }
+    
+    .positionGluten {
+       margin-left: 40%;  
+      
+
+    }
+     .positionMilk {
+       margin-left: 50%;  
+
+    }
+
+.label__check {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  border: 5px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255, 0.9);
+  width: 4em;
+  height: 4em;
+  cursor: pointer;
+  transition: border .3s ease;
+  text-align: center;
+
+  
+}
+
+.label__checkbox:checked + .label__text .label__check {
+  animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+
+  
+
+}
+
+.center {
+
+  transform: translate(-50%,-50%);
+}
+
+@keyframes icon {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes check {
+  0% {
+    width: 3.5em;
+    height: 3.5em;
+    border-width: 5px;
+  }
+  10% {
+    width: 3.5em;
+    height: 3.5em;
+    opacity: 0.1;
+    background: rgba(0,0,0,0.2);
+    border-width: 15px;
+  }
+  12% {
+    width: 3.5em;
+    height: 3.5em;
+    opacity: 0.4;
+    background: rgba(0,0,0,0.1);
+    border-width: 0;
+  }
+  50% {
+    width: 4em;
+    height: 4em;
+    background: rgba(144, 198, 149, 0.6);
+    border: 1px solid rgba(38, 166, 91, 1);
+ 
+  }
+  100% {
+    width: 4.5em;
+    height: 4.5em;
+    background: rgba(144, 198, 149, 0.9);
+    border: 4px solid rgba(38, 166, 91, 1);
+    text-align: center;
+  }
+}
+    
 </style>
