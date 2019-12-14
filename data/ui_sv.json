@@ -16,7 +16,7 @@
   "ingredients" : "Ingredienser",
   "ready" : "Klart",
   "order" : "Min burgare",
-  "language" : "English",
+  "language" : "Engelska",
   "glutenFilter": "Glutenfri",
   "lactoseFilter": "Laktosfri",
   "veganFilter": "Vegan",
@@ -29,5 +29,8 @@
   "total": "Totalt",   
   "togo": "Ta med",
   "eathere": "Äta här", 
-  "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE"   
+  "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE",
+  "beginOrder": "Starta din order genom att välja var du vill äta",
+  "addBurger": "Klicka här för att lägga till burgare",
+  "yourOrder": "Din order"
 }

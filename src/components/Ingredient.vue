@@ -25,8 +25,7 @@ export default {
 
 
   },
-    data:
-            function () {
+    data: function () {
     return {
       counter: 0
     };
@@ -39,6 +38,7 @@ export default {
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('increment');
+      this.$emit('incIng');
       this.$emit('counter', this.counter)
     },
     decrementCounter: function () {
@@ -46,6 +46,7 @@ export default {
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('decrement');
+      this.$emit('decIng');
     },
     resetCounter: function () {
       this.counter = 0;
