@@ -60,13 +60,14 @@
   </div>
 
 
-
+    <!-- Här visas sidomenyn med de färdiga burgarna --->
     <div class="Burger">
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
       <div v-for="countIng in countAllIngredients"
            :key="countAllIngredients.indexOf(countIng)">
-             {{countIng.name}}: {{countIng.count}} <br>
+             {{countIng.name}}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+          <button v-on:click="delFromBurger(countIng)"> - </button> <br> <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
       </div>
         <!-- <div>{{  countAllIngredients }}</div>-->
            <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
@@ -192,12 +193,14 @@ export default {
         ingredientTuples[i] = {};
         ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
         ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+        ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
       }
       var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
               .map(name => {
                 return {
                   name: name,
-                  count: ingredientTuples.find(o => o.name === name).count
+                  count: ingredientTuples.find(o => o.name === name).count,
+                    ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
                 };
               });
       console.log(difIngredients)
@@ -648,26 +651,27 @@ export default {
     }
 
 .overviewBottom { grid-area: Bottom; }
-    .burgerScroll{
-        background-color: darkgray;
-        width: 15em;
-        height: 15em;
-        border-radius: 2em;
-        padding: 2em;
-    }
+
+.burgerScroll{
+    background-color: darkgray;
+    width: 15em;
+    height: 15em;
+    border-radius: 2em;
+    padding: 2em;
+}
     
-    .burgerAdd{
-        background-color: darkgray;
-        border-radius: 2em;
-        padding: 2em;
-        font-family: "Courier new", monospace;
-        color: white;
-        font-size: 2em;
+.burgerAdd{
+    background-color: darkgray;
+    border-radius: 2em;
+    padding: 2em;
+    font-family: "Courier new", monospace;
+    color: white;
+    font-size: 2em;
     }
-        .burgerAdd:hover{
-        background-color: black;
-        color: white;
-        cursor: pointer;
-    }
+.burgerAdd:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
 
 </style>
