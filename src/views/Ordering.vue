@@ -119,8 +119,10 @@
                 {{key}}:
                 <span v-for="(item, key2) in burger.ingredients" :key="key2">
                     {{ item['ingredient_' + lang] }}
+
             </span>
                 {{burger.price}}
+                <button v-on:click="editBurger(burger)"> Edit your burger </button>
             </div>
             <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
 
@@ -252,6 +254,14 @@ export default {
        // }
       }
       return counter;
+      },
+
+      editBurger: function (burger){
+        this.chosenIngredients = burger.ingredients
+          this.price = burger.price
+
+
+        this.view = "showMenu"
       },
 
     setView: function (window) {
