@@ -48,9 +48,9 @@
 
 
     <Ingredient
-            class="ingredient"
+            ref="ingredient"
             v-for="item in ingredients"
-            v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+            v-if="item.category===categorynumber && (item.gluten_free===1 || item.gluten_free===gluten) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
             v-on:increment="addToOrder(item)"
             v-on:decrement="delFromOrder(item)"
             :item="item"
@@ -87,8 +87,46 @@
 
       <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
       <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+        
+        <!-- Kod för foodfilter knappar -->
+        
+      <div class="positionGluten">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox" value="0" v-model="gluten"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Gluten free</p>
+      </span>
+    </span>
+  </label>
+</div>
+           <div class="positionVegan">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox" value="1" v-model="vegan"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Vegan</p>
+      </span>
+    </span>
+  </label>
+</div>
+           <div class="positionMilk">
+            <label class="label">
+                <input  class="label__checkbox" type="checkbox" value="1" v-model="milk"/>
+            <span class="label__text" >
+      <span class="label__check">
+        <p align=center >Milk Free</p>
+      </span>
+    </span>
+  </label>
+</div>
+          <!-- slut på Kod för foodfilter knappar -->
+          
+        
 
-  <div class="foodFilter">
+ <!-- GAMLA FILTERKNAPPAR FÖR GLUTEN OSV.
+
+<div class="foodFilter"> 
                 <div class="glutenFilter">
                     <button class="glutenButton" v-on:click="showGlutenFree(1)" > Gluten free</button>
                 </div>
@@ -99,7 +137,7 @@
                     <button class="veganButton" v-on:click="showVegan(1)" > Vegan</button>
                 </div>
   
-            </div>
+            </div> -->
 
       <button v-on:click="showFront = !showFront">Tillbaka till första sidan</button>    
       <button id="nextPage" v-on:click="doneBurger()"><a href="./#/overview">page 2</a> ?</button>>
@@ -213,7 +251,7 @@ export default {
     setCategory: function(number) {
             this.categorynumber = number;
     },
-      
+      /* tidigare kod för foodfilter
        showGlutenFree: function(number) {
            this.gluten = number;
         
@@ -228,7 +266,7 @@ export default {
            this.vegan = number;
         
         
-    },
+    },*/
 
 
     delFromOrder: function (item) {
@@ -263,10 +301,7 @@ export default {
       this.chosenIngredients = [];
     },
 
-      showGlutenFree: function(){
-          this.glutenFilter = !this.glutenFilter
-          //sätt så bara glutenfria alternativ visas
-      }
+   
   }
 }
 </script>
@@ -385,17 +420,18 @@ export default {
     grid-area: Done;
 }
 
+    /* gammal kod för foodfilter
     .glutenFilter button:hover {
          background-color: greenyellow;
         
     }
     
-     .glutenFilter button:focus{
+     .glutenFilter button:focus:after{
     background-color: green;
    
 }
     
-      .glutenFilter button:active{
+      .glutenFilter button:target{
     background-color: springgreen;
    
 }
@@ -409,6 +445,10 @@ export default {
    
 }
     
+      .milkFilter button:target{
+    background-color: cornflowerblue;
+   
+}
       .veganFilter button:hover {
          background-color: #de7d9c;
         
@@ -419,10 +459,10 @@ export default {
    
 }
 
-     .veganFilter button:visited{
+     .veganFilter button:target{
     background-color: #b35b78;
    
-}
+} */
 
 .Total {
     grid-area: Total;
@@ -483,10 +523,7 @@ export default {
 }
 
 
-    #glutenButton {
-        border-radius: 50%;
-        height: 50px;
-        width: 50px}
+  
 
     #PlaceOrderButton{
         border-radius: 50%;
@@ -496,7 +533,7 @@ export default {
 
 
 
-
+/* gammal kod för foodfilter
     .foodFilter {
     margin-left: 35%;
 
@@ -517,7 +554,7 @@ export default {
   border: 3px solid #FFF;
 
   
-}
+} */
     
     
     /* Style the tab */
@@ -561,16 +598,102 @@ export default {
 /* Create an active/current tablink class */
 .tab button.active {
   background-color: #ddd;
+    
+/* Design of checkoxes*/
 
+}
+.label__checkbox {
+  display: none;
+}
+
+    /*Design when unchecked*/
+.label__check {
+  display: inline-block;
+  border-radius: 50%;
+  border: 5px solid rgba(0,0,0,0.1);
+  background: white;
+  vertical-align: middle;
+  margin-right: 20px;
+  width: 6em;
+  height: 6em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border .3s ease;
+opacity: 0.9;
+  
+}
+
+.label__checkbox:checked + .label__text .label__check {
+  animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+    font-size: 1em; /*font size*/
+    }
+
+.positionGluten {
+  position: absolute;
+  top: 36em; 
+  left: 30em;
+  transform: translate(-50%,-50%);
+}
+    
+    .positionVegan {
+  position: absolute;
+  top: 36em; 
+  left: 37em;
+  transform: translate(-50%,-50%);
+}
+    
+     .positionMilk {
+  position: absolute;
+  top: 36em; 
+  left: 44em;
+  transform: translate(-50%,-50%);
 }
 
 
+     /*Design when checked*/
     
-   
-
+@keyframes check {
+  0% {
+    width: 3.5em;
+    height: 3.5em;
+    border-width: 5px;
+  }
+  10% {
+    width: 3.5em;
+    height: 3.5em;
+    opacity: 0.1;
+    background: rgba(0,0,0,0.2);
+    border-width: 15px;
+  }
+  12% {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.4;
+    background: rgba(0,0,0,0.1);
+    border-width: 0;
+  }
+  50% {
+    width: 5em;
+    height: 5em;
+    background: #ebc57c;
+    border: 0;
+    opacity: 0.6;
+  }
+  100% {
+    width: 5em;
+    height: 5em;
+    background: #ebc57c;
+    border: 2px solid #e4b660;
+    opacity: 0.9;
+  }
+}
     
 
-
+ 
+/* End of design of the checkbox */    
+    
 
 /* Style the tab content */
 .tabcontent {
