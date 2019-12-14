@@ -68,7 +68,7 @@
       <div v-for="countIng in countAllIngredients"
            :key="countAllIngredients.indexOf(countIng)">
              {{countIng.name}}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
-          <button v-on:click="delFromBurger(countIng)"> - </button> <br> <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
+          <!--<button v-on:click="delFromBurger(countIng)"> - </button> <br> --><!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
       </div>
     </div>
 
@@ -118,10 +118,12 @@
                  :key="countAllBurgers.indexOf(burger)">
                 Burger {{ burger.no}} <br>
 
-                <div v-for="countIng in burger.ingredients" :key="burger.ingredients.indexOf(countIng)">
+                <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                     {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                 </div>
+                <button v-on:click="editBurger(burger)"> Edit your burger </button>
                 Total {{ burger.price }}
+
             </div>
 
 <!--            <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">-->
@@ -240,7 +242,8 @@ export default {
 
             severalBurgers[j] = {};
             severalBurgers[j].no = j;
-            severalBurgers[j].ingredients = difIngredients;
+            severalBurgers[j].ingredientsShow = difIngredients;
+            severalBurgers[j].ingredients = this.currentOrder.burgers[j].ingredients;
             severalBurgers[j].price = this.currentOrder.burgers[j].price;
             console.log(severalBurgers[j].ingredients)
         }
@@ -255,10 +258,11 @@ export default {
         this.chosenIngredients.push(item);
         this.price += item.selling_price;
     },
-      delFromBurger: function (item) {
+
+    delFromBurger: function (item) {
           this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
           this.price -= item.selling_price;
-      },
+    },
 
     addToOrder: function () {
         // Add the burger to an order array
@@ -293,6 +297,13 @@ export default {
        // }
       }
       return counter;
+    },
+
+    editBurger: function (burger){
+      console.log(burger.ingredients)
+      this.chosenIngredients = burger.ingredients,
+      this.price = burger.price,
+      this.view = "showMenu"
       },
 
     setView: function (window) {
@@ -310,12 +321,9 @@ export default {
     },
         showMilkFree: function(number) {
            this.milk = number;
-        
-        
     },
-        showVegan: function(number) {
+    showVegan: function(number) {
            this.vegan = number;
-
     },
 
 
