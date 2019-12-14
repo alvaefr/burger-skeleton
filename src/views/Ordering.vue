@@ -61,6 +61,7 @@
 
 
     <!-- Här visas sidomenyn med de färdiga burgarna --->
+
     <div class="Burger">
       <h1>{{ uiLabels.ordersInQueue }}</h1>
       <h1>{{ uiLabels.order }}</h1>
@@ -69,9 +70,6 @@
              {{countIng.name}}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
           <button v-on:click="delFromBurger(countIng)"> - </button> <br> <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
       </div>
-        <!-- <div>{{  countAllIngredients }}</div>-->
-           <!--    <div> {{ chosenIngredients.map(item => item["ingredient_"+lang]).join(', ') }}, {{ price }} kr {{this.count}} </div>
-           v-if="chosenIngredients.includes(this.chosenIngredients.map(item => item["ingredient_"+lang]))" Lägg till language i if-satsen-->
     </div>
 
 
@@ -115,15 +113,30 @@
         </div>
 
         <div class="burgerOverview">
-            <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">
-                {{key}}:
-                <span v-for="(item, key2) in burger.ingredients" :key="key2">
-                    {{ item['ingredient_' + lang] }}
 
-            </span>
-                {{burger.price}}
+
+            <div class = "burgerScroll" v-for="burger in countAllBurgers"
+                 :key="countAllBurgers.indexOf(burger)">
+                Burger {{ burger.no}} <br>
+
+                <div v-for="countIng in burger.ingredients" :key="burger.ingredients.indexOf(countIng)">
+                    {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+                </div>
                 <button v-on:click="editBurger(burger)"> Edit your burger </button>
+                Total {{ burger.price }}
+
             </div>
+
+<!--            <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">-->
+<!--                {{key}}:-->
+<!--                <span v-for="(item, key2) in burger.ingredients" :key="key2">-->
+<!--                    {{ item['ingredient_' + lang] }}-->
+<!--            </span>-->
+<!--                {{burger.price}}-->
+<!--            </div>-->
+
+
+
             <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
 
         </div>
@@ -190,7 +203,7 @@ export default {
   },
   computed:{
     countAllIngredients: function() {  //inkopierad från git, branch:severalburgers,kitchen
-        let ingredientTuples = []
+         let ingredientTuples = []
       for (let i = 0; i < this.chosenIngredients.length; i += 1) {
         ingredientTuples[i] = {};
         ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
@@ -207,6 +220,35 @@ export default {
               });
       console.log(difIngredients)
       return difIngredients;
+    },
+
+    countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en burgare
+        let severalBurgers = [];
+        for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+            let ingredientTuples  = []
+            for (let i = 0; i < this.currentOrder.burgers[j].ingredients.length; i += 1) {
+                ingredientTuples[i] = {};
+                ingredientTuples[i].name = this.currentOrder.burgers[j].ingredients[i]['ingredient_' + this.lang];
+                ingredientTuples[i].count = this.countNumberOfIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id);
+                ingredientTuples[i].ingPrice = this.currentOrder.burgers[j].ingredients[i]['selling_price'];
+            }
+            var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+                .map(name => {
+                    return {
+                        name: name,
+                        count: ingredientTuples.find(o => o.name === name).count,
+                        ingPrice: ingredientTuples.find(o => o.name === name).ingPrice
+                    };
+                });
+
+            severalBurgers[j] = {};
+            severalBurgers[j].no = j;
+            severalBurgers[j].ingredients = difIngredients;
+            severalBurgers[j].price = this.currentOrder.burgers[j].price;
+            console.log(severalBurgers[j].ingredients)
+        }
+        console.log(severalBurgers)
+        return severalBurgers
     }
 
   },
