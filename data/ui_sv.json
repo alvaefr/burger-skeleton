@@ -32,5 +32,7 @@
   "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE",
   "beginOrder": "Starta din order genom att välja var du vill äta",
   "addBurger": "Klicka här för att lägga till burgare",
-  "yourOrder": "Din order"
+  "yourOrder": "Din order",
+  "backfirstpage": "Tillbaka till förstasidan",
+  "editBurger": "Ändra denna burgare"  
 }

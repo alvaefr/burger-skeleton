@@ -2,6 +2,7 @@
 
     <section class="example-panel">
 
+        <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront">
 
             <div class="welcome">
@@ -16,11 +17,11 @@
             </div>
 
             <div class="switchLang">
-                <button v-on:click="switchLang()"></button>
+                <button type="image" v-on:click="switchLang()"> {{ uiLabels.language }}</button>    
             </div>
         </div>
 
-
+<!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
 
 
@@ -39,12 +40,10 @@
 
 
             <div class="OrderList">
-
-
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
-                         v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+                        v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item)"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
@@ -52,10 +51,7 @@
                         :lang="lang"
                         :key="item.ingredient_id">
                 </Ingredient>
-
-
             </div>
-
 
             <!-- Här visas sidomenyn med de färdiga burgarna --->
             <div class="Burger">
@@ -69,49 +65,50 @@
                 </div>
             </div>
 
-
             <div class="Total">
                 <h2>{{ uiLabels.total }}:</h2>
                 <p> {{ price }}:-</p></div>
-
+            
             <div class="Done">
 
-                <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
                <div class="positionGluten">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Gluten free</p>
-      </span>
-    </span>
-  </label>
-</div>
-           <div class="positionVegan">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Vegan</p>
-      </span>
-    </span>
-  </label>
-</div>
-           <div class="positionMilk">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Milk Free</p>
-      </span>
-    </span>
-  </label>
-</div>
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.glutenFilter}}</p>
+                        </span>
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="positionVegan">
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.veganFilter}}</p>
+                        </span> 
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="positionMilk">
+                <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.lactoseFilter}}</p>
+                        </span>
+                        </span>
+                </label>
+                </div>
 
 
-                <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-                <button id="nextPage" v-on:click="addToOrder()"> See burgers</button>
+                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
+                <button id="nextPage" v-on:click="addToOrder()">{{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -135,7 +132,7 @@
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <button v-on:click="editBurger(burger, burger.no)"> Edit your burger</button>
+                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
                     Total {{ burger.price }}
 
                 </div>
@@ -203,8 +200,8 @@
                 showOverview: "showOverview",
                 view: "showFront",
                 currentOrder: {
-                    burgers: [],
-                    editingBurger: false
+                burgers: [],
+                editingBurger: false
                 }
             }
         },
@@ -369,7 +366,8 @@
                      this.vegan = 0
                 }
             },
-
+            
+        },
      
             placeOrder: function () {
                 // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
@@ -377,8 +375,9 @@
                 this.$store.state.socket.emit('order', this.currentOrder);
                 this.currentOrder = [];
             },
+        
         }
-    }
+    
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
@@ -443,7 +442,10 @@
     }
     .switchLang {
         text-align: right;
+        
     }
+        
+    
     .mealButton {
         background-color: gray;
         color: black;
