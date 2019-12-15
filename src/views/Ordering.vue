@@ -93,7 +93,7 @@
                 </div>
 
                 <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-                <button id="nextPage"  v-on:click="addToOrder()"> See burgers</button>
+                <button id="nextPage" v-on:click="addToOrder()"> See burgers</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -117,7 +117,7 @@
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <button v-on:click="editBurger(burger)"> Edit your burger</button>
+                    <button v-on:click="editBurger(burger, burger.no)"> Edit your burger</button>
                     Total {{ burger.price }}
 
                 </div>
@@ -184,10 +184,9 @@
                 showMenu: "showMenu",
                 showOverview: "showOverview",
                 view: "showFront",
-                editingBurger: false,
-
                 currentOrder: {
-                    burgers: []
+                    burgers: [],
+                    editingBurger: false
                 }
             }
         },
@@ -263,21 +262,26 @@
 
             addToOrder: function () {
                 // Add the burger to an order array
-                if (!this.editingBurger) {
+
+                // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
+                if (this.currentOrder.editingBurger) {
+                    this.updatePrice()
+
+                } else {                    // annars, alltså är det en ny burgare, lägger till burgare till ordern.
                     this.currentOrder.burgers.push({
                         ingredients: this.chosenIngredients.splice(0),
                         price: this.price,
+                        editingThisBurger: false
                     });
+                    this.currentOrder.editingBurger = false;
                 }
-                console.log(this.currentOrder.burgers)
-
                 //set all counters to 0. Notice the use of $refs
                 for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
                     this.$refs.ingredient[i].resetCounter();
                 }
                 this.chosenIngredients = [];
                 this.price = 0;
-                this.editingBurger = false;
+                this.currentOrder.editingBurger = false;
                 this.view = "showOverview";
             },
 
@@ -299,12 +303,24 @@
                 return counter;
             },
             // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
-            editBurger: function (burger) {
+            editBurger: function (burger, index) {
                 console.log(this.currentOrder)
-                this.editingBurger = true;
+                this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
+                this.currentOrder.editingBurger = true;  // Denna visar bara att aanvändaren redigerar någon burgare
                 this.chosenIngredients = burger.ingredients;
                 this.price = burger.price;
                 this.view = "showMenu"
+            },
+
+            //Här uppdateras priset
+            updatePrice: function () {
+                for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                    if (this.currentOrder.burgers[j].editingThisBurger) {
+                        this.currentOrder.burgers[j].price = this.price;
+                        this.currentOrder.burgers[j].editingThisBurger = false;
+
+                    }
+                }
             },
 
             setView: function (window) {
