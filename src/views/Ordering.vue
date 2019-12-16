@@ -17,16 +17,17 @@
             </div>
 
             <div class="switchLang">
-                <button type="image" v-on:click="switchLang()"> {{ uiLabels.language }}</button>    
+                <button v-on:click="switchLang()" >{{ uiLabels.language }}</button> 
+                <button v-on:click="switchLang()" v-if="picBool"><img src="unionJack.png"> </button> 
+                
             </div>
         </div>
 
 <!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
-
-
+            
             <div class="Top">
-
+                
                 <div class="tab">
                     <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
                     <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -53,7 +54,7 @@
                 </Ingredient>
             </div>
 
-            <!-- Här visas sidomenyn med de färdiga burgarna --->
+        <!-- Här visas sidomenyn med de färdiga burgarna --->
             <div class="Burger">
                 <h1>{{ uiLabels.ordersInQueue }}</h1>
                 <h1>{{ uiLabels.order }}</h1>
@@ -78,7 +79,7 @@
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center >{{uiLabels.glutenFilter}}</p>
+                        <p align=center  >{{uiLabels.glutenFilter}}</p>
                         </span>
                         </span>
                     </label>
@@ -201,7 +202,8 @@
                 view: "showFront",
                 currentOrder: {
                 burgers: [],
-                editingBurger: false
+                editingBurger: false,
+                picBool: true  
                 }
             }
         },
@@ -375,6 +377,11 @@
                 this.$store.state.socket.emit('order', this.currentOrder);
                 this.currentOrder = [];
             },
+        
+//            switchFlag: function (){
+//                this.picBool = !this.picBool;
+//                
+//            },
         
         }
     
