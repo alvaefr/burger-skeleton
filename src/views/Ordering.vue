@@ -17,7 +17,7 @@
             </div>
 
             <div class="switchLang">
-                <button type="image" v-on:click="switchLang()"> {{ uiLabels.language }}</button>    
+                <button type="image" v-on:click="switchLang()"> {{ uiLabels.language }}</button>
             </div>
         </div>
 
@@ -68,7 +68,7 @@
             <div class="Total">
                 <h2>{{ uiLabels.total }}:</h2>
                 <p> {{ price }}:-</p></div>
-            
+
             <div class="Done">
 
             <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
@@ -83,18 +83,18 @@
                         </span>
                     </label>
                 </div>
-                
+
                 <div class="positionVegan">
                     <label class="label">
                     <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
                         <p align=center >{{uiLabels.veganFilter}}</p>
-                        </span> 
+                        </span>
                         </span>
                     </label>
                 </div>
-                
+
                 <div class="positionMilk">
                 <label class="label">
                     <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
@@ -366,18 +366,18 @@
                      this.vegan = 0
                 }
             },
-            
-        },
-     
+
+
             placeOrder: function () {
                 // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
                 console.log(this.currentOrder)
                 this.$store.state.socket.emit('order', this.currentOrder);
                 this.currentOrder = [];
             },
-        
+
         }
-    
+      }
+
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
@@ -405,7 +405,7 @@
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
-        
+
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -442,10 +442,10 @@
     }
     .switchLang {
         text-align: right;
-        
+
     }
-        
-    
+
+
     .mealButton {
         background-color: gray;
         color: black;
@@ -684,26 +684,26 @@
         color: white;
         cursor: pointer;
     }
-    
-    
+
+
     /* Designing of Foodfilter*/
     .label__checkbox {
   display: none;
 
 
 }
-    
+
     .positionVegan {
        margin-left: 30%;
     }
-    
+
     .positionGluten {
-       margin-left: 40%;  
-      
+       margin-left: 40%;
+
 
     }
      .positionMilk {
-       margin-left: 50%;  
+       margin-left: 50%;
 
     }
 
@@ -719,13 +719,13 @@
   transition: border .3s ease;
   text-align: center;
 
-  
+
 }
 
 .label__checkbox:checked + .label__text .label__check {
   animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 
-  
+
 
 }
 
@@ -770,7 +770,7 @@
     height: 4em;
     background: rgba(144, 198, 149, 0.6);
     border: 1px solid rgba(38, 166, 91, 1);
- 
+
   }
   100% {
     width: 4.5em;
@@ -780,5 +780,5 @@
     text-align: center;
   }
 }
-    
+
 </style>

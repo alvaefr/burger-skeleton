@@ -8,7 +8,7 @@
       <!--<h1>orders:{{ uiLabels.ordersInQueue }}</h1>-->
     <OrderItemToPrepare
       v-for="(order, key) in orders"
-      v-if="order.status !== 'done' && order.ingredient === senap"
+      v-if="order.status !== 'done'"
       v-on:done="markDone(key)"
       :order-id="key"
       :order="order"
@@ -17,11 +17,13 @@
       :key="key">
     </OrderItemToPrepare>
   </div>
-  <button v-on:click="change_view(); setCategory_view('')">Back</button>
+  <button id= back class = 'item3' v-on:click="change_view(); setCategory_view('')">Back</button>
   </div>
-  <div class="item3" v-show="category_view === 'Done orders'">
+  </div>
+  <div v-show="category_view === 'Done orders'" class="grid-container">
       <div class="item1">{{category_view}}</div>
       <h1>Finished: {{ uiLabels.ordersFinished }}</h1>
+        <div class="item2">
     <OrderItem
       v-for="(order, key) in orders"
       v-if="order.status === 'done' && order"
@@ -31,9 +33,9 @@
       :ui-labels="uiLabels"
       :key="key">
     </OrderItem>
-    <button v-on:click="setCategory_view('')">Back</button>
+      </div>
+  <button id= back class = 'item3' v-on:click="change_view(); setCategory_view('')">Back</button>
   </div>
-</div>
 <div v-show="category_view === ''" class = grid-container_option>
   <div>
 <button id = 'button' v-on:click= "setCategory_view('Burger')">Burger</button>
@@ -100,8 +102,9 @@ export default {
       grid-template-areas:'header header header header header header'
     'main main main main main main'
     'button_back footer footer footer footer footer';
-    width: 38em;
-    height: 20em;
+    grid-template-rows: 10% 80% 10%;
+    width: 36em;
+    height: 15em;
  grid-gap: 1px;
  background-color: black;
    text-align: center;
@@ -112,6 +115,9 @@ export default {
  background-color: white;
  opacity: 0.7;
  font-size: 30px;
+ margin: 0.2%;
+   border-radius: 0.5em;
+     font-family: "Courier new", monospace;
   }
 
   .grid-container_option {
@@ -130,7 +136,7 @@ export default {
 #button {
   padding: 10px 24px;
   border-radius: 8px;
-  background-color: blue;
+  background-color: white;
   color: black;
   border: 2px solid #e7e7e7;
   font-size: 50px;
@@ -138,9 +144,16 @@ export default {
   height: 80%;
 margin:3% 20% 3% 5%;
 }
+
+#back {
+  text-align: center;
+  font-size: 0.7em;
+  background-color: red;
+  border-radius: 0.5em;
+    font-family: "Courier new", monospace;
+}
   .item1 {
     grid-area: header;
-    height: 10%;
   }
 
   .item2 {
@@ -148,6 +161,6 @@ margin:3% 20% 3% 5%;
   }
 
   .item3 {
-    grid-area: right;
+    grid-area: button_back;
   }
 </style>
