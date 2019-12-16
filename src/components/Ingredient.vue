@@ -10,12 +10,13 @@
     <button v-on:click="incrementCounter">+</button>
 
     </label>
-    {{ counter }}
+
     <button v-if="counter > 0" v-on:click="decrementCounter">-</button>
 
   </div>
 </template>
 <script>
+  /* eslint-disable no-console */
 export default {
   name: 'Ingredient',
   props: {
@@ -25,8 +26,7 @@ export default {
 
 
   },
-    data:
-            function () {
+    data: function () {
     return {
       counter: 0
     };
@@ -39,13 +39,15 @@ export default {
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('increment');
-      this.$emit('counter', this.counter)
+      this.$emit('incIng');
+      //this.$emit('counter', this.counter)
     },
     decrementCounter: function () {
         this.counter -= 1;
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('decrement');
+      this.$emit('decIng');
     },
     resetCounter: function () {
       this.counter = 0;
