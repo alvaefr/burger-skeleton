@@ -148,28 +148,29 @@
 
 <script>
 
-    //import the components that are used in the template, the name that you
-    //use for importing will be used in the template above and also below in
-    //components
-    import Ingredient from '@/components/Ingredient.vue'
-    import OrderItem from '@/components/OrderItem.vue'
+//import the components that are used in the template, the name that you
+// use for importing will be used in the template above and also below in
+// components
+import Ingredient from '@/components/Ingredient.vue'
+import OrderItem from '@/components/OrderItem.vue'
 
-    //import methods and data that are shared between ordering and kitchen views
-    import sharedVueStuff from '@/components/sharedVueStuff.js'
+//import methods and data that are shared between ordering and kitchen views
+import sharedVueStuff from '@/components/sharedVueStuff.js'
 
-    /* eslint-disable no-console */
-    /* instead of defining a Vue instance, export default allows the only
-    necessary Vue instance (found in main.js) to import your data and methods */
-    export default {
-        name: 'Ordering',
-        components: {
-            Ingredient,
-            OrderItem,
-        },
-        mixins: [sharedVueStuff], // include stuff that is used in both
+/* eslint-disable no-console */
+/* instead of defining a Vue instance, export default allows the only
+necessary Vue instance (found in main.js) to import your data and methods */
+ export default {
+     name: 'Ordering',
+     components: {
+         Ingredient,
+         OrderItem,
+     },
+
+     mixins: [sharedVueStuff], // include stuff that is used in both
                                   // the ordering system and the kitchen
-        data: function () { //Not that data is a function!
-            return {
+     data: function () {
+         return {
                 chosenIngredients: [],
                 price: 0,
                 orderNumber: "",
@@ -199,6 +200,7 @@
         },
         computed: {
             countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
+                                                // Räknar alla OLIKA ingredienser och hur många av dem
                 let ingredientTuples = []
                 for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                     ingredientTuples[i] = {};
@@ -218,15 +220,18 @@
                 return difIngredients;
             },
 
-            countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en burgare
+            countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
                 let severalBurgers = [];
+                console.log(this.currentOrder.burgers.length)
                 for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
                     let ingredientTuples = []
+                    console.log(this.currentOrder.burgers[j].ingredients);
                     for (let i = 0; i < this.currentOrder.burgers[j].ingredients.length; i += 1) {
                         ingredientTuples[i] = {};
                         ingredientTuples[i].name = this.currentOrder.burgers[j].ingredients[i]['ingredient_' + this.lang];
-                        ingredientTuples[i].count = this.countNumberOfIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id);
+                        ingredientTuples[i].count = this.countNumberOfIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id,j);
                         ingredientTuples[i].ingPrice = this.currentOrder.burgers[j].ingredients[i]['selling_price'];
+                        console.log(ingredientTuples[i].count)
                     }
                     var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
                         .map(name => {
@@ -298,6 +303,7 @@
                 }
                 return counter;
             },
+
             // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
             editBurger: function (burger) {
                 console.log(this.currentOrder)
