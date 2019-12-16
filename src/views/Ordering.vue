@@ -2,7 +2,25 @@
 
 <section class="example-panel">
 
+<div v-show="showFront === this.view" class="grid-containerFront">
 
+    <div class="welcome">
+    {{ uiLabels.welcome }}
+    </div>
+
+    <div class="mealLocation">
+    <p>Starta din order genom att välja var du vill äta</p><br>
+    <button v-on:click="setView(showMenu)">{{ uiLabels.eathere }}</button>
+    <button v-on:click="setView(showMenu)">{{ uiLabels.togo }}</button>
+    </div>
+
+    <div class="switchLang">
+    <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+    </div>
+</div>
+
+
+<div v-show="showMenu === this.view">
 <div class="grid-container">
 
 <div class="Top">
@@ -26,9 +44,9 @@
     <Ingredient
             ref="ingredient"
             v-for="item in ingredients"
-            v-if="item.category===categorynumber"
-            v-on:increment="addToOrder(item)"
-            v-on:decrement="delFromOrder(item)"
+            v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+            v-on:increment="addToBurger(item)"
+            v-on:decrement="delFromBurger(item)"
             :item="item"
             :count="item.counter"
             :lang="lang"
@@ -68,14 +86,59 @@
       <p> {{ price }}:-</p></div>
 
     <div class="Done">
-      <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
 
-      <button id=glutenButton v-on:click="showGlutenFree()" >{{ uiLabels.glutenFilter }}</button>
+      <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+
+  <div class="foodFilter">
+                <div class="glutenFilter">
+                    <button class="glutenButton" v-on:click="showGlutenFree(1)" > Gluten free</button>
+                </div>
+                <div class="milkFilter">
+                    <button class="milkButton" v-on:click="showMilkFree(1)" > Milk free</button>
+                </div>
+                <div class="veganFilter">
+                    <button class="veganButton" v-on:click="showVegan(1)" > Vegan</button>
+                </div>
+
+            </div>
+
+      <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
+      <button id="nextPage" v-on:click="addToOrder()"> See burgers</button>
+       <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
       <button id="nextPage"><a href="./#/overview">page 2</a> ?</button>>
 
     </div>
   </div>
+
+
+    </div>
+
+    <div v-show="showOverview === this.view" class="grid-containerOverview">
+
+        <div class="overviewTop">
+            Your order
+        </div>
+
+        <div class="burgerOverview">
+            <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">
+                {{key}}:
+                <span v-for="(item, key2) in burger.ingredients" :key="key2">
+                    {{ item['ingredient_' + lang] }}
+            </span>
+                {{burger.price}}
+            </div>
+            <button v-on:click="setView(showMenu)">Lägg till ny burgare</button>
+
+        </div>
+
+        <div class="overviewBottom">
+
+            <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+        </div>
+    </div>
+
 </section>
 </template>
 
@@ -96,8 +159,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
 export default {
   name: 'Ordering',
   components: {
-    Ingredient,
-    OrderItem
+        Ingredient,
+        OrderItem,
   },
   mixins: [sharedVueStuff], // include stuff that is used in both
                             // the ordering system and the kitchen
@@ -109,9 +172,15 @@ export default {
       glutenFilter: false,
       count:0,
       brodcategory: false,
-      categorynumber: 1
+      categorynumber: 1,
+      showFront: "showFront",
+      showMenu: "showMenu",
+      showOverview: "showOverview",
+      view: "showFront",
 
-
+      currentOrder: {
+          burgers: []
+      }
     }
   },
   created: function () {
@@ -141,10 +210,31 @@ export default {
 
   },
   methods: {
-    addToOrder: function (item) {
-      this.chosenIngredients.push(item);
-      this.price += item.selling_price;
-      //item.counter = this.count;
+
+    addToBurger: function (item) {
+        this.chosenIngredients.push(item);
+        this.price += item.selling_price;
+    },
+      delFromBurger: function (item) {
+          this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
+          this.price -= item.selling_price;
+      },
+
+    addToOrder: function () {
+        // Add the burger to an order array
+        this.currentOrder.burgers.push({
+            ingredients: this.chosenIngredients.splice(0),
+            price: this.price
+        });
+        console.log(this.currentOrder.burgers)
+
+        //set all counters to 0. Notice the use of $refs
+        for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+             this.$refs.ingredient[i].resetCounter();
+        }
+        this.chosenIngredients = [];
+        this.price = 0;
+        this.view = "showOverview";
     },
 
     countNumberOfIngredients: function (id) {
@@ -165,35 +255,37 @@ export default {
       return counter;
       },
 
+    setView: function (window) {
+        this.view = window;
+    },
 
 
     setCategory: function(number) {
             this.categorynumber = number;
     },
 
+       showGlutenFree: function(number) {
+           this.gluten = number;
 
-    delFromOrder: function (item) {
-      this.chosenIngredients.splice(this.chosenIngredients.indexOf(item),1);
-      this.price -= item.selling_price;
+
+    },
+        showMilkFree: function(number) {
+           this.milk = number;
+
+
+    },
+        showVegan: function(number) {
+           this.vegan = number;
+
     },
 
 
     placeOrder: function () {
-      var i,
-      //Wrap the order in an object
-        order = {
-          ingredients: this.chosenIngredients,
-          price: this.price
-        };
+        // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
 
-      // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-      this.$store.state.socket.emit('order', {order: order});
-      //set all counters to 0. Notice the use of $refs
-      for (i = 0; i < this.$refs.ingredient.length; i += 1) {
-        this.$refs.ingredient[i].resetCounter();
-      }
-      this.price = 0;
-      this.chosenIngredients = [];
+        console.log(this.currentOrder)
+        this.$store.state.socket.emit('order', this.currentOrder);
+        this.currentOrder = [];
     },
 
 
@@ -407,5 +499,38 @@ export default {
     font-family: "Courier new", monospace;
     }
 
+/* För overview-sidan*/
+
+.grid-containerOverview {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1.7fr 0.8fr;
+    grid-template-areas: "Top" "Burgers" "Bottom";
+    margin-top: 3em;
+    margin-left: 6em;
+}
+
+.burgerOverview {
+    grid-area: Burgers;
+    display: grid;
+    grid-gap: 25px;
+    width: 65em;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    text-align: center;
+    margin-top: 1em;
+
+}
+
+.overviewTop { grid-area: Top; }
+
+.overviewBottom { grid-area: Bottom; }
+    .burgerScroll{
+        background-color: aquamarine;
+        width: 15em;
+        height: 15em;
+        border-radius: 2em;
+        padding: 2em;
+    }
 
 </style>

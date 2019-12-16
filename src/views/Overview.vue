@@ -6,17 +6,35 @@
 
         <div class="Burgers">
 
+        {{burgers}
+
+            <div v-for="(burger, key) in currentOrder.burgers" :key="key">
+                {{key}}:
+                <span v-for="(item, key2) in burger.ingredients" :key="key2">
+          {{ item['ingredient_' + lang] }}
+        </span>
+                {{burger.price}}
+            </div>
+
+<!--            <OrderItemToPrepare-->
+<!--                    class="OrderItemToPrepare"-->
+<!--                    v-for="order in orders"-->
+<!--                    :order="order"-->
+<!--                    :ui-labels="uiLabels"-->
+<!--                    :lang="lang">-->
+
+<!--                &lt;!&ndash;v-on:done="changeOrder(key)"&ndash;&gt;-->
+<!--                &lt;!&ndash;:order-id="key" : denna säger vilken order det är-->
+<!--                :key="key"-->
+<!--                 v-if="order.status !== 'done'"&ndash;&gt;-->
+<!--            </OrderItemToPrepare>-->
             <OrderItemToPrepare
-                    class="OrderItemToPrepare"
-                    v-for="order in orders"
+                    v-for="(order, key) in orders"
+                    :order-id="key"
                     :order="order"
                     :ui-labels="uiLabels"
-                    :lang="lang">
-
-                <!--v-on:done="changeOrder(key)"-->
-                <!--:order-id="key" : denna säger vilken order det är
-                :key="key"
-                 v-if="order.status !== 'done'"-->
+                    :lang="lang"
+                    :key="key">
             </OrderItemToPrepare>
 
         </div>
@@ -38,27 +56,32 @@
 
     export default {
         name: 'Overview',
+//        props: {
+//            order: Object
+//        },
         components: {
             Ingredient,
             OrderItem,
             Ordering,
-            OrderItemToPrepare
+            OrderItemToPrepare,
         },
         mixins: [sharedVueStuff],
 
         data: function(){
             return {
                 chosenIngredients: [],
-                price: 0
+                price: 0,
+                burgers: []
             }
-        }
+        },
+
     }
 
 </script>
 
 <style scoped>
 
-    .grid-container {
+    .grid-containerOverview {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 0.5fr 1.7fr 0.8fr;
@@ -67,7 +90,7 @@
         margin-left: 6em;
     }
 
-    .Burgers {
+    .burgerOverview {
         grid-area: Burgers;
         display: grid;
         grid-gap: 25px;
@@ -86,9 +109,9 @@
         padding: 2em;
     }
 
-    .Top { grid-area: Top; }
+    .overviewTop { grid-area: Top; }
 
-    .Bottom { grid-area: Bottom; }
+    .overviewBottom { grid-area: Bottom; }
 
 
 

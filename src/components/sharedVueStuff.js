@@ -5,7 +5,6 @@ var sharedVueStuff = {
   data: function () {
     return {
       orders: {},
-      burgers: {},
       uiLabels: {},
       ingredients: {},
       lang: "en"
