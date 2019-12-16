@@ -43,7 +43,7 @@
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
-                        v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+                        v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item)"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
@@ -162,6 +162,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
     //import the components that are used in the template, the name that you
     //use for importing will be used in the template above and also below in
     //components
@@ -378,6 +379,244 @@
         }
       }
 
+=======
+
+//import the components that are used in the template, the name that you
+// use for importing will be used in the template above and also below in
+// components
+import Ingredient from '@/components/Ingredient.vue'
+import OrderItem from '@/components/OrderItem.vue'
+
+//import methods and data that are shared between ordering and kitchen views
+import sharedVueStuff from '@/components/sharedVueStuff.js'
+
+/* eslint-disable no-console */
+/* instead of defining a Vue instance, export default allows the only
+necessary Vue instance (found in main.js) to import your data and methods */
+ export default {
+     name: 'Ordering',
+     components: {
+         Ingredient,
+         OrderItem,
+     },
+
+     mixins: [sharedVueStuff], // include stuff that is used in both
+     // the ordering system and the kitchen
+     data: function () {
+         return {
+             chosenIngredients: [],
+             price: 0,
+             orderNumber: "",
+             glutenFilter: false,
+             count: 0,
+             gluten: 0,
+             milk: 0,
+             vegan: 0,
+             veganBool: true,
+             glutenBool: true,
+             milkBool: true,
+             brodcategory: false,
+             categoryNumber: 1,
+             showFront: "showFront",
+             showMenu: "showMenu",
+             showOverview: "showOverview",
+             view: "showFront",
+             currentOrder: {
+                 burgers: [],
+                 editingBurger: false
+             }
+         }
+     },
+     created: function () {
+         this.$store.state.socket.on('orderNumber', function (data) {
+             this.orderNumber = data;
+         }.bind(this));
+         this.$store.state.socket.on('')
+     },
+
+     computed: {
+         countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
+             // Räknar alla OLIKA ingredienser och hur många av dem
+             let ingredientTuples = []
+             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                 ingredientTuples[i] = {};
+                 ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
+                 ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+                 ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
+             }
+             var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+                 .map(name => {
+                     return {
+                         name: name,
+                         count: ingredientTuples.find(o => o.name === name).count,
+                         ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
+                     };
+                 });
+             console.log(difIngredients)
+             return difIngredients;
+         },
+
+         countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
+             let severalBurgers = [];
+
+             for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                 let ingredientTuples = []
+                 console.log(this.currentOrder.burgers[j].ingredients);
+                 for (let i = 0; i < this.currentOrder.burgers[j].ingredients.length; i += 1) {
+                     ingredientTuples[i] = {};
+                     ingredientTuples[i].name = this.currentOrder.burgers[j].ingredients[i]['ingredient_' + this.lang];
+                     ingredientTuples[i].count = this.countNumberOfBurgerIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id, j);
+                     ingredientTuples[i].ingPrice = this.currentOrder.burgers[j].ingredients[i]['selling_price'];
+                     console.log(ingredientTuples[i].count)
+                 }
+                 var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+                     .map(name => {
+                         return {
+                             name: name,
+                             count: ingredientTuples.find(o => o.name === name).count,
+                             ingPrice: ingredientTuples.find(o => o.name === name).ingPrice
+                         };
+                     });
+                 severalBurgers[j] = {};
+                 severalBurgers[j].no = j;
+                 severalBurgers[j].ingredientsShow = difIngredients;
+                 severalBurgers[j].ingredients = this.currentOrder.burgers[j].ingredients;
+                 severalBurgers[j].price = this.currentOrder.burgers[j].price;
+                 console.log(severalBurgers[j].ingredients)
+             }
+             console.log(severalBurgers)
+             return severalBurgers
+         }
+     },
+     methods: {
+         addToBurger: function (item) {
+             this.chosenIngredients.push(item);
+             this.price += item.selling_price;
+         },
+         delFromBurger: function (item) {
+             this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
+             this.price -= item.selling_price;
+         },
+         addToOrder: function () {
+             // Add the burger to an order array
+             console.log(this.currentOrder)
+
+             // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
+             if (this.currentOrder.editingBurger) {
+                 this.updatePrice()
+
+             } else {                    // annars, alltså är det en ny burgare, lägger till burgare till ordern.
+                 this.currentOrder.burgers.push({
+                     ingredients: this.chosenIngredients.splice(0),
+                     price: this.price,
+                     editingThisBurger: false
+                 });
+                 this.currentOrder.editingBurger = false;
+             }
+
+             //set all counters to 0. Notice the use of $refs
+             for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+                 this.$refs.ingredient[i].resetCounter();
+             }
+             this.chosenIngredients = [];
+             this.price = 0;
+             this.currentOrder.editingBurger = false;
+             this.view = "showOverview";
+         },
+
+         countNumberOfIngredients: function (id) {
+             let counter = 0;
+             for (let order in this.chosenIngredients) {
+                 //console.log(order);
+                 // console.log(this.chosenIngredients[order])
+                 //let toppings = this.chosenIngredients[order];
+                 //console.log(toppings.length)
+                 //for (var i = 0; i < toppings.length; i += 1) ;
+                 //{
+                 if (this.chosenIngredients[order].ingredient_id === id) { //this.orders[order].status !== "done" &&
+                     counter += 1;
+                 }
+                 // }
+             }
+             return counter;
+         },
+
+         countNumberOfBurgerIngredients: function (id, burgerNo) {
+             let counter = 0;
+             for (let item in this.currentOrder.burgers[burgerNo].ingredients) {
+                 if (this.currentOrder.burgers[burgerNo].ingredients[item].ingredient_id === id) {
+                     counter +=1;
+                 }
+             }
+             return counter;
+         },
+
+         // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
+         editBurger: function (burger, index) {
+             console.log(this.currentOrder)
+
+             this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
+             this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
+             this.chosenIngredients = burger.ingredients;
+             this.price = burger.price;
+             this.view = "showMenu"
+         },
+
+
+         //Här uppdateras priset
+         updatePrice: function () {
+             for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                 if (this.currentOrder.burgers[j].editingThisBurger) {
+                     this.currentOrder.burgers[j].price = this.price;
+                     this.currentOrder.burgers[j].editingThisBurger = false;
+                 }
+             }
+         },
+
+
+         setView: function (window) {
+             this.view = window;
+         },
+         setCategory: function (number) {
+             this.categoryNumber = number;
+         },
+         showGlutenFree: function () {
+             this.glutenBool = !this.glutenBool;
+             if (!this.glutenBool) {
+                 this.gluten = 1
+             } else {
+                 this.gluten = 0
+             }
+         },
+         showMilkFree: function () {
+             this.milkBool = !this.milkBool;
+             if (!this.milkBool) {
+                 this.milk = 1
+             } else {
+                 this.milk = 0
+             }
+         },
+         showVeganFree: function () {
+             this.veganBool = !this.veganBool;
+             if (!this.veganBool) {
+                 this.vegan = 1
+             } else {
+                 this.vegan = 0
+             }
+         },
+
+         placeOrder: function () {
+             // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+             console.log(this.editingBurger)
+             console.log(this.currentOrder)
+             this.$store.state.socket.emit('order', this.currentOrder);
+             this.currentOrder = [];
+         },
+
+     },
+ }
+    
+>>>>>>> bda977d77b9530caa5ed6a0e0bd7755dea2a4156
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
