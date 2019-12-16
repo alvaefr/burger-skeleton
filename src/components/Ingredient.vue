@@ -11,6 +11,7 @@
 
     </label>
 
+
     <button v-if="counter > 0" v-on:click="decrementCounter">-</button>
 
   </div>
