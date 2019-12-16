@@ -60,7 +60,8 @@
                 <h1>{{ uiLabels.order }}</h1>
                 <div v-for="countIng in countAllIngredients"
                      :key="countAllIngredients.indexOf(countIng)">
-                    {{countIng.name}}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+                    {{countIng.count}}
+                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr
                     <!--<button v-on:click="delFromBurger(countIng)"> - </button> <br> -->
                     <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
                 </div>
@@ -126,15 +127,17 @@
 
             <div class="burgerOverview">
 
-                <div class="burgerScroll" v-for="(burger) in countAllBurgers"
+                <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     Burger {{ burger.no}} <br>
 
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
                     Total {{ burger.price }}
+                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
+                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>
+
 
                 </div>
 
@@ -163,7 +166,6 @@
 </template>
 
 <script>
-
 
 //import the components that are used in the template, the name that you
 // use for importing will be used in the template above and also below in
@@ -289,7 +291,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
              if (this.currentOrder.editingBurger) {
                  this.updatePrice()
-
              } else {                    // annars, alltså är det en ny burgare, lägger till burgare till ordern.
                  this.currentOrder.burgers.push({
                      ingredients: this.chosenIngredients.splice(0),
@@ -307,6 +308,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price = 0;
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
+         },
+
+         deleteBurger: function (burger) {
+             this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
+             this.price -= burger.price;
          },
 
          countNumberOfIngredients: function (id) {
@@ -406,7 +412,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
      
      
  }
-    
+
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
