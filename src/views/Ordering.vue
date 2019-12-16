@@ -2,6 +2,7 @@
 
     <section class="example-panel">
 
+        <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront">
 
             <div class="welcome">
@@ -16,11 +17,11 @@
             </div>
 
             <div class="switchLang">
-                <button v-on:click="switchLang()"></button>
+                <button type="image" v-on:click="switchLang()"> {{ uiLabels.language }}</button>    
             </div>
         </div>
 
-
+<!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
 
 
@@ -39,8 +40,6 @@
 
 
             <div class="OrderList">
-
-
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
@@ -52,13 +51,9 @@
                         :lang="lang"
                         :key="item.ingredient_id">
                 </Ingredient>
-
-
             </div>
 
-
             <!-- Här visas sidomenyn med de färdiga burgarna --->
-
             <div class="Burger">
                 <h1>{{ uiLabels.ordersInQueue }}</h1>
                 <h1>{{ uiLabels.order }}</h1>
@@ -70,30 +65,50 @@
                 </div>
             </div>
 
-
             <div class="Total">
                 <h2>{{ uiLabels.total }}:</h2>
                 <p> {{ price }}:-</p></div>
-
+            
             <div class="Done">
 
-                <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
-                <div class="foodFilter">
-                    <div class="glutenFilter">
-                        <button class="glutenButton" v-on:click="showGlutenFree(1)"> Gluten free</button>
-                    </div>
-                    <div class="milkFilter">
-                        <button class="milkButton" v-on:click="showMilkFree(1)"> Milk free</button>
-                    </div>
-                    <div class="veganFilter">
-                        <button class="veganButton" v-on:click="showVegan(1)"> Vegan</button>
-                    </div>
-
+               <div class="positionGluten">
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.glutenFilter}}</p>
+                        </span>
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="positionVegan">
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.veganFilter}}</p>
+                        </span> 
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="positionMilk">
+                <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.lactoseFilter}}</p>
+                        </span>
+                        </span>
+                </label>
                 </div>
 
-                <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-                <button id="nextPage"  v-on:click="addToOrder()"> See burgers</button>
+
+                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
+                <button id="nextPage" v-on:click="addToOrder()">{{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -117,7 +132,7 @@
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <button v-on:click="editBurger(burger)"> Edit your burger</button>
+                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
                     Total {{ burger.price }}
 
                 </div>
@@ -179,16 +194,18 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 gluten: 0,
                 milk: 0,
                 vegan: 0,
+                veganBool: true,
+                glutenBool: true,
+                milkBool: true,
                 brodcategory: false,
                 categorynumber: 1,
                 showFront: "showFront",
                 showMenu: "showMenu",
                 showOverview: "showOverview",
                 view: "showFront",
-                editingBurger: false,
-
                 currentOrder: {
-                    burgers: []
+                burgers: [],
+                editingBurger: false
                 }
             }
         },
@@ -198,6 +215,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
             }.bind(this));
             this.$store.state.socket.on('')
         },
+
         computed: {
             countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
                                                 // Räknar alla OLIKA ingredienser och hur många av dem
@@ -241,7 +259,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
                                 ingPrice: ingredientTuples.find(o => o.name === name).ingPrice
                             };
                         });
-
                     severalBurgers[j] = {};
                     severalBurgers[j].no = j;
                     severalBurgers[j].ingredientsShow = difIngredients;
@@ -252,29 +269,31 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 console.log(severalBurgers)
                 return severalBurgers
             }
-
         },
         methods: {
-
             addToBurger: function (item) {
                 this.chosenIngredients.push(item);
                 this.price += item.selling_price;
             },
-
             delFromBurger: function (item) {
                 this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
                 this.price -= item.selling_price;
             },
-
             addToOrder: function () {
                 // Add the burger to an order array
-                if (!this.editingBurger) {
+
+                // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
+                if (this.currentOrder.editingBurger) {
+                    this.updatePrice()
+
+                } else {                    // annars, alltså är det en ny burgare, lägger till burgare till ordern.
                     this.currentOrder.burgers.push({
                         ingredients: this.chosenIngredients.splice(0),
                         price: this.price,
+                        editingThisBurger: false
                     });
+                    this.currentOrder.editingBurger = false;
                 }
-                console.log(this.currentOrder.burgers)
 
                 //set all counters to 0. Notice the use of $refs
                 for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
@@ -282,13 +301,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 }
                 this.chosenIngredients = [];
                 this.price = 0;
-                this.editingBurger = false;
+                this.currentOrder.editingBurger = false;
                 this.view = "showOverview";
             },
-
             countNumberOfIngredients: function (id) {
                 let counter = 0;
-
                 for (let order in this.chosenIngredients) {
                     //console.log(order);
                     // console.log(this.chosenIngredients[order])
@@ -305,64 +322,85 @@ necessary Vue instance (found in main.js) to import your data and methods */
             },
 
             // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
-            editBurger: function (burger) {
+            editBurger: function (burger, index) {
                 console.log(this.currentOrder)
-                this.editingBurger = true;
+                this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
+                this.currentOrder.editingBurger = true;  // Denna visar bara att aanvändaren redigerar någon burgare
                 this.chosenIngredients = burger.ingredients;
                 this.price = burger.price;
                 this.view = "showMenu"
             },
 
+
+            //Här uppdateras priset
+            updatePrice: function () {
+                for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                    if (this.currentOrder.burgers[j].editingThisBurger) {
+                        this.currentOrder.burgers[j].price = this.price;
+                        this.currentOrder.burgers[j].editingThisBurger = false;
+
+                    }
+                }
+            },
+
+
             setView: function (window) {
                 this.view = window;
             },
-
             setCategory: function (number) {
                 this.categorynumber = number;
             },
-
-            showGlutenFree: function (number) {
-                this.gluten = number;
-
-
+               showGlutenFree: function () {
+                this.glutenBool = !this.glutenBool;
+                if (!this.glutenBool) {
+                    this.gluten = 1
+                }
+                else {
+                     this.gluten = 0
+                }
             },
-            showMilkFree: function (number) {
-                this.milk = number;
+            showMilkFree: function () {
+                this.milkBool = !this.milkBool;
+                if (!this.milkBool) {
+                    this.milk = 1
+                }
+                else {
+                     this.milk = 0
+                }
             },
-            showVegan: function (number) {
-                this.vegan = number;
+              showVeganFree: function () {
+                this.veganBool = !this.veganBool;
+                if (!this.veganBool) {
+                    this.vegan = 1
+                }
+                else {
+                     this.vegan = 0
+                }
             },
-
-
+            
+        },
+     
             placeOrder: function () {
                 // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
                 console.log(this.currentOrder)
                 this.$store.state.socket.emit('order', this.currentOrder);
                 this.currentOrder = [];
             },
-
-
+        
         }
-    }
+    
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
-
     section {
         font-family: "Courier new", monospace;
-
         color: dimgrey;
         font-variant: inherit;
     }
-
-
     .example-panel {
-
         left: 0;
         top: 0;
-
     }
-
     .ingredient {
         border: 1px solid grey;
         border-radius: 1.4em;
@@ -372,15 +410,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: #bccfbc;
         color: dimgray;
     }
-
-
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
-
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+        
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -388,7 +424,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         padding: 3%;
         margin: auto;
     }
-
     .grid-containerFront {
         display: grid;
         grid-template-columns: auto;
@@ -402,29 +437,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin: auto;
         color: white
     }
-
-
     .welcome {
         font-size: 5em;
         overflow: hidden;
         text-align: center;
         font-weight: bold;
     }
-
     .logo {
     }
-
     .mealLocation {
         text-align: center;
         font-size: 2em;
         background-color: darkgray;
         border-radius: 1em;
     }
-
     .switchLang {
         text-align: right;
+        
     }
-
+        
+    
     .mealButton {
         background-color: gray;
         color: black;
@@ -433,21 +465,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin: 1em;
         font-family: "Courier new", monospace;
     }
-
     .mealButton:hover {
         background-color: black;
         color: white;
         cursor: pointer;
     }
-
     .Top {
         grid-area: Top;
     }
-
     .SwitchL {
         margin: -10%;
     }
-
     .OrderList {
         grid-area: OrderList;
         display: grid;
@@ -455,8 +483,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         padding: 5% 0% 4% 4%;
         margin-right: 15%;
         grid-template-columns: repeat(auto-fill, 8em);
-
-
         grid-gap: 7%;
         height: 20em;
         overflow-y: scroll;
@@ -466,49 +492,33 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 0em 0em 3em 3em;
         margin-top: -16%;
     }
-
     .Done {
         grid-area: Done;
     }
-
     .glutenFilter button:hover {
         background-color: greenyellow;
     }
-
     .glutenFilter button:focus {
         background-color: green;
     }
-
     .glutenFilter button:active {
         background-color: springgreen;
-
     }
-
     .milkFilter button:hover {
         background-color: #98d5ee;
-
     }
-
     .milkFilter button:focus {
         background-color: cornflowerblue;
-
     }
-
     .veganFilter button:hover {
         background-color: #de7d9c;
-
     }
-
     .veganFilter button:focus {
         background-color: #b35b78;
-
     }
-
     .veganFilter button:visited {
         background-color: #b35b78;
-
     }
-
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
@@ -520,8 +530,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 0em 0em 2em 2em;
         margin-left: -2em;
     }
-
-
     .Total h2 {
         margin: 0;
         padding: 0.5em;
@@ -532,7 +540,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         font-weight: bold;
         font-size: 2em;
     }
-
     .Total p {
         margin: 0;
         padding: 0.5em;
@@ -543,19 +550,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
         padding-right: 2em;
         float: unset;
     }
-
     /*
-
         border-bottom: 3px solid #FFF;  Vi synkar Total-fönstret med resten på söndag! Detta ska vara ^
         border-right: 3px solid #FFF;
         border-left: 3px solid #FFF;
         border-top: 3px dotted #FFF;
         border-radius: 0em 0em 2em 2em;
         margin-left: -2em;
-
       }*/
-
-
     .Burger {
         padding: 1em;
         margin-left: -2em;
@@ -566,24 +568,19 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
     }
-
     #glutenButton {
         border-radius: 50%;
         height: 50px;
         width: 50px
     }
-
     #PlaceOrderButton {
         border-radius: 50%;
         height: 50px;
         width: 50px
     }
-
     .foodFilter {
         margin-left: 35%;
-
     }
-
     .foodFilter button {
         background-color: rgba(232, 232, 232, 0.92);
         width: 5em;
@@ -596,24 +593,16 @@ necessary Vue instance (found in main.js) to import your data and methods */
         transition: 1s;
         border-radius: 50%;
         border: 3px solid #FFF;
-
     }
-
-
     /* Style the tab */
     .tab {
         margin: -2% 15% 0% 0%;
         border-bottom: 3px solid #FFFFFF;
-
     }
-
-
     /* Style the buttons that are used to open the tab content */
     .tab button {
-
         background-color: rgba(232, 232, 232, 0.92);
         width: 16.66667%;
-
         font-size: 90%;
         float: auto;
         border: none;
@@ -624,28 +613,20 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
         border-bottom: 3px solid #FFFFFF;
-
     }
-
     /* Change background color of buttons on hover */
     .tab button:hover {
         background-color: whitesmoke;
         border: 3px solid #FFF;
-
     }
-
     .tab button:focus {
         background-color: whitesmoke;
         border: 3px solid #FFF;
     }
-
     /* Create an active/current tablink class */
     .tab button.active {
         background-color: #ddd;
-
     }
-
-
     /* Style the tab content */
     .tabcontent {
         display: none;
@@ -653,15 +634,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border: 3em solid #ddd;
         border-top: none;
         background-color: #ddd;
-
     }
-
     .tablinks {
         font-family: "Courier new", monospace;
     }
-
     /* För overview-sidan*/
-
     .grid-containerOverview {
         display: grid;
         grid-template-columns: 1fr;
@@ -678,7 +655,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin: auto;
         color: white
     }
-
     .burgerOverview {
         grid-area: Burgers;
         display: grid;
@@ -688,23 +664,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
         overflow-x: scroll;
         text-align: center;
         margin-top: 1em;
-
     }
-
     .overviewTop {
         grid-area: Top;
         font-size: 4em;
         overflow: hidden;
         text-align: center;
         font-weight: bold;
-
-
     }
-
     .overviewBottom {
         grid-area: Bottom;
     }
-
     .burgerScroll {
         background-color: darkgray;
         width: 15em;
@@ -712,7 +682,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 2em;
         padding: 2em;
     }
-
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
@@ -721,11 +690,106 @@ necessary Vue instance (found in main.js) to import your data and methods */
         color: white;
         font-size: 2em;
     }
-
     .burgerAdd:hover {
         background-color: black;
         color: white;
         cursor: pointer;
     }
+    
+    
+    /* Designing of Foodfilter*/
+    .label__checkbox {
+  display: none;
 
+
+}
+    
+    .positionVegan {
+       margin-left: 30%;
+    }
+    
+    .positionGluten {
+       margin-left: 40%;  
+      
+
+    }
+     .positionMilk {
+       margin-left: 50%;  
+
+    }
+
+.label__check {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  border: 5px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255, 0.9);
+  width: 4em;
+  height: 4em;
+  cursor: pointer;
+  transition: border .3s ease;
+  text-align: center;
+
+  
+}
+
+.label__checkbox:checked + .label__text .label__check {
+  animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+
+  
+
+}
+
+.center {
+
+  transform: translate(-50%,-50%);
+}
+
+@keyframes icon {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes check {
+  0% {
+    width: 3.5em;
+    height: 3.5em;
+    border-width: 5px;
+  }
+  10% {
+    width: 3.5em;
+    height: 3.5em;
+    opacity: 0.1;
+    background: rgba(0,0,0,0.2);
+    border-width: 15px;
+  }
+  12% {
+    width: 3.5em;
+    height: 3.5em;
+    opacity: 0.4;
+    background: rgba(0,0,0,0.1);
+    border-width: 0;
+  }
+  50% {
+    width: 4em;
+    height: 4em;
+    background: rgba(144, 198, 149, 0.6);
+    border: 1px solid rgba(38, 166, 91, 1);
+ 
+  }
+  100% {
+    width: 4.5em;
+    height: 4.5em;
+    background: rgba(144, 198, 149, 0.9);
+    border: 4px solid rgba(38, 166, 91, 1);
+    text-align: center;
+  }
+}
+    
 </style>

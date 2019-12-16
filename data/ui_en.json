@@ -32,5 +32,7 @@
   "welcome": "WELCOME TO BIFFENS BURGER",
   "beginOrder": "Begin your order by choosing where to eat",
   "addBurger": "Click here to add burger",
-  "yourOrder": "Your order"
+  "yourOrder": "Your order",
+  "backfirstpage": "Back to the first page",
+  "editBurger": "Edit this burger"
 }
