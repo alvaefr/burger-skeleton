@@ -731,7 +731,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     /*Designing of "Next"-button*/
     
     .nextPage {
-        background-color: rgba(135, 211, 124, 0.9);
+        background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
         font-family: "Courier new", monospace;
         float: right;
