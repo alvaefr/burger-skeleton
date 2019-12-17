@@ -45,7 +45,7 @@
                         ref="ingredient"
                         v-for="item in ingredients"
                          v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-                        v-on:increment="addToBurger(item)"
+                        v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
                         :count="item.counter"
@@ -77,6 +77,9 @@
             <div class="Done">
 
                 <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+                
+                <!--<button class="switchForward" v-on:click="switchFor(categorynumber)"> KLAR </button>-->
+                 <button class="switchBackward" v-on:click="switchBack()"> BAKÅT </button>
 
                <div class="positionGluten">
             <label class="label">
@@ -111,7 +114,23 @@
 
 
                 <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-                <button id="nextPage"  v-on:click="addToOrder()"> See burgers</button>
+                
+                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> See burgers</button>
+                <!--<span v-for="item in chosenIngredients">
+                    <span v-if= "(item.category === 4)">
+                         <span v-for="item in chosenIngredients">
+                    <span v-if= "(item.category === 4)">
+                         <button class="nextPage"  v-on:click="addToOrder()"> See burgers</button>
+                         </span>
+                   
+               
+                        </span>
+                    </span>
+               
+                    </span>-->
+                            
+                         
+           
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -193,6 +212,7 @@
                 gluten: 0,
                 milk: 0,
                 vegan: 0,
+                finish: false,
                 veganBool: true,
                 glutenBool: true,
                 milkBool: true,
@@ -203,6 +223,7 @@
                 showOverview: "showOverview",
                 view: "showFront",
                 editingBurger: false,
+                buttonClickable: false,
                 currentOrder: {
                     burgers: []
                 }
@@ -264,6 +285,26 @@
             }
         },
         methods: {
+            
+            checkBurger: function() {
+            for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                if (this.chosenIngredients[i].category===4) {
+                    for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                         if (this.chosenIngredients[i].category===1) {
+                              this.buttonClickable=true;
+                         }
+                    }
+                }
+            }   
+                
+               
+                
+        },
+            
+            switchFor: function(number) {
+                
+            },
+            
             addToBurger: function (item) {
                 this.chosenIngredients.push(item);
                 this.price += item.selling_price;
@@ -460,30 +501,8 @@
     .Done {
         grid-area: Done;
     }
-    .glutenFilter button:hover {
-        background-color: greenyellow;
-    }
-    .glutenFilter button:focus {
-        background-color: green;
-    }
-    .glutenFilter button:active {
-        background-color: springgreen;
-    }
-    .milkFilter button:hover {
-        background-color: #98d5ee;
-    }
-    .milkFilter button:focus {
-        background-color: cornflowerblue;
-    }
-    .veganFilter button:hover {
-        background-color: #de7d9c;
-    }
-    .veganFilter button:focus {
-        background-color: #b35b78;
-    }
-    .veganFilter button:visited {
-        background-color: #b35b78;
-    }
+
+ 
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
@@ -543,22 +562,7 @@
         height: 50px;
         width: 50px
     }
-    .foodFilter {
-        margin-left: 35%;
-    }
-    .foodFilter button {
-        background-color: rgba(232, 232, 232, 0.92);
-        width: 5em;
-        height: 5em;
-        font-size: 90%;
-        float: left;
-        margin: 2%;
-        cursor: pointer;
-        padding: 14px 14px;
-        transition: 1s;
-        border-radius: 50%;
-        border: 3px solid #FFF;
-    }
+   
     /* Style the tab */
     .tab {
         margin: -2% 15% 0% 0%;
@@ -661,6 +665,52 @@
         cursor: pointer;
     }
     
+    
+    /*Designing of "Next"-button*/
+    
+    .nextPage {
+        background-color: rgba(135, 211, 124, 0.9);
+        margin-top: 0.5em;
+        font-family: "Courier new", monospace;
+        float: right;
+        cursor: pointer;
+        font-size: 2em;
+        width: 20%;
+        height: 80%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    
+        
+    }
+    
+    .nextPageNotClick {
+        background-color: rgba(135, 211, 124, 0.9);
+        margin-top: 0.5em;
+        font-family: "Courier new", monospace;
+        float: right;
+        font-size: 2em;
+        width: 20%;
+        height: 80%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    }
+
+    
+    .switchBackward {
+        background-color: rgba(241, 169, 160, 0.9);
+        margin-top: 0.5em;
+        font-family: "Courier new", monospace;
+        float: left;
+        cursor: pointer;
+        font-size: 3em;
+        width: 20%;
+        height: 80%;
+        border-radius: 0.2em  0.2em 0.2em 1em;
+        border: 3px solid rgba(226, 106, 106, 0.8);
+     
+    
+        
+    }
     
     /* Designing of Foodfilter*/
     .label__checkbox {
