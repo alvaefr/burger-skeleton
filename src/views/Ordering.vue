@@ -45,7 +45,7 @@
                         ref="ingredient"
                         v-for="item in ingredients"
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-                        v-on:increment="addToBurger(item)"
+                        v-on:increment="addToBurger(item); ; checkBurger()"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
                         :count="item.counter"
@@ -110,7 +110,8 @@
 
 
                 <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
-                <button id="nextPage" v-on:click="addToOrder()">{{uiLabels.yourOrder}}</button>
+               
+                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -188,6 +189,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          return {
              chosenIngredients: [],
              price: 0,
+             buttonClickable: false,
              orderNumber: "",
              glutenFilter: false,
              count: 0,
@@ -273,6 +275,23 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
          },
+         
+         checkBurger: function() {
+            for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                if (this.chosenIngredients[i].category===4) {
+                    for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                         if (this.chosenIngredients[i].category===1) {
+                              this.buttonClickable=true;
+                         }
+                    }
+                }
+            }   
+                
+               
+                
+        },
+
+         
          delFromBurger: function (item) {
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
@@ -708,6 +727,36 @@ necessary Vue instance (found in main.js) to import your data and methods */
         color: white;
         cursor: pointer;
     }
+    
+    /*Designing of "Next"-button*/
+    
+    .nextPage {
+        background-color: rgba(135, 211, 124, 0.9);
+        margin-top: 0.5em;
+        font-family: "Courier new", monospace;
+        float: right;
+        cursor: pointer;
+        font-size: 2em;
+        width: 20%;
+        height: 80%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    
+        
+    }
+    
+    .nextPageNotClick {
+        background-color: rgba(135, 211, 124, 0.9);
+        margin-top: 0.5em;
+        font-family: "Courier new", monospace;
+        float: right;
+        font-size: 2em;
+        width: 20%;
+        height: 80%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    }
+    
     /* Designing of Foodfilter*/
     .label__checkbox {
   display: none;
