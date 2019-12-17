@@ -1,11 +1,29 @@
 <template>
-<div>
-  <div v-show="category_view === 'Burger'">
-    <div id="orders" class="grid-container">
-    <div class="item1">{{category_view}}</div>
+<div id="orders">
 
-  <div class="item2">
-      <!--<h1>orders:{{ uiLabels.ordersInQueue }}</h1>-->
+  <div v-show="category_view === ''" class = grid-container_option>
+    <div>
+  <button id = 'button' v-on:click= "setCategory_view('Burger')">Burger</button>
+  </div>
+  <div>
+    <button id = 'button' v-on:click="setCategory_view('Drinks and sides')">Drinks and sides</button>
+  </div>
+  <div>
+    <button id = 'button' v-on:click="setCategory_view('Done orders')">Done orders</button>
+  </div>
+
+  </div>
+<!-- <div v-for ="order in orders">
+  <div v-for ="burgers in order">
+  <div v-for = "ingredient in burgers.ingredients">
+          category_vue: {{ingredient}}
+  </div>
+  </div>
+</div> -->
+  <div v-show="category_view === 'Burger'">
+  <h1>Burger</h1>
+  {{$store.state.hello}}
+  <div>
     <OrderItemToPrepare
       v-for="(order, key) in orders"
       v-if="order.status !== 'done'"
@@ -14,49 +32,52 @@
       :order="order"
       :ui-labels="uiLabels"
       :lang="lang"
-      :key="key">
+      :key="key"
+      :categoryNum = "category_burger">
     </OrderItemToPrepare>
+  <button id= back class = 'item3' v-on:click="setCategory_view('')">Back to overview</button>
   </div>
-  <button id= back class = 'item3' v-on:click="change_view(); setCategory_view('')">Back</button>
+  </div>
+  <div v-show="category_view === 'Drinks and sides'">
+  <h1>Sides and drink</h1>
+  <div>
+    <OrderItemToPrepare
+      v-for="(order, key) in orders"
+      v-if="order.status !== 'done'"
+      v-on:done="markDone(key)"
+      :order-id="key"
+      :order="order"
+      :ui-labels="uiLabels"
+      :lang="lang"
+      :key="key"
+      :categoryNum = "category_drSi">
+    </OrderItemToPrepare>
+      <button id= back class = 'item3' v-on:click="setCategory_view('')">Back to overview</button>
   </div>
   </div>
-  <div v-show="category_view === 'Done orders'" class="grid-container">
-      <div class="item1">{{category_view}}</div>
-      <h1>Finished: {{ uiLabels.ordersFinished }}</h1>
-        <div class="item2">
+  <h1>{{ uiLabels.ordersFinished }}</h1>
+    <div v-show="category_view === 'Done orders'">
+  <div>
     <OrderItem
       v-for="(order, key) in orders"
-      v-if="order.status === 'done' && order"
+      v-if="order.status === 'done'"
       :order-id="key"
       :order="order"
       :lang="lang"
       :ui-labels="uiLabels"
-      :key="key">
+      :key="key"
+      :categoryNum = "category_burger">
     </OrderItem>
-      </div>
-  <button id= back class = 'item3' v-on:click="change_view(); setCategory_view('')">Back</button>
+        <button id= back class = 'item3' v-on:click="setCategory_view('')">Back to overview</button>
   </div>
-<div v-show="category_view === ''" class = grid-container_option>
-  <div>
-<button id = 'button' v-on:click= "setCategory_view('Burger')">Burger</button>
-</div>
-<div>
-  <button id = 'button' v-on:click="setCategory_view('Drinks and sides')">Drinks and sides</button>
-</div>
-<div>
-  <button id = 'button' v-on:click="setCategory_view('Done orders')">Done orders</button>
-</div>
-
 </div>
 </div>
 </template>
 <script>
-  import OrderItem from '@/components/OrderItem.vue'
+import OrderItem from '@/components/OrderItem.vue'
 import OrderItemToPrepare from '@/components/OrderItemToPrepare.vue'
-
 //import methods and data that are shared between ordering and kitchen views
 import sharedVueStuff from '@/components/sharedVueStuff.js'
-
 export default {
   name: 'Ordering',
   components: {
@@ -65,102 +86,74 @@ export default {
   },
   mixins: [sharedVueStuff], // include stuff that is used in both
                             //the ordering system and the kitchen
-  data: function(){
+  data: function() {
     return {
-      chosenIngredients: [],
-      price: 0,
-        burger_view: false,
-        category_view: '',
-        category_number: 1
+          category_burger:[1,2,3,4],
+          category_drSi:[5,6],
+          category_all:[1,2,3,4,5,6],
+          category_view: ''
     }
   },
+  // computed: {
+  //   countBeef100: function() {
+  //     return this.countNumberOfIngredients(2)
+  //   },
+  //   countAllIngredients: function() {
+  //     let ingredientTuples = []
+  //     for (let i = 0; i < this.ingredients.length; i += 1) {
+  //       ingredientTuples[i] = {};
+  //       ingredientTuples[i].name = this.ingredients[i]['ingredient_' + this.lang];
+  //       ingredientTuples[i].count = this.countNumberOfIngredients(this.ingredients[i].ingredient_id);
+  //     }
+  //     return ingredientTuples;
+  //   }
+  // },
   methods: {
     markDone: function (orderid) {
       this.$store.state.socket.emit("orderDone", orderid);
     },
     setCategory_view: function(view) {
-            this.category_view = view;
-    },
-    change_view: function(){
-      this.burger_view = !this.burger_view;
+    				this.category_view = view;
     }
+    // countNumberOfIngredients: function (id) {
+    //   let counter = 0;
+    //   for (let order in this.orders) {
+    //     //Now we have an array of burgers in an order so we need to add a loop
+    //     let burgers = this.orders[order].burgers;
+    //     for (let j = 0; j < burgers.length; j += 1) {
+    //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
+    //         if (this.orders[order].status !== "done" &&
+    //             burgers[j].ingredients[i].ingredient_id === id) {
+    //           counter +=1;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return counter;
+    // }
   }
 }
 </script>
 <style scoped>
 	#orders {
     font-size:24pt;
+    font-family: "Courier new", monospace;
   }
-
   h1 {
     text-transform: uppercase;
     font-size: 1.4em;
   }
-
-  .grid-container {
-      display: grid;
-      grid-template-areas:'header header header header header header'
-    'main main main main main main'
-    'button_back footer footer footer footer footer';
-    grid-template-rows: 10% 80% 10%;
-    width: 36em;
-    height: 15em;
- grid-gap: 1px;
- background-color: black;
-   text-align: center;
- padding: 10px;
-}
-
-.grid-container > div{
- background-color: white;
- opacity: 0.7;
- font-size: 30px;
- margin: 0.2%;
-   border-radius: 0.5em;
-     font-family: "Courier new", monospace;
-  }
-
-  .grid-container_option {
-      display: grid;
-    grid-template-columns:33% 33% 33%;
-    width: 78em;
-    height: 31em;
- background-color: black;
- padding: 5px;
-}
-
-.grid-container_option > div{
-  margin: 3%;
-  }
-
-#button {
-  padding: 10px 24px;
-  border-radius: 8px;
-  background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7;
-  font-size: 50px;
-  width: 80%;
-  height: 80%;
-margin:3% 20% 3% 5%;
-}
-
-#back {
-  text-align: center;
-  font-size: 0.7em;
+  #back {
+  font-family: "Courier new", monospace;  
   background-color: red;
   border-radius: 0.5em;
-    font-family: "Courier new", monospace;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
 }
-  .item1 {
-    grid-area: header;
-  }
-
-  .item2 {
-    grid-area: main;
-  }
-
-  .item3 {
-    grid-area: button_back;
-  }
 </style>

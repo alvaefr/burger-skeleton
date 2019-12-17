@@ -4,18 +4,16 @@
   <OrderItem
     :ui-labels="uiLabels"
     :lang="lang"
-    :order-id="orderId"
-    :order="order">
+    :order="order"
+    :categoryNum ="categoryNum">
   </OrderItem>
-  <button v-on:click="orderDone" class ="button">
-    Done
-    <!-- {{uiLabels.ready}}-->
+  <button id= 'button' v-on:click="orderDone">
+Done
   </button>
 </div>
 </template>
 <script>
 import OrderItem from '@/components/OrderItem.vue'
-
 export default {
   name: 'OrderItemToPrepare',
   components: { OrderItem },
@@ -23,7 +21,8 @@ export default {
     uiLabels: Object,
     order: Object,
     orderId: String,
-    lang: String
+    lang: String,
+    categoryNum: Array
   },
   methods: {
     orderDone: function () {
@@ -38,15 +37,16 @@ export default {
 }
 </script>
 <style scoped>
-  .button {
-    background-color: #4CAF50; /* Green */
- border: none;
- color: white;
- padding: 15px 32px;
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 16px;
-  }
-
+#button {
+  background-color: #4CAF50;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+font-family: "Courier new", monospace;
+}
 </style>
