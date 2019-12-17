@@ -445,9 +445,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .grid-container {
         display: grid;
-        grid-template-columns: 1.5fr 0.6fr;
-        grid-template-rows: 1fr 1.2fr 0.35fr 0.7fr;
-        grid-template-areas: "Top Burger"  "OrderList Burger" "OrderList Total" "Done Done";
+        grid-template-columns: 75% 25%;
+        grid-template-rows: 13% 55% 12% 20%;
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
         border-radius: 4em;
         border: 1px solid #FFF;
@@ -515,6 +515,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .Top {
         grid-area: Top;
+        align-items: end;
     }
     .SwitchL {
         margin: -10%;
@@ -527,13 +528,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin-right: 15%;
         grid-template-columns: repeat(auto-fill, 8em);
         grid-gap: 7%;
-        height: 20em;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
-        margin-top: -16%;
     }
     .Done {
         grid-area: Done;
@@ -639,7 +638,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     /* Style the tab */
     .tab {
-        margin: -2% 15% 0% 0%;
+        grid-area: top;
+        margin: 0% 15% 0% 0%;
         border-bottom: 3px solid #FFFFFF;
     }
     /* Style the buttons that are used to open the tab content */
@@ -647,11 +647,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: rgba(232, 232, 232, 0.92);
         width: 16.66667%;
         font-size: 90%;
-        float: auto;
-        border: none;
         outline: none;
         cursor: pointer;
-        padding: 14px 16px;
+        padding: 27px 16px;
+        text-align: center;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
@@ -680,6 +679,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .tablinks {
         font-family: "Courier new", monospace;
+        align-items: end;
     }
     /* För overview-sidan*/
     .grid-containerOverview {
