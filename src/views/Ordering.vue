@@ -140,7 +140,7 @@
                     Total {{ burger.price }}
 
                     <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
-<!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
+                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>   <!-- MÅSTE FIXAS RÄTT -->
 
 
 
@@ -369,14 +369,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
          },
 
-         // deleteBurger: function (burger, index) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
-         //
-         //      this.price -= burger.price;
-         //      this.chosenIngredients -= burger.ingredients;
-         //      console.log(this.chosenIngredients);
-         //  },
+         deleteBurger: function (burger, index) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+              this.currentOrder.burgers.splice(this.currentOrder.burgers[index],1);
+              console.log(burger)
+              this.price -= burger.price;
+              this.chosenIngredients -= burger.ingredients;
+              console.log(this.chosenIngredients);
+          },
 
-         //addBurger: function () {}
 
          //Här uppdateras priset
          updatePrice: function () {
