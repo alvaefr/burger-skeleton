@@ -17,7 +17,9 @@
             </div>
 
             <div class="switchLang">
-                <button class="flagButton" v-on:click="switchLang(); switchFlag()" ><img class="flag" v-if="picBool" src="unionJack.png" > <img class="flag" v-else src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAHlBMVEUAaqf+zAD/0QAAaKlPfJZggpAAZqpdgZFKepiBj4EDfUmrAAABn0lEQVR4nO3ay43CUBBFwYc9/PJPeIig8IKWkDmVQKvP+q41Y79ul3e26z50/csVB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYFzxNln3O4H4txvQ9c/ZP3NeDwPxHk+hq5/yNqmvG3zqvPl1oEfflZxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kDLLmgTCK1JYWzBe4od8pDiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOHCKOP/ItlPLsoEE4gAAAABJRU5ErkJggg==" > </button>
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()" >
+                    <img class="flag" v-if="picBool" src="https://static.posters.cz/image/750/posters/english-national-flag-union-jack-i135.jpg" > 
+                    <img class="flag" v-else src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAHlBMVEUAaqf+zAD/0QAAaKlPfJZggpAAZqpdgZFKepiBj4EDfUmrAAABn0lEQVR4nO3ay43CUBBFwYc9/PJPeIig8IKWkDmVQKvP+q41Y79ul3e26z50/csVB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYFzxNln3O4H4txvQ9c/ZP3NeDwPxHk+hq5/yNqmvG3zqvPl1oEfflZxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kDLLmgTCK1JYWzBe4od8pDiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOHCKOP/ItlPLsoEE4gAAAABJRU5ErkJggg==" > </button>
                 
 
             </div>
@@ -45,12 +47,12 @@
                         ref="ingredient"
                         v-for="item in ingredients"
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-                        v-on:increment="addToBurger(item); ; checkBurger()"
-                        v-on:decrement="delFromBurger(item)"
+                        v-on:increment="addToBurger(item); checkBurger()"
+                        v-on:decrement="delFromBurger(item); checkBurger()"
                         :item="item"
-                        :count="item.counter"
                         :lang="lang"
                         :key="item.ingredient_id">
+
                 </Ingredient>
             </div>
 
@@ -130,14 +132,14 @@
 
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
-                    Burger {{ burger.no}} <br>
+                    <h1> Burger {{ burger.no}} </h1> <br>
 
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
-                        {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+                        {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
                     Total {{ burger.price }}
-                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
-                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>
+                    <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
+<!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
 
 
                 </div>
@@ -152,7 +154,9 @@
 
 
                 <!-- Button that adds new burgers -->
-                <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
+ 
+
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurg()">{{uiLabels.addBurger}}</button>
 
             </div>
 
@@ -277,12 +281,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          
          checkBurger: function() {
+             this.buttonClickable=false;
             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                 if (this.chosenIngredients[i].category===4) {
                     for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                          if (this.chosenIngredients[i].category===1) {
                               this.buttonClickable=true;
                          }
+                       
                     }
                 }
             }   
@@ -290,7 +296,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
                
                 
         },
-
+         
+            addBurg: function() {
+             this.buttonClickable=false;
+             this.chosenIngredients = [];
+             
+         },
          
          delFromBurger: function (item) {
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
@@ -319,10 +330,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
          },
-         deleteBurger: function (burger) {
-             this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
-             this.price -= burger.price;
-         },
+
+         // deleteBurger: function (burger) {     FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+         //     this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
+         //     this.price -= burger.price;
+         // },
+
          countNumberOfIngredients: function (id) {
              let counter = 0;
              for (let order in this.chosenIngredients) {
@@ -350,13 +363,20 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
          editBurger: function (burger, index) {
-             console.log(this.currentOrder)
+             console.log("HEJ" + this.currentOrder)
              this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
              this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
+             console.log("då" + this.chosenIngredients)
+
+             for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
+                 this.$refs.ingredient[i].updateCounter();
+             }
+
          },
+
          //Här uppdateras priset
          updatePrice: function () {
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
@@ -709,18 +729,22 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .burgerScroll {
         background-color: darkgray;
+
         width: 15em;
-        height: 15em;
+        height: 19em;
         border-radius: 2em;
-        padding: 2em;
+        padding: 0 2em;
     }
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
-        padding: 2em;
+        padding: 1em;
         font-family: "Courier new", monospace;
         color: white;
         font-size: 2em;
+        height: 6em;
+        width: 6em;
+        margin: 2em;
     }
     .burgerAdd:hover {
         background-color: black;

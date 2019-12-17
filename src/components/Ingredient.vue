@@ -2,17 +2,16 @@
   <div class="ingredient">
     <label>
 
-      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, {{item.stock}} pcs 
+      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, {{item.stock}} pcs
     <span v-if="item.gluten_free"> G </span>
     <span v-if="item.vegan"> V </span>
     <span v-if="item.milk_free"> L </span>
     <br>
     <button v-on:click="incrementCounter">+</button>
-
+    {{ counter }}
     </label>
 
-
-    <button v-if="counter > 0" v-on:click="decrementCounter">-</button>
+    <button v-on:click="decrementCounter"  :disabled="item.stock === 30">-</button>
 
   </div>
 </template>
@@ -23,8 +22,6 @@ export default {
   props: {
     item: Object,
     lang: String,
-    cunt:0,
-
 
   },
     data: function () {
@@ -36,7 +33,8 @@ export default {
 
   methods: {
     incrementCounter: function () {
-      this.counter += 1;
+      this.item.stock -= 1;
+      this.counter = 30 - this.item.stock;
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('increment');
@@ -44,7 +42,9 @@ export default {
       //this.$emit('counter', this.counter)
     },
     decrementCounter: function () {
-        this.counter -= 1;
+      this.item.stock += 1;
+      this.counter = 30 - this.item.stock;
+
       // sending 'increment' message to parent component or view so that it
       // can catch it with v-on:increment in the component declaration
       this.$emit('decrement');
@@ -52,6 +52,10 @@ export default {
     },
     resetCounter: function () {
       this.counter = 0;
+    },
+
+    updateCounter: function () {
+      this.counter = 30 - this.item.stock;
     }
   }
 }
