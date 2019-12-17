@@ -2,6 +2,7 @@
 
     <section class="example-panel">
 
+        <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront">
 
             <div class="welcome">
@@ -16,16 +17,17 @@
             </div>
 
             <div class="switchLang">
-                <button v-on:click="switchLang()"></button>
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()" ><img class="flag" v-if="picBool" src="unionJack.png" > <img class="flag" v-else src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAHlBMVEUAaqf+zAD/0QAAaKlPfJZggpAAZqpdgZFKepiBj4EDfUmrAAABn0lEQVR4nO3ay43CUBBFwYc9/PJPeIig8IKWkDmVQKvP+q41Y79ul3e26z50/csVB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYFzxNln3O4H4txvQ9c/ZP3NeDwPxHk+hq5/yNqmvG3zqvPl1oEfflZxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kDLLmgTCK1JYWzBe4od8pDiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOHCKOP/ItlPLsoEE4gAAAABJRU5ErkJggg==" > </button>
+                
+
             </div>
         </div>
 
-
+<!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
-
-
+            
             <div class="Top">
-
+                
                 <div class="tab">
                     <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
                     <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -39,36 +41,31 @@
 
 
             <div class="OrderList">
-
-
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
-                         v-if="item.category===categorynumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-                        v-on:increment="addToBurger(item); checkBurger()"
+                        v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
+                        v-on:increment="addToBurger(item)"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
                         :count="item.counter"
                         :lang="lang"
                         :key="item.ingredient_id">
                 </Ingredient>
-
-
             </div>
 
-
-            <!-- Här visas sidomenyn med de färdiga burgarna --->
+        <!-- Här visas sidomenyn med de färdiga burgarna --->
             <div class="Burger">
                 <h1>{{ uiLabels.ordersInQueue }}</h1>
                 <h1>{{ uiLabels.order }}</h1>
                 <div v-for="countIng in countAllIngredients"
                      :key="countAllIngredients.indexOf(countIng)">
-                    {{countIng.name}}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+                    {{countIng.count}}
+                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr
                     <!--<button v-on:click="delFromBurger(countIng)"> - </button> <br> -->
                     <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
                 </div>
             </div>
-
 
             <div class="Total">
                 <h2>{{ uiLabels.total }}:</h2>
@@ -76,61 +73,44 @@
 
             <div class="Done">
 
-                <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
-                
-                <!--<button class="switchForward" v-on:click="switchFor(categorynumber)"> KLAR </button>-->
-                 <button class="switchBackward" v-on:click="switchBack()"> BAKÅT </button>
+            <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
 
                <div class="positionGluten">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Gluten free</p>
-      </span>
-    </span>
-  </label>
-</div>
-           <div class="positionVegan">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Vegan</p>
-      </span>
-    </span>
-  </label>
-</div>
-           <div class="positionMilk">
-            <label class="label">
-                <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
-            <span class="label__text" >
-      <span class="label__check">
-        <p align=center >Milk Free</p>
-      </span>
-    </span>
-  </label>
-</div>
-
-
-                <button v-on:click="setView(showFront)">Tillbaka till första sidan</button>
-                
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> See burgers</button>
-                <!--<span v-for="item in chosenIngredients">
-                    <span v-if= "(item.category === 4)">
-                         <span v-for="item in chosenIngredients">
-                    <span v-if= "(item.category === 4)">
-                         <button class="nextPage"  v-on:click="addToOrder()"> See burgers</button>
-                         </span>
-                   
-               
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center  >{{uiLabels.glutenFilter}}</p>
                         </span>
-                    </span>
-               
-                    </span>-->
-                            
-                         
-           
+                        </span>
+                    </label>
+                </div>
+
+                <div class="positionVegan">
+                    <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.veganFilter}}</p>
+                        </span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="positionMilk">
+                <label class="label">
+                    <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
+                        <span class="label__text" >
+                        <span class="label__check">
+                        <p align=center >{{uiLabels.lactoseFilter}}</p>
+                        </span>
+                        </span>
+                </label>
+                </div>
+
+
+                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
+                <button id="nextPage" v-on:click="addToOrder()">{{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
 
@@ -147,15 +127,17 @@
 
             <div class="burgerOverview">
 
-                <div class="burgerScroll" v-for="(burger) in countAllBurgers"
+                <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     Burger {{ burger.no}} <br>
 
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <button v-on:click="editBurger(burger)"> Edit your burger</button>
                     Total {{ burger.price }}
+                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
+                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>
+
 
                 </div>
 
@@ -184,220 +166,232 @@
 </template>
 
 <script>
-    //import the components that are used in the template, the name that you
-    //use for importing will be used in the template above and also below in
-    //components
-    import Ingredient from '@/components/Ingredient.vue'
-    import OrderItem from '@/components/OrderItem.vue'
-    //import methods and data that are shared between ordering and kitchen views
-    import sharedVueStuff from '@/components/sharedVueStuff.js'
-    /* eslint-disable no-console */
-    /* instead of defining a Vue instance, export default allows the only
-    necessary Vue instance (found in main.js) to import your data and methods */
-    export default {
-        name: 'Ordering',
-        components: {
-            Ingredient,
-            OrderItem,
-        },
-        mixins: [sharedVueStuff], // include stuff that is used in both
-                                  // the ordering system and the kitchen
-        data: function () { //Not that data is a function!
-            return {
-                chosenIngredients: [],
-                price: 0,
-                orderNumber: "",
-                glutenFilter: false,
-                count: 0,
-                gluten: 0,
-                milk: 0,
-                vegan: 0,
-                finish: false,
-                veganBool: true,
-                glutenBool: true,
-                milkBool: true,
-                brodcategory: false,
-                categorynumber: 1,
-                showFront: "showFront",
-                showMenu: "showMenu",
-                showOverview: "showOverview",
-                view: "showFront",
-                editingBurger: false,
-                buttonClickable: false,
-                currentOrder: {
-                    burgers: []
-                }
-            }
-        },
-        created: function () {
-            this.$store.state.socket.on('orderNumber', function (data) {
-                this.orderNumber = data;
-            }.bind(this));
-            this.$store.state.socket.on('')
-        },
-        computed: {
-            countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
-                let ingredientTuples = []
-                for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                    ingredientTuples[i] = {};
-                    ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-                    ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                    ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
-                }
-                var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
-                    .map(name => {
-                        return {
-                            name: name,
-                            count: ingredientTuples.find(o => o.name === name).count,
-                            ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
-                        };
-                    });
-                console.log(difIngredients)
-                return difIngredients;
-            },
-            countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en burgare
-                let severalBurgers = [];
-                for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
-                    let ingredientTuples = []
-                    for (let i = 0; i < this.currentOrder.burgers[j].ingredients.length; i += 1) {
-                        ingredientTuples[i] = {};
-                        ingredientTuples[i].name = this.currentOrder.burgers[j].ingredients[i]['ingredient_' + this.lang];
-                        ingredientTuples[i].count = this.countNumberOfIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id);
-                        ingredientTuples[i].ingPrice = this.currentOrder.burgers[j].ingredients[i]['selling_price'];
-                    }
-                    var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
-                        .map(name => {
-                            return {
-                                name: name,
-                                count: ingredientTuples.find(o => o.name === name).count,
-                                ingPrice: ingredientTuples.find(o => o.name === name).ingPrice
-                            };
-                        });
-                    severalBurgers[j] = {};
-                    severalBurgers[j].no = j;
-                    severalBurgers[j].ingredientsShow = difIngredients;
-                    severalBurgers[j].ingredients = this.currentOrder.burgers[j].ingredients;
-                    severalBurgers[j].price = this.currentOrder.burgers[j].price;
-                    console.log(severalBurgers[j].ingredients)
-                }
-                console.log(severalBurgers)
-                return severalBurgers
-            }
-        },
-        methods: {
-            
-            checkBurger: function() {
-            for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                if (this.chosenIngredients[i].category===4) {
-                    for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                         if (this.chosenIngredients[i].category===1) {
-                              this.buttonClickable=true;
-                         }
-                    }
-                }
-            }   
-                
-               
-                
-        },
-            
-            switchFor: function(number) {
-                
-            },
-            
-            addToBurger: function (item) {
-                this.chosenIngredients.push(item);
-                this.price += item.selling_price;
-            },
-            delFromBurger: function (item) {
-                this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
-                this.price -= item.selling_price;
-            },
-            addToOrder: function () {
-                // Add the burger to an order array
-                if (!this.editingBurger) {
-                    this.currentOrder.burgers.push({
-                        ingredients: this.chosenIngredients.splice(0),
-                        price: this.price,
-                    });
-                }
-                console.log(this.currentOrder.burgers)
-                //set all counters to 0. Notice the use of $refs
-                for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
-                    this.$refs.ingredient[i].resetCounter();
-                }
-                this.chosenIngredients = [];
-                this.price = 0;
-                this.editingBurger = false;
-                this.view = "showOverview";
-            },
-            countNumberOfIngredients: function (id) {
-                let counter = 0;
-                for (let order in this.chosenIngredients) {
-                    //console.log(order);
-                    // console.log(this.chosenIngredients[order])
-                    //let toppings = this.chosenIngredients[order];
-                    //console.log(toppings.length)
-                    //for (var i = 0; i < toppings.length; i += 1) ;
-                    //{
-                    if (this.chosenIngredients[order].ingredient_id === id) { //this.orders[order].status !== "done" &&
-                        counter += 1;
-                    }
-                    // }
-                }
-                return counter;
-            },
-            // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
-            editBurger: function (burger) {
-                console.log(this.currentOrder)
-                this.editingBurger = true;
-                this.chosenIngredients = burger.ingredients;
-                this.price = burger.price;
-                this.view = "showMenu"
-            },
-            setView: function (window) {
-                this.view = window;
-            },
-            setCategory: function (number) {
-                this.categorynumber = number;
-            },
-               showGlutenFree: function () {
-                this.glutenBool = !this.glutenBool;
-                if (!this.glutenBool) {
-                    this.gluten = 1
-                }
-                else {
-                     this.gluten = 0
-                }
-            },
-            showMilkFree: function () {
-                this.milkBool = !this.milkBool;
-                if (!this.milkBool) {
-                    this.milk = 1
-                }
-                else {
-                     this.milk = 0
-                }
-            },
-              showVeganFree: function () {
-                this.veganBool = !this.veganBool;
-                if (!this.veganBool) {
-                    this.vegan = 1
-                }
-                else {
-                     this.vegan = 0
-                }
-            },
-
+//import the components that are used in the template, the name that you
+// use for importing will be used in the template above and also below in
+// components
+import Ingredient from '@/components/Ingredient.vue'
+import OrderItem from '@/components/OrderItem.vue'
+//import methods and data that are shared between ordering and kitchen views
+import sharedVueStuff from '@/components/sharedVueStuff.js'
+/* eslint-disable no-console */
+/* instead of defining a Vue instance, export default allows the only
+necessary Vue instance (found in main.js) to import your data and methods */
+ export default {
+     name: 'Ordering',
+     components: {
+         Ingredient,
+         OrderItem,
+     },
+     mixins: [sharedVueStuff], // include stuff that is used in both
+     // the ordering system and the kitchen
+     data: function () {
+         return {
+             chosenIngredients: [],
+             price: 0,
+             orderNumber: "",
+             glutenFilter: false,
+             count: 0,
+             gluten: 0,
+             milk: 0,
+             vegan: 0,
+             veganBool: true,
+             glutenBool: true,
+             milkBool: true,
+             brodcategory: false,
+             categoryNumber: 1,
+             showFront: "showFront",
+             showMenu: "showMenu",
+             showOverview: "showOverview",
+             view: "showFront",
+             currentOrder: {
+             burgers: [],
+             editingBurger: false},
+             picBool: false
+             }
+         },
      
-            placeOrder: function () {
-                // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-                console.log(this.currentOrder)
-                this.$store.state.socket.emit('order', this.currentOrder);
-                this.currentOrder = [];
+     created: function () {
+         this.$store.state.socket.on('orderNumber', function (data) {
+             this.orderNumber = data;
+         }.bind(this));
+         this.$store.state.socket.on('')
+     },
+     computed: {
+         countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
+             // Räknar alla OLIKA ingredienser och hur många av dem
+             let ingredientTuples = []
+             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                 ingredientTuples[i] = {};
+                 ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
+                 ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
+                 ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
+             }
+             var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+                 .map(name => {
+                     return {
+                         name: name,
+                         count: ingredientTuples.find(o => o.name === name).count,
+                         ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
+                     };
+                 });
+             console.log(difIngredients)
+             return difIngredients;
+         },
+         countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
+             let severalBurgers = [];
+             for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                 let ingredientTuples = []
+                 console.log(this.currentOrder.burgers[j].ingredients);
+                 for (let i = 0; i < this.currentOrder.burgers[j].ingredients.length; i += 1) {
+                     ingredientTuples[i] = {};
+                     ingredientTuples[i].name = this.currentOrder.burgers[j].ingredients[i]['ingredient_' + this.lang];
+                     ingredientTuples[i].count = this.countNumberOfBurgerIngredients(this.currentOrder.burgers[j].ingredients[i].ingredient_id, j);
+                     ingredientTuples[i].ingPrice = this.currentOrder.burgers[j].ingredients[i]['selling_price'];
+                     console.log(ingredientTuples[i].count)
+                 }
+                 var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
+                     .map(name => {
+                         return {
+                             name: name,
+                             count: ingredientTuples.find(o => o.name === name).count,
+                             ingPrice: ingredientTuples.find(o => o.name === name).ingPrice
+                         };
+                     });
+                 severalBurgers[j] = {};
+                 severalBurgers[j].no = j;
+                 severalBurgers[j].ingredientsShow = difIngredients;
+                 severalBurgers[j].ingredients = this.currentOrder.burgers[j].ingredients;
+                 severalBurgers[j].price = this.currentOrder.burgers[j].price;
+                 console.log(severalBurgers[j].ingredients)
+             }
+             console.log(severalBurgers)
+             return severalBurgers
+         }
+     },
+     methods: {
+         addToBurger: function (item) {
+             this.chosenIngredients.push(item);
+             this.price += item.selling_price;
+         },
+         delFromBurger: function (item) {
+             this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
+             this.price -= item.selling_price;
+         },
+         addToOrder: function () {
+             // Add the burger to an order array
+             console.log(this.currentOrder)
+             // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
+             if (this.currentOrder.editingBurger) {
+                 this.updatePrice()
+             } else {                    // annars, alltså är det en ny burgare, lägger till burgare till ordern.
+                 this.currentOrder.burgers.push({
+                     ingredients: this.chosenIngredients.splice(0),
+                     price: this.price,
+                     editingThisBurger: false
+                 });
+                 this.currentOrder.editingBurger = false;
+             }
+             //set all counters to 0. Notice the use of $refs
+             for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+                 this.$refs.ingredient[i].resetCounter();
+             }
+             this.chosenIngredients = [];
+             this.price = 0;
+             this.currentOrder.editingBurger = false;
+             this.view = "showOverview";
+         },
+         deleteBurger: function (burger) {
+             this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
+             this.price -= burger.price;
+         },
+         countNumberOfIngredients: function (id) {
+             let counter = 0;
+             for (let order in this.chosenIngredients) {
+                 //console.log(order);
+                 // console.log(this.chosenIngredients[order])
+                 //let toppings = this.chosenIngredients[order];
+                 //console.log(toppings.length)
+                 //for (var i = 0; i < toppings.length; i += 1) ;
+                 //{
+                 if (this.chosenIngredients[order].ingredient_id === id) { //this.orders[order].status !== "done" &&
+                     counter += 1;
+                 }
+                 // }
+             }
+             return counter;
+         },
+         countNumberOfBurgerIngredients: function (id, burgerNo) {
+             let counter = 0;
+             for (let item in this.currentOrder.burgers[burgerNo].ingredients) {
+                 if (this.currentOrder.burgers[burgerNo].ingredients[item].ingredient_id === id) {
+                     counter +=1;
+                 }
+             }
+             return counter;
+         },
+         // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
+         editBurger: function (burger, index) {
+             console.log(this.currentOrder)
+             this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
+             this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
+             this.chosenIngredients = burger.ingredients;
+             this.price = burger.price;
+             this.view = "showMenu"
+         },
+         //Här uppdateras priset
+         updatePrice: function () {
+             for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
+                 if (this.currentOrder.burgers[j].editingThisBurger) {
+                     this.currentOrder.burgers[j].price = this.price;
+                     this.currentOrder.burgers[j].editingThisBurger = false;
+                 }
+             }
+         },
+         setView: function (window) {
+             this.view = window;
+         },
+         setCategory: function (number) {
+             this.categoryNumber = number;
+         },
+         showGlutenFree: function () {
+             this.glutenBool = !this.glutenBool;
+             if (!this.glutenBool) {
+                 this.gluten = 1
+             } else {
+                 this.gluten = 0
+             }
+         },
+         showMilkFree: function () {
+             this.milkBool = !this.milkBool;
+             if (!this.milkBool) {
+                 this.milk = 1
+             } else {
+                 this.milk = 0
+             }
+         },
+         showVeganFree: function () {
+             this.veganBool = !this.veganBool;
+             if (!this.veganBool) {
+                 this.vegan = 1
+             } else {
+                 this.vegan = 0
+             }
+         },
+         placeOrder: function () {
+             // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
+             console.log(this.editingBurger)
+             console.log(this.currentOrder)
+             this.$store.state.socket.emit('order', this.currentOrder);
+             this.currentOrder = [];
+         },
+         
+            switchFlag: function (){
+                this.picBool = !this.picBool;                
             },
-        }
-    }
+     },
+     
+     
+ }
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
@@ -425,7 +419,6 @@
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
-        
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -462,6 +455,20 @@
     }
     .switchLang {
         text-align: right;
+        margin: 1em;
+        background-size: cover;
+    }
+    
+    .flagButton{
+        background-size: cover;
+        background-color: rgba(1,1,1,0);
+        border-color: rgba(1,1,1,0);
+    }
+    
+    .flag {
+        height: 4em;
+        width: 5.5em;
+        
     }
     .mealButton {
         background-color: gray;
@@ -501,8 +508,30 @@
     .Done {
         grid-area: Done;
     }
-
- 
+    .glutenFilter button:hover {
+        background-color: greenyellow;
+    }
+    .glutenFilter button:focus {
+        background-color: green;
+    }
+    .glutenFilter button:active {
+        background-color: springgreen;
+    }
+    .milkFilter button:hover {
+        background-color: #98d5ee;
+    }
+    .milkFilter button:focus {
+        background-color: cornflowerblue;
+    }
+    .veganFilter button:hover {
+        background-color: #de7d9c;
+    }
+    .veganFilter button:focus {
+        background-color: #b35b78;
+    }
+    .veganFilter button:visited {
+        background-color: #b35b78;
+    }
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
@@ -562,7 +591,22 @@
         height: 50px;
         width: 50px
     }
-   
+    .foodFilter {
+        margin-left: 35%;
+    }
+    .foodFilter button {
+        background-color: rgba(232, 232, 232, 0.92);
+        width: 5em;
+        height: 5em;
+        font-size: 90%;
+        float: left;
+        margin: 2%;
+        cursor: pointer;
+        padding: 14px 14px;
+        transition: 1s;
+        border-radius: 50%;
+        border: 3px solid #FFF;
+    }
     /* Style the tab */
     .tab {
         margin: -2% 15% 0% 0%;
@@ -664,75 +708,19 @@
         color: white;
         cursor: pointer;
     }
-    
-    
-    /*Designing of "Next"-button*/
-    
-    .nextPage {
-        background-color: rgba(135, 211, 124, 0.9);
-        margin-top: 0.5em;
-        font-family: "Courier new", monospace;
-        float: right;
-        cursor: pointer;
-        font-size: 2em;
-        width: 20%;
-        height: 80%;
-        border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(30, 130, 76, 1);
-    
-        
-    }
-    
-    .nextPageNotClick {
-        background-color: rgba(135, 211, 124, 0.9);
-        margin-top: 0.5em;
-        font-family: "Courier new", monospace;
-        float: right;
-        font-size: 2em;
-        width: 20%;
-        height: 80%;
-        border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(30, 130, 76, 1);
-    }
-
-    
-    .switchBackward {
-        background-color: rgba(241, 169, 160, 0.9);
-        margin-top: 0.5em;
-        font-family: "Courier new", monospace;
-        float: left;
-        cursor: pointer;
-        font-size: 3em;
-        width: 20%;
-        height: 80%;
-        border-radius: 0.2em  0.2em 0.2em 1em;
-        border: 3px solid rgba(226, 106, 106, 0.8);
-     
-    
-        
-    }
-    
     /* Designing of Foodfilter*/
     .label__checkbox {
   display: none;
-
-
 }
-    
     .positionVegan {
        margin-left: 30%;
     }
-    
     .positionGluten {
-       margin-left: 40%;  
-      
-
+       margin-left: 40%;
     }
      .positionMilk {
-       margin-left: 50%;  
-
+       margin-left: 50%;
     }
-
 .label__check {
   display: block;
   position: absolute;
@@ -744,22 +732,13 @@
   cursor: pointer;
   transition: border .3s ease;
   text-align: center;
-
-  
 }
-
 .label__checkbox:checked + .label__text .label__check {
   animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
-
-  
-
 }
-
 .center {
-
   transform: translate(-50%,-50%);
 }
-
 @keyframes icon {
   from {
     opacity: 0;
@@ -770,7 +749,6 @@
     transform: scale(1)
   }
 }
-
 @keyframes check {
   0% {
     width: 3.5em;
@@ -796,7 +774,6 @@
     height: 4em;
     background: rgba(144, 198, 149, 0.6);
     border: 1px solid rgba(38, 166, 91, 1);
- 
   }
   100% {
     width: 4.5em;
@@ -806,5 +783,4 @@
     text-align: center;
   }
 }
-    
 </style>
