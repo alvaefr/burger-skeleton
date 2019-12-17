@@ -48,7 +48,7 @@
                         v-for="item in ingredients"
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item); checkBurger()"
-                        v-on:decrement="delFromBurger(item)"
+                        v-on:decrement="delFromBurger(item); checkBurger()"
                         :item="item"
                         :lang="lang"
                         :key="item.ingredient_id">
@@ -138,8 +138,10 @@
                         {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
                     Total {{ burger.price }}
-                    <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
-<!--                    <button v-on:click="deleteBurger(burger, burger.no)"> DELETE BURGER </button>   &lt;!&ndash; MÅSTE FIXAS RÄTT &ndash;&gt;-->
+
+                    <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
+<!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
+
 
 
                 </div>
@@ -154,7 +156,9 @@
 
 
                 <!-- Button that adds new burgers -->
-                <button class="burgerAdd" v-on:click="setView(showMenu)">{{uiLabels.addBurger}}</button>
+ 
+
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurg()">{{uiLabels.addBurger}}</button>
 
             </div>
 
@@ -279,17 +283,23 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          
          checkBurger: function() {
-            for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+             this.buttonClickable=false;
+             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                 if (this.chosenIngredients[i].category === 4) {
+
                     for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                        if (this.chosenIngredients[i].category === 1) {
-                            this.buttonClickable = true;
-                        }
+                         if (this.chosenIngredients[i].category===1) {
+                              this.buttonClickable=true;
+                         }
                     }
                 }
             }
         },
-
+         
+         addBurg: function() {
+             this.buttonClickable=false;
+             this.chosenIngredients = [];
+         },
          
          delFromBurger: function (item) {
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
@@ -346,12 +356,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
          editBurger: function (burger, index) {
-             console.log(this.currentOrder)
+             console.log("HEJ" + this.currentOrder)
              this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
              this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
+             console.log("då" + this.chosenIngredients)
 
              for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
                  this.$refs.ingredient[i].updateCounter();
@@ -746,7 +757,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     /*Designing of "Next"-button*/
     
     .nextPage {
-        background-color: rgba(135, 211, 124, 0.9);
+        background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
         font-family: "Courier new", monospace;
         float: right;
