@@ -136,14 +136,18 @@
 
                     <hr>
 
-                    <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
+                    <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    <hr> <h5> Total {{ burger.price }} </h5>
+
+                    <div id="burgerTotal">
+                        <hr> <h4> Total {{ burger.price }} </h4>
+                    </div>
+
 
                     <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
                     <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
-                    <button id=duplicateButton v-on:click="duplicateBurger(burger)" > DUPLICATE </button>
+                    <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> One more! </button>
 
 
 
@@ -632,11 +636,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         height: 50px;
         width: 50px
     }
-    #PlaceOrderButton {
-        border-radius: 50%;
-        height: 50px;
-        width: 50px
-    }
+
     .foodFilter {
         margin-left: 35%;
     }
@@ -701,8 +701,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
     /* För overview-sidan*/
     .grid-containerOverview {
         display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.5fr 1.7fr 0.8fr;
+        grid-template-columns: 100%;
+        grid-template-rows: 15% 60% 25%;
         grid-template-areas: "Top" "Burgers" "Bottom";
         margin-top: 3em;
         margin-left: 6em;
@@ -715,6 +715,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin: auto;
         color: white
     }
+    .overviewTop {
+        grid-area: Top;
+        font-size: 4em;
+        overflow: hidden;
+        text-align: center;
+        font-weight: bold;
+    }
+
     .burgerOverview {
         grid-area: Burgers;
         display: grid;
@@ -723,47 +731,63 @@ necessary Vue instance (found in main.js) to import your data and methods */
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
-        margin-top: 1em;
     }
-    .overviewTop {
-        grid-area: Top;
-        font-size: 4em;
-        overflow: hidden;
-        text-align: center;
-        font-weight: bold;
-    }
+
     .overviewBottom {
         grid-area: Bottom;
+        position: relative;
+    }
+    #PlaceOrderButton {
+        position: absolute;
+        bottom: 2em;
+        right: 5em;
+        height: 6em;
+        width: 13em;
     }
     .burgerScroll {
         background-color: #1B686A;
         position: relative;
         text-align: left;
-        width: 15em;
-        height: 19em;
+        width: 18em;
         border-radius: 2em;
         border: 5px solid #35A855;
-        padding: 0 2em;
+        padding: 0 1em;
     }
 
 #burgerNo {
     text-align: center;
 }
+#ingredientsInBurger {
+    overflow-x: scroll;
+}
+
+#burgerTotal {
+    position: absolute;
+    bottom: 4em;
+}
+
     #deleteBurgerButton {
         position: absolute;
         top: -2px;
         right: -2px;
     }
+
 #editBurgerButton {
     width: 100%;
     background-color: #82ceab;
-    margin-left: -10.5%;
+    margin-left: -5%;
     position: absolute;
     bottom: 0px;
     height: 20%;
     border-top: 5px solid #35A855;
     border-color: #35A855;
     border-radius: 0em 0em 2em 2em;
+}
+
+#duplicateButton {
+    position: absolute;
+    bottom: 7em;
+    right: 1em;
 }
 
     .burgerAdd {
@@ -796,8 +820,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
-
-
     }
 
     .nextPageNotClick {
