@@ -138,8 +138,10 @@
                         {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
                     Total {{ burger.price }}
+
                     <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
 <!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
+
 
 
                 </div>
@@ -210,8 +212,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showOverview: "showOverview",
              view: "showFront",
              currentOrder: {
-             burgers: [],
-             editingBurger: false},
+                burgers: [],
+                editingBurger: false},
              picBool: false
              }
          },
@@ -283,18 +285,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
          checkBurger: function() {
              this.buttonClickable=false;
             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                if (this.chosenIngredients[i].category===4) {
+                if (this.chosenIngredients[i].category === 4) {
                     for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+
                          if (this.chosenIngredients[i].category===1) {
                               this.buttonClickable=true;
                          }
                        
+
                     }
                 }
-            }   
-                
-               
-                
+            }
         },
          
             addBurg: function() {
@@ -330,11 +331,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
          },
-
-         // deleteBurger: function (burger) {     FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
-         //     this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
-         //     this.price -= burger.price;
-         // },
 
          countNumberOfIngredients: function (id) {
              let counter = 0;
@@ -374,8 +370,16 @@ necessary Vue instance (found in main.js) to import your data and methods */
              for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
                  this.$refs.ingredient[i].updateCounter();
              }
-
          },
+
+         // deleteBurger: function (burger, index) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+         //
+         //      this.price -= burger.price;
+         //      this.chosenIngredients -= burger.ingredients;
+         //      console.log(this.chosenIngredients);
+         //  },
+
+         //addBurger: function () {}
 
          //Här uppdateras priset
          updatePrice: function () {
@@ -391,6 +395,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          setCategory: function (number) {
              this.categoryNumber = number;
+
          },
          showGlutenFree: function () {
              this.glutenBool = !this.glutenBool;
@@ -424,9 +429,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder = [];
          },
          
-            switchFlag: function (){
+         switchFlag: function (){
                 this.picBool = !this.picBool;                
-            },
+         },
      },
      
      
@@ -454,9 +459,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .grid-container {
         display: grid;
-        grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
+        grid-template-columns: 1.5fr 0.6fr;
+        grid-template-rows: 1fr 1.2fr 0.35fr 0.7fr;
+        grid-template-areas: "Top Burger"  "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
         border-radius: 4em;
         border: 1px solid #FFF;
