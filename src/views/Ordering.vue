@@ -140,7 +140,8 @@
                     Total {{ burger.price }}
 
                     <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
-                    <button v-on:click="deleteBurger(burger.no, burger)"> DELETE BURGER </button>   <!-- MÅSTE FIXAS RÄTT -->
+                    <button v-on:click="deleteBurger(burger.no, burger)"> DELETE BURGER </button>
+                    <button v-on:click="duplicateBurger(burger)" > DUPLICATE </button>
 
 
 
@@ -165,7 +166,7 @@
             <div class="overviewBottom">
 
                 <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-                <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+                <button id=PlaceOrderButton v-on:click="placeOrder(); setView(showFront)">{{ uiLabels.placeOrder }}</button>
             </div>
         </div>
 
@@ -374,7 +375,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
               this.currentOrder.burgers.splice(index, 1);
               console.log(burger.price)
               console.log(this.currentOrder)
-          },
+         },
+
+         duplicateBurger: function (burger) {
+             this.currentOrder.burgers.push(burger)
+         },
 
 
          //Här uppdateras priset
@@ -422,7 +427,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              console.log(this.editingBurger)
              console.log(this.currentOrder)
              this.$store.state.socket.emit('order', this.currentOrder);
-             this.currentOrder = [];
+
          },
 
          switchFlag: function (){
