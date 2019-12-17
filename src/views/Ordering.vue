@@ -381,9 +381,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          setCategory: function (number) {
              this.categoryNumber = number;
-             for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
-                 this.$refs.ingredient[i].updateCounter();
-             }
 
          },
          showGlutenFree: function () {
@@ -448,9 +445,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .grid-container {
         display: grid;
-        grid-template-columns: 1fr 0.8fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-areas: "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "Top Top Top Top Top Top Top Top Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Burger Burger Burger" "OrderList OrderList OrderList OrderList OrderList OrderList OrderList OrderList Total Total Total" "Done Done Done Done Done Done Done Done Done Done Done" "Done Done Done Done Done Done Done Done Done Done Done";
+        grid-template-columns: 1.5fr 0.6fr;
+        grid-template-rows: 1fr 1.2fr 0.35fr 0.7fr;
+        grid-template-areas: "Top Burger"  "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
         border-radius: 4em;
         border: 1px solid #FFF;
