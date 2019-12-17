@@ -47,9 +47,9 @@
                         v-on:increment="addToBurger(item)"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
-                        :count="item.counter"
                         :lang="lang"
                         :key="item.ingredient_id">
+
                 </Ingredient>
             </div>
 
@@ -128,14 +128,14 @@
 
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
-                    Burger {{ burger.no}} <br>
+                    <h1> Burger {{ burger.no}} </h1> <br>
 
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
-                        {{ countIng.name }}: {{countIng.count}} {{countIng.ingPrice*countIng.count}} kr
+                        {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
                     Total {{ burger.price }}
                     <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
-                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>
+<!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
 
 
                 </div>
@@ -307,10 +307,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.view = "showOverview";
          },
 
-         deleteBurger: function (burger) {
-             this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
-             this.price -= burger.price;
-         },
+         // deleteBurger: function (burger) {     FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+         //     this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
+         //     this.price -= burger.price;
+         // },
 
          countNumberOfIngredients: function (id) {
              let counter = 0;
@@ -348,6 +348,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
+
+             for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
+                 this.$refs.ingredient[i].updateCounter();
+             }
+
          },
 
 
@@ -692,18 +697,22 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .burgerScroll {
         background-color: darkgray;
+
         width: 15em;
-        height: 15em;
+        height: 19em;
         border-radius: 2em;
-        padding: 2em;
+        padding: 0 2em;
     }
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
-        padding: 2em;
+        padding: 1em;
         font-family: "Courier new", monospace;
         color: white;
         font-size: 2em;
+        height: 6em;
+        width: 6em;
+        margin: 2em;
     }
     .burgerAdd:hover {
         background-color: black;
