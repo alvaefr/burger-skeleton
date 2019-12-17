@@ -45,7 +45,7 @@
                         ref="ingredient"
                         v-for="item in ingredients"
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
-                        v-on:increment="addToBurger(item); ; checkBurger()"
+                        v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item)"
                         :item="item"
                         :lang="lang"
@@ -137,7 +137,7 @@
                     </div>
                     Total {{ burger.price }}
                     <button v-on:click="editBurger(burger, burger.no)"> {{uiLabels.editBurger}}</button>
-<!--                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>    MÅSTE FIXAS RÄTT -->
+<!--                    <button v-on:click="deleteBurger(burger, burger.no)"> DELETE BURGER </button>   &lt;!&ndash; MÅSTE FIXAS RÄTT &ndash;&gt;-->
 
 
                 </div>
@@ -206,8 +206,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showOverview: "showOverview",
              view: "showFront",
              currentOrder: {
-             burgers: [],
-             editingBurger: false},
+                burgers: [],
+                editingBurger: false},
              picBool: false
              }
          },
@@ -278,17 +278,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
          
          checkBurger: function() {
             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                if (this.chosenIngredients[i].category===4) {
+                if (this.chosenIngredients[i].category === 4) {
                     for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                         if (this.chosenIngredients[i].category===1) {
-                              this.buttonClickable=true;
-                         }
+                        if (this.chosenIngredients[i].category === 1) {
+                            this.buttonClickable = true;
+                        }
                     }
                 }
-            }   
-                
-               
-                
+            }
         },
 
          
@@ -319,11 +316,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
          },
-
-         // deleteBurger: function (burger) {     FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
-         //     this.currentOrder.burgers.splice(this.currentOrder.burgers.indexOf(burger),1);
-         //     this.price -= burger.price;
-         // },
 
          countNumberOfIngredients: function (id) {
              let counter = 0;
@@ -362,8 +354,16 @@ necessary Vue instance (found in main.js) to import your data and methods */
              for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
                  this.$refs.ingredient[i].updateCounter();
              }
-
          },
+
+         // deleteBurger: function (burger, index) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+         //
+         //      this.price -= burger.price;
+         //      this.chosenIngredients -= burger.ingredients;
+         //      console.log(this.chosenIngredients);
+         //  },
+
+         //addBurger: function () {}
 
          //Här uppdateras priset
          updatePrice: function () {
@@ -379,6 +379,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          setCategory: function (number) {
              this.categoryNumber = number;
+             for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
+                 this.$refs.ingredient[i].updateCounter();
+             }
+
          },
          showGlutenFree: function () {
              this.glutenBool = !this.glutenBool;
@@ -412,9 +416,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder = [];
          },
          
-            switchFlag: function (){
+         switchFlag: function (){
                 this.picBool = !this.picBool;                
-            },
+         },
      },
      
      
