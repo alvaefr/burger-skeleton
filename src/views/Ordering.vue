@@ -18,18 +18,18 @@
 
             <div class="switchLang">
                 <button class="flagButton" v-on:click="switchLang(); switchFlag()" >
-                    <img class="flag" v-if="picBool" src="https://static.posters.cz/image/750/posters/english-national-flag-union-jack-i135.jpg" > 
+                    <img class="flag" v-if="picBool" src="https://static.posters.cz/image/750/posters/english-national-flag-union-jack-i135.jpg" >
                     <img class="flag" v-else src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAHlBMVEUAaqf+zAD/0QAAaKlPfJZggpAAZqpdgZFKepiBj4EDfUmrAAABn0lEQVR4nO3ay43CUBBFwYc9/PJPeIig8IKWkDmVQKvP+q41Y79ul3e26z50/csVB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYFzxNln3O4H4txvQ9c/ZP3NeDwPxHk+hq5/yNqmvG3zqvPl1oEfflZxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kDLLmgTCK1JYWzBe4od8pDiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOHCKOP/ItlPLsoEE4gAAAABJRU5ErkJggg==" > </button>
-                
+
 
             </div>
         </div>
 
 <!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
-            
+
             <div class="Top">
-                
+
                 <div class="tab">
                     <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
                     <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -112,7 +112,7 @@
 
 
                 <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
-               
+
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
@@ -140,7 +140,7 @@
                     Total {{ burger.price }}
 
                     <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
-                    <button v-on:click="deleteBurger(burger)"> DELETE BURGER </button>   <!-- MÅSTE FIXAS RÄTT -->
+                    <button v-on:click="deleteBurger(burger.no, burger)"> DELETE BURGER </button>   <!-- MÅSTE FIXAS RÄTT -->
 
 
 
@@ -156,7 +156,7 @@
 
 
                 <!-- Button that adds new burgers -->
- 
+
 
                 <button class="burgerAdd" v-on:click="setView(showMenu); addBurg()">{{uiLabels.addBurger}}</button>
 
@@ -173,6 +173,7 @@
 </template>
 
 <script>
+
 //import the components that are used in the template, the name that you
 // use for importing will be used in the template above and also below in
 // components
@@ -217,7 +218,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              picBool: false
              }
          },
-     
+
      created: function () {
          this.$store.state.socket.on('orderNumber', function (data) {
              this.orderNumber = data;
@@ -281,7 +282,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
          },
-         
+
          checkBurger: function() {
              this.buttonClickable=false;
              for (let i = 0; i < this.chosenIngredients.length; i += 1) {
@@ -295,12 +296,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 }
             }
         },
-         
+
          addBurg: function() {
              this.buttonClickable=false;
              this.chosenIngredients = [];
          },
-         
+
          delFromBurger: function (item) {
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
@@ -369,12 +370,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
          },
 
-         deleteBurger: function (burger, index) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
-              this.currentOrder.burgers.splice(this.currentOrder.burgers[index],1);
-              console.log(burger)
-              this.price -= burger.price;
-              this.chosenIngredients -= burger.ingredients;
-              console.log(this.chosenIngredients);
+         deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+              this.currentOrder.burgers.splice(index, 1);
+              console.log(burger.price)
+              console.log(this.currentOrder)
           },
 
 
@@ -425,14 +424,15 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.$store.state.socket.emit('order', this.currentOrder);
              this.currentOrder = [];
          },
-         
+
          switchFlag: function (){
-                this.picBool = !this.picBool;                
+                this.picBool = !this.picBool;
          },
      },
-     
-     
+
+
  }
+
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
@@ -499,17 +499,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
         margin: 1em;
         background-size: cover;
     }
-    
+
     .flagButton{
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
     }
-    
+
     .flag {
         height: 4em;
         width: 5.5em;
-        
+
     }
     .mealButton {
         background-color: gray;
@@ -751,9 +751,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
         color: white;
         cursor: pointer;
     }
-    
+
     /*Designing of "Next"-button*/
-    
+
     .nextPage {
         background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
@@ -765,10 +765,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
-    
-        
+
+
     }
-    
+
     .nextPageNotClick {
         background-color: rgba(135, 211, 124, 0.9);
         margin-top: 0.5em;
@@ -780,7 +780,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-    
+
     /* Designing of Foodfilter*/
     .label__checkbox {
   display: none;
