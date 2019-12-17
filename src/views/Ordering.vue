@@ -132,16 +132,18 @@
 
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
-                    <h1> Burger {{ burger.no}} </h1> <br>
+                    <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
+
+                    <hr>
 
                     <div v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
-                    Total {{ burger.price }}
+                    <hr> <h5> Total {{ burger.price }} </h5>
 
-                    <button v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
-                    <button v-on:click="deleteBurger(burger.no, burger)"> DELETE BURGER </button>
-                    <button v-on:click="duplicateBurger(burger)" > DUPLICATE </button>
+                    <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
+                    <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
+                    <button id=duplicateButton v-on:click="duplicateBurger(burger)" > DUPLICATE </button>
 
 
 
@@ -166,7 +168,7 @@
             <div class="overviewBottom">
 
                 <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-                <button id=PlaceOrderButton v-on:click="placeOrder(); setView(showFront)">{{ uiLabels.placeOrder }}</button>
+                <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
             </div>
         </div>
 
@@ -446,6 +448,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         color: dimgrey;
         font-variant: inherit;
     }
+
     .example-panel {
         left: 0;
         top: 0;
@@ -733,13 +736,36 @@ necessary Vue instance (found in main.js) to import your data and methods */
         grid-area: Bottom;
     }
     .burgerScroll {
-        background-color: darkgray;
-
+        background-color: #1B686A;
+        position: relative;
+        text-align: left;
         width: 15em;
         height: 19em;
         border-radius: 2em;
+        border: 5px solid #35A855;
         padding: 0 2em;
     }
+
+#burgerNo {
+    text-align: center;
+}
+    #deleteBurgerButton {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+    }
+#editBurgerButton {
+    width: 100%;
+    background-color: #82ceab;
+    margin-left: -10.5%;
+    position: absolute;
+    bottom: 0px;
+    height: 20%;
+    border-top: 5px solid #35A855;
+    border-color: #35A855;
+    border-radius: 0em 0em 2em 2em;
+}
+
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
