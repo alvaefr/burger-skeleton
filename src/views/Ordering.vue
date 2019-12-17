@@ -456,7 +456,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .grid-container {
         display: grid;
-        grid-template-columns: 75% 25%;
+        grid-template-columns: 72% 28%;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
@@ -536,7 +536,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         display: grid;
         background-color: rgba(232, 232, 232, 0.92);
         padding: 5% 0% 4% 4%;
-        margin-right: 15%;
+        margin-right: 10%;
         grid-template-columns: repeat(auto-fill, 8em);
         grid-gap: 7%;
         overflow-y: scroll;
@@ -581,7 +581,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-left: 3px solid #FFF;
         border-top: 3px dotted #FFF;
         border-radius: 0em 0em 2em 2em;
-        margin-left: -2em;
     }
     .Total h2 {
         margin: 0;
@@ -613,7 +612,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
       }*/
     .Burger {
         padding: 1em;
-        margin-left: -2em;
         grid-area: Burger;
         border-top: 3px solid #FFFFFF;
         border-right: 3px solid #FFF;
@@ -650,7 +648,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     /* Style the tab */
     .tab {
         grid-area: top;
-        margin: 0% 15% 0% 0%;
+        margin: 0% 10% 0% 0%;
         border-bottom: 3px solid #FFFFFF;
     }
     /* Style the buttons that are used to open the tab content */
