@@ -188,10 +188,9 @@
             </div>
 
             <div class="overviewBottom">
-                {{ totalPrice}}
-
                 <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
-                <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
+                <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} </div>
+                <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"><span id="placeOrderText">{{ uiLabels.placeOrder }}</span>
             </div>
         </div>
 
@@ -777,8 +776,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
         position: absolute;
         bottom: 2em;
         right: 5em;
-        height: 6em;
-        width: 13em;
     }
     .burgerScroll {
         background-color: #1B686A;
