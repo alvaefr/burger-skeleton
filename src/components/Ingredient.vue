@@ -1,17 +1,27 @@
 <template>
   <div class="ingredient">
-    <label>
 
-      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, <!--{{item.stock}} pcs -->
-    <span v-if="item.gluten_free"> G </span>
-    <span v-if="item.vegan"> V </span>
-    <span v-if="item.milk_free"> L </span>
-    <br>
-    <button v-on:click="incrementCounter" :disabled="item.stock === 0">+</button>
-    {{ counter }}
-    </label>
+      <button id="inc" v-on:click="incrementCounter($event)"> + </button>
+      {{ itemCount }}
+      <button id="dec" v-on:click="decrementCounter($event)"> - </button>
+      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:- <br>
 
-    <button v-on:click="decrementCounter"  :disabled="counter === 0">-</button>
+      <span v-if="item.gluten_free"> G </span>
+      <span v-if="item.vegan"> V </span>
+      <span v-if="item.milk_free"> L </span>
+
+      <!--          GAMMAL KOD           -->
+<!--    <label>-->
+<!--        -->
+
+<!--      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:-, &lt;!&ndash;{{item.stock}} pcs &ndash;&gt;-->
+
+<!--    <br>-->
+<!--    <button v-on:click="incrementCounter" :disabled="item.stock === 0">+</button>-->
+<!--    {{ counter }}-->
+<!--    </label>-->
+
+<!--    <button v-on:click="decrementCounter"  :disabled="counter === 0">-</button>-->
 
   </div>
 </template>
@@ -21,36 +31,51 @@ export default {
   name: 'Ingredient',
   props: {
     item: Object,
-    lang: String
+    lang: String,
+    itemCount: Number
   },
     data: function () {
     return {
-      counter: 0,
     };
 
   },
 
   methods: {
-    incrementCounter: function () {
-      this.counter += 1;
-      // sending 'increment' message to parent component or view so that it
-      // can catch it with v-on:increment in the component declaration
-      console.log(this.item)
-      this.$emit('increment');
-      //this.$emit('counter', this.counter)
+    // incrementCounter: function () {          //////////////////////////// GAMLA KODER!
+    //   this.counter += 1;
+    //   // sending 'increment' message to parent component or view so that it
+    //   // can catch it with v-on:increment in the component declaration
+    //   console.log(this.item)
+    //   this.$emit('increment');
+    //   //this.$emit('counter', this.counter)
+    //
+    // },
+    //
+    // decrementCounter: function () {
+    //   this.counter -= 1;
+    //
+    //   // sending 'increment' message to parent component or view so that it
+    //   // can catch it with v-on:increment in the component declaration
+    //   this.$emit('decrement');
+    // },
+      incrementCounter: function (ev) {
+          if (ev.target.id === "inc") {
+              // sending 'increment' message to parent component or view so that it
+              // can catch it with v-on:increment in the component declaration
+              this.$emit('increment');
+          }
+      },
+      decrementCounter: function (ev) {
+          if (ev.target.id === "dec") {
+              // sending 'increment' message to parent component or view so that it
+              // can catch it with v-on:increment in the component declaration
+              this.$emit('decrement');
+          }
+      },
 
-    },
-
-    decrementCounter: function () {
-      this.counter -= 1;
-
-      // sending 'increment' message to parent component or view so that it
-      // can catch it with v-on:increment in the component declaration
-      this.$emit('decrement');
-    },
 
     resetCounter: function () {
-      this.counter = 0;
+      // this.counter = 0;
     },
      updateCounter: function () {
        console.log(this.counter)

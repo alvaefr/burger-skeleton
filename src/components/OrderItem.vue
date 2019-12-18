@@ -1,40 +1,47 @@
 <template>
+<!--	<div>      								GAMLA KODEN										-->
+<!--		{{order.orderId}}-->
+<!--		<div v-for="(burger, key) in order.burgers" :key="key">-->
+<!--		&lt;!&ndash; //{{uiLabels.ingredients}}: {{ burger.ingredients.map(item=>item["ingredient_"+ lang]).join(", ") }} &ndash;&gt;-->
+<!--			<div v-for="(ingredient) in burger.ingredients">-->
+<!--				<div v-if="(categoryNum.includes(ingredient.category))">-->
+<!--							name: {{ingredient.ingredient_en}}-->
+<!--							category: {{ingredient.category}}-->
+<!--							ingredient_id: {{ingredient.ingredient_id}}-->
+<!--							number: {{countNumberOfIngredients(ingredient.ingredient_id)}}-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	&lt;!&ndash; <div v-for="countIng in countAllIngredients"-->
+<!--			v-if="countIng.count>0"-->
+<!--			:key="countAllIngredients.indexOf(scountIng)">-->
+<!--		{{countIng.name}}: {{countIng.count}}-->
+<!--	</div> &ndash;&gt;-->
+<!--	<p id="demo"></p>-->
+<!--	</div>-->
 	<div>
 		{{order.orderId}}
 		<div v-for="(burger, key) in order.burgers" :key="key">
-		<!-- //{{uiLabels.ingredients}}: {{ burger.ingredients.map(item=>item["ingredient_"+ lang]).join(", ") }} -->
-			<div v-for="(ingredient) in burger.ingredients">
-				<div v-if="(categoryNum.includes(ingredient.category))">
-							name: {{ingredient.ingredient_en}}
-							category: {{ingredient.category}}
-							ingredient_id: {{ingredient.ingredient_id}}
-							number: {{countNumberOfIngredients(ingredient.ingredient_id)}}
+			{{uiLabels.ingredients}}:
+			<div v-for="(ing, key2) in groupIngredients(burger.ingredients)" :key="key2">
+				{{ ing.count + " x " + ing.ing["ingredient_" + lang] }}
 			</div>
 		</div>
 	</div>
-	<!-- <div v-for="countIng in countAllIngredients"
-			v-if="countIng.count>0"
-			:key="countAllIngredients.indexOf(scountIng)">
-		{{countIng.name}}: {{countIng.count}}
-	</div> -->
-	<p id="demo"></p>
-	</div>
 </template>
 <script>
+
+	import utilityMethods from '@/mixins/utilityMethods.js'
 export default {
   name: 'OrderItem',
   props: {
-    uiLabels: Object,
-    order: Object,
-    orderId: String,
-    lang: String,
-		categoryNum: Array
-  },
-	data: function () {
-	return {
-	};
-},
-methods: {
+	  uiLabels: Object,
+	  order: Object,
+	  lang: String,
+	  categoryNum: Array
+  	},
+	mixins: [utilityMethods],
+	methods: {
 	countNumberOfIngredients: function (id) {
 	// 	let counter = 0;
 	// 	for (let burger in this.order.burgers) {
@@ -57,9 +64,9 @@ methods: {
 		}
 	}
 	return counter;
+	}
 }
-}
-}
+	}
 	</script>
 <style scoped>
 

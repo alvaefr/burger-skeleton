@@ -49,7 +49,8 @@
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item); checkBurger()"
-                        :item="item"
+                        v-bind:item="item"
+                        v-bind:itemCount="ingredientCount(item)"
                         :lang="lang"
                         :key="item.ingredient_id">
 
@@ -58,14 +59,21 @@
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
             <div class="Burger">
-                <h1>{{ uiLabels.ordersInQueue }}</h1>
+<!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
+<!--                <h1>{{ uiLabels.order }}</h1>-->
+<!--                <div v-for="countIng in countAllIngredients"-->
+<!--                     :key="countAllIngredients.indexOf(countIng)">-->
+<!--                    {{countIng.count}}-->
+<!--                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr-->
+<!--                    &lt;!&ndash;<button v-on:click="delFromBurger(countIng)"> - </button> <br> &ndash;&gt;-->
+<!--                    &lt;!&ndash; button that deletes ingredient, måste kopplas till ingredient counter också &ndash;&gt;-->
+<!--                </div>-->
                 <h1>{{ uiLabels.order }}</h1>
-                <div v-for="countIng in countAllIngredients"
-                     :key="countAllIngredients.indexOf(countIng)">
-                    {{countIng.count}}
-                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr
-                    <!--<button v-on:click="delFromBurger(countIng)"> - </button> <br> -->
-                    <!-- button that deletes ingredient, måste kopplas till ingredient counter också -->
+                <!-- BURGARNA -->
+                <hr>
+                <div v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
+                    {{item.count}} x {{ item.ing['ingredient_' + lang] }}
+                    <button v-on:click="addToBurger(item.ing)"> + </button> <button v-on:click="delFromBurger(item.ing)"> - </button>
                 </div>
             </div>
 
@@ -145,6 +153,16 @@
                     </div>
 
 
+                    <!-- Mikaels kod för att visa en burgare + ingredienser, kan vara nice till kitchen vue? -->
+<!--                    <div class="burgerScroll" v-for="(burger, key) in currentOrder.burgers" :key="key">-->
+<!--                        {{key}}:-->
+<!--                        <div v-for="(item, key2) in groupIngredients(burger.ingredients)" :key="key2">-->
+<!--                             {{item.count}} x {{ item.ing['ingredient_' + lang] }}-->
+<!--                          </div>-->
+<!--                        {{burger.price}}-->
+<!--                    </div>-->
+
+
                     <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
                     <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
                     <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> One more! </button>
@@ -165,11 +183,12 @@
                 <!-- Button that adds new burgers -->
 
 
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurg()">{{uiLabels.addBurger}}</button>
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
 
             </div>
 
             <div class="overviewBottom">
+                {{ totalPrice}}
 
                 <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
                 <button id=PlaceOrderButton v-on:click="placeOrder()">{{ uiLabels.placeOrder }}</button>
@@ -188,6 +207,7 @@ import Ingredient from '@/components/Ingredient.vue'
 import OrderItem from '@/components/OrderItem.vue'
 //import methods and data that are shared between ordering and kitchen views
 import sharedVueStuff from '@/components/sharedVueStuff.js'
+import utilityMethods from '@/mixins/utilityMethods.js'
 /* eslint-disable no-console */
 /* instead of defining a Vue instance, export default allows the only
 necessary Vue instance (found in main.js) to import your data and methods */
@@ -197,7 +217,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          Ingredient,
          OrderItem,
      },
-     mixins: [sharedVueStuff], // include stuff that is used in both
+     mixins: [sharedVueStuff, utilityMethods], // include stuff that is used in both
      // the ordering system and the kitchen
      data: function () {
          return {
@@ -220,11 +240,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showOverview: "showOverview",
              view: "showFront",
              currentOrder: {
-                burgers: [],
-                editingBurger: false},
-             picBool: false
-             }
-         },
+                 burgers: [],
+                 editingBurger: false
+             },
+             picBool: false,
+             totalPrice: 0
+         }
+     },
 
      created: function () {
          this.$store.state.socket.on('orderNumber', function (data) {
@@ -285,9 +307,25 @@ necessary Vue instance (found in main.js) to import your data and methods */
          }
      },
      methods: {
-         addToBurger: function (item) {
+         addToBurger: function (item) {  //Lägger till ingrediens till burgare
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
+             this.totalPrice += item.selling_price;
+         },
+
+         delFromBurger: function (item) {  //Tar bort ingrediens
+             this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
+             this.price -= item.selling_price;
+             this.totalPrice -= item.selling_price;
+         },
+
+         ingredientCount: function (item) {  //Räknar ingredienserna.
+             let counter = 0;
+             for(let i = 0; i < this.chosenIngredients.length; i += 1) {
+                 if (this.chosenIngredients[i] === item)
+                     counter += 1;
+             }
+             return counter;
          },
 
          checkBurger: function() {
@@ -304,16 +342,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
             }
         },
 
-         addBurg: function() {
+         addBurger: function() {   //Lägg till nny burgare
              this.buttonClickable=false;
              this.chosenIngredients = [];
          },
 
-         delFromBurger: function (item) {
-             this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
-             this.price -= item.selling_price;
-         },
-         addToOrder: function () {
+         addToOrder: function () {   //Lägg till burgaren till order!
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -337,23 +371,24 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.view = "showOverview";
          },
 
-         countNumberOfIngredients: function (id) {
-             let counter = 0;
-             for (let order in this.chosenIngredients) {
-                 //console.log(order);
-                 // console.log(this.chosenIngredients[order])
-                 //let toppings = this.chosenIngredients[order];
-                 //console.log(toppings.length)
-                 //for (var i = 0; i < toppings.length; i += 1) ;
-                 //{
-                 if (this.chosenIngredients[order].ingredient_id === id) { //this.orders[order].status !== "done" &&
-                     counter += 1;
-                 }
-                 // }
-             }
-             return counter;
-         },
-         countNumberOfBurgerIngredients: function (id, burgerNo) {
+         // countNumberOfIngredients: function (id) {   //OBS. Gammal ingredienscounter till sidovyn i ordering.
+         //     let counter = 0;
+         //     for (let order in this.chosenIngredients) {
+         //         //console.log(order);
+         //         // console.log(this.chosenIngredients[order])
+         //         //let toppings = this.chosenIngredients[order];
+         //         //console.log(toppings.length)
+         //         //for (var i = 0; i < toppings.length; i += 1) ;
+         //         //{
+         //         if (this.chosenIngredients[order].ingredient_id === id) { //this.orders[order].status !== "done" &&
+         //             counter += 1;
+         //         }
+         //         // }
+         //     }
+         //     return counter;
+         // },
+
+         countNumberOfBurgerIngredients: function (id, burgerNo) {  //Räknar ingredienserna per burgare till overview.
              let counter = 0;
              for (let item in this.currentOrder.burgers[burgerNo].ingredients) {
                  if (this.currentOrder.burgers[burgerNo].ingredients[item].ingredient_id === id) {
@@ -362,8 +397,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
              return counter;
          },
-         // Här ändrar man sin burgare. Vi behöver fixa så att så att Stock uppdateras när mn kommer tillbaka till menyn
-         editBurger: function (burger, index) {
+
+         editBurger: function (burger, index) {   //Ändra din burgare genom denna. OBS! Om man ska ändra en duplicering
+                                                  // så ändras alla burgare som är likadana. Fixa?
              console.log("HEJ" + this.currentOrder)
              this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
              this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
@@ -372,24 +408,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.view = "showMenu"
              console.log("då" + this.chosenIngredients)
 
-             for (let i = 0; i < this.$refs.ingredient.length; i += 1) { //updates counter for each ingredient when editing.
-                 this.$refs.ingredient[i].updateCounter();
-             }
          },
 
-         deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN. Måste fixas så rätt burgare tas bort och ingredienser inte försvinner.
+         deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
               this.currentOrder.burgers.splice(index, 1);
               console.log(burger.price)
               console.log(this.currentOrder)
+              this.totalPrice -= burger.price;
          },
 
-         duplicateBurger: function (burger) {
-             this.currentOrder.burgers.push(burger)
+         duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
+                                                // att om man ska redigera en, redigeras ALLA duplicerade.
+             var newBurger,
+                 newBurger = burger;
+             this.currentOrder.burgers.push(newBurger)
+             this.totalPrice += burger.price;
          },
 
 
-         //Här uppdateras priset
-         updatePrice: function () {
+
+         updatePrice: function () {     //Här uppdateras priset
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
                  if (this.currentOrder.burgers[j].editingThisBurger) {
                      this.currentOrder.burgers[j].price = this.price;
@@ -397,7 +435,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
                  }
              }
          },
-         setView: function (window) {
+         setView: function (window) {       //Sätter vilken vy vi vill se.
              this.view = window;
          },
          setCategory: function (number) {
@@ -430,8 +468,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          placeOrder: function () {
              // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
-             console.log(this.editingBurger)
-             console.log(this.currentOrder)
              this.$store.state.socket.emit('order', this.currentOrder);
 
          },
