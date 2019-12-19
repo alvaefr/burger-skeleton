@@ -430,10 +430,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.glutenBool= true;
              this.totalPrice = 0;
              this.currentOrder.burgers.price = 0;
-             this.price =0;
-         
-               
-             
+             this.price = 0;
          },
 
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
@@ -488,6 +485,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          placeOrder: function () {
              // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
              this.$store.state.socket.emit('order', this.currentOrder);
+             console.log("PLACE ORDER")
 
          },
 

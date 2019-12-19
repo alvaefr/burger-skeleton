@@ -6,9 +6,9 @@
       <button id="dec" v-on:click="decrementCounter($event)"> - </button>
       {{item["ingredient_"+ lang]}}, {{item.selling_price}}:- <br>
 
-      <span v-if="item.gluten_free"> G </span>
-      <span v-if="item.vegan"> V </span>
-      <span v-if="item.milk_free"> L </span>
+      <span v-if="item.gluten_free"> <img src="@/assets/gluten.png" height="20"> </span>
+      <span v-if="item.vegan"> <img src="@/assets/vegan.png" height="20"> </span>
+      <span v-if="item.milk_free"> <img src="@/assets/milk.png" height="19"> </span>
 
       <!--          GAMMAL KOD           -->
 <!--    <label>-->
