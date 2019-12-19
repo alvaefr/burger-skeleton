@@ -29,7 +29,7 @@
         <div v-show="showMenu === this.view" class="grid-container">
 
             <div class="Top">
-
+             <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
                     <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
                     <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
@@ -59,6 +59,7 @@
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
             <div class="Burger">
+             
 <!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
 <!--                <h1>{{ uiLabels.order }}</h1>-->
 <!--                <div v-for="countIng in countAllIngredients"-->
@@ -73,7 +74,7 @@
                 <hr>
                 <div v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="addToBurger(item.ing)"> + </button> <button v-on:click="delFromBurger(item.ing)"> - </button>
+                    <button v-on:click="addToBurger(item.ing); checkBurger()"> + </button> <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button>
                 </div>
             </div>
 
@@ -225,7 +226,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              price: 0,
              buttonClickable: false,
              orderNumber: "",
-             glutenFilter: false,
              count: 0,
              gluten: 0,
              milk: 0,
@@ -400,13 +400,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
 
          editBurger: function (burger, index) {   //Ändra din burgare genom denna. OBS! Om man ska ändra en duplicering
                                                   // så ändras alla burgare som är likadana. Fixa?
-             console.log("HEJ" + this.currentOrder)
+        
              this.currentOrder.burgers[index].editingThisBurger = true; //bestämmer att det är just denna burgaren i ordern som ändras
              this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
-             console.log("då" + this.chosenIngredients)
+         
 
          },
 
@@ -415,6 +415,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
               console.log(burger.price)
               console.log(this.currentOrder)
               this.totalPrice -= burger.price;
+         },
+         
+           cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
+              this.currentOrder.burgers= [];
+               this.currentOrder.editinBurger=false;
+             this.chosenIngredients = [];
+             this.buttonClickable= false;
+             this.orderNumber= "";
+             this.count= 0;
+             this.gluten= 0;
+             this.milk= 0;
+             this.vegan= 0;
+             this.veganBool= true;
+             this.glutenBool= true;
+             this.totalPrice = 0;
+             this.currentOrder.burgers.price = 0;
+             this.price =0;
+         
+               
+             
          },
 
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
@@ -806,6 +826,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
         position: absolute;
         top: -2px;
         right: -2px;
+    }
+    
+     #cancelOrder {
+        position: absolute;
+        top: 1%;
+        right: 6%;
+        cursor: pointer; 
     }
 
 #editBurgerButton {
