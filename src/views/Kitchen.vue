@@ -22,6 +22,15 @@
 </div> -->
   <div v-show="category_view === 'Burger'">
   <h1>Burger</h1>
+  <div v-for="(order, key) in orders">
+    status: {{order.orderId}} {{order.status}}
+  <!-- <div v-show ="order.status === 'done'"> -->
+  <button id= 'button' v-on:click="orderUnDone(order)">
+Undo: {{order.orderId}}
+  </button>
+  <!-- </div> -->
+
+    </div>
   {{$store.state.hello}}
   <div>
     <OrderItemToPrepare
@@ -55,8 +64,8 @@
       <button id= back class = 'item3' v-on:click="setCategory_view('')">Back to overview</button>
   </div>
   </div>
-  <h1>{{ uiLabels.ordersFinished }}</h1>
     <div v-show="category_view === 'Done orders'">
+        <h1>{{ uiLabels.ordersFinished }}</h1>
   <div>
     <OrderItem
       v-for="(order, key) in orders"
@@ -112,6 +121,9 @@ export default {
     markDone: function (orderid) {
       this.$store.state.socket.emit("orderDone", orderid);
     },
+    orderUnDone: function (order) {
+      order.status = 'not-started';
+    },
     setCategory_view: function(view) {
     				this.category_view = view;
     }
@@ -144,7 +156,7 @@ export default {
     font-size: 1.4em;
   }
   #back {
-  font-family: "Courier new", monospace;  
+  font-family: "Courier new", monospace;
   background-color: red;
   border-radius: 0.5em;
   border: none;
@@ -156,4 +168,29 @@ export default {
   font-size: 16px;
   margin: 4px 2px;
 }
+.grid-container_option {
+    display: grid;
+  grid-template-columns:33% 33% 33%;
+  width: 1fr;
+  height: 15em;
+background-color: black;
+padding: 5px;
+}
+
+.grid-container_option > div{
+margin: 3%;
+}
+
+#button {
+  padding: 10px 24px;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  font-size: 50px;
+  width: 80%;
+  height: 80%;
+margin:3% 20% 3% 5%;
+}
+
 </style>
