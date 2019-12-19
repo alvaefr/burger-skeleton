@@ -513,8 +513,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
     .ingredient {
         border: 1px solid grey;
         border-radius: 1.4em;
-        padding: 1em;
-        height: 5em;
+        text-align: center;
+        align-items: center;
+        padding: 0em 1em;
+        height: 10em;
+        width: 13em;
         font-size: 1.7vh;
         background-color: #bccfbc;
         color: dimgray;
@@ -602,8 +605,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: rgba(232, 232, 232, 0.92);
         padding: 5% 0% 4% 4%;
         margin-right: 10%;
-        grid-template-columns: repeat(auto-fill, 8em);
-        grid-gap: 7%;
+        grid-template-columns: repeat(auto-fill, 10em);
+        grid-gap: 9%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;

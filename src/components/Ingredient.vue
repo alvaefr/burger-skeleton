@@ -1,10 +1,11 @@
 <template>
   <div class="ingredient">
-
+      <h3> {{item["ingredient_"+ lang]}} </h3>
+      <img class="image" :src="require('../assets/' + item.img)" width="80" height="60"/> <br>
       <button id="inc" v-on:click="incrementCounter($event)"> + </button>
       {{ itemCount }}
       <button id="dec" v-on:click="decrementCounter($event)"> - </button>
-      {{item["ingredient_"+ lang]}}, {{item.selling_price}}:- <br>
+      {{item.selling_price}}:- <br>
 
       <span v-if="item.gluten_free"> <img src="@/assets/gluten.png" height="20"> </span>
       <span v-if="item.vegan"> <img src="@/assets/vegan.png" height="20"> </span>
