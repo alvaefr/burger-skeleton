@@ -35,16 +35,16 @@
 
 	import utilityMethods from '@/mixins/utilityMethods.js'
 export default {
-  name: 'OrderItem',
-  props: {
-	  uiLabels: Object,
-	  order: Object,
-	  lang: String,
-	  categoryNum: Array
-  	},
+	name: 'OrderItem',
+	props: {
+		uiLabels: Object,
+		order: Object,
+		lang: String,
+		categoryNum: Array
+	},
 	mixins: [utilityMethods],
 	methods: {
-	countNumberOfIngredients: function (id) {
+		countNumberOfIngredients: function (id) {
 	// 	let counter = 0;
 	// 	for (let burger in this.order.burgers) {
 	// 		for (let ingredient in burger.ingredients) {

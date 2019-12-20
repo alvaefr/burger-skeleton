@@ -22,10 +22,10 @@
 </div> -->
   <div v-show="category_view === 'Burger'">
   <h1>Burger</h1>
-  <div v-for="(order, key) in orders">
+  <div v-for="(order, key) in undoListReverse" :key="key">
     status: {{order.orderId}} {{order.status}}
   <!-- <div v-show ="order.status === 'done'"> -->
-  <button id= 'button' v-on:click="orderUnDone(order)">
+  <button id= 'button' v-on:click="orderUnDone(order.orderId)">
 Undo: {{order.orderId}}
   </button>
   <!-- </div> -->
@@ -35,7 +35,7 @@ Undo: {{order.orderId}}
   <div>
     <OrderItemToPrepare
       v-for="(order, key) in orders"
-      v-if="order.status !== 'done'"
+      v-if="order.status !== 'done' && isCategory(category_burger, order.burgers)"
       v-on:done="markDone(key)"
       :order-id="key"
       :order="order"
@@ -52,7 +52,7 @@ Undo: {{order.orderId}}
   <div>
     <OrderItemToPrepare
       v-for="(order, key) in orders"
-      v-if="order.status !== 'done'"
+      v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers)"
       v-on:done="markDone(key)"
       :order-id="key"
       :order="order"
@@ -100,10 +100,11 @@ export default {
           category_burger:[1,2,3,4],
           category_drSi:[5,6],
           category_all:[1,2,3,4,5,6],
-          category_view: ''
+          category_view: '',
+          undoList: []
     }
   },
-  // computed: {
+  computed: {undoListReverse: function () {return this.undoList.reverse()}
   //   countBeef100: function() {
   //     return this.countNumberOfIngredients(2)
   //   },
@@ -116,13 +117,30 @@ export default {
   //     }
   //     return ingredientTuples;
   //   }
-  // },
+  },
   methods: {
+    isCategory: function (arr, itemArray) {
+
+      for(let i = 0; i < arr.length; i += 1){
+        for(let j = 0; j < itemArray.length; j += 1){
+          for(let k = 0; k < itemArray[j].ingredients.length; k += 1){
+           if (arr[i] === itemArray[j].ingredients[k].category){
+              //console.log("itemArray", itemArray[j].ingredients[k].category);
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    },
     markDone: function (orderid) {
       this.$store.state.socket.emit("orderDone", orderid);
+      this.undoList.push(this.orders[orderid]);
+      if (this.undoList.length >3)
+        this.undoList.shift();
     },
-    orderUnDone: function (order) {
-      order.status = 'not-started';
+    orderUnDone: function (orderid) {
+        this.$store.state.socket.emit("orderNotStarted", orderid);
     },
     setCategory_view: function(view) {
     				this.category_view = view;
