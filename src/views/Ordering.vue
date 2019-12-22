@@ -43,6 +43,11 @@
 
 
             <div class="OrderList">
+                Välj din patty <br>
+                <div class="menuItems">
+
+
+
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
@@ -55,6 +60,8 @@
                         :key="item.ingredient_id">
 
                 </Ingredient>
+
+                </div>
             </div>
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
@@ -605,13 +612,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: rgba(232, 232, 232, 0.92);
         padding: 5% 0% 4% 4%;
         margin-right: 10%;
-        grid-template-columns: repeat(auto-fill, 10em);
         grid-gap: 9%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
+    }
+    .menuItems {
+        display:grid;
+        grid-gap: 9%;
+        grid-template-columns: repeat(auto-fill, 10em);
     }
     .Done {
         grid-area: Done;

@@ -17,13 +17,13 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 16,cheddar,cheddar cheese,2,0,1,0,10,cheddar.png
 17,koriander,cilantro,2,1,1,1,5,coriander.png
 18,coleslaw,coleslaw,2,1,1,0,5,coleslaw.png
-19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,vegan.png
-20,stekt ägg,fried egg,2,1,1,0,10,vegan.png
-21,chèvre,goat cheese,2,0,1,0,10,vegan.png
-22,jalapeño,jalapeño,2,1,1,1,5,vegan.png
-23,kimchi,kimchi,2,1,1,1,10,vegan.png
-24,krispsallad,lettuce,2,1,1,1,5,vegan.png
-25,svampstuvning,mushroom stew,2,0,1,0,15,vegan.png
+19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,onion_rings.png
+20,stekt ägg,fried egg,2,1,1,0,10,fried_eggs.png
+21,chèvre,goat cheese,2,0,1,0,10,chevre.png
+22,jalapeño,jalapeño,2,1,1,1,5,jalapeno.png
+23,kimchi,kimchi,2,1,1,1,10,kimchi.png
+24,krispsallad,lettuce,2,1,1,1,5,lettuce.png
+25,svampstuvning,mushroom stew,2,0,1,0,15,mushroom.png
 26,pepper jack-ost,pepper jack cheese,2,0,1,0,10,vegan.png
 27,inlagd gurka,pickled cucumber,2,1,1,1,5,vegan.png
 28,inlagd rödlök,pickled red onion,2,1,1,1,5,vegan.png
