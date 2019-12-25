@@ -3,7 +3,8 @@
     <section class="example-panel">
 
         <!--        Välkomstsida  div -->
-        <div v-show="showFront === this.view" class="grid-containerFront">
+        <div v-show="showFront === this.view" class="grid-containerFront"  >
+        
 
             <div class="welcome">
                 <!--    <img class="logo" src="/.jp" alt="BB">-->
@@ -27,7 +28,7 @@
 
 <!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
-
+            
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
@@ -484,11 +485,21 @@ necessary Vue instance (found in main.js) to import your data and methods */
 </script>
 <style scoped>
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
+    
+     @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+    
+    
+    /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
     section {
-        font-family: "Courier new", monospace;
-        color: dimgrey;
-        font-variant: inherit;
+          font-family: 'Dosis', sans-serif;
     }
+
+    p {
+font-family: 'Dosis', sans-serif;
+}
+
+
+    
     .example-panel {
         left: 0;
         top: 0;
@@ -502,7 +513,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         height: 10em;
         width: 13em;
         font-size: 1.7vh;
-        background-color: #bccfbc;
+        background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
     }
     .grid-container {
@@ -510,7 +521,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
         grid-template-columns: 72% 28%;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
-        background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+        background-image: url("bakgrund.jpg");
+         background-attachment: fixed;
+         background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -518,11 +531,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
         padding: 3%;
         margin: auto;
     }
-    .grid-containerFront {
+  .grid-containerFront {
         display: grid;
-        grid-template-columns: auto;
-        grid-template-rows: auto auto auto;
-        background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+
+       background-image: url("bakgrund.jpg");
+         background-attachment: fixed;
+         background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -541,8 +555,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .mealLocation {
         text-align: center;
+        margin-top: 2em;
         font-size: 2em;
-        background-color: darkgray;
+        background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
     }
     .switchLang {
@@ -560,12 +575,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
         width: 5.5em;
     }
     .mealButton {
-        background-color: gray;
+        background-color: rgba(177, 160, 149, 0.65);
+           font-family: 'Dosis', sans-serif;
         color: black;
         font-size: 1.3em;
         border-radius: 0.25em;
+        padding: 0.6em;
         margin: 1em;
-        font-family: "Courier new", monospace;
+      
     }
     .mealButton:hover {
         background-color: black;
@@ -734,7 +751,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: #ddd;
     }
     .tablinks {
-        font-family: "Courier new", monospace;
+          font-family: 'Dosis', sans-serif;
+
         align-items: end;
     }
     /* För overview-sidan*/
@@ -745,7 +763,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
         grid-template-areas: "Top" "Burgers" "Bottom";
         margin-top: 3em;
         margin-left: 6em;
-        background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+        background-image: url("bakgrund.jpg");
+         background-attachment: fixed;
+         background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -820,6 +840,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     border-top: 5px solid #35A855;
     border-color: #35A855;
     border-radius: 0em 0em 2em 2em;
+       font-family: 'Dosis', sans-serif;
 }
 #duplicateButton {
     position: absolute;
@@ -830,7 +851,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
-        font-family: "Courier new", monospace;
+           font-family: 'Dosis', sans-serif;
         color: white;
         font-size: 2em;
         height: 6em;
@@ -846,7 +867,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     .nextPage {
         background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
-        font-family: "Courier new", monospace;
+           font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2em;
@@ -858,7 +879,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     .nextPageNotClick {
         background-color: rgba(135, 211, 124, 0.9);
         margin-top: 0.5em;
-        font-family: "Courier new", monospace;
+   font-family: 'Dosis', sans-serif;
         float: right;
         font-size: 2em;
         width: 20%;

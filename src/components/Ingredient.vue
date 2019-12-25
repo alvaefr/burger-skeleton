@@ -93,6 +93,8 @@ export default {
      p {
 font-family: 'Dosis', sans-serif;
 }
+    
+    
      
     .head {
         padding-left:70px;
@@ -103,14 +105,14 @@ font-family: 'Dosis', sans-serif;
     #inc {
         background-color: rgba(177, 160, 149, 0.65);
         border-radius: 5em;
-
+        border: 2px solid rgba(177, 160, 149, 1);
           color: rgba(103, 87, 76, 1); 
     }
     
      #dec {
         background-color: rgba(177, 160, 149, 0.65);
         border-radius: 5em;
-  
+  border: 2px solid rgba(177, 160, 149, 1);
                  color: rgba(103, 87, 76, 1); 
     }
     
@@ -120,17 +122,9 @@ font-family: 'Dosis', sans-serif;
     
     .image {
         float: left;
-      background-color: rgba(232, 232, 232);
-        border-top: 1px solid rgba(103, 87, 76, 1);
-         border-bottom: 1px solid rgba(103, 87, 76, 1);
-        border-left: 1px solid rgba(103, 87, 76, 1);
-        border-radius: 1.3em;
-        padding-top: 34px;
-         padding-bottom: 33px;
-        padding-left: 4px;
-        padding-right: 4px;
-        margin-top: -55px;
-        margin-left: -15px;
+     -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
     }
     
     .gluten {
