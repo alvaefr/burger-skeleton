@@ -1,6 +1,8 @@
 <template>
+    
 
     <section class="example-panel">
+        <link href='https://fonts.googleapis.com/css?family=BenchNine' rel='stylesheet'>
 
         <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront">
@@ -498,36 +500,48 @@ necessary Vue instance (found in main.js) to import your data and methods */
  }
 
 </script>
+
 <style scoped>
+ @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+    
+    
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
     section {
-        font-family: "Courier new", monospace;
+      
         color: dimgrey;
         font-variant: inherit;
     }
 
+    p {
+font-family: 'Dosis', sans-serif;
+}
     .example-panel {
         left: 0;
         top: 0;
     }
     .ingredient {
-        border: 1px solid grey;
-        border-radius: 1.4em;
+        border-radius: 1.3em;
+        border: 1px solid rgba(153, 163, 164 , 0.8);
+        height: 125px;
         text-align: center;
         align-items: center;
         padding: 0em 1em;
-        height: 10em;
-        width: 13em;
         font-size: 1.7vh;
-        background-color: #bccfbc;
+             background-color: rgba(232, 232, 232);
         color: dimgray;
+       font-family: 'Dosis', sans-serif;
+
     }
     .grid-container {
         display: grid;
         grid-template-columns: 72% 28%;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
-        background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
+        background-image: url("https://cdn1.cdnme.se/3330886/8-3/bakgrund_5dfe59a0ddf2b3722f4a13c8.jpg");
+        background-repeat: no-repeat;
+
+        background-size: 1220px 700px;
+
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -537,6 +551,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .grid-containerFront {
         display: grid;
+      
         grid-template-columns: auto;
         grid-template-rows: auto auto auto;
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
@@ -585,7 +600,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
         font-size: 1.3em;
         border-radius: 0.25em;
         margin: 1em;
-        font-family: "Courier new", monospace;
+        font-family: 'Dosis', sans-serif;
+      
     }
     .mealButton:hover {
         background-color: black;
@@ -601,17 +617,19 @@ necessary Vue instance (found in main.js) to import your data and methods */
     }
     .OrderList {
         grid-area: OrderList;
+        --auto-grid-min-size: 13rem;
         display: grid;
-        background-color: rgba(232, 232, 232, 0.92);
-        padding: 5% 0% 4% 4%;
+        background-color: rgba(232, 232, 232);
+        padding: 2% 1% 0% 1%;
         margin-right: 10%;
-        grid-template-columns: repeat(auto-fill, 10em);
-        grid-gap: 9%;
+        grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+        grid-gap: 1rem;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
+         font-family: 'Dosis', sans-serif;
     }
     .Done {
         grid-area: Done;
@@ -659,6 +677,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         text-align: right;
         font-weight: bold;
         font-size: 2em;
+        font-family: 'Dosis', sans-serif;
     }
     .Total p {
         margin: 0;
@@ -669,6 +688,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         text-align: center;
         padding-right: 2em;
         float: unset;
+        font-family: 'Dosis', sans-serif;
     }
     /*
         border-bottom: 3px solid #FFF;  Vi synkar Total-fönstret med resten på söndag! Detta ska vara ^
@@ -686,6 +706,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-left: 3px solid #FFF;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
+        font-family: 'Dosis', sans-serif;
     }
     #glutenButton {
         border-radius: 50%;
@@ -728,6 +749,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
         border-bottom: 3px solid #FFFFFF;
+        font-family: 'Dosis', sans-serif;
     }
     /* Change background color of buttons on hover */
     .tab button:hover {
@@ -751,7 +773,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         background-color: #ddd;
     }
     .tablinks {
-        font-family: "Courier new", monospace;
+       
         align-items: end;
     }
     /* För overview-sidan*/
@@ -787,6 +809,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
+         font-family: 'Dosis', sans-serif;
     }
 
     .overviewBottom {
@@ -797,6 +820,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
         position: absolute;
         bottom: 2em;
         right: 5em;
+         font-family: 'Dosis', sans-serif;
     }
     .burgerScroll {
         background-color: #1B686A;
@@ -810,14 +834,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
 
 #burgerNo {
     text-align: center;
+    font-family: 'Dosis', sans-serif;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
+     font-family: 'Dosis', sans-serif;
 }
 
 #burgerTotal {
     position: absolute;
     bottom: 4em;
+    font-family: 'Dosis', sans-serif;
 }
 
     #deleteBurgerButton {
@@ -843,19 +870,21 @@ necessary Vue instance (found in main.js) to import your data and methods */
     border-top: 5px solid #35A855;
     border-color: #35A855;
     border-radius: 0em 0em 2em 2em;
+     font-family: 'Dosis', sans-serif;
 }
 
 #duplicateButton {
     position: absolute;
     bottom: 7em;
     right: 1em;
+     font-family: 'Dosis', sans-serif;
 }
 
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
-        font-family: "Courier new", monospace;
+        font-family: 'Dosis', sans-serif;
         color: white;
         font-size: 2em;
         height: 6em;
@@ -871,9 +900,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     /*Designing of "Next"-button*/
 
     .nextPage {
-        background-color: rgba(135, 211, 124, 1);
+        background-color: rgba(255, 107, 176, 1);
         margin-top: 0.5em;
-        font-family: "Courier new", monospace;
+        font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2em;
@@ -886,13 +915,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
     .nextPageNotClick {
         background-color: rgba(135, 211, 124, 0.9);
         margin-top: 0.5em;
-        font-family: "Courier new", monospace;
+
         float: right;
         font-size: 2em;
         width: 20%;
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(30, 130, 76, 1);
+        border: 3px solid rgba(255, 0, 119, 1);
     }
 
     /* Designing of Foodfilter*/
@@ -901,6 +930,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
 }
     .positionVegan {
        margin-left: 30%;
+       
     }
     .positionGluten {
        margin-left: 40%;
