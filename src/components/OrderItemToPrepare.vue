@@ -8,9 +8,9 @@
     :categoryNum ="categoryNum">
   </OrderItem>
   <button id= 'button' v-on:click="orderDone">
-Done
-  </button>
-</div>
+Done!
+</button>
+  </div>
 </template>
 <script>
 import OrderItem from '@/components/OrderItem.vue'
@@ -23,6 +23,9 @@ export default {
     orderId: String,
     lang: String,
     categoryNum: Array
+  },
+  data: function(){
+    return {  button_status: true}
   },
   methods: {
     orderDone: function () {

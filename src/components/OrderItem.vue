@@ -24,7 +24,9 @@
 		<div v-for="(burger, key) in order.burgers" :key="key">
 			{{uiLabels.ingredients}}:
 			<div v-for="(ing, key2) in groupIngredients(burger.ingredients)" :key="key2">
-				{{ ing.count + " x " + ing.ing["ingredient_" + lang] }}
+					<div v-if="(categoryNum.includes(ing.category_num))">
+				{{ ing.count + " x " + ing.ing["ingredient_" + lang]}}
+			</div>
 			</div>
 		</div>
 	</div>
@@ -33,16 +35,16 @@
 
 	import utilityMethods from '@/mixins/utilityMethods.js'
 export default {
-  name: 'OrderItem',
-  props: {
-	  uiLabels: Object,
-	  order: Object,
-	  lang: String,
-	  categoryNum: Array
-  	},
+	name: 'OrderItem',
+	props: {
+		uiLabels: Object,
+		order: Object,
+		lang: String,
+		categoryNum: Array
+	},
 	mixins: [utilityMethods],
 	methods: {
-	countNumberOfIngredients: function (id) {
+		countNumberOfIngredients: function (id) {
 	// 	let counter = 0;
 	// 	for (let burger in this.order.burgers) {
 	// 		for (let ingredient in burger.ingredients) {

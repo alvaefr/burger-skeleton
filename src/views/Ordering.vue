@@ -1,8 +1,6 @@
 <template>
-    
 
     <section class="example-panel">
-        <link href='https://fonts.googleapis.com/css?family=BenchNine' rel='stylesheet'>
 
         <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront">
@@ -45,6 +43,11 @@
 
 
             <div class="OrderList">
+                Välj din patty <br>
+                <div class="menuItems">
+
+
+
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
@@ -57,6 +60,8 @@
                         :key="item.ingredient_id">
 
                 </Ingredient>
+
+                </div>
             </div>
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
@@ -201,7 +206,6 @@
 </template>
 
 <script>
-
 //import the components that are used in the template, the name that you
 // use for importing will be used in the template above and also below in
 // components
@@ -248,7 +252,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              totalPrice: 0
          }
      },
-
      created: function () {
          this.$store.state.socket.on('orderNumber', function (data) {
              this.orderNumber = data;
@@ -313,13 +316,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price += item.selling_price;
              this.totalPrice += item.selling_price;
          },
-
          delFromBurger: function (item) {  //Tar bort ingrediens
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
              this.totalPrice -= item.selling_price;
          },
-
          ingredientCount: function (item) {  //Räknar ingredienserna.
              let counter = 0;
              for(let i = 0; i < this.chosenIngredients.length; i += 1) {
@@ -328,12 +329,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
              return counter;
          },
-
          checkBurger: function() {
              this.buttonClickable=false;
              for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                 if (this.chosenIngredients[i].category === 4) {
-
                     for (let i = 0; i < this.chosenIngredients.length; i += 1) {
                          if (this.chosenIngredients[i].category===1) {
                               this.buttonClickable=true;
@@ -342,12 +341,10 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 }
             }
         },
-
          addBurger: function() {   //Lägg till nny burgare
              this.buttonClickable=false;
              this.chosenIngredients = [];
          },
-
          addToOrder: function () {   //Lägg till burgaren till order!
              // Add the burger to an order array
              console.log(this.currentOrder)
@@ -371,7 +368,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
          },
-
          // countNumberOfIngredients: function (id) {   //OBS. Gammal ingredienscounter till sidovyn i ordering.
          //     let counter = 0;
          //     for (let order in this.chosenIngredients) {
@@ -388,7 +384,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          //     }
          //     return counter;
          // },
-
          countNumberOfBurgerIngredients: function (id, burgerNo) {  //Räknar ingredienserna per burgare till overview.
              let counter = 0;
              for (let item in this.currentOrder.burgers[burgerNo].ingredients) {
@@ -398,7 +393,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
              return counter;
          },
-
          editBurger: function (burger, index) {   //Ändra din burgare genom denna. OBS! Om man ska ändra en duplicering
                                                   // så ändras alla burgare som är likadana. Fixa?
         
@@ -408,9 +402,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price = burger.price;
              this.view = "showMenu"
          
-
          },
-
          deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
               this.currentOrder.burgers.splice(index, 1);
               console.log(burger.price)
@@ -434,7 +426,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.burgers.price = 0;
              this.price = 0;
          },
-
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
                                                 // att om man ska redigera en, redigeras ALLA duplicerade.
              var newBurger,
@@ -442,9 +433,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.burgers.push(newBurger)
              this.totalPrice += burger.price;
          },
-
-
-
          updatePrice: function () {     //Här uppdateras priset
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
                  if (this.currentOrder.burgers[j].editingThisBurger) {
@@ -458,7 +446,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          setCategory: function (number) {
              this.categoryNumber = number;
-
          },
          showGlutenFree: function () {
              this.glutenBool = !this.glutenBool;
@@ -488,60 +475,42 @@ necessary Vue instance (found in main.js) to import your data and methods */
              // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
              this.$store.state.socket.emit('order', this.currentOrder);
              console.log("PLACE ORDER")
-
          },
-
          switchFlag: function (){
                 this.picBool = !this.picBool;
          },
      },
-
-
  }
-
 </script>
-
 <style scoped>
- @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
-    
-    
     /* scoped in the style tag means that these rules will only apply to elements, classes and ids in this template and no other templates. */
     section {
-      
+        font-family: "Courier new", monospace;
         color: dimgrey;
         font-variant: inherit;
     }
-
-    p {
-font-family: 'Dosis', sans-serif;
-}
     .example-panel {
         left: 0;
         top: 0;
     }
     .ingredient {
-        border-radius: 1.3em;
-        border: 1px solid rgba(153, 163, 164 , 0.8);
-        height: 125px;
+        border: 1px solid grey;
+        border-radius: 1.4em;
         text-align: center;
         align-items: center;
         padding: 0em 1em;
+        height: 10em;
+        width: 13em;
         font-size: 1.7vh;
-             background-color: rgba(232, 232, 232);
+        background-color: #bccfbc;
         color: dimgray;
-       font-family: 'Dosis', sans-serif;
-
     }
     .grid-container {
         display: grid;
         grid-template-columns: 72% 28%;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
-        background-image: url("https://cdn1.cdnme.se/3330886/8-3/bakgrund_5dfe59a0ddf2b3722f4a13c8.jpg");
-        background-repeat: no-repeat;
-
-        background-size: 1220px 700px;
-
+        background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -551,7 +520,6 @@ font-family: 'Dosis', sans-serif;
     }
     .grid-containerFront {
         display: grid;
-      
         grid-template-columns: auto;
         grid-template-rows: auto auto auto;
         background-image: url("https://cdn2.cdnme.se/3330886/8-3/skarmavbild_2019-12-06_kl_225839_5deacf59e087c37d7abbdea3.png");
@@ -582,17 +550,14 @@ font-family: 'Dosis', sans-serif;
         margin: 1em;
         background-size: cover;
     }
-
     .flagButton{
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
     }
-
     .flag {
         height: 4em;
         width: 5.5em;
-
     }
     .mealButton {
         background-color: gray;
@@ -600,8 +565,7 @@ font-family: 'Dosis', sans-serif;
         font-size: 1.3em;
         border-radius: 0.25em;
         margin: 1em;
-        font-family: 'Dosis', sans-serif;
-      
+        font-family: "Courier new", monospace;
     }
     .mealButton:hover {
         background-color: black;
@@ -617,19 +581,21 @@ font-family: 'Dosis', sans-serif;
     }
     .OrderList {
         grid-area: OrderList;
-        --auto-grid-min-size: 13rem;
         display: grid;
-        background-color: rgba(232, 232, 232);
-        padding: 2% 1% 0% 1%;
+        background-color: rgba(232, 232, 232, 0.92);
+        padding: 5% 0% 4% 4%;
         margin-right: 10%;
-        grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
-        grid-gap: 1rem;
+        grid-gap: 9%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
-         font-family: 'Dosis', sans-serif;
+    }
+    .menuItems {
+        display:grid;
+        grid-gap: 9%;
+        grid-template-columns: repeat(auto-fill, 10em);
     }
     .Done {
         grid-area: Done;
@@ -677,7 +643,6 @@ font-family: 'Dosis', sans-serif;
         text-align: right;
         font-weight: bold;
         font-size: 2em;
-        font-family: 'Dosis', sans-serif;
     }
     .Total p {
         margin: 0;
@@ -688,7 +653,6 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         padding-right: 2em;
         float: unset;
-        font-family: 'Dosis', sans-serif;
     }
     /*
         border-bottom: 3px solid #FFF;  Vi synkar Total-fönstret med resten på söndag! Detta ska vara ^
@@ -706,14 +670,12 @@ font-family: 'Dosis', sans-serif;
         border-left: 3px solid #FFF;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
-        font-family: 'Dosis', sans-serif;
     }
     #glutenButton {
         border-radius: 50%;
         height: 50px;
         width: 50px
     }
-
     .foodFilter {
         margin-left: 35%;
     }
@@ -749,7 +711,6 @@ font-family: 'Dosis', sans-serif;
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
         border-bottom: 3px solid #FFFFFF;
-        font-family: 'Dosis', sans-serif;
     }
     /* Change background color of buttons on hover */
     .tab button:hover {
@@ -773,7 +734,7 @@ font-family: 'Dosis', sans-serif;
         background-color: #ddd;
     }
     .tablinks {
-       
+        font-family: "Courier new", monospace;
         align-items: end;
     }
     /* För overview-sidan*/
@@ -800,7 +761,6 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         font-weight: bold;
     }
-
     .burgerOverview {
         grid-area: Burgers;
         display: grid;
@@ -809,9 +769,7 @@ font-family: 'Dosis', sans-serif;
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
-         font-family: 'Dosis', sans-serif;
     }
-
     .overviewBottom {
         grid-area: Bottom;
         position: relative;
@@ -820,7 +778,6 @@ font-family: 'Dosis', sans-serif;
         position: absolute;
         bottom: 2em;
         right: 5em;
-         font-family: 'Dosis', sans-serif;
     }
     .burgerScroll {
         background-color: #1B686A;
@@ -831,22 +788,16 @@ font-family: 'Dosis', sans-serif;
         border: 5px solid #35A855;
         padding: 0 1em;
     }
-
 #burgerNo {
     text-align: center;
-    font-family: 'Dosis', sans-serif;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-     font-family: 'Dosis', sans-serif;
 }
-
 #burgerTotal {
     position: absolute;
     bottom: 4em;
-    font-family: 'Dosis', sans-serif;
 }
-
     #deleteBurgerButton {
         position: absolute;
         top: -2px;
@@ -859,7 +810,6 @@ font-family: 'Dosis', sans-serif;
         right: 6%;
         cursor: pointer; 
     }
-
 #editBurgerButton {
     width: 100%;
     background-color: #82ceab;
@@ -870,21 +820,17 @@ font-family: 'Dosis', sans-serif;
     border-top: 5px solid #35A855;
     border-color: #35A855;
     border-radius: 0em 0em 2em 2em;
-     font-family: 'Dosis', sans-serif;
 }
-
 #duplicateButton {
     position: absolute;
     bottom: 7em;
     right: 1em;
-     font-family: 'Dosis', sans-serif;
 }
-
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
-        font-family: 'Dosis', sans-serif;
+        font-family: "Courier new", monospace;
         color: white;
         font-size: 2em;
         height: 6em;
@@ -896,13 +842,11 @@ font-family: 'Dosis', sans-serif;
         color: white;
         cursor: pointer;
     }
-
     /*Designing of "Next"-button*/
-
     .nextPage {
-        background-color: rgba(255, 107, 176, 1);
+        background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
-        font-family: 'Dosis', sans-serif;
+        font-family: "Courier new", monospace;
         float: right;
         cursor: pointer;
         font-size: 2em;
@@ -911,26 +855,23 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-
     .nextPageNotClick {
         background-color: rgba(135, 211, 124, 0.9);
         margin-top: 0.5em;
-
+        font-family: "Courier new", monospace;
         float: right;
         font-size: 2em;
         width: 20%;
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(255, 0, 119, 1);
+        border: 3px solid rgba(30, 130, 76, 1);
     }
-
     /* Designing of Foodfilter*/
     .label__checkbox {
   display: none;
 }
     .positionVegan {
        margin-left: 30%;
-       
     }
     .positionGluten {
        margin-left: 40%;
