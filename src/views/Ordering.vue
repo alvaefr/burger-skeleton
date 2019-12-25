@@ -1,6 +1,15 @@
 <template>
+ 
+
 
     <section class="example-panel">
+        
+       <div v-if="loading">
+        
+           <span class="popup" align=center> <h4 class=popUpText> Välkommen till burgarsidan, <br> gör en burgare i taget </h4> <img align=center src="@/assets/load-icon-png-27.png" height="30"> </span>
+        
+        </div>
+
 
         <!--        Välkomstsida  div -->
         <div v-show="showFront === this.view" class="grid-containerFront"  >
@@ -13,8 +22,10 @@
 
             <div class="mealLocation">
                 <p>{{ uiLabels.beginOrder }}</p><br>
-                <button class="mealButton" v-on:click="setView(showMenu)">{{ uiLabels.eathere }}</button>
-                <button class="mealButton" v-on:click="setView(showMenu)">{{ uiLabels.togo }}</button>
+                <button class="mealButton" v-on:click="setView(showMenu); popUp()">{{ uiLabels.eathere }}</button>
+                <button class="mealButton" v-on:click="setView(showMenu); popUp()">{{ uiLabels.togo }}</button>
+                
+
             </div>
 
             <div class="switchLang">
@@ -232,6 +243,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
              price: 0,
              buttonClickable: false,
              orderNumber: "",
+             name: "LoadingScreen",
+             props: ["isLoading"],
+             loading: false,
              count: 0,
              gluten: 0,
              milk: 0,
@@ -330,6 +344,21 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
              return counter;
          },
+         
+         popUp: function() {
+
+    //Show Loader
+        this.loading = true;
+
+        //Waste 5 seconds
+
+        //Hide loader
+      setTimeout(() => {
+           this.loading = false;
+        }, 3500)
+
+    },
+         
          checkBurger: function() {
              this.buttonClickable=false;
              for (let i = 0; i < this.chosenIngredients.length; i += 1) {
@@ -346,6 +375,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.buttonClickable=false;
              this.chosenIngredients = [];
          },
+         
+         
          addToOrder: function () {   //Lägg till burgaren till order!
              // Add the burger to an order array
              console.log(this.currentOrder)
@@ -498,7 +529,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
 font-family: 'Dosis', sans-serif;
 }
 
-
+/* Popup container */
+.popup {
+  position: absolute;
+  z-index: 1;
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-top: 10%;
+  display: inline-block;
+  width: 20%;
+  height: 20%;
+  background-color: rgba(232, 232, 232, 0.8);
+  border-radius: 2em;
+  padding: 2em;
+  border: 5px solid white;
+}
+  
+    /* Popup text */
+    .popUpText {
+        font-size: 1.5em;
+    }
     
     .example-panel {
         left: 0;
@@ -858,6 +908,33 @@ font-family: 'Dosis', sans-serif;
         width: 6em;
         margin: 2em;
     }
+    
+    .loader {
+  background-color: #63ab97;
+  bottom: 0;
+  color: white;
+  display: block;
+  font-size: 32px;
+  left: 0;
+  overflow: hidden;
+  padding-top: 10vh;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
+
+.fadeout {
+  animation: fadeout 2s forwards;
+}
+
+@keyframes fadeout {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+    
     .burgerAdd:hover {
         background-color: black;
         color: white;
