@@ -2,7 +2,7 @@
   <div class="ingredient">
       <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
 
-      <img class="image" :src="require('../assets/' + item.img)" width="80" height="60"/> 
+      <img class="image" :src="require('../assets/' + item.img)" width=auto height="60"/> 
 
       <button id="inc" v-on:click="incrementCounter($event)"> + </button>
       {{ itemCount }}

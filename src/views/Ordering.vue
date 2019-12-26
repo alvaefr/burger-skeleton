@@ -1,14 +1,11 @@
 <template>
- 
-
-
     <section class="example-panel">
         
-       <div v-if="loading">
+    <div v-if="loading">
         
            <span class="popup" align=center> <h4 class=popUpText> Välkommen till burgarsidan, <br> gör en burgare i taget </h4> <img align=center src="@/assets/load-icon-png-27.png" height="30"> </span>
         
-        </div>
+    </div>
 
 
         <!--        Välkomstsida  div -->
@@ -29,11 +26,9 @@
             </div>
 
             <div class="switchLang">
-                <button class="flagButton" v-on:click="switchLang(); switchFlag()" >
-                    <img class="flag" v-if="picBool" src="https://static.posters.cz/image/750/posters/english-national-flag-union-jack-i135.jpg" >
-                    <img class="flag" v-else src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAHlBMVEUAaqf+zAD/0QAAaKlPfJZggpAAZqpdgZFKepiBj4EDfUmrAAABn0lEQVR4nO3ay43CUBBFwYc9/PJPeIig8IKWkDmVQKvP+q41Y79ul3e26z50/csVB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYFzxNln3O4H4txvQ9c/ZP3NeDwPxHk+hq5/yNqmvG3zqvPl1oEfflZxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kBxoDhQHCgOFAeKA8WB4kDLLmgTCK1JYWzBe4od8pDiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOFAcKA4UB4oDxYHiQHGgOHCKOP/ItlPLsoEE4gAAAABJRU5ErkJggg==" > </button>
-
-
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
             </div>
         </div>
 
@@ -103,7 +98,12 @@
 
             <div class="Done">
 
-            <button class="switchL" v-on:click="switchLang()">{{ uiLabels.language }}</button>
+            <div class="switchLang">
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
+            </div>
+                
 
                <div class="positionGluten">
                     <label class="label">
@@ -139,13 +139,15 @@
                 </div>
 
 
-                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
+                
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
+                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
 
             </div>
+            
 
 
         </div>
@@ -208,7 +210,12 @@
             </div>
 
             <div class="overviewBottom">
-                <button v-on:click="switchLang()">{{ uiLabels.language }}</button>
+
+                <div class="switchLang">
+                    <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
+                </div>
                 <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} </div>
                 <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"><span id="placeOrderText">{{ uiLabels.placeOrder }}</span>
             </div>
@@ -572,8 +579,8 @@ font-family: 'Dosis', sans-serif;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("bakgrund.jpg");
-         background-attachment: fixed;
-         background-position: center;
+        background-attachment: fixed;
+        background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -583,10 +590,10 @@ font-family: 'Dosis', sans-serif;
     }
   .grid-containerFront {
         display: grid;
-
-       background-image: url("bakgrund.jpg");
-         background-attachment: fixed;
-         background-position: center;
+        grid-template-areas: auto;
+        background-image: url("bakgrund.jpg");
+        background-attachment: fixed;
+        background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -597,7 +604,7 @@ font-family: 'Dosis', sans-serif;
     }
     .welcome {
         font-size: 5em;
-        overflow: hidden;
+        overflow: inherit;
         text-align: center;
         font-weight: bold;
     }
@@ -605,13 +612,12 @@ font-family: 'Dosis', sans-serif;
     }
     .mealLocation {
         text-align: center;
-        margin-top: 2em;
         font-size: 2em;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
     }
     .switchLang {
-        text-align: right;
+        float: left;
         margin: 1em;
         background-size: cover;
     }
@@ -944,7 +950,7 @@ font-family: 'Dosis', sans-serif;
     .nextPage {
         background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
-           font-family: 'Dosis', sans-serif;
+        font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2em;
@@ -956,7 +962,7 @@ font-family: 'Dosis', sans-serif;
     .nextPageNotClick {
         background-color: rgba(135, 211, 124, 0.9);
         margin-top: 0.5em;
-   font-family: 'Dosis', sans-serif;
+        font-family: 'Dosis', sans-serif;
         float: right;
         font-size: 2em;
         width: 20%;
@@ -966,7 +972,7 @@ font-family: 'Dosis', sans-serif;
     }
     /* Designing of Foodfilter*/
     .label__checkbox {
-  display: none;
+      display: none;
 }
     .positionVegan {
        margin-left: 30%;
