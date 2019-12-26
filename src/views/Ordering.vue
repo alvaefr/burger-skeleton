@@ -44,7 +44,6 @@
                     <button class="tablinks" v-on:click="setCategory(3)">{{ uiLabels.sauce }}</button>
                     <button class="tablinks" v-on:click="setCategory(5)">{{ uiLabels.sides }}</button>
                     <button class="tablinks" v-on:click="setCategory(6)">{{ uiLabels.drink }}</button>
-
                 </div>
             </div>
 
@@ -53,8 +52,7 @@
                 Välj din patty <br>
                 <div class="menuItems">
 
-
-
+                    
                 <Ingredient
                         ref="ingredient"
                         v-for="item in ingredients"
