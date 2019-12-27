@@ -4,9 +4,9 @@
 
       <img class="image" :src="require('../assets/' + item.img)" width="60" height="60"/>
 
-      <button id="inc" v-on:click="incrementCounter($event)"> + </button>
+      <button id="inc" v-on:click="incrementCounter($event)" :disabled="item.category === 4 && itemCount >= 1">+</button>
       {{ itemCount }}
-      <button id="dec" v-on:click="decrementCounter($event)"> - </button> <br>
+      <button id="dec" v-on:click="decrementCounter($event)">-</button> <br>
 
 
       <span v-if="item.gluten_free"> <img class="gluten" src="@/assets/gluten2.png" height="33"> </span>

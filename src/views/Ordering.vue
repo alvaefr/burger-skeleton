@@ -86,7 +86,7 @@
                 <hr>
                 <div v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="addToBurger(item.ing); checkBurger()"> + </button> <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button>
+                    <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button> <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button>
                 </div>
             </div>
 
