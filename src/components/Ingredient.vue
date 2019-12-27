@@ -1,15 +1,17 @@
 <template>
   <div class="ingredient">
-      <h3> {{item["ingredient_"+ lang]}} </h3>
-      <img class="image" :src="require('../assets/' + item.img)" width="80" height="60"/> <br>
+      <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
+
+      <img class="image" :src="require('../assets/' + item.img)" width="60" height="60"/>
+
       <button id="inc" v-on:click="incrementCounter($event)"> + </button>
       {{ itemCount }}
-      <button id="dec" v-on:click="decrementCounter($event)"> - </button>
-      {{item.selling_price}}:- <br>
+      <button id="dec" v-on:click="decrementCounter($event)"> - </button> <br>
 
-      <span v-if="item.gluten_free"> <img src="@/assets/gluten.png" height="20"> </span>
-      <span v-if="item.vegan"> <img src="@/assets/vegan.png" height="20"> </span>
-      <span v-if="item.milk_free"> <img src="@/assets/milk.png" height="19"> </span>
+
+      <span v-if="item.gluten_free"> <img class="gluten" src="@/assets/gluten2.png" height="33"> </span>
+      <span v-if="item.vegan"> <img class="vegan" src="@/assets/vegan2.png" height="30"> </span>
+      <span v-if="item.milk_free"> <img class="milk" src="@/assets/milk2.png" height="30"> </span>
 
       <!--          GAMMAL KOD           -->
 <!--    <label>-->
@@ -86,5 +88,61 @@ export default {
 }
 </script>
 <style scoped>
+    
+    @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+     p {
+font-family: 'Dosis', sans-serif;
+}
+    
+    
+     
+    .head {
+        padding-left:70px;
+ padding-right:5px;
+
+    }
+    
+    #inc {
+        background-color: rgba(177, 160, 149, 0.65);
+        border-radius: 5em;
+        border: 2px solid rgba(177, 160, 149, 1);
+          color: rgba(103, 87, 76, 1); 
+    }
+    
+     #dec {
+        background-color: rgba(177, 160, 149, 0.65);
+        border-radius: 5em;
+  border: 2px solid rgba(177, 160, 149, 1);
+                 color: rgba(103, 87, 76, 1); 
+    }
+    
+    .price {
+        
+    }
+    
+    .image {
+        float: left;
+     -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+    }
+    
+    .gluten {
+        float: bottom;
+        padding-top: 1em;
+
+   
+     
+    }
+    
+     .milk {
+        float: bottom;
+
+    }
+    
+     .vegan {
+        float: bottom;
+
+    }
   
 </style>
