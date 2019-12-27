@@ -671,30 +671,7 @@ font-family: 'Dosis', sans-serif;
     .Done {
         grid-area: Done;
     }
-    .glutenFilter button:hover {
-        background-color: greenyellow;
-    }
-    .glutenFilter button:focus {
-        background-color: green;
-    }
-    .glutenFilter button:active {
-        background-color: springgreen;
-    }
-    .milkFilter button:hover {
-        background-color: #98d5ee;
-    }
-    .milkFilter button:focus {
-        background-color: cornflowerblue;
-    }
-    .veganFilter button:hover {
-        background-color: #de7d9c;
-    }
-    .veganFilter button:focus {
-        background-color: #b35b78;
-    }
-    .veganFilter button:visited {
-        background-color: #b35b78;
-    }
+    
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
@@ -742,27 +719,8 @@ font-family: 'Dosis', sans-serif;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
     }
-    #glutenButton {
-        border-radius: 50%;
-        height: 50px;
-        width: 50px
-    }
-    .foodFilter {
-        margin-left: 35%;
-    }
-    .foodFilter button {
-        background-color: rgba(232, 232, 232, 0.92);
-        width: 5em;
-        height: 5em;
-        font-size: 90%;
-        float: left;
-        margin: 2%;
-        cursor: pointer;
-        padding: 14px 14px;
-        transition: 1s;
-        border-radius: 50%;
-        border: 3px solid #FFF;
-    }
+
+
     /* Style the tab */
     .tab {
         grid-area: top;
@@ -992,6 +950,7 @@ font-family: 'Dosis', sans-serif;
   cursor: pointer;
   transition: border .3s ease;
   text-align: center;
+  margin-top: 2%;
 }
 .label__checkbox:checked + .label__text .label__check {
   animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
