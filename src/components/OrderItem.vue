@@ -19,17 +19,18 @@
 <!--	</div> &ndash;&gt;-->
 <!--	<p id="demo"></p>-->
 <!--	</div>-->
-	<div>
-		{{order.orderId}}
+
+		<div class = 'grid-item'>
+		<div id = 'orderID'> #{{order.orderId}} </div>
 		<div v-for="(burger, key) in order.burgers" :key="key">
-			{{uiLabels.ingredients}}:
+			<div id = 'burgerID'> Burger {{key + 1}}: </div>
 			<div v-for="(ing, key2) in groupIngredients(burger.ingredients)" :key="key2">
 					<div v-if="(categoryNum.includes(ing.category_num))">
 				{{ ing.count + " x " + ing.ing["ingredient_" + lang]}}
 			</div>
 			</div>
 		</div>
-	</div>
+				</div>
 </template>
 <script>
 
@@ -72,4 +73,21 @@ export default {
 	</script>
 <style scoped>
 
+	.grid-item {
+	  background-color: darkgrey;
+	  border: 1px solid rgba(0, 0, 0, 0.8);
+	  padding: 10px;
+	  font-size: 30px;
+	  text-align: center;
+		font-size: 12pt;
+	}
+#orderID {
+	text-align: right;
+	font-size: 15pt;
+	      font-weight: bold;
+}
+#burgerID {
+	      font-weight: bold;
+					text-align: left;
+}
 </style>

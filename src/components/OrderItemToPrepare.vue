@@ -7,7 +7,7 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
-  <button id= 'button' v-on:click="orderDone">
+  <button class ='doneButton' id= 'button' v-on:click="orderDone">
 Done!
 </button>
   </div>
@@ -40,7 +40,7 @@ export default {
 }
 </script>
 <style scoped>
-#button {
+.doneButton {
   background-color: #4CAF50;
 border: none;
 color: white;
@@ -52,4 +52,9 @@ font-size: 16px;
 margin: 4px 2px;
 font-family: "Courier new", monospace;
 }
+
+.doneButton:hover {
+      background-color: darkgreen;
+  }
+
 </style>
