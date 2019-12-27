@@ -34,5 +34,6 @@
   "addBurger": "Click here to add burger",
   "yourOrder": "Done with this burger",
   "backfirstpage": "Back to the first page",
-  "editBurger": "Edit this burger"
+  "editBurger": "Edit this burger",
+  "price": "Price"
 }

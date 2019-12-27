@@ -91,7 +91,7 @@
             </div>
 
             <div class="Total">
-                <h2>{{ uiLabels.total }}:</h2>
+                <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
 
             <div class="Done">
@@ -169,7 +169,7 @@
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> Total {{ burger.price }} </h4>
+                        <hr> <h4> {{uiLabels.price}} {{ burger.price }} </h4>
                     </div>
 
 

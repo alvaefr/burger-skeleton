@@ -34,5 +34,6 @@
   "addBurger": "Klicka här för att lägga till burgare",
   "yourOrder": "Klar med denna burgare",
   "backfirstpage": "Tillbaka till förstasidan",
-  "editBurger": "Ändra denna burgare"  
+  "editBurger": "Ändra denna burgare",
+  "price": "Pris"
 }
