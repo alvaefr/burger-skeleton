@@ -25,11 +25,11 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 24,krispsallad,lettuce,2,1,1,1,5,lettuce.png
 25,svampstuvning,mushroom stew,2,0,1,0,15,mushroom.png
 26,pepper jack-ost,pepper jack cheese,2,0,1,0,10,vegan.png
-27,inlagd gurka,pickled cucumber,2,1,1,1,5,vegan.png
+27,inlagd gurka,pickled cucumber,2,1,1,1,5,pickled_cucumber.png
 28,inlagd rödlök,pickled red onion,2,1,1,1,5,vegan.png
-29,rå rödlök,raw red onion,2,1,1,1,5,vegan.png
-30,rå gul lök,raw yellow onion,2,1,1,1,5,vegan.png
-31,salami,salami,2,1,1,0,10,vegan.png
+29,rå rödlök,raw red onion,2,1,1,1,5,raw_red_onion.png
+30,rå gul lök,raw yellow onion,2,1,1,1,5,yellow_onion.png
+31,salami,salami,2,1,1,0,10,salami.png
 32,surkål,sauerkraut,2,1,1,1,5,vegan.png
 33,tomat,tomato,2,1,1,1,5,vegan.png
 34,vegansk ost,vegan cheese,2,1,1,1,10,vegan.png

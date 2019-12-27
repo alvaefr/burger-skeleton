@@ -43,7 +43,7 @@
 
 
             <div class="OrderList">
-                Välj din patty <br>
+               <!-- Välj din patty <br> -->
                 <div class="menuItems">
 
 
