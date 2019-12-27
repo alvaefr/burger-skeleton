@@ -74,7 +74,7 @@
              
 <!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
 <!--                <h1>{{ uiLabels.order }}</h1>-->
-<!--                <div v-for="countIng in countAllIngredients"-->
+<!--                <div v-for="countIng in countAllIngredients"-->         
 <!--                     :key="countAllIngredients.indexOf(countIng)">-->
 <!--                    {{countIng.count}}-->
 <!--                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr-->
@@ -139,7 +139,7 @@
 
                 
 
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.doneOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
                 <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
@@ -566,14 +566,15 @@ font-family: 'Dosis', sans-serif;
         align-items: center;
         padding: 0em 1em;
         height: 10em;
-        width: 13em;
+        width: 14em;
         font-size: 1.7vh;
         background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
+        overflow:scroll;
     }
     .grid-container {
         display: grid;
-        grid-template-columns: 72% 28%;
+        grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 20%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
         background-image: url("bakgrund.jpg");
@@ -618,19 +619,22 @@ font-family: 'Dosis', sans-serif;
         float: left;
         margin: 1em;
         background-size: cover;
+        
     }
     .flagButton{
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
+
     }
     .flag {
         height: 4em;
         width: 5.5em;
+        border-radius: 0.3em 0.3em 0.3em 0.3em;
     }
     .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
-           font-family: 'Dosis', sans-serif;
+        font-family: 'Dosis', sans-serif;
         color: black;
         font-size: 1.3em;
         border-radius: 0.25em;
@@ -654,19 +658,23 @@ font-family: 'Dosis', sans-serif;
         grid-area: OrderList;
         display: grid;
         background-color: rgba(232, 232, 232, 0.92);
-        padding: 5% 0% 4% 4%;
-        margin-right: 10%;
-        grid-gap: 9%;
+        padding: 4% 0% 0% 3%;
+        margin-right: 5%;
+        grid-gap: 8%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
+        
     }
     .menuItems {
-        display:grid;
-        grid-gap: 9%;
-        grid-template-columns: repeat(auto-fill, 10em);
+        display: grid;
+        grid-gap: 5%;
+        grid-template-columns: repeat(auto-fill, 11.2em);
+        overflow: inherit;
+        
+        
     }
     .Done {
         grid-area: Done;
@@ -720,11 +728,10 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
     }
 
-
     /* Style the tab */
     .tab {
         grid-area: top;
-        margin: 0% 10% 0% 0%;
+        margin: 0% 5% 0% 0%;
         border-bottom: 3px solid #FFFFFF;
     }
     /* Style the buttons that are used to open the tab content */
@@ -776,8 +783,8 @@ font-family: 'Dosis', sans-serif;
         margin-top: 3em;
         margin-left: 6em;
         background-image: url("bakgrund.jpg");
-         background-attachment: fixed;
-         background-position: center;
+        background-attachment: fixed;
+        background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
@@ -910,7 +917,7 @@ font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2em;
-        width: 20%;
+        width: 25%;
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);

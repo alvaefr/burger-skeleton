@@ -1,7 +1,7 @@
 ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img
 1,bönburgare,bean patty,1,1,1,1,40,grilled-eggplant.png,
 2,nötfärsburgare 100g,beef patty 100g,1,1,1,0,40,beef_patty_100.png
-3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,grilled-eggplant.png
+3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,beef_patty_100.png
 4,kycklingburgare,chicken patty,1,1,0,0,40,chicken_patty.png
 5,friterad halloumi,deep-fried halloumi,1,0,0,0,40,halloumi.png
 6,fiskfilé,fish filet,1,1,0,0,40,fish_filet.png
