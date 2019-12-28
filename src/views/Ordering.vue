@@ -139,7 +139,7 @@
 
                 
 
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.doneOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
                 <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
@@ -783,8 +783,8 @@ font-family: 'Dosis', sans-serif;
         margin-top: 3em;
         margin-left: 6em;
         background-image: url("bakgrund.jpg");
-        background-attachment: fixed;
-        background-position: center;
+         background-attachment: fixed;
+         background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
