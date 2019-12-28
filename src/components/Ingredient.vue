@@ -4,7 +4,7 @@
       <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
             <button id="inc" v-on:click="incrementCounter($event)" :disabled="item.category === 4 && itemCount >= 1">+</button>
       {{ itemCount }}
-      <button id="dec" v-on:click="decrementCounter($event)">-</button> <br>
+      <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button> <br>
      </div>
       
       <h3 class="price">{{item.selling_price}}:- </h3>
