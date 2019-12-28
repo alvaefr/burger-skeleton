@@ -351,17 +351,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          
          popUp: function() {
-
     //Show Loader
         this.loading = true;
-
         //Waste 5 seconds
-
         //Hide loader
       setTimeout(() => {
            this.loading = false;
         }, 3500)
-
     },
          
          checkBurger: function() {
@@ -529,11 +525,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     section {
           font-family: 'Dosis', sans-serif;
     }
-
     p {
 font-family: 'Dosis', sans-serif;
 }
-
 /* Popup container */
 .popup {
   position: absolute;
@@ -719,8 +713,6 @@ font-family: 'Dosis', sans-serif;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
     }
-
-
     /* Style the tab */
     .tab {
         grid-area: top;
@@ -764,7 +756,6 @@ font-family: 'Dosis', sans-serif;
     }
     .tablinks {
           font-family: 'Dosis', sans-serif;
-
         align-items: end;
     }
     /* För overview-sidan*/
@@ -885,11 +876,9 @@ font-family: 'Dosis', sans-serif;
   text-align: center;
   top: 0;
 }
-
 .fadeout {
   animation: fadeout 2s forwards;
 }
-
 @keyframes fadeout {
   to {
     opacity: 0;
