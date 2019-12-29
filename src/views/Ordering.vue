@@ -991,4 +991,45 @@ font-family: 'Dosis', sans-serif;
     text-align: center;
   }
 }
+    
+/* DESIGN FOR APP */    
+@media only screen and (max-width: 600px)  {
+     
+    .welcome {
+        font-size: 2em;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        padding: 2%;
+    }
+    
+        .mealLocation {
+        text-align: center;
+        font-size: 1.5em;
+        background-color: rgba(232, 232, 232, 0.92);
+        border-radius: 1em;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0px;
+    }
+        
+        .mealButton {
+        background-color: rgba(177, 160, 149, 0.65);
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 1em;
+        border-radius: 0.25em;
+        width: 50%;
+        margin: 3%;
+      
+    }
+    
+    }
+        
+        
+
+    
+    
+    
 </style>
