@@ -351,17 +351,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          
          popUp: function() {
-
     //Show Loader
         this.loading = true;
-
         //Waste 5 seconds
-
         //Hide loader
       setTimeout(() => {
            this.loading = false;
         }, 3500)
-
     },
          
          checkBurger: function() {
@@ -529,11 +525,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
     section {
           font-family: 'Dosis', sans-serif;
     }
-
     p {
 font-family: 'Dosis', sans-serif;
 }
-
 /* Popup container */
 .popup {
   position: absolute;
@@ -771,7 +765,6 @@ font-family: 'Dosis', sans-serif;
     }
     .tablinks {
           font-family: 'Dosis', sans-serif;
-
         align-items: end;
     }
     /* För overview-sidan*/
@@ -892,11 +885,9 @@ font-family: 'Dosis', sans-serif;
   text-align: center;
   top: 0;
 }
-
 .fadeout {
   animation: fadeout 2s forwards;
 }
-
 @keyframes fadeout {
   to {
     opacity: 0;
@@ -1009,4 +1000,45 @@ font-family: 'Dosis', sans-serif;
     text-align: center;
   }
 }
+    
+/* DESIGN FOR APP */    
+@media only screen and (max-width: 600px)  {
+     
+    .welcome {
+        font-size: 2em;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        padding: 2%;
+    }
+    
+        .mealLocation {
+        text-align: center;
+        font-size: 1.5em;
+        background-color: rgba(232, 232, 232, 0.92);
+        border-radius: 1em;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0px;
+    }
+        
+        .mealButton {
+        background-color: rgba(177, 160, 149, 0.65);
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 1em;
+        border-radius: 0.25em;
+        width: 50%;
+        margin: 3%;
+      
+    }
+    
+    }
+        
+        
+
+    
+    
+    
 </style>

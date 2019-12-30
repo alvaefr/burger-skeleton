@@ -45,9 +45,7 @@ export default {
     data: function () {
     return {
     };
-
   },
-
   methods: {
     // incrementCounter: function () {          //////////////////////////// GAMLA KODER!
     //   this.counter += 1;
@@ -80,8 +78,6 @@ export default {
               this.$emit('decrement');
           }
       },
-
-
     resetCounter: function () {
       // this.counter = 0;
     },
@@ -124,7 +120,6 @@ font-family: 'Dosis', sans-serif;
     }
     
      #dec {
-
         background-color: rgba(177, 160, 149, 0.65);
         border-radius: 5em;
         border: 2px solid rgba(177, 160, 149, 1);
@@ -139,14 +134,10 @@ font-family: 'Dosis', sans-serif;
     
     .image {
          grid-area: 1 / 1 / 2 / 2;
-
-
     }
     
     .filter {
    grid-area: 2 / 2 / 3 / 3; 
     }
-
-
   
 </style>
