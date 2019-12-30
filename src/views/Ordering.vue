@@ -35,6 +35,7 @@
 <!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
             
+            <div class="order">
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
@@ -68,8 +69,10 @@
 
                 </div>
             </div>
+                </div>
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
+        <div class="myBurger">
             <div class="Burger">
              
 <!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
@@ -93,6 +96,8 @@
             <div class="Total">
                 <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
+            
+            </div>
 
             <div class="Done">
 
@@ -102,7 +107,7 @@
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
             </div>
                 
-
+            <div class="filtergrid">
                <div class="positionGluten">
                     <label class="label">
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
@@ -135,7 +140,7 @@
                         </span>
                 </label>
                 </div>
-
+               </div>
 
                 
 
@@ -1024,6 +1029,37 @@ font-family: 'Dosis', sans-serif;
         margin: 3%;
       
     }
+    
+    .grid-container {
+    display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: 1.9fr 0.5fr 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+        
+    }
+    
+    .myBurger {
+          display: grid;
+        grid-area: 3 / 1 / 4 / 2 ; 
+        
+    }
+    
+    .filtergrid {
+        display: grid;
+        grid-area: 2 / 1 / 3 / 2;
+    }
+    
+    .order {
+          display: grid;
+        grid-area: 1 / 1 / 2 / 2;
+          overflow-y: scroll;
+
+        
+    }
+    
+   
+    
     
     }
         
