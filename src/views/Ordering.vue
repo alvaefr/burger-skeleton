@@ -1,11 +1,13 @@
 <template>
     <section class="example-panel">
         
+<!--
     <div v-if="loading">
         
            <span class="popup" align=center> <h4 class=popUpText> Välkommen till burgarsidan, <br> gör en burgare i taget </h4> <img align=center src="@/assets/load-icon-png-27.png" height="30"> </span>
         
     </div>
+-->
 
 
         <!--        Välkomstsida  div -->
@@ -19,8 +21,8 @@
 
             <div class="mealLocation">
                 <p>{{ uiLabels.beginOrder }}</p><br>
-                <button class="mealButton" v-on:click="setView(showMenu); popUp()">{{ uiLabels.eathere }}</button>
-                <button class="mealButton" v-on:click="setView(showMenu); popUp()">{{ uiLabels.togo }}</button>
+                <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.eathere }}</button>
+                <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.togo }}</button>
                 
 
             </div>
