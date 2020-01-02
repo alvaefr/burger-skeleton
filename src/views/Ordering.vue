@@ -620,17 +620,23 @@ font-family: 'Dosis', sans-serif;
         float: left;
         margin: 1em;
         background-size: cover;
+
         
     }
-    .flagButton{
+    .flagButton {
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
 
     }
+    
+    .flagButton:hover {
+        cursor: pointer;
+    }
     .flag {
         height: 4vw;
         width: 5.7vw;
+        border-radius: 1em;
     }
     .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
@@ -642,7 +648,6 @@ font-family: 'Dosis', sans-serif;
         margin: 1em;
       
     }
-
     .mealButton:hover {
         background-color: black;
         color: white;
