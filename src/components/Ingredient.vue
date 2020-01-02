@@ -154,5 +154,21 @@ font-family: 'Dosis', sans-serif;
         height: 2vw;
         width: 2vw;
     }
+    
+    @media only screen and (max-width: 500px)  {
+       
+        
+         .ingredient img{
+        height: 10vw;
+        width: 10vw;
+    }
+        
+         .filter img {
+        height: 5vw;
+        width: 5vw;
+    }
+        
+    }
+    
   
 </style>

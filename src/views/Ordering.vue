@@ -146,14 +146,14 @@
 
                  
 
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
-                <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
+                <!--<button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>-->
 
            </div>
             
 
+                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
 
         </div>
 
@@ -571,7 +571,6 @@ font-family: 'Dosis', sans-serif;
         font-size: 1vw;
         background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
-        overflow:scroll;
     }
 
     .grid-container {
@@ -658,17 +657,16 @@ font-family: 'Dosis', sans-serif;
     }
     .OrderList {
         grid-area: OrderList;
-        display: grid;
         background-color: rgba(232, 232, 232, 0.92);
         padding: 4% 0% 0% 3%;
         margin-right: 5%;
-        grid-gap: 8%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
-        height: 22em;
+
+
 
 
     }
@@ -679,9 +677,6 @@ font-family: 'Dosis', sans-serif;
         height: 10vw;
 
     }
-
-
-
 
     .Done {
         grid-area: Done;
@@ -898,6 +893,7 @@ font-family: 'Dosis', sans-serif;
 
     }
     .burgerAdd {
+        grid-area: Done;
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
@@ -941,6 +937,8 @@ font-family: 'Dosis', sans-serif;
     }
     /*Designing of "Next"-button*/
     .nextPage {
+        grid-area: Done;
+        margin-left: 80%;
         background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
         font-family: 'Dosis', sans-serif;
@@ -984,7 +982,7 @@ font-family: 'Dosis', sans-serif;
   background: rgba(255,255,255, 0.9);
   width: 5vw;
   height: 5vw;
-    ont-size: 1.4vw;
+  font-size: 1.4vw;
   cursor: pointer;
   transition: border .001s ease;
   text-align: center;
@@ -1047,10 +1045,12 @@ font-family: 'Dosis', sans-serif;
 }
     
 /* DESIGN FOR APP */    
-@media only screen and (max-width: 300px)  {
+@media only screen and (max-width: 500px)  {
      
-    .welcome {
-        font-size: 2em;
+ 
+    /*FÖRSTA SIDAN*/
+      .welcome {
+        font-size: 8vw;
         overflow: inherit;
         text-align: center;
         font-weight: bold;
@@ -1059,7 +1059,7 @@ font-family: 'Dosis', sans-serif;
     
         .mealLocation {
         text-align: center;
-        font-size: 1.5em;
+        font-size: 6vw;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
         width: 90%;
@@ -1067,83 +1067,117 @@ font-family: 'Dosis', sans-serif;
         margin-right: auto;
         padding: 0px;
     }
-        
+    
         .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
         font-family: 'Dosis', sans-serif;
         color: black;
-        font-size: 1em;
+        font-size: 4vw;
         border-radius: 0.25em;
         width: 50%;
         margin: 3%;
       
     }
     
-    .grid-container {
-  display: grid;
-grid-template-columns: 1fr;
-grid-template-rows: 0.3fr 1fr 0.6fr repeat(2, 1fr) 0.6fr;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-} 
 
+    /*ORDERING VIEW*/
+    
+    /*ny grid-design*/
+    .grid-container {
+       display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    } 
+
+    
+/*Top, Done, Burger, total och nextpage blir så höga som jag sätter dom på "grid-template-rows" men INTE orderlist :(*/
     .Top {
-        display: grid;
         grid-area: 1 / 1 / 2 / 2; 
     }
     
+    
     .OrderList {
-        display: grid;
+        height: 100%;
         grid-area: 2 / 1 / 3 / 2;
         padding: 4% 0% 0% 3%;
-        margin-right: 5%;
-        grid-gap: 8%;
         overflow-y: scroll;
-        height: 15em;
+
         
     }
     
     
       .Done {
-        display: grid;
         grid-area: 3 / 1 / 4 / 2;
+      
     }
+    
+  
     
     
     .Burger {
-          display: grid;
+        font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2; 
+
         
     }
     
     .Total {
-        display: grid;
+        font-size: 2vw;
         grid-area: 5 / 1 / 6 / 2;
+
     }
   
       .flag {
-        height: 1em;
-        width: 1.5em;
+        height: 4vw;
+        width: 5.8vw;
         border-radius: 0.3em 0.3em 0.3em 0.3em;
     }
-  
     
-      .nextPage {
-      
+    
+    .nextPage {
+        grid-area:  6 / 1 / 7 / 2;
         background-color: rgba(135, 211, 124, 1);
-        margin-top: 0.5em;
+        margin-bottom: 0px;
         font-family: 'Dosis', sans-serif;
-        float: center;
         cursor: pointer;
-        font-size: 2em;
+        margin-left: 0px;
+        font-size: 5vw;
         width: 100%;
-        height: 10%;
-        border-radius: 0.2em 0.2em 1em 0.2em;
+        height: 10vw;
+        border-radius: 0.2em 0.2em 4em 4em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
+    
+    
+      .ingredient {
+        height: 20vw;
+        width: 22vw;
+        font-size: 3vw;
+      
+    }
+    
+      .menuItems {
+        grid-gap: 20vw;
+        grid-template-columns: repeat(auto-fill, 13vw);
+        height: 10vw;
+
+    }
+    
+    
+       .tab button {
+        height: 10vw;
+        font-size: 3.2vw;
    
+    }
     
+    .label_check {
+        width: 8vw;
+        height: 8vw;
+    }
     
+ 
     }
         
         
