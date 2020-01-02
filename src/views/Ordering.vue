@@ -831,6 +831,11 @@ font-family: 'Dosis', sans-serif;
         height: 10vw;
         width: 15vw;
     }
+
+#PlaceOrderButton:hover {
+    color: white;
+    cursor: pointer;
+}
     .burgerScroll {
         background-color: #1B686A;
         position: relative;
@@ -886,11 +891,10 @@ font-family: 'Dosis', sans-serif;
 
     font-size: 1.1vw;
 }
+
     #duplicateButton img{
         height: 1.5vw;
         width: 1.9vw;
-
-
     }
     .burgerAdd {
         grid-area: Done;
