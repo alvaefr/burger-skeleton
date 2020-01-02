@@ -37,7 +37,7 @@
 <!--        Ordersida div -->
         <div v-show="showMenu === this.view" class="grid-container">
             
-            <div class="order">
+      
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
@@ -71,7 +71,7 @@
 
                 </div>
             </div>
-                </div>
+              
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
        
