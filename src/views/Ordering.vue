@@ -164,7 +164,10 @@
         <div v-show="showOverview === this.view" class="grid-containerOverview">
 
             <div class="overviewTop">
+                <img class="logoOverview" src="@/assets/circle-cropped.png" >
+                <div class="orderText">
                 {{uiLabels.yourOrder}}
+                </div>
             </div>
 
             <div class="burgerOverview">
@@ -828,7 +831,7 @@ font-family: 'Dosis', sans-serif;
     .grid-containerOverview {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 15% 60% 20% 5%;
+        grid-template-rows: 20% 55% 20% 5%;
         grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
         margin-top: 3em;
         margin-left: 6em;
@@ -844,11 +847,30 @@ font-family: 'Dosis', sans-serif;
         color: white;
     }
     .overviewTop {
+        display:grid;
+        grid-area: "head";
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 100%;
+        grid-template-areas: "logoOverview" "orderText";
+
+    }
+    
+    .orderText {
         font-size: 5.5vw;
         overflow: inherit;
-        text-align: center;
+        text-align: left;
         font-weight: bold;
         padding: 2%;
+        
+    }
+    
+    .logoOverview {
+        grid-area: "logo";
+        width:50%;
+        margin-top: -0.2em;
+        margin-left: 1em;
+        overflow: inherit;
+    
     }
     .burgerOverview {
         grid-area: Burgers;
@@ -1123,6 +1145,7 @@ font-family: 'Dosis', sans-serif;
         font-weight: bold;
         padding: 2%;
     }
+    
     
         .mealLocation {
         text-align: center;
