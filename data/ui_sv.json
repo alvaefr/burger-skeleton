@@ -32,7 +32,8 @@
   "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE",
   "beginOrder": "Starta din order genom att välja var du vill äta",
   "addBurger": "Klicka här för att lägga till burgare",
-  "yourOrder": "Klar med denna burgare",
+  "doneOrder": "Klar med denna burgare",
+  "yourOrder": "Din beställning",
   "backfirstpage": "Tillbaka till förstasidan",
   "editBurger": "Ändra denna burgare",
   "price": "Pris"
