@@ -26,7 +26,7 @@
   "sauce": "Sauce",
   "sides": "Sides", 
   "drink": "Drink",
-  "total": "Total" ,
+  "total": "Total price" ,
   "togo": "Take away",
   "eathere": "Eat here",
   "welcome": "WELCOME TO BIFFEN'S BURGER",
@@ -36,5 +36,6 @@
   "yourOrder": "Your order",
   "backfirstpage": "Back to the first page",
   "editBurger": "Edit this burger",
-  "price": "Price"
+  "price": "Price",
+  "duplicate": "One more!"
 }

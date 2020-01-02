@@ -26,7 +26,7 @@
   "sauce": "Sås",
   "sides": "Tillbehör",   
   "drink": "Dryck",
-  "total": "Totalt",   
+  "total": "Totalt pris",   
   "togo": "Ta med",
   "eathere": "Äta här", 
   "welcome": "VÄLKOMMEN TILL BIFFENS BURGARE",
@@ -36,5 +36,6 @@
   "yourOrder": "Din beställning",
   "backfirstpage": "Tillbaka till förstasidan",
   "editBurger": "Ändra denna burgare",
-  "price": "Pris"
+  "price": "Pris",
+  "duplicate": "En till!"
 }

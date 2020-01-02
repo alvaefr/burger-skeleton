@@ -23,8 +23,6 @@
                 <p>{{ uiLabels.beginOrder }}</p><br>
                 <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.eathere }}</button>
                 <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.togo }}</button>
-                
-
             </div>
 
             <div class="switchLang">
@@ -103,11 +101,7 @@
 
             <div class="Done">
 
-            <div class="switchLang">
-                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
-                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
-                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
-            </div>
+           
                 
             <div class="filtergrid">
                <div class="positionGluten">
@@ -150,11 +144,18 @@
 
                 <!--<button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>-->
 
+                
+                
            </div>
             
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
 
+             <div class="switchLang">
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
+            </div>
         </div>
 
         <div v-show="showOverview === this.view" class="grid-containerOverview">
@@ -192,7 +193,7 @@
 
                     <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
                     <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
-                    <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> One more! </button>
+                    <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> {{uiLabels.dublicate}}</button>
 
 
 
@@ -216,13 +217,20 @@
 
             <div class="overviewBottom">
 
-                <div class="switchLang">
+               
+                <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
+
+                <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"> 
+            </div>
+            
+            <div class="overviewLang">
+            
+                 <div class="switchLang">
                     <button class="flagButton" v-on:click="switchLang(); switchFlag()">
                     <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
                 </div>
-                <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} </div>
-                <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"><span id="placeOrderText">{{ uiLabels.placeOrder }}</span>
+                
             </div>
         </div>
 
@@ -576,9 +584,9 @@ font-family: 'Dosis', sans-serif;
     .grid-container {
         display: grid;
         grid-template-columns: 74% 25%;
-        grid-template-rows: 13% 55% 12% 20%;
+        grid-template-rows: 13% 55% 12% 15% 5%;
         grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
-        background-image: url("bakgrund.jpg");
+        background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
         border-radius: 4em;
@@ -590,8 +598,9 @@ font-family: 'Dosis', sans-serif;
     }
   .grid-containerFront {
         display: grid;
-        grid-template-areas: auto;
-        background-image: url("bakgrund.jpg");
+        grid-template-rows: 15% 80% 5%;
+        grid-template-areas: "head" "mealLoc" "Lang";
+        background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
         border-radius: 4em;
@@ -603,6 +612,7 @@ font-family: 'Dosis', sans-serif;
         color: white
     }
     .welcome {
+        grid-area: "head";
         font-size: 6vw;
         overflow: inherit;
         text-align: center;
@@ -611,14 +621,17 @@ font-family: 'Dosis', sans-serif;
     .logo {
     }
     .mealLocation {
+        grid-area: "mealLoc";
         text-align: center;
         font-size: 3vw;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
     }
     .switchLang {
+        grid-area: "Lang";
         float: left;
-        margin: 1em;
+        margin: 0.1em;
+        margin-left: 1em;
         background-size: cover;
 
         
@@ -670,9 +683,6 @@ font-family: 'Dosis', sans-serif;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
-
-
-
 
     }
     .menuItems {
@@ -794,27 +804,27 @@ font-family: 'Dosis', sans-serif;
     .grid-containerOverview {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 15% 60% 25%;
-        grid-template-areas: "Top" "Burgers" "Bottom";
+        grid-template-rows: 15% 60% 20% 5%;
+        grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
         margin-top: 3em;
         margin-left: 6em;
-        background-image: url("bakgrund.jpg");
-         background-attachment: fixed;
-         background-position: center;
+        background-image: url("wood.jpg");
+        background-attachment: fixed;
+        background-position: center;
         border-radius: 4em;
         border: 1px solid #FFF;
         width: 80%;
         height: 37em;
         padding: 3%;
         margin: auto;
-        color: white
+        color: white;
     }
     .overviewTop {
-        grid-area: Top;
-        font-size: 4vw;
-        overflow: hidden;
+        font-size: 5.5vw;
+        overflow: inherit;
         text-align: center;
         font-weight: bold;
+        padding: 2%;
     }
     .burgerOverview {
         grid-area: Burgers;
@@ -828,18 +838,42 @@ font-family: 'Dosis', sans-serif;
     .overviewBottom {
         grid-area: Bottom;
         position: relative;
+        align-items: center;
+    }
+    
+    .overviewLang{
+        grid-area: "Lang";
+    }
+    
+    #totalPrice {
+        text-align: center;
+        font-size: 5vw;
+        background-color: rgba(232, 232, 232, 0.92);
+        border-radius: 0.5em;
+        width: 60%;
+        height: 70%;
+        margin: 0.7em;
+        margin-top: 0em;
+        padding: 0px;
+        float:left;
+        color: black;
+        
+
     }
     #PlaceOrderButton {
-        position: absolute;
         bottom: 2em;
         right: 5em;
         height: 10vw;
         width: 15vw;
+        background-color:rgba(1,1,1,0);
+        border-color: rgba(1,1,1,0);
+        float: right;
+        margin-left: 1em;
     }
 
-#PlaceOrderButton:hover {
-    color: white;
-    cursor: pointer;
+    #PlaceOrderButton:hover {
+        color: white;
+        cursor: pointer;
 }
     .burgerScroll {
         background-color: #1B686A;
