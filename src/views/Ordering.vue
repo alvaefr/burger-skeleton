@@ -74,7 +74,7 @@
                 </div>
 
         <!-- Här visas sidomenyn med de färdiga burgarna --->
-        <div class="myBurger">
+       
             <div class="Burger">
              
 <!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
@@ -99,7 +99,7 @@
                 <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
             
-            </div>
+       
 
             <div class="Done">
 
@@ -144,14 +144,14 @@
                 </div>
                </div>
 
-                
+                 
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
                 <button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>
 
-            </div>
+           </div>
             
 
 
@@ -667,6 +667,7 @@ font-family: 'Dosis', sans-serif;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
+        height: 22em;
         
     }
     .menuItems {
@@ -727,6 +728,7 @@ font-family: 'Dosis', sans-serif;
         border-left: 3px solid #FFF;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
+        overflow-y: scroll;
     }
 
     /* Style the tab */
@@ -1009,7 +1011,7 @@ font-family: 'Dosis', sans-serif;
 }
     
 /* DESIGN FOR APP */    
-@media only screen and (max-width: 600px)  {
+@media only screen and (max-width: 300px)  {
      
     .welcome {
         font-size: 2em;
@@ -1042,33 +1044,67 @@ font-family: 'Dosis', sans-serif;
     }
     
     .grid-container {
-    display: grid;
+  display: grid;
 grid-template-columns: 1fr;
-grid-template-rows: 1.9fr 0.5fr 1fr;
+grid-template-rows: 0.3fr 1fr 0.6fr repeat(2, 1fr) 0.6fr;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
-        
+} 
+
+    .Top {
+        display: grid;
+        grid-area: 1 / 1 / 2 / 2; 
     }
     
-    .myBurger {
-          display: grid;
-        grid-area: 3 / 1 / 4 / 2 ; 
-        
-    }
-    
-    .filtergrid {
+    .OrderList {
         display: grid;
         grid-area: 2 / 1 / 3 / 2;
-    }
-    
-    .order {
-          display: grid;
-        grid-area: 1 / 1 / 2 / 2;
-          overflow-y: scroll;
-
+        padding: 4% 0% 0% 3%;
+        margin-right: 5%;
+        grid-gap: 8%;
+        overflow-y: scroll;
+        height: 15em;
         
     }
     
+    
+      .Done {
+        display: grid;
+        grid-area: 3 / 1 / 4 / 2;
+    }
+    
+    
+    .Burger {
+          display: grid;
+        grid-area: 4 / 1 / 5 / 2; 
+        
+    }
+    
+    .Total {
+        display: grid;
+        grid-area: 5 / 1 / 6 / 2;
+    }
+  
+      .flag {
+        height: 1em;
+        width: 1.5em;
+        border-radius: 0.3em 0.3em 0.3em 0.3em;
+    }
+  
+    
+      .nextPage {
+      
+        background-color: rgba(135, 211, 124, 1);
+        margin-top: 0.5em;
+        font-family: 'Dosis', sans-serif;
+        float: center;
+        cursor: pointer;
+        font-size: 2em;
+        width: 100%;
+        height: 10%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    }
    
     
     
