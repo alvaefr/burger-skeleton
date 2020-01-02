@@ -16,8 +16,10 @@
 
             <div class="welcome">
                 <!--    <img class="logo" src="/.jp" alt="BB">-->
-                <img class="logo" src="circle-cropped.png">
+                <img class="logo" src="@/assets/circle-cropped.png" >
+                <div class=headerText>
                 {{ uiLabels.welcome }}
+                </div>
             </div>
 
             <div class="mealLocation">
@@ -599,7 +601,7 @@ font-family: 'Dosis', sans-serif;
     }
   .grid-containerFront {
         display: grid;
-        grid-template-rows: 15% 80% 5%;
+        grid-template-rows: 35% 60% 5%;
         grid-template-areas: "head" "mealLoc" "Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
@@ -613,11 +615,31 @@ font-family: 'Dosis', sans-serif;
         color: white
     }
     .welcome {
+        display:grid;
         grid-area: "head";
+        grid-template-columns: 20% 80%;
+        grid-template-rows: 100%;
+        grid-template-areas: "logo" "headText";
         font-size: 6vw;
         overflow: inherit;
         text-align: center;
         font-weight: bold;
+        
+    }
+    
+    .logo {
+        grid-area: "logo";
+        width:100%;
+        margin-top: -0.2em;
+    }
+    
+    .headerText {
+        grid-area: "headText";
+        font-size: 6vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        
     }
     .logo {
     }
@@ -626,7 +648,7 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         font-size: 3vw;
         background-color: rgba(232, 232, 232, 0.92);
-        border-radius: 1em;
+        border-radius: 0.5em;
     }
     .switchLang {
         grid-area: "Lang";
@@ -659,7 +681,8 @@ font-family: 'Dosis', sans-serif;
         font-size: 4vw;
         border-radius: 0.25em;
         padding: 0.6em;
-        margin: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
       
     }
     .mealButton:hover {
