@@ -86,7 +86,7 @@
                 <hr>
                 <div v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button> <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button>
+                    <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
                 </div>
             </div>
 
@@ -546,7 +546,7 @@ font-family: 'Dosis', sans-serif;
   
     /* Popup text */
     .popUpText {
-        font-size: 1.5em;
+        font-size: 1.2vw;
     }
     
     .example-panel {
@@ -559,12 +559,13 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         align-items: center;
         padding: 0em 1em;
-        height: 10em;
-        width: 13em;
-        font-size: 1.7vh;
+        height: 10vw;
+        width: 11vw;
+        font-size: 1vw;
         background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
     }
+
     .grid-container {
         display: grid;
         grid-template-columns: 72% 28%;
@@ -595,7 +596,7 @@ font-family: 'Dosis', sans-serif;
         color: white
     }
     .welcome {
-        font-size: 5em;
+        font-size: 6vw;
         overflow: inherit;
         text-align: center;
         font-weight: bold;
@@ -604,7 +605,7 @@ font-family: 'Dosis', sans-serif;
     }
     .mealLocation {
         text-align: center;
-        font-size: 2em;
+        font-size: 3vw;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
     }
@@ -619,19 +620,20 @@ font-family: 'Dosis', sans-serif;
         border-color: rgba(1,1,1,0);
     }
     .flag {
-        height: 4em;
-        width: 5.5em;
+        height: 4vw;
+        width: 5.7vw;
     }
     .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
            font-family: 'Dosis', sans-serif;
         color: black;
-        font-size: 1.3em;
+        font-size: 4vw;
         border-radius: 0.25em;
         padding: 0.6em;
         margin: 1em;
       
     }
+
     .mealButton:hover {
         background-color: black;
         color: white;
@@ -656,12 +658,18 @@ font-family: 'Dosis', sans-serif;
         border-right: 3px solid #FFF;
         border-bottom: 3px solid #FFF;
         border-radius: 0em 0em 3em 3em;
+
     }
     .menuItems {
         display:grid;
-        grid-gap: 9%;
-        grid-template-columns: repeat(auto-fill, 10em);
+        grid-gap: 2vw;
+        grid-template-columns: repeat(auto-fill, 13vw);
+        height: 10vw;
     }
+
+
+
+
     .Done {
         grid-area: Done;
     }
@@ -675,16 +683,17 @@ font-family: 'Dosis', sans-serif;
         border-left: 3px solid #FFF;
         border-top: 3px dotted #FFF;
         border-radius: 0em 0em 2em 2em;
+
     }
     .Total h2 {
         margin: 0;
-        padding: 0.5em;
-        padding-top: 1em;
+        padding: 0.5vw;
+        padding-top: 0.5vw;
         line-height: 0.5em;
         display: inline-block;
         text-align: right;
         font-weight: bold;
-        font-size: 2em;
+        font-size: 3vw;
     }
     .Total p {
         margin: 0;
@@ -695,9 +704,10 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         padding-right: 2em;
         float: unset;
+        font-size: 1.7vw;
     }
     /*
-        border-bottom: 3px solid #FFF;  Vi synkar Total-fönstret med resten på söndag! Detta ska vara ^
+        border-bottom: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-left: 3px solid #FFF;
         border-top: 3px dotted #FFF;
@@ -712,6 +722,12 @@ font-family: 'Dosis', sans-serif;
         border-left: 3px solid #FFF;
         border-radius: 2em 2em 0 0;
         background-color: rgba(232, 232, 232, 0.92);
+        font-size: 1.5vw;
+        overflow-y: scroll;
+    }
+
+    .Burger button{
+        font-size: 1vw;
     }
     /* Style the tab */
     .tab {
@@ -723,10 +739,11 @@ font-family: 'Dosis', sans-serif;
     .tab button {
         background-color: rgba(232, 232, 232, 0.92);
         width: 16.66667%;
-        font-size: 90%;
+        height: 75px;
+        font-size: 1.2vw;
         outline: none;
         cursor: pointer;
-        padding: 27px 16px;
+        padding: 2.3vw 0.9vw;
         text-align: center;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
@@ -779,7 +796,7 @@ font-family: 'Dosis', sans-serif;
     }
     .overviewTop {
         grid-area: Top;
-        font-size: 4em;
+        font-size: 4vw;
         overflow: hidden;
         text-align: center;
         font-weight: bold;
@@ -787,8 +804,8 @@ font-family: 'Dosis', sans-serif;
     .burgerOverview {
         grid-area: Burgers;
         display: grid;
-        grid-gap: 25px;
-        width: 65em;
+        grid-gap: 2vw;
+
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
@@ -801,15 +818,21 @@ font-family: 'Dosis', sans-serif;
         position: absolute;
         bottom: 2em;
         right: 5em;
+        height: 10vw;
+        width: 15vw;
     }
     .burgerScroll {
         background-color: #1B686A;
         position: relative;
         text-align: left;
-        width: 18em;
-        border-radius: 2em;
+        width: 22vw;
+        max-height: 320px;
+        max-width: 200px;
+
+        border-radius: 4vw;
         border: 5px solid #35A855;
         padding: 0 1em;
+        font-size: calc(6e10px + 1vw - 6e10px);
     }
 #burgerNo {
     text-align: center;
@@ -831,7 +854,8 @@ font-family: 'Dosis', sans-serif;
         position: absolute;
         top: 1%;
         right: 6%;
-        cursor: pointer; 
+        cursor: pointer;
+         width: 5.5vw;
     }
 #editBurgerButton {
     width: 100%;
@@ -839,26 +863,35 @@ font-family: 'Dosis', sans-serif;
     margin-left: -5%;
     position: absolute;
     bottom: 0px;
-    height: 20%;
+    height: 50px;
     border-top: 5px solid #35A855;
     border-color: #35A855;
-    border-radius: 0em 0em 2em 2em;
+    border-radius: 0em 0em 3.5vw 3.5vw;
        font-family: 'Dosis', sans-serif;
 }
 #duplicateButton {
     position: absolute;
-    bottom: 7em;
-    right: 1em;
+    bottom: 6vw;
+    right: 1vw;
+
+    font-size: 1.1vw;
 }
+    #duplicateButton img{
+        height: 1.5vw;
+        width: 1.9vw;
+
+
+    }
     .burgerAdd {
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
            font-family: 'Dosis', sans-serif;
         color: white;
-        font-size: 2em;
-        height: 6em;
-        width: 6em;
+        font-size: 2.5vw;
+        max-height: 56vw;
+        height: auto;
+        width: 18vw;
         margin: 2em;
     }
     
@@ -898,7 +931,7 @@ font-family: 'Dosis', sans-serif;
         font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
-        font-size: 2em;
+        font-size: 2.5vw;
         width: 20%;
         height: 80%;
         border-radius: 0.2em 0.2em 1em 0.2em;
@@ -934,15 +967,17 @@ font-family: 'Dosis', sans-serif;
   border-radius: 50%;
   border: 5px solid rgba(0,0,0,0.1);
   background: rgba(255,255,255, 0.9);
-  width: 4em;
-  height: 4em;
+  width: 5vw;
+  height: 5vw;
+    font-size: 1.4vw;
   cursor: pointer;
-  transition: border .3s ease;
+  transition: border .001s ease;
   text-align: center;
   margin-top: 2%;
+    line-height: 1;
 }
 .label__checkbox:checked + .label__text .label__check {
-  animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+  animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
 .center {
   transform: translate(-50%,-50%);
@@ -959,33 +994,37 @@ font-family: 'Dosis', sans-serif;
 }
 @keyframes check {
   0% {
-    width: 3.5em;
-    height: 3.5em;
+      width: 2.5vw;
+      height: 2.5vw;
     border-width: 5px;
+      font-size: 0px;
   }
   10% {
-    width: 3.5em;
-    height: 3.5em;
+      width: 2.5vw;
+      height: 2.5vw;
     opacity: 0.1;
     background: rgba(0,0,0,0.2);
     border-width: 15px;
+      font-size: 0.4vw;
   }
   12% {
-    width: 3.5em;
-    height: 3.5em;
+      width: 2.5vw;
+      height: 2.5vw;
     opacity: 0.4;
     background: rgba(0,0,0,0.1);
     border-width: 0;
+      font-size: 0.7vw;
   }
   50% {
-    width: 4em;
-    height: 4em;
+      width: 3.5vw;
+      height: 3.5vw;
     background: rgba(144, 198, 149, 0.6);
     border: 1px solid rgba(38, 166, 91, 1);
+      font-size: 1vw;
   }
   100% {
-    width: 4.5em;
-    height: 4.5em;
+      width: 5vw;
+      height: 5vw;
     background: rgba(144, 198, 149, 0.9);
     border: 4px solid rgba(38, 166, 91, 1);
     text-align: center;

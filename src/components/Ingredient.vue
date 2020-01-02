@@ -2,9 +2,10 @@
   <div class="ingredient">
      <div class="info">
       <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
-            <button id="inc" v-on:click="incrementCounter($event)" :disabled="item.category === 4 && itemCount >= 1">+</button>
+         <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
+
       {{ itemCount }}
-      <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button> <br>
+         <button id="inc" v-on:click="incrementCounter($event)" :disabled="item.category === 4 && itemCount >= 1">+</button> <br>
      </div>
       
       <h3 class="price">{{item.selling_price}}:- </h3>
@@ -18,6 +19,7 @@
       <span v-if="item.vegan"> <img class="vegan" src="@/assets/vegan2.png" height="30"> </span>
       <span v-if="item.milk_free"> <img class="milk" src="@/assets/milk2.png" height="30"> </span>
       </div>
+
       <!--          GAMMAL KOD           -->
 <!--    <label>-->
 <!--        -->
@@ -102,9 +104,14 @@ font-family: 'Dosis', sans-serif;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     }
+    .ingredient img{
+        height: 4vw;
+        width: 4vw;
+    }
     
     .info {
         grid-area: 1 / 2 / 2 / 3;
+
     }
     .head {
         padding-bottom: 0.2em;
@@ -115,19 +122,22 @@ font-family: 'Dosis', sans-serif;
    
         background-color: rgba(177, 160, 149, 0.65);
         border-radius: 5em;
-        border: 2px solid rgba(177, 160, 149, 1);
-        color: rgba(103, 87, 76, 1); 
+        border: 0.1vw solid rgba(177, 160, 149, 1);
+        color: rgba(103, 87, 76, 1);
+        font-size: 1vw;
     }
     
      #dec {
         background-color: rgba(177, 160, 149, 0.65);
         border-radius: 5em;
-        border: 2px solid rgba(177, 160, 149, 1);
-        color: rgba(103, 87, 76, 1); 
+        border: 0.1vw solid rgba(177, 160, 149, 1);
+        color: rgba(103, 87, 76, 1);
+         font-size: 1vw;
     }
     
     .price {
         grid-area: 2 / 1 / 3 / 2;
+
       
         
     }
@@ -137,7 +147,12 @@ font-family: 'Dosis', sans-serif;
     }
     
     .filter {
-   grid-area: 2 / 2 / 3 / 3; 
+   grid-area: 2 / 2 / 3 / 3;
+
+    }
+    .filter img {
+        height: 2vw;
+        width: 2vw;
     }
   
 </style>
