@@ -16,6 +16,7 @@
 
             <div class="welcome">
                 <!--    <img class="logo" src="/.jp" alt="BB">-->
+                <img class="logo" src="circle-cropped.png">
                 {{ uiLabels.welcome }}
             </div>
 
