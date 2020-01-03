@@ -63,7 +63,7 @@
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item); checkBurger()"
-                        v-on:bread="addToBurger(item)"
+                        v-on:bread="addToBurger(item); checkBurger()"
                         v-bind:item="item"
                         v-bind:itemCount="ingredientCount(item)"
                         :lang="lang"
@@ -421,13 +421,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
          
          checkBurger: function() {
              this.buttonClickable=false;
+
              for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                if (this.chosenIngredients[i].category === 4) {
-                    for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                         if (this.chosenIngredients[i].category===1) {
-                              this.buttonClickable=true;
-                         }
-                    }
+                 console.log(this.chosenIngredients[i].category)
+                if (this.thereIsBread() && this.thereIsPuck()) {
+                    this.buttonClickable = true;
                 }
                 else if (this.chosenIngredients[i].category === 6) {
                     this.buttonClickable=true;
@@ -438,6 +436,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
                 }
             }
         },
+         thereIsBread: function(){ /* Metod som kollar om burgaren har bröd*/
+             let bread = false
+             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                 if (this.chosenIngredients[i].category === 4){
+                     bread = true
+                     return bread;
+                 }
+             }
+             return bread;
+         },
+         thereIsPuck: function(){ /* Metod som kollar om burgaren har puck*/
+             let puck = false;
+             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                 if (this.chosenIngredients[i].category === 1){
+                     puck = true
+                     return puck
+                 }
+             }
+             return puck;
+         },
          addBurger: function() {   //Lägg till nny burgare
              this.buttonClickable=false;
              this.chosenIngredients = [];

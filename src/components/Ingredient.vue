@@ -1,15 +1,17 @@
 <template>
     <div class="ingredient">
-        <div class="info">
+
             <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
 
+        <div class="buttons">
             <div v-if="item.category != 4">
-                <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
+                
+                <div id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</div>
 
-               <span class="count"> {{  itemCount  }}</span>
-                <button id="inc" v-on:click="incrementCounter($event)"
+               <div class="count"> {{  itemCount  }}</div>
+                <div id="inc" v-on:click="incrementCounter($event)"
                         :disabled="item.category === 4 && itemCount >= 1">+
-                </button>
+                </div>
                 <br>
             </div>
 
@@ -20,8 +22,9 @@
             <div class="radioButton" v-else>
                 <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1">
             </div>
+            </div>
 
-        </div>
+     
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
@@ -119,48 +122,100 @@
 
     .ingredient {
         display: grid;
-        grid-template-columns: 1fr 1.7fr;
-        grid-template-rows: 1.9fr 1fr;
+        grid-template-columns: 40% 60%;
+        grid-template-rows: 50% 30% 20%;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
+        
     }
 
    
 
-    .info {
-        grid-area: 1 / 2 / 2 / 3;
+    .buttons {
+   grid-area: 3 / 1 / 4 / 3;
 
     }
 
     .head {
-        padding-bottom: 0.2em;
+             grid-area: 1 / 2 / 2 / 3; 
 
     }
 
-    .radioButton {
-
-    }
+ 
 
     #inc {
-
-        background-color: rgba(177, 160, 149, 0.65);
-        border-radius: 5em;
-        border: 0.1vw solid rgba(177, 160, 149, 1);
+        display: inline-block;
+       cursor: pointer;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-radius: 0em 5em 5em 0em;
+        border-top: 0.1vw solid rgb(255, 179, 26);
+        border-right: 0.1vw solid rgb(255, 179, 26);
+        border-bottom: 0.1vw solid rgb(255, 179, 26);
         color: rgba(103, 87, 76, 1);
-        font-size: 1vw;
+        font-size: 1.5vw;
+        width: 25%;
+        height: 2vw;
+        margin-bottom: 1vw;
+        padding-bottom: 0.2vw;
     }
 
-    #dec {
-        background-color: rgba(177, 160, 149, 0.65);
-        border-radius: 5em;
-        border: 0.1vw solid rgba(177, 160, 149, 1);
+    .count {
+       display: inline-block;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-top: 0.1vw solid  rgb(255, 179, 26);
+        border-bottom: 0.1vw solid  rgb(255, 179, 26);
         color: rgba(103, 87, 76, 1);
-        font-size: 1vw;
+        font-size: 1.5vw;
+        width: 39%;
+        height: 2vw;
+        padding-bottom: 0.2vw;
+        margin-bottom: 1vw;
+    }
+    
+    #dec {
+         display: inline-block;
+        cursor: pointer;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-radius: 5em 0em 0em 5em;
+        border-top: 0.1vw solid rgb(255, 179, 26);
+        border-left: 0.1vw solid rgb(255, 179, 26);
+        border-bottom: 0.1vw solid rgb(255, 179, 26);
+        color: rgba(103, 87, 76, 1);
+        font-size: 1.5vw;
+        width: 25%;
+        height: 2vw;
+        margin-bottom: 1vw;
+        padding-bottom: 0.2vw;
+    }
+    .radioButton input[type='radio'] {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: white;
+        width: 2.3vw;
+        height: 1.8vw;
+        margin-bottom: 8vw;
+        margin-left: auto;
+        margin-top: auto;
+        transform: scale(6);
+        border-radius: 0.2vw;
+        -webkit-transition: all 0.2s;
+        opacity: 0;
+    }
+    .radioButton input[type='radio']:checked {
+        background: forestgreen;
+        border: 1px green;
+        border-style: double;
+        opacity: 0.2;
+
+
     }
 
     .price {
-        grid-area: 2 / 1 / 3 / 2;
-
+        grid-area: 2 / 1 / 3 / 2; 
+        padding-bottom: 1vw;
 
     }
 
@@ -171,8 +226,8 @@
     }
 
     .filter {
-        grid-area: 2 / 2 / 3 / 3;
-
+     grid-area: 2 / 2 / 3 / 3;
+     padding-bottom: 1vw;
     }
 
     .filter img {
@@ -180,37 +235,100 @@
         width: 2vw;
     }
 
+    
+    /* KOD FÖR APP*/
     @media only screen and (max-width: 500px) {
 
 
         .image {
-            height: 10vw;
-            width: 10vw;
+            height: 11vw;
+            width: 11vw;
         }
         
         .head {
-            font-size: 3vw;
+            font-size: 3.4vw;
         }
         
-        #inc {
-            font-size: 3vw;
-        }
+      
         
-        #dec {
-            font-size: 3vw;
-        }
+    #inc {
+        display: inline-block;
+       cursor: pointer;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-radius: 0em 5em 5em 0em;
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        border-right: 0.3vw solid rgb(255, 179, 26);
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
+        font-size: 4vw;
+        width: 25%;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
+        padding-bottom: 0.2vw;
+    }
 
-        .count {
-            font-size: 2vw;
+    .count {
+       display: inline-block;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        font-size: 4vw;
+        width: 39%;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
+        padding-bottom: 0.2vw;
+    }
+    
+    #dec {
+         display: inline-block;
+        cursor: pointer;
+        background-color: rgb(255, 224, 102, 0.9);
+        border-radius: 5em 0em 0em 5em;
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        border-left: 0.3vw solid rgb(255, 179, 26);
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
+        color: rgba(103, 87, 76, 1);
+        font-size: 4vw;
+        width: 25%;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
+        padding-bottom: 0.2vw;
+    }
+        .radioButton input[type='radio'] {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: white;
+            width: 2.3vw;
+            height: 1.73334vw;
+            margin-bottom: 21vw;
+            margin-left: auto;
+            margin-top: auto;
+            margin-right: 0px;
+            transform: scale(15);
+            border-radius: 0.2vw;
+            -webkit-transition: all 0.2s;
+            opacity: 0;
         }
+        .radioButton input[type='radio']:checked {
+            background: forestgreen;
+            border: 1px green;
+            border-style: double;
+            opacity: 0.2;
+
+
+        }
+        
         
         .price {
-            font-size: 3vw;
+            font-size: 3.4vw;
         }
         
-         .filter img {
-        height: 4vw;
-        width: 4vw;
+        .filter img {
+            height: 5vw;
+            width: 5vw;
+            padding-bottom: 0.3vw;
     }
     }
 
