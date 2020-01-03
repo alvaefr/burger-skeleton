@@ -101,6 +101,7 @@
                 <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
             
+            
        
 
             <div class="Done">
@@ -155,7 +156,7 @@
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
 
-             <div class="switchLang">
+             <div class="switchLangOrdering">
                 <button class="flagButton" v-on:click="switchLang(); switchFlag()">
                     <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
@@ -167,12 +168,18 @@
             <div class="overviewTop">
                 <img class="logoOverview" src="@/assets/circle-cropped.png" >
                 <div class="orderText">
-                {{uiLabels.yourOrder}}
+                {{uiLabels.yourOrderOverview}}
+                </div>
+                <div class="addBurger">
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
                 </div>
             </div>
 
             <div class="burgerOverview">
 
+               
+                
+                
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
@@ -180,11 +187,11 @@
                     <hr>
 
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
-                        {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
+                        {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> {{uiLabels.price}} {{ burger.price }} </h4>
+                        <hr> <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
                     </div>
 
 
@@ -218,16 +225,16 @@
                 <!-- Button that adds new burgers -->
 
 
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
+              
 
             </div>
 
             <div class="overviewBottom">
 
                
-                <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
+                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
 
-                <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"> 
+                <div class="placeOrder"><img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> </div>
             </div>
             
             <div class="overviewLang">
@@ -236,9 +243,25 @@
                     <button class="flagButton" v-on:click="switchLang(); switchFlag()">
                     <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
-                </div>
+            </div>
                 
             </div>
+        </div>
+        
+        <div v-show="showPayment === this.view" class="grid-containerPayment">
+            
+            <img class="logoThanks" src="@/assets/circle-cropped.png" >
+            
+            <div class="orderThanks">{{uiLabels.thankOrder}}</div>
+            
+            <button class="newOrder" v-on:click="setView(showFront)"> {{uiLabels.newOrder}} </button>
+            
+            <div class="switchLang">
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
+            </div>
+            
         </div>
 
     </section>
@@ -285,6 +308,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showFront: "showFront",
              showMenu: "showMenu",
              showOverview: "showOverview",
+             showPayment: "showPayment",
              view: "showFront",
              currentOrder: {
                  burgers: [],
@@ -395,6 +419,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
                               this.buttonClickable=true;
                          }
                     }
+                }
+                else if (this.chosenIngredients[i].category === 6) {
+                    this.buttonClickable=true;
+                }
+                 
+                 else if (this.chosenIngredients[i].category === 5) {
+                    this.buttonClickable=true;
                 }
             }
         },
@@ -592,12 +623,21 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
     }
+    
+    .switchLangOrdering {
+        grid-area: "Lang";
+        float: left;
+        margin: 0.1em;
+        margin-left: 1em;
+        background-size: cover;
+        
+    }
 
     .grid-container {
         display: grid;
         grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 15% 5%;
-        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done" "Lang Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -665,14 +705,13 @@ font-family: 'Dosis', sans-serif;
         margin: 0.1em;
         margin-left: 1em;
         background-size: cover;
-
         
     }
+    
     .flagButton {
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
-
     }
     
     .flagButton:hover {
@@ -723,7 +762,6 @@ font-family: 'Dosis', sans-serif;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
-
     }
 
     .Done {
@@ -855,9 +893,9 @@ font-family: 'Dosis', sans-serif;
     .overviewTop {
         display:grid;
         grid-area: "head";
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 20% 50% 30%;
         grid-template-rows: 100%;
-        grid-template-areas: "logoOverview" "orderText";
+        grid-template-areas: "logoOverview" "orderText" "addBurger";
     }
     
     .orderText {
@@ -870,8 +908,8 @@ font-family: 'Dosis', sans-serif;
     
     .logoOverview {
         grid-area: "logo";
-        width:50%;
-        margin-top: -0.2em;
+        width:70%;
+        margin-top: -0.8em;
         margin-left: 1em;
         overflow: inherit;
 
@@ -883,11 +921,16 @@ font-family: 'Dosis', sans-serif;
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
+        margin: 1em;
     }
     .overviewBottom {
         grid-area: Bottom;
+        display: grid;
         position: relative;
         align-items: center;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 100%;
+        grid-template-areas: "totalPrice" "placeOrder";
     }
     
     .overviewLang{
@@ -895,17 +938,22 @@ font-family: 'Dosis', sans-serif;
     }
     
     #totalPrice {
-        text-align: center;
-        font-size: 5vw;
-        background-color: rgba(232, 232, 232, 0.92);
-        border-radius: 0.5em;
-        width: 60%;
-        height: 70%;
-        margin: 0.7em;
-        margin-top: 0em;
-        padding: 0px;
-        float:left;
+        grid-area: "totalPrice";
+        background-color: darkgray;
+        padding: 1em;
+        font-family: 'Dosis', sans-serif;
         color: black;
+        font-size: 2.5vw;
+        max-height: 56vw;
+        height: auto;
+        width: 22vw;
+        margin-left: 1em;
+        background-color: rgba(232, 232, 232, 0.92);
+        font-family: 'Dosis', sans-serif;
+        float: center;
+        font-size: 2.5vw;
+        border-radius: 0.2em 0.2em 0.2em 0.2em;
+        border: 3px solid rgb(166, 166, 166);
 
 
     }
@@ -985,32 +1033,45 @@ font-family: 'Dosis', sans-serif;
     }
     .burgerAdd {
         /* grid-area: Done; */
+        grid-area: "addBurger";
         background-color: darkgray;
-        border-radius: 2em;
         padding: 1em;
         font-family: 'Dosis', sans-serif;
-        color: white;
+        color: black;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
-        width: 18vw;
-        margin: 2em;
+        width: 22vw;
+
+        margin-top: -0.6em;
+        background-color: rgb(255, 224, 102);
+        font-family: 'Dosis', sans-serif;
+        float: right;
+        cursor: pointer;
+        font-size: 2.5vw;
+        border-radius: 0.2em 1em 0.2em 0.2em;
+        border: 3px solid rgb(255, 179, 26);
     }
     
     .loader {
-  background-color: #63ab97;
-  bottom: 0;
-  color: white;
-  display: block;
-  font-size: 32px;
-  left: 0;
-  overflow: hidden;
-  padding-top: 10vh;
-  position: fixed;
-  right: 0;
-  text-align: center;
-  top: 0;
-}
+          background-color: #63ab97;
+          bottom: 0;
+          color: white;
+          display: block;
+          font-size: 32px;
+          left: 0;
+          overflow: hidden;
+          padding-top: 10vh;
+          position: fixed;
+          right: 0;
+          text-align: center;
+          top: 0;
+    }
+        .burgerAdd:hover {
+        background-color: rgb(255, 204, 0);
+        color: white;
+        cursor: pointer;
+    }
 .fadeout {
   animation: fadeout 2s forwards;
 }
@@ -1021,11 +1082,7 @@ font-family: 'Dosis', sans-serif;
   }
 }
     
-    .burgerAdd:hover {
-        background-color: black;
-        color: white;
-        cursor: pointer;
-    }
+
     /*Designing of "Next"-button*/
     .nextPage {
         grid-area: Done;
@@ -1080,6 +1137,64 @@ font-family: 'Dosis', sans-serif;
   margin-top: 2%;
     line-height: 1;
 }
+    
+    
+    .grid-containerPayment {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 40% 20% 35% 5%;
+        grid-template-areas: "logoThanks" "orderThanks" "newOrder" "Lang";
+        background-image: url("wood.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        border-radius: 4em;
+        border: 1px solid #FFF;
+        width: 80%;
+        height: 37em;
+        padding: 3%;
+        margin: auto;
+        color: white
+        
+    }
+    
+    .logoThanks {
+        grid-area: "logo";
+        width:20%;
+        margin-top: -0.2em;
+        float: left;
+    }
+    
+    .orderThanks {
+        font-size: 5.5vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        padding: 2%;
+        
+    }
+    
+    .newOrder {
+        grid-area: "newOrder";
+        background-color: rgba(135, 211, 124, 1);
+        margin-top: 3em;
+        margin-left: 60%;
+        font-family: 'Dosis', sans-serif;
+        cursor: pointer;
+        font-size: 2.5vw;
+        width: 40%;
+        height: 50%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
+    }
+    
+    .newOrder:hover {
+        background-color: rgb(19, 83, 49);
+        color: white;
+        cursor: pointer;
+        
+    }
+    
+
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
@@ -1140,7 +1255,12 @@ font-family: 'Dosis', sans-serif;
      
  
     /*FÖRSTA SIDAN*/
-      .welcome {
+    .grid-containerFront {
+        grid-template-rows: 20% 70% 10%;
+    }
+        
+    
+    .welcome {
         font-size: 8vw;
         overflow: inherit;
         text-align: center;
@@ -1177,8 +1297,8 @@ font-family: 'Dosis', sans-serif;
     /*ny grid-design*/
     .grid-container {
        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr;
+       grid-template-columns: 1fr;
+        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr 0.5fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1196,18 +1316,15 @@ font-family: 'Dosis', sans-serif;
         padding: 4% 0% 0% 3%;
         overflow-y: scroll;
 
-
     }
     
-    
+
       .Done {
         grid-area: 3 / 1 / 4 / 2;
       
     }
     
   
-    
-    
     .Burger {
         font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2; 
@@ -1242,6 +1359,9 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgba(30, 130, 76, 1);
     }
     
+    .switchLangOrdering {
+        grid-area: 7/ 1/ 8/ 2;
+    }
     
       .ingredient {
         height: 20vw;
@@ -1270,7 +1390,44 @@ font-family: 'Dosis', sans-serif;
     }
     
  
+    
+    
+/*    THANKS FOR ORDERING - SIDAN */
+    
+        .grid-containerPayment {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 40% 20% 35% 5%;}
+    
+        .logoThanks{
+            float: inherit;
+            text-align: center;
+            width: 50%   
     }
+    
+        .newOrder {
+            grid-area: "newOrder";
+            background-color: rgba(135, 211, 124, 1);
+            margin-top: 2em;
+            cursor: pointer;
+            font-size: 10vw;
+            height: 50%;
+            width: 100%;
+            border-radius: 1em 1em 1em 1em;
+            margin-left: 0em;
+    }
+    
+        .orderThanks {
+            font-size: 10vw;
+            overflow: inherit;
+            text-align: center;
+            font-weight: bold;
+            padding: 2%;
+            margin-bottom: 1em;
+        
+    }
+    }
+    
         
         
 
