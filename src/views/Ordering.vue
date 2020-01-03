@@ -1389,7 +1389,35 @@ font-family: 'Dosis', sans-serif;
         .grid-containerPayment {
             display: grid;
             grid-template-columns: 100%;
-            grid-template-rows: 0% 20% 35% 5%;}
+            grid-template-rows: 40% 20% 35% 5%;}
+    
+        .logoThanks{
+            float: inherit;
+            text-align: center;
+            width: 50%   
+    }
+    
+        .newOrder {
+            grid-area: "newOrder";
+            background-color: rgba(135, 211, 124, 1);
+            margin-top: 2em;
+            cursor: pointer;
+            font-size: 10vw;
+            height: 50%;
+            width: 100%;
+            border-radius: 1em 1em 1em 1em;
+            margin-left: 0em;
+    }
+    
+        .orderThanks {
+            font-size: 10vw;
+            overflow: inherit;
+            text-align: center;
+            font-weight: bold;
+            padding: 2%;
+            margin-bottom: 1em;
+        
+    }
     
         
         
