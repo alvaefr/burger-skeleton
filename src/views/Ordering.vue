@@ -167,7 +167,7 @@
             <div class="overviewTop">
                 <img class="logoOverview" src="@/assets/circle-cropped.png" >
                 <div class="orderText">
-                {{uiLabels.yourOrder}}
+                {{uiLabels.yourOrderOverview}}
                 </div>
                 <div class="addBurger">
                 <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
@@ -858,7 +858,7 @@ font-family: 'Dosis', sans-serif;
     .overviewTop {
         display:grid;
         grid-area: "head";
-        grid-template-columns: 30% 40% 30%;
+        grid-template-columns: 20% 50% 30%;
         grid-template-rows: 100%;
         grid-template-areas: "logoOverview" "orderText" "addBurger";
     }
@@ -873,7 +873,7 @@ font-family: 'Dosis', sans-serif;
     
     .logoOverview {
         grid-area: "logo";
-        width:45%;
+        width:70%;
         margin-top: -0.8em;
         margin-left: 1em;
         overflow: inherit;
@@ -903,20 +903,6 @@ font-family: 'Dosis', sans-serif;
     }
     
     #totalPrice {
-/*
-        text-align: center;
-        font-size: 5vw;
-        background-color: rgba(232, 232, 232, 0.92);
-        border-radius: 0.5em;
-        width: 60%;
-        height: 70%;
-        margin: 0.7em;
-        margin-top: 0em;
-        padding: 0px;
-        float:left;
-        color: black;
-        
-*/
         grid-area: "totalPrice";
         background-color: darkgray;
         padding: 1em;
@@ -1020,7 +1006,7 @@ font-family: 'Dosis', sans-serif;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
-        width: 18vw;
+        width: 22vw;
 
         margin-top: -0.6em;
         background-color: rgb(255, 224, 102);
