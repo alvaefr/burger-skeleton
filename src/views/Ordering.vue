@@ -1306,7 +1306,7 @@ font-family: 'Dosis', sans-serif;
     .grid-container {
        display: grid;
        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr;
+        grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1390,11 +1390,52 @@ font-family: 'Dosis', sans-serif;
    
     }
     
-    .label_check {
-        width: 8vw;
-        height: 8vw;
+    .label__check {
+        width: 9vw;
+        height: 9vw;
+        font-size: 2.7vw;
     }
     
+    .positionVegan {
+       margin-left: 30%;
+    }
+    .positionGluten {
+       margin-left: 50%;
+    }
+     .positionMilk {
+       margin-left: 70%;
+    }
+    
+    @keyframes check {
+  0% {
+      width: 4.5vw;
+      height: 4.5vw;
+   
+  }
+  10% {
+      width: 4.5vw;
+      height: 4.5vw;
+  
+  }
+  12% {
+      width: 4.5vw;
+      height: 4.5vw;
+   
+  }
+  50% {
+      width: 5.5vw;
+      height: 5.5vw;
+   
+  }
+  100% {
+      width: 9vw;
+      height: 9vw;
+      font-size: 2.7vw;
+      background: rgba(144, 198, 149, 0.9);
+    border: 4px solid rgba(38, 166, 91, 1);
+    text-align: center;
+  }
+}
  
     
     
@@ -1432,6 +1473,9 @@ font-family: 'Dosis', sans-serif;
             margin-bottom: 1em;
         
     }
+    
+        
+    
     }
     
         
