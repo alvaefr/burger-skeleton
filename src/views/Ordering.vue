@@ -251,7 +251,9 @@
             
             <img class="logoThanks" src="@/assets/circle-cropped.png" >
             
-            <div class="orderThanks">Tack för din order!</div>
+            <div class="orderThanks">{{uiLabels.thankOrder}}</div>
+            
+            <button class="newOrder" v-on:click="setView(showFront)"> {{uiLabels.newOrder}} </button>
             
             <div class="switchLang">
                 <button class="flagButton" v-on:click="switchLang(); switchFlag()">
@@ -1124,8 +1126,8 @@ font-family: 'Dosis', sans-serif;
     .grid-containerPayment {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 40% 55% 5%;
-        grid-template-areas: "logoThanks" "orderThanks" "Lang";
+        grid-template-rows: 40% 20% 35% 5%;
+        grid-template-areas: "logoThanks" "orderThanks" "newOrder" "Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -1139,6 +1141,13 @@ font-family: 'Dosis', sans-serif;
         
     }
     
+    .logoThanks {
+        grid-area: "logo";
+        width:20%;
+        margin-top: -0.2em;
+        float: left;
+    }
+    
     .orderThanks {
         font-size: 5.5vw;
         overflow: inherit;
@@ -1148,12 +1157,28 @@ font-family: 'Dosis', sans-serif;
         
     }
     
-     .logoThanks {
-        grid-area: "logo";
-        width:20%;
-        margin-top: -0.2em;
-        float: left;
+    .newOrder {
+        grid-area: "newOrder";
+        background-color: rgba(135, 211, 124, 1);
+        margin-top: 3em;
+        margin-left: 60%;
+        font-family: 'Dosis', sans-serif;
+        cursor: pointer;
+        font-size: 2.5vw;
+        width: 40%;
+        height: 50%;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgba(30, 130, 76, 1);
     }
+    
+    .newOrder:hover {
+        background-color: rgb(19, 83, 49);
+        color: white;
+        cursor: pointer;
+        
+    }
+    
+
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
@@ -1280,8 +1305,6 @@ font-family: 'Dosis', sans-serif;
     }
     
   
-    
-    
     .Burger {
         font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2; 
