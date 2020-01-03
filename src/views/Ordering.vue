@@ -1382,7 +1382,7 @@ font-family: 'Dosis', sans-serif;
     }
     
  
-    }
+    
     
 /*    THANKS FOR ORDERING - SIDAN */
     
@@ -1417,6 +1417,7 @@ font-family: 'Dosis', sans-serif;
             padding: 2%;
             margin-bottom: 1em;
         
+    }
     }
     
         
