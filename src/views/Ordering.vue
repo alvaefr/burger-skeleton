@@ -307,6 +307,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showFront: "showFront",
              showMenu: "showMenu",
              showOverview: "showOverview",
+             showPayment: "showPayment",
              view: "showFront",
              currentOrder: {
                  burgers: [],
@@ -1382,6 +1383,14 @@ font-family: 'Dosis', sans-serif;
     
  
     }
+    
+/*    THANKS FOR ORDERING - SIDAN */
+    
+        .grid-containerPayment {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 0% 20% 35% 5%;}
+    
         
         
 
