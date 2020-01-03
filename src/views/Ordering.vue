@@ -176,6 +176,9 @@
 
             <div class="burgerOverview">
 
+               
+                
+                
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
@@ -183,11 +186,11 @@
                     <hr>
 
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
-                        {{countIng.count}}:  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
+                        {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> {{uiLabels.price}} {{ burger.price }} :- </h4>
+                        <hr> <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
                     </div>
 
 
@@ -230,7 +233,7 @@
                
                 <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
 
-                <div class="placeOrder"><img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"> </div>
+                <div class="placeOrder"><img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> </div>
             </div>
             
             <div class="overviewLang">
@@ -239,9 +242,23 @@
                     <button class="flagButton" v-on:click="switchLang(); switchFlag()">
                     <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
-                </div>
+            </div>
                 
             </div>
+        </div>
+        
+        <div v-show="showPayment === this.view" class="grid-containerPayment">
+            
+            <img class="logoThanks" src="@/assets/circle-cropped.png" >
+            
+            <div class="orderThanks">Tack för din order!</div>
+            
+            <div class="switchLang">
+                <button class="flagButton" v-on:click="switchLang(); switchFlag()">
+                    <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
+                    <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
+            </div>
+            
         </div>
 
     </section>
@@ -1102,6 +1119,41 @@ font-family: 'Dosis', sans-serif;
   margin-top: 2%;
     line-height: 1;
 }
+    
+    
+    .grid-containerPayment {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 40% 55% 5%;
+        grid-template-areas: "logoThanks" "orderThanks" "Lang";
+        background-image: url("wood.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        border-radius: 4em;
+        border: 1px solid #FFF;
+        width: 80%;
+        height: 37em;
+        padding: 3%;
+        margin: auto;
+        color: white
+        
+    }
+    
+    .orderThanks {
+        font-size: 5.5vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        padding: 2%;
+        
+    }
+    
+     .logoThanks {
+        grid-area: "logo";
+        width:20%;
+        margin-top: -0.2em;
+        float: left;
+    }
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
