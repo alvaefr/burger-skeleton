@@ -87,7 +87,7 @@
 <!--                    &lt;!&ndash;<button v-on:click="delFromBurger(countIng)"> - </button> <br> &ndash;&gt;-->
 <!--                    &lt;!&ndash; button that deletes ingredient, måste kopplas till ingredient counter också &ndash;&gt;-->
 <!--                </div>-->
-                <h1>{{ uiLabels.order }}</h1>
+                <h1> {{uiLabels.order}}</h1>
                 <!-- BURGARNA -->
                 <hr>
                 <div v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
@@ -165,6 +165,7 @@
         <div v-show="showOverview === this.view" class="grid-containerOverview">
 
             <div class="overviewTop">
+                <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <img class="logoOverview" src="@/assets/circle-cropped.png" >
                 <div class="orderText">
                 {{uiLabels.yourOrderOverview}}
@@ -749,6 +750,7 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         padding: 4% 0% 0% 3%;
         margin-right: 5%;
+        padding-left: 10%;
         overflow-y: scroll;
         border-left: 3px solid #FFF;
         border-right: 3px solid #FFF;
@@ -1354,7 +1356,7 @@ font-family: 'Dosis', sans-serif;
         font-size: 5vw;
         width: 100%;
         height: 10vw;
-        border-radius: 0.2em 0.2em 4em 4em;
+        border-radius: 1em 1em 1em 1em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
     
