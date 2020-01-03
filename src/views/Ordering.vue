@@ -155,7 +155,7 @@
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
 
-             <div class="switchLang">
+             <div class="switchLangOrdering">
                 <button class="flagButton" v-on:click="switchLang(); switchFlag()">
                     <img class="flag" v-if="picBool" src="@/assets/unionJack.jpg">
                     <img class="flag" v-else src="@/assets/sweFlag.png" > </button>
@@ -614,12 +614,21 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         color: dimgray;
     }
+    
+    .switchLangOrdering {
+        grid-area: "Lang";
+        float: left;
+        margin: 0.1em;
+        margin-left: 1em;
+        background-size: cover;
+        
+    }
 
     .grid-container {
         display: grid;
         grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 15% 5%;
-        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done";
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done" "Lang Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -687,14 +696,13 @@ font-family: 'Dosis', sans-serif;
         margin: 0.1em;
         margin-left: 1em;
         background-size: cover;
-
         
     }
+    
     .flagButton {
         background-size: cover;
         background-color: rgba(1,1,1,0);
         border-color: rgba(1,1,1,0);
-
     }
     
     .flagButton:hover {
@@ -745,7 +753,6 @@ font-family: 'Dosis', sans-serif;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
-
     }
 
     .Done {
@@ -1239,7 +1246,12 @@ font-family: 'Dosis', sans-serif;
      
  
     /*FÖRSTA SIDAN*/
-      .welcome {
+    .grid-containerFront {
+        grid-template-rows: 20% 70% 10%;
+    }
+        
+    
+    .welcome {
         font-size: 8vw;
         overflow: inherit;
         text-align: center;
@@ -1276,8 +1288,8 @@ font-family: 'Dosis', sans-serif;
     /*ny grid-design*/
     .grid-container {
        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr;
+       grid-template-columns: 1fr;
+        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr 0.5fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1295,10 +1307,9 @@ font-family: 'Dosis', sans-serif;
         padding: 4% 0% 0% 3%;
         overflow-y: scroll;
 
-
     }
     
-    
+
       .Done {
         grid-area: 3 / 1 / 4 / 2;
       
@@ -1339,6 +1350,9 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgba(30, 130, 76, 1);
     }
     
+    .switchLangOrdering {
+        grid-area: 7/ 1/ 8/ 2;
+    }
     
       .ingredient {
         height: 20vw;
