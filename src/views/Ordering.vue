@@ -766,7 +766,7 @@ font-family: 'Dosis', sans-serif;
 
     }
     .menuItems {
-        display:grid;
+        display: grid;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
@@ -1306,7 +1306,7 @@ font-family: 'Dosis', sans-serif;
     .grid-container {
        display: grid;
        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr 0.5fr;
+        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1319,7 +1319,6 @@ font-family: 'Dosis', sans-serif;
     
     
     .OrderList {
-        height: 100%;
         grid-area: 2 / 1 / 3 / 2;
         padding: 4% 0% 0% 3%;
         overflow-y: scroll;
@@ -1368,21 +1367,20 @@ font-family: 'Dosis', sans-serif;
     }
     
     .switchLangOrdering {
-        grid-area: 7/ 1/ 8/ 2;
+        grid-area: 3/ 1/ 4/ 2;
     }
     
-      .ingredient {
-        height: 20vw;
-        width: 22vw;
-        font-size: 3vw;
-      
-    }
-    
-      .menuItems {
-        grid-gap: 20vw;
-        grid-template-columns: repeat(auto-fill, 13vw);
-        height: 10vw;
+    .ingredient {
+        height: 25vw;
+        width: 30vw;
 
+    }
+    
+     .menuItems {
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(auto-fill, 32vw);
+        height: 20vw;
     }
     
     
