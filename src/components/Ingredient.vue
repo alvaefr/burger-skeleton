@@ -210,16 +210,18 @@
         width: 2vw;
     }
 
+    
+    /* KOD FÖR APP*/
     @media only screen and (max-width: 500px) {
 
 
         .image {
-            height: 10vw;
-            width: 10vw;
+            height: 11vw;
+            width: 11vw;
         }
         
         .head {
-            font-size: 3vw;
+            font-size: 3.4vw;
         }
         
       
@@ -229,25 +231,26 @@
        cursor: pointer;
         background-color: rgb(255, 224, 102, 0.9);
         border-radius: 0em 5em 5em 0em;
-        border-top: 0.1vw solid rgb(255, 179, 26);
-        border-right: 0.1vw solid rgb(255, 179, 26);
-        border-bottom: 0.1vw solid rgb(255, 179, 26);
-        color: rgba(103, 87, 76, 1);
-        font-size: 3vw;
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        border-right: 0.3vw solid rgb(255, 179, 26);
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
+        font-size: 4vw;
         width: 25%;
-        height: 5vw;
-        margin-bottom: 1vw;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
         padding-bottom: 0.2vw;
     }
 
     .count {
        display: inline-block;
         background-color: rgb(255, 224, 102, 0.9);
-        font-size: 3vw;
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        font-size: 4vw;
         width: 39%;
-        height: 5vw;
-
-        margin-bottom: 1vw;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
+        padding-bottom: 0.2vw;
     }
     
     #dec {
@@ -255,25 +258,26 @@
         cursor: pointer;
         background-color: rgb(255, 224, 102, 0.9);
         border-radius: 5em 0em 0em 5em;
-        border-top: 0.1vw solid rgb(255, 179, 26);
-        border-left: 0.1vw solid rgb(255, 179, 26);
-        border-bottom: 0.1vw solid rgb(255, 179, 26);
+        border-top: 0.3vw solid rgb(255, 179, 26);
+        border-left: 0.3vw solid rgb(255, 179, 26);
+        border-bottom: 0.3vw solid rgb(255, 179, 26);
         color: rgba(103, 87, 76, 1);
-        font-size: 3vw;
+        font-size: 4vw;
         width: 25%;
-        height: 5vw;
-        margin-bottom: 1vw;
+        height: 4.5vw;
+        margin-bottom: 1.5vw;
         padding-bottom: 0.2vw;
     }
         
         
         .price {
-            font-size: 3vw;
+            font-size: 3.4vw;
         }
         
-         .filter img {
-        height: 4vw;
-        width: 4vw;
+        .filter img {
+            height: 5vw;
+            width: 5vw;
+            padding-bottom: 0.3vw;
     }
     }
 
