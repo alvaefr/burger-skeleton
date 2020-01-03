@@ -3,9 +3,12 @@
      <div class="info">
       <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
 
-      <div v-if="item.category == 4">
-          <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1">
+      <div v-if="item.category == 4 && itemCount == 1" >
+          <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1" checked="checked">
       </div>
+         <div v-else>
+             <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1">
+         </div>
       <div v-if="item.category != 4">
          <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0" >-</button>
 
