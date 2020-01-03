@@ -63,6 +63,7 @@
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item); checkBurger()"
+                        v-on:bread="addToBurger(item)"
                         v-bind:item="item"
                         v-bind:itemCount="ingredientCount(item)"
                         :lang="lang"
@@ -382,6 +383,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.takeAway = true;
          },
          addToBurger: function (item) {  //Lägger till ingrediens till burgare
+             if (item.category == 4) {
+                 for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                     if (this.chosenIngredients[i].category == 4) {
+                         this.delFromBurger(this.chosenIngredients[i]);
+                     }
+                 }
+             }
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
              this.totalPrice += item.selling_price;
@@ -390,6 +398,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
              this.totalPrice -= item.selling_price;
+
          },
          ingredientCount: function (item) {  //Räknar ingredienserna.
              let counter = 0;
