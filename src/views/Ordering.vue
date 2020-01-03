@@ -382,6 +382,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.takeAway = true;
          },
          addToBurger: function (item) {  //Lägger till ingrediens till burgare
+             if (item.category == 4) {
+                 for (let i = 0; i < this.chosenIngredients.length; i += 1) {
+                     if (this.chosenIngredients[i].category == 4) {
+                         this.delFromBurger(this.chosenIngredients[i]);
+                     }
+                 }
+             }
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
              this.totalPrice += item.selling_price;
@@ -390,6 +397,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
              this.totalPrice -= item.selling_price;
+
          },
          ingredientCount: function (item) {  //Räknar ingredienserna.
              let counter = 0;
