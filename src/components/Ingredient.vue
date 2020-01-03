@@ -187,6 +187,31 @@
         margin-bottom: 1vw;
         padding-bottom: 0.2vw;
     }
+    .radioButton input[type='radio'] {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: white;
+        width: 2.3vw;
+        height: 1.8vw;
+        margin-bottom: 8vw;
+        margin-left: auto;
+        margin-top: auto;
+        transform: scale(6);
+        border-radius: 0.2vw;
+        -webkit-transition: all 0.2s;
+        opacity: 0;
+    }
+    .radioButton input[type='radio']:checked {
+        background: forestgreen;
+        border: 1px green;
+        border-style: double;
+        opacity: 0.2;
+
+
+    }
 
     .price {
         grid-area: 2 / 1 / 3 / 2; 
@@ -268,6 +293,32 @@
         margin-bottom: 1.5vw;
         padding-bottom: 0.2vw;
     }
+        .radioButton input[type='radio'] {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: white;
+            width: 2.3vw;
+            height: 1.73334vw;
+            margin-bottom: 21vw;
+            margin-left: auto;
+            margin-top: auto;
+            margin-right: 0px;
+            transform: scale(15);
+            border-radius: 0.2vw;
+            -webkit-transition: all 0.2s;
+            opacity: 0;
+        }
+        .radioButton input[type='radio']:checked {
+            background: forestgreen;
+            border: 1px green;
+            border-style: double;
+            opacity: 0.2;
+
+
+        }
         
         
         .price {
