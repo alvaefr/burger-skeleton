@@ -25,7 +25,7 @@
             <div class="mealLocation">
                 <p>{{ uiLabels.beginOrder }}</p><br>
                 <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.eathere }}</button>
-                <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.togo }}</button>
+                <button class="mealButton" v-on:click="setView(showOverview), takeAway(); popUp()">{{ uiLabels.togo }}</button>
             </div>
 
             <div class="switchLang">
@@ -287,10 +287,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
              view: "showFront",
              currentOrder: {
                  burgers: [],
-                 editingBurger: false
+                 editingBurger: false,
+                 takeAway: false
              },
              picBool: false,
-             totalPrice: 0
+             totalPrice: 0,
          }
      },
      created: function () {
@@ -352,6 +353,9 @@ necessary Vue instance (found in main.js) to import your data and methods */
          }
      },
      methods: {
+         takeAway: function() {
+             this.currentOrder.takeAway = true;
+         },
          addToBurger: function (item) {  //Lägger till ingrediens till burgare
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
@@ -529,6 +533,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              // make use of socket.io's magic to send the stuff to the kitchen via the server (app.js)
              this.$store.state.socket.emit('order', this.currentOrder);
              console.log("PLACE ORDER")
+             console.log(this.currentOrder)
          },
          switchFlag: function (){
                 this.picBool = !this.picBool;
@@ -852,7 +857,6 @@ font-family: 'Dosis', sans-serif;
         grid-template-columns: 30% 70%;
         grid-template-rows: 100%;
         grid-template-areas: "logoOverview" "orderText";
-
     }
     
     .orderText {
@@ -861,7 +865,6 @@ font-family: 'Dosis', sans-serif;
         text-align: left;
         font-weight: bold;
         padding: 2%;
-        
     }
     
     .logoOverview {
@@ -870,13 +873,12 @@ font-family: 'Dosis', sans-serif;
         margin-top: -0.2em;
         margin-left: 1em;
         overflow: inherit;
-    
+
     }
     .burgerOverview {
         grid-area: Burgers;
         display: grid;
         grid-gap: 2vw;
-
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
@@ -903,7 +905,7 @@ font-family: 'Dosis', sans-serif;
         padding: 0px;
         float:left;
         color: black;
-        
+
 
     }
     #PlaceOrderButton {
@@ -928,7 +930,6 @@ font-family: 'Dosis', sans-serif;
         width: 22vw;
         max-height: 320px;
         max-width: 200px;
-
         border-radius: 4vw;
         border: 5px solid #35A855;
         padding: 0 1em;
@@ -982,11 +983,11 @@ font-family: 'Dosis', sans-serif;
         width: 1.9vw;
     }
     .burgerAdd {
-        grid-area: Done;
+        /* grid-area: Done; */
         background-color: darkgray;
         border-radius: 2em;
         padding: 1em;
-           font-family: 'Dosis', sans-serif;
+        font-family: 'Dosis', sans-serif;
         color: white;
         font-size: 2.5vw;
         max-height: 56vw;
@@ -1194,7 +1195,7 @@ font-family: 'Dosis', sans-serif;
         padding: 4% 0% 0% 3%;
         overflow-y: scroll;
 
-        
+
     }
     
     

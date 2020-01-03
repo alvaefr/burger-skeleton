@@ -22,7 +22,12 @@
 
 		<div class = 'grid-item'>
 		<div id = 'orderID'> #{{order.orderId}} </div>
+		<!-- 						De två raderna under här visar om det är takeAway eller äta på restaurangen 			-->
+		<div id="takeAway" v-if="order.takeAway === true"> Take Away </div>
+		<div id="takeAway" v-if="order.takeAway === false"> Eat Here </div>
+
 		<div v-for="(burger, key) in order.burgers" :key="key">
+
 			<div id = 'burgerID'> Burger {{key + 1}}: </div>
 			<div v-for="(ing, key2) in groupIngredients(burger.ingredients)" :key="key2">
 					<div v-if="(categoryNum.includes(ing.category_num))">
@@ -66,6 +71,7 @@ export default {
 			}
 		}
 	}
+	console.log(order)
 	return counter;
 	}
 }
