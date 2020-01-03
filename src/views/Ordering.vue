@@ -419,6 +419,13 @@ necessary Vue instance (found in main.js) to import your data and methods */
                          }
                     }
                 }
+                else if (this.chosenIngredients[i].category === 6) {
+                    this.buttonClickable=true;
+                }
+                 
+                 else if (this.chosenIngredients[i].category === 5) {
+                    this.buttonClickable=true;
+                }
             }
         },
          addBurger: function() {   //Lägg till nny burgare
