@@ -2,13 +2,19 @@
   <div class="ingredient">
      <div class="info">
       <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
-         <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
+
+      <div v-if="item.category == 4">
+          <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1">
+      </div>
+      <div v-if="item.category != 4">
+         <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0" >-</button>
 
       {{ itemCount }}
          <button id="inc" v-on:click="incrementCounter($event)" :disabled="item.category === 4 && itemCount >= 1">+</button> <br>
      </div>
-      
-      <h3 class="price">{{item.selling_price}}:- </h3>
+     </div>
+
+         <h3 class="price">{{item.selling_price}}:- </h3>
 
       <img class="image" :src="require('../assets/' + item.img)" width="60" height="60"/>
 
@@ -66,6 +72,12 @@ export default {
     //   // can catch it with v-on:increment in the component declaration
     //   this.$emit('decrement');
     // },
+      breadItem: function () {
+          // sending 'pick' message to parent component or view so that it
+          // can catch it with v-on:pick in the component declaration
+          this.$emit('bread', this.item);
+      },
+
       incrementCounter: function (ev) {
           if (ev.target.id === "inc") {
               // sending 'increment' message to parent component or view so that it

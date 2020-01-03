@@ -63,6 +63,7 @@
                         v-if="item.category===categoryNumber && (item.gluten_free===gluten || item.gluten_free===1) && (item.milk_free===milk || item.milk_free===1) && (item.vegan===vegan || item.vegan===1) "
                         v-on:increment="addToBurger(item); checkBurger()"
                         v-on:decrement="delFromBurger(item); checkBurger()"
+                        v-on:bread="addToBurger(item)"
                         v-bind:item="item"
                         v-bind:itemCount="ingredientCount(item)"
                         :lang="lang"
