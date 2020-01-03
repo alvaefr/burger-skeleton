@@ -100,6 +100,7 @@
                 <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
             
+            
        
 
             <div class="Done">
@@ -168,6 +169,9 @@
                 <div class="orderText">
                 {{uiLabels.yourOrder}}
                 </div>
+                <div class="addBurger">
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
+                </div>
             </div>
 
             <div class="burgerOverview">
@@ -179,11 +183,11 @@
                     <hr>
 
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
-                        {{countIng.count}}  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
+                        {{countIng.count}}:  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} kr
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> {{uiLabels.price}} {{ burger.price }} </h4>
+                        <hr> <h4> {{uiLabels.price}} {{ burger.price }} :- </h4>
                     </div>
 
 
@@ -217,16 +221,16 @@
                 <!-- Button that adds new burgers -->
 
 
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
+              
 
             </div>
 
             <div class="overviewBottom">
 
                
-                <div id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
+                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
 
-                <img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"> 
+                <div class="placeOrder"><img id=PlaceOrderButton v-on:click="placeOrder()" src="PlaceOrder-Button.png" width="200" height="150"> </div>
             </div>
             
             <div class="overviewLang">
@@ -854,9 +858,9 @@ font-family: 'Dosis', sans-serif;
     .overviewTop {
         display:grid;
         grid-area: "head";
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 30% 40% 30%;
         grid-template-rows: 100%;
-        grid-template-areas: "logoOverview" "orderText";
+        grid-template-areas: "logoOverview" "orderText" "addBurger";
     }
     
     .orderText {
@@ -869,8 +873,8 @@ font-family: 'Dosis', sans-serif;
     
     .logoOverview {
         grid-area: "logo";
-        width:50%;
-        margin-top: -0.2em;
+        width:45%;
+        margin-top: -0.8em;
         margin-left: 1em;
         overflow: inherit;
 
@@ -882,11 +886,16 @@ font-family: 'Dosis', sans-serif;
         grid-auto-flow: column;
         overflow-x: scroll;
         text-align: center;
+        margin: 1em;
     }
     .overviewBottom {
         grid-area: Bottom;
+        display: grid;
         position: relative;
         align-items: center;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 100%;
+        grid-template-areas: "totalPrice" "placeOrder";
     }
     
     .overviewLang{
@@ -894,6 +903,7 @@ font-family: 'Dosis', sans-serif;
     }
     
     #totalPrice {
+/*
         text-align: center;
         font-size: 5vw;
         background-color: rgba(232, 232, 232, 0.92);
@@ -905,6 +915,24 @@ font-family: 'Dosis', sans-serif;
         padding: 0px;
         float:left;
         color: black;
+        
+*/
+        grid-area: "totalPrice";
+        background-color: darkgray;
+        padding: 1em;
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 2.5vw;
+        max-height: 56vw;
+        height: auto;
+        width: 22vw;
+        margin-left: 1em;
+        background-color: rgba(232, 232, 232, 0.92);
+        font-family: 'Dosis', sans-serif;
+        float: center;
+        font-size: 2.5vw;
+        border-radius: 0.2em 0.2em 0.2em 0.2em;
+        border: 3px solid rgb(166, 166, 166);
 
 
     }
@@ -984,32 +1012,45 @@ font-family: 'Dosis', sans-serif;
     }
     .burgerAdd {
         /* grid-area: Done; */
+        grid-area: "addBurger";
         background-color: darkgray;
-        border-radius: 2em;
         padding: 1em;
         font-family: 'Dosis', sans-serif;
-        color: white;
+        color: black;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
         width: 18vw;
-        margin: 2em;
+
+        margin-top: -0.6em;
+        background-color: rgb(255, 224, 102);
+        font-family: 'Dosis', sans-serif;
+        float: right;
+        cursor: pointer;
+        font-size: 2.5vw;
+        border-radius: 0.2em 1em 0.2em 0.2em;
+        border: 3px solid rgb(255, 179, 26);
     }
     
     .loader {
-  background-color: #63ab97;
-  bottom: 0;
-  color: white;
-  display: block;
-  font-size: 32px;
-  left: 0;
-  overflow: hidden;
-  padding-top: 10vh;
-  position: fixed;
-  right: 0;
-  text-align: center;
-  top: 0;
-}
+          background-color: #63ab97;
+          bottom: 0;
+          color: white;
+          display: block;
+          font-size: 32px;
+          left: 0;
+          overflow: hidden;
+          padding-top: 10vh;
+          position: fixed;
+          right: 0;
+          text-align: center;
+          top: 0;
+    }
+        .burgerAdd:hover {
+        background-color: rgb(255, 204, 0);
+        color: white;
+        cursor: pointer;
+    }
 .fadeout {
   animation: fadeout 2s forwards;
 }
@@ -1020,11 +1061,7 @@ font-family: 'Dosis', sans-serif;
   }
 }
     
-    .burgerAdd:hover {
-        background-color: black;
-        color: white;
-        cursor: pointer;
-    }
+
     /*Designing of "Next"-button*/
     .nextPage {
         grid-area: Done;
