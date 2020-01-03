@@ -768,7 +768,7 @@ font-family: 'Dosis', sans-serif;
 
     }
     .menuItems {
-        display:grid;
+        display: grid;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
@@ -1119,34 +1119,7 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-    /* Designing of Foodfilter*/
-    .label__checkbox {
-      display: none;
-}
-    .positionVegan {
-       margin-left: 30%;
-    }
-    .positionGluten {
-       margin-left: 40%;
-    }
-     .positionMilk {
-       margin-left: 50%;
-    }
-.label__check {
-  display: block;
-  position: absolute;
-  border-radius: 50%;
-  border: 5px solid rgba(0,0,0,0.1);
-  background: rgba(255,255,255, 0.9);
-  width: 5vw;
-  height: 5vw;
-  font-size: 1.4vw;
-  cursor: pointer;
-  transition: border .001s ease;
-  text-align: center;
-  margin-top: 2%;
-    line-height: 1;
-}
+
     
     
     .grid-containerPayment {
@@ -1204,7 +1177,34 @@ font-family: 'Dosis', sans-serif;
         
     }
     
-
+    /* Designing of Foodfilter*/
+    .label__checkbox {
+      display: none;
+}
+    .positionVegan {
+       margin-left: 30%;
+    }
+    .positionGluten {
+       margin-left: 40%;
+    }
+     .positionMilk {
+       margin-left: 50%;
+    }
+.label__check {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  border: 5px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255, 0.9);
+  width: 5vw;
+  height: 5vw;
+  font-size: 1.4vw;
+  cursor: pointer;
+  transition: border .001s ease;
+  text-align: center;
+  margin-top: 2%;
+    line-height: 1;
+}
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
@@ -1308,7 +1308,7 @@ font-family: 'Dosis', sans-serif;
     .grid-container {
        display: grid;
        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.4fr 1.5fr 0.5fr 0.5fr 0.5fr;
+        grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1321,7 +1321,6 @@ font-family: 'Dosis', sans-serif;
     
     
     .OrderList {
-        height: 100%;
         grid-area: 2 / 1 / 3 / 2;
         padding: 4% 0% 0% 3%;
         overflow-y: scroll;
@@ -1370,21 +1369,20 @@ font-family: 'Dosis', sans-serif;
     }
     
     .switchLangOrdering {
-        grid-area: 7/ 1/ 8/ 2;
+        grid-area: 3/ 1/ 4/ 2;
     }
     
-      .ingredient {
-        height: 20vw;
-        width: 22vw;
-        font-size: 3vw;
-      
-    }
-    
-      .menuItems {
-        grid-gap: 20vw;
-        grid-template-columns: repeat(auto-fill, 13vw);
-        height: 10vw;
+    .ingredient {
+        height: 25vw;
+        width: 30vw;
 
+    }
+    
+     .menuItems {
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(auto-fill, 32vw);
+        height: 20vw;
     }
     
     
@@ -1394,13 +1392,122 @@ font-family: 'Dosis', sans-serif;
    
     }
     
-    .label_check {
-        width: 8vw;
-        height: 8vw;
+    .label__check {
+        width: 9vw;
+        height: 9vw;
+        font-size: 2.7vw;
     }
     
- 
+    .positionVegan {
+       margin-left: 30%;
+    }
+    .positionGluten {
+       margin-left: 50%;
+    }
+     .positionMilk {
+       margin-left: 70%;
+    }
     
+    @keyframes check {
+  0% {
+      width: 4.5vw;
+      height: 4.5vw;
+   
+  }
+  10% {
+      width: 4.5vw;
+      height: 4.5vw;
+  
+  }
+  12% {
+      width: 4.5vw;
+      height: 4.5vw;
+   
+  }
+  50% {
+      width: 5.5vw;
+      height: 5.5vw;
+   
+  }
+  100% {
+      width: 9vw;
+      height: 9vw;
+      font-size: 2.7vw;
+      background: rgba(144, 198, 149, 0.9);
+    border: 4px solid rgba(38, 166, 91, 1);
+    text-align: center;
+  }
+}
+ 
+    /*OVERVIEW APP*/
+    
+
+    .burgerAdd {
+        width: 100%;
+        height: 100%;
+        padding: 1em;
+        margin-top: 0.6px;
+        font-family: 'Dosis', sans-serif;
+        background-color: rgb(255, 224, 102);
+        float: right;
+        cursor: pointer;
+        font-size: 5vw;
+        border-radius: 0.2em 3em 0.2em 0.2em;
+        border: 3px solid rgb(255, 179, 26);
+    }   
+    
+   .logoOverview {
+        grid-area: "logo";
+        width:100%;
+        margin-top: 0.8em;
+        margin-left: 1em;
+        overflow: inherit;
+
+    }
+    
+    .orderText {
+        font-size: 9.5vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
+        padding: 2%;
+    }
+    
+        #totalPrice {
+        grid-area: "totalPrice";
+        padding: 1em;
+        font-size: 4.5vw;
+        height: 8vw;
+        width: 40vw;
+        margin: 1em;
+        background-color: rgba(232, 232, 232, 0.92);
+        float:  left;
+        border-radius: 0.2em 0.2em 0.2em 0.2em;
+        border: 3px solid rgb(166, 166, 166);
+
+
+    }
+    
+      .burgerScroll {
+        background-color: #1B686A;
+        position: relative;
+        text-align: left;
+        width: 30vw;
+        max-height: 320px;
+        max-width: 200px;
+        border-radius: 4vw;
+        border: 5px solid #35A855;
+        padding: 0 1em;
+        font-size: 2.8vw;
+    }
+    
+     #deleteBurgerButton {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+    
+    #ingredient
     
 /*    THANKS FOR ORDERING - SIDAN */
     
@@ -1436,6 +1543,9 @@ font-family: 'Dosis', sans-serif;
             margin-bottom: 1em;
         
     }
+    
+        
+    
     }
     
         

@@ -6,7 +6,7 @@
             <div v-if="item.category != 4">
                 <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
 
-                {{ itemCount }}
+               <span class="count"> {{  itemCount  }}</span>
                 <button id="inc" v-on:click="incrementCounter($event)"
                         :disabled="item.category === 4 && itemCount >= 1">+
                 </button>
@@ -125,10 +125,7 @@
         grid-row-gap: 0px;
     }
 
-    .ingredient img {
-        height: 4vw;
-        width: 4vw;
-    }
+   
 
     .info {
         grid-area: 1 / 2 / 2 / 3;
@@ -169,6 +166,8 @@
 
     .image {
         grid-area: 1 / 1 / 2 / 2;
+        height: 4vw;
+        width: 4vw;
     }
 
     .filter {
@@ -184,16 +183,35 @@
     @media only screen and (max-width: 500px) {
 
 
-        .ingredient img {
+        .image {
             height: 10vw;
             width: 10vw;
         }
-
-        .filter img {
-            height: 5vw;
-            width: 5vw;
+        
+        .head {
+            font-size: 3vw;
+        }
+        
+        #inc {
+            font-size: 3vw;
+        }
+        
+        #dec {
+            font-size: 3vw;
         }
 
+        .count {
+            font-size: 2vw;
+        }
+        
+        .price {
+            font-size: 3vw;
+        }
+        
+         .filter img {
+        height: 4vw;
+        width: 4vw;
+    }
     }
 
 
