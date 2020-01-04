@@ -101,14 +101,8 @@
                 <h2>{{ uiLabels.price }}:</h2>
                 <p> {{ price }}:-</p></div>
             
-            
-       
-
-            <div class="Done">
-
-           
                 
-            <div class="filtergrid">
+            <div class="filterGrid">
                <div class="positionGluten">
                     <label class="label">
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
@@ -143,18 +137,17 @@
                 </div>
                </div>
 
-                 
+         
 
                 <!-- <button v-on:click="addToOrder()"> Add to order {{ uiLabels.addToOrder }}</button>-->
 
                 <!--<button v-on:click="setView(showFront)">{{uiLabels.backfirstpage}}</button>-->
 
-                
-                
-           </div>
             
 
                  <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                
+   
 
              <div class="switchLangOrdering">
                 <button class="flagButton" v-on:click="switchLang(); switchFlag()">
@@ -528,8 +521,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          
            cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
-              this.currentOrder.burgers= [];
-               this.currentOrder.editinBurger=false;
+             this.currentOrder.burgers= [];
+             this.currentOrder.editinBurger=false;
              this.chosenIngredients = [];
              this.buttonClickable= false;
              this.orderNumber= "";
@@ -664,7 +657,7 @@ font-family: 'Dosis', sans-serif;
         display: grid;
         grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 15% 5%;
-        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Done Done" "Lang Lang";
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "filterGrid nextPage" "Lang Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -717,8 +710,7 @@ font-family: 'Dosis', sans-serif;
         font-weight: bold;
         
     }
-    .logo {
-    }
+
     .mealLocation {
         grid-area: "mealLoc";
         text-align: center;
@@ -731,8 +723,7 @@ font-family: 'Dosis', sans-serif;
         float: left;
         margin: 0.1em;
         margin-left: 1em;
-        background-size: cover;
-        
+        background-size: cover;      
     }
     
     .flagButton {
@@ -792,8 +783,8 @@ font-family: 'Dosis', sans-serif;
         height: 10vw;
     }
 
-    .Done {
-        grid-area: Done;
+    .filterGrid {
+        grid-area: "filterGrid";
     }
     
     .Total {
@@ -983,7 +974,6 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 0.2em 0.2em;
         border: 3px solid rgb(166, 166, 166);
 
-
     }
     #PlaceOrderButton {
         bottom: 2em;
@@ -1033,7 +1023,7 @@ font-family: 'Dosis', sans-serif;
         top: 1%;
         right: 6%;
         cursor: pointer;
-         width: 5.5vw;
+        width: 5.5vw;
     }
 #editBurgerButton {
     width: 100%;
@@ -1047,7 +1037,7 @@ font-family: 'Dosis', sans-serif;
     border-radius: 0em 0em 3.5vw 3.5vw;
        font-family: 'Dosis', sans-serif;
 }
-#duplicateButton {
+    #duplicateButton {
     position: absolute;
     bottom: 6vw;
     right: 1vw;
@@ -1095,7 +1085,7 @@ font-family: 'Dosis', sans-serif;
           text-align: center;
           top: 0;
     }
-        .burgerAdd:hover {
+    .burgerAdd:hover {
         background-color: rgb(255, 204, 0);
         color: white;
         cursor: pointer;
@@ -1113,16 +1103,15 @@ font-family: 'Dosis', sans-serif;
 
     /*Designing of "Next"-button*/
     .nextPage {
-        grid-area: Done;
-        margin-left: 80%;
+        grid-area: "nextPage";
         background-color: rgba(135, 211, 124, 1);
         margin-top: 0.5em;
         font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2.5vw;
-        width: 20%;
-        height: 80%;
+        width: 100%;
+        height: 100%;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
@@ -1200,29 +1189,32 @@ font-family: 'Dosis', sans-serif;
       display: none;
 }
     .positionVegan {
+    
        margin-left: 30%;
     }
     .positionGluten {
-       margin-left: 40%;
+
+       margin-left: 45%;
     }
      .positionMilk {
-       margin-left: 50%;
+
+        margin-left: 60%;
     }
-.label__check {
-  display: block;
-  position: absolute;
-  border-radius: 50%;
-  border: 5px solid rgba(0,0,0,0.1);
-  background: rgba(255,255,255, 0.9);
-  width: 5vw;
-  height: 5vw;
-  font-size: 1.4vw;
-  cursor: pointer;
-  transition: border .001s ease;
-  text-align: center;
-  margin-top: 2%;
-    line-height: 1;
-}
+    .label__check {
+          display: block;
+          position: absolute;
+          border-radius: 50%;
+          border: 5px solid rgba(0,0,0,0.1);
+          background: rgba(255,255,255, 0.9);
+          width: 5vw;
+          height: 5vw;
+          font-size: 1.4vw;
+          cursor: pointer;
+          transition: border .001s ease;
+          text-align: center;
+          margin-top: 2%;
+          line-height: 1;
+    }
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
@@ -1326,7 +1318,7 @@ font-family: 'Dosis', sans-serif;
     .grid-container {
        display: grid;
        grid-template-columns: 1fr;
-        grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr;
+        grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr 0.2fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     } 
@@ -1337,10 +1329,29 @@ font-family: 'Dosis', sans-serif;
         grid-area: 1 / 1 / 2 / 2; 
     }
     
+    .tab button {
+        height: 10vw;
+        font-size: 3.2vw;
+   
+    }
+    
+    .tab {
+        padding-top: 1em;
+        margin-right: 0%;  
+    }
+    
+    #cancelOrder {
+        right: 10%;
+        top: 1%;
+        width: 7.5vw;
+    }
+    
+    
     
     .OrderList {
         grid-area: 2 / 1 / 3 / 2;
         padding: 4% 0% 0% 3%;
+        margin-right: 0%;
         overflow-y: scroll;
 
     }
@@ -1387,7 +1398,8 @@ font-family: 'Dosis', sans-serif;
     }
     
     .switchLangOrdering {
-        grid-area: 3/ 1/ 4/ 2;
+        grid-area: 7/ 1/ 8/ 2;
+        
     }
     
     .ingredient {
@@ -1404,26 +1416,27 @@ font-family: 'Dosis', sans-serif;
     }
     
     
-       .tab button {
-        height: 10vw;
-        font-size: 3.2vw;
-   
-    }
-    
+
     .label__check {
         width: 9vw;
         height: 9vw;
         font-size: 2.7vw;
     }
     
+    .filterGrid { 
+        grid-area: 3/1/4/2;
+    
+    }
+    
+    
     .positionVegan {
-       margin-left: 30%;
+       margin-left: 25%;
     }
     .positionGluten {
-       margin-left: 50%;
+       margin-left: 45%;
     }
      .positionMilk {
-       margin-left: 70%;
+       margin-left: 65%;
     }
     
     @keyframes check {
@@ -1458,21 +1471,30 @@ font-family: 'Dosis', sans-serif;
 }
  
     /*OVERVIEW APP*/
+    .overview {  
+        
+    }
     
-
+    .addBurger {    
+        grid-area: 2/1/2/3;
+        border-radius: 2em 2em 2em 2em;
+        width: 100%;
+    }
+    
     .burgerAdd {
         width: 100%;
-        height: 100%;
-        padding: 1em;
-        margin-top: 0.6px;
-        font-family: 'Dosis', sans-serif;
-        background-color: rgb(255, 224, 102);
-        float: right;
-        cursor: pointer;
-        font-size: 5vw;
-        border-radius: 0.2em 3em 0.2em 0.2em;
-        border: 3px solid rgb(255, 179, 26);
+        padding: 0.1em;
+        margin-top: 0px;
+        font-size: 4vw;
+        border-radius: 2em 2em 2em 2em;
     }   
+    
+    .overviewTop {
+        display:grid;
+        grid-template-rows: 70% 30%;
+        grid-template-columns: 20% 80%;
+        grid-template-areas: "logoOverview" "addBurger";
+    }
     
    .logoOverview {
         grid-area: "logo";
@@ -1483,7 +1505,18 @@ font-family: 'Dosis', sans-serif;
 
     }
     
+    .overviewBottom {
+        grid-area: Bottom;
+        display: grid;
+        position: relative;
+        align-items: center;
+        grid-template-columns: 100%;
+        grid-template-rows: 33% 33% 33%;
+        grid-template-areas: "addBurger" "totalPrice" "placeOrder";
+    }
+    
     .orderText {
+        grid-area: "logoOverview";
         font-size: 9.5vw;
         overflow: inherit;
         text-align: center;
