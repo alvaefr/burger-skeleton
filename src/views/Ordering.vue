@@ -42,14 +42,18 @@
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
-                    <button class="tablinks" v-on:click="setCategory(1)">{{ uiLabels.puck }}</button>
-                    <button class="tablinks" v-on:click="setCategory(4)">{{ uiLabels.bread }}</button>
-                    <button class="tablinks" v-on:click="setCategory(2)">{{ uiLabels.topping }}</button>
-                    <button class="tablinks" v-on:click="setCategory(3)">{{ uiLabels.sauce }}</button>
-                    <button class="tablinks" v-on:click="setCategory(5)">{{ uiLabels.sides }}</button>
-                    <button class="tablinks" v-on:click="setCategory(6)">{{ uiLabels.drink }}</button>
+                    
+                  <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
+                    <!--<label for="puck">hej</label>-->
+                    <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(4)">
+                    <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(2)">
+                   <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(3)">
+                  <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(5)">
+                  <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(6)">
                 </div>
             </div>
+            
+            <!-- {{ uiLabels.puck }} {{ uiLabels.bread }} {{ uiLabels.topping }} {{ uiLabels.sauce }} {{ uiLabels.sides }}{{ uiLabels.drink }} -->
 
 
             <div class="OrderList">
@@ -562,6 +566,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          setCategory: function (number) {
              this.categoryNumber = number;
+          
+             
          },
          showGlutenFree: function () {
              this.glutenBool = !this.glutenBool;
@@ -743,6 +749,8 @@ font-family: 'Dosis', sans-serif;
     .flagButton:hover {
         cursor: pointer;
     }
+    
+    
     .flag {
         height: 4vw;
         width: 5.7vw;
@@ -855,10 +863,14 @@ font-family: 'Dosis', sans-serif;
     .tab {
         grid-area: top;
         margin: 0% 5% 0% 0%;
-        border-bottom: 3px solid #FFFFFF;
+        
     }
+    
+
+    
     /* Style the buttons that are used to open the tab content */
     .tab button {
+        
         background-color: rgba(232, 232, 232, 0.92);
         width: 16.66667%;
         height: 75px;
@@ -870,7 +882,7 @@ font-family: 'Dosis', sans-serif;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
-        border-bottom: 3px solid #FFFFFF;
+     
     }
     /* Change background color of buttons on hover */
     .tab button:hover {
@@ -881,10 +893,19 @@ font-family: 'Dosis', sans-serif;
         background-color: whitesmoke;
         border: 3px solid #FFF;
     }
+    
+    .tab button:target {
+        background-color: red;
+        border: 3px solid #FFF;
+    }
     /* Create an active/current tablink class */
     .tab button.active {
         background-color: #ddd;
     }
+    
+    tab button:visited {
+      background-color: pink;
+     }
     /* Style the tab content */
     .tabcontent {
         display: none;
@@ -893,9 +914,66 @@ font-family: 'Dosis', sans-serif;
         border-top: none;
         background-color: #ddd;
     }
-    .tablinks {
-          font-family: 'Dosis', sans-serif;
-        align-items: end;
+    
+    
+        .tab>label {
+    width: 16.66667%;
+        height: 5.5vw;
+  display: inline-block;
+  background: white;
+
+  border-radius: 20px;
+  padding: 1rem;
+ 
+  text-align: center;
+
+  position: relative;
+}     
+    
+           .tab>label:checked {
+    width: 16.66667%;
+        height: 5.5vw;
+  display: inline-block;
+  background: red;
+
+  border-radius: 20px;
+  padding: 1rem;
+ 
+  text-align: center;
+
+  position: relative;
+}     
+ 
+    
+
+    
+    .tablinks  {
+        z-index: 0;
+        font-family: 'Dosis', sans-serif;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        background-color: rgba(232, 232, 232, 0.92);
+        width: 16.66667%;
+        height: 5.5vw;
+        font-size: 1.2vw;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        transition: 0.3s;
+        border-radius: 1.5em 1.5em 0em 0em;
+        border: 3px solid #FFF;
+        margin: 0;
+        -webkit-transition: all 0.2s;
+
+    }
+    
+     .tablinks:checked {
+        background-color: rgb(255, 224, 102, 0.9);
+        border: 3px solid #FFF;
+        border-style: double;
+       
+         
     }
     /* För overview-sidan*/
     .grid-containerOverview {
@@ -1402,7 +1480,7 @@ font-family: 'Dosis', sans-serif;
     }
     
     
-       .tab button {
+       .tablinks {
         height: 10vw;
         font-size: 3.2vw;
    
@@ -1435,6 +1513,7 @@ font-family: 'Dosis', sans-serif;
       height: 4.5vw;
   
   }
+        
   12% {
       width: 4.5vw;
       height: 4.5vw;
