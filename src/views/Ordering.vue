@@ -43,17 +43,29 @@
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
                     
-                  <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
-                    <!--<label for="puck">hej</label>-->
-                    <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(4)">
-                    <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(2)">
-                   <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(3)">
-                  <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(5)">
-                  <input type="radio" name="category"  class="tablinks" v-on:click="setCategory(6)">
+               
+                    <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
+                    <label for="puck" class="button-label">{{ uiLabels.puck }}</label>
+                 
+                    
+                    <input id="bread" type="radio" name="category"  class="tablinks" v-on:click="setCategory(4)">
+                     <label for="bread" class="button-label">{{ uiLabels.bread }}</label>
+                    
+                    <input id="topping" type="radio" name="category"  class="tablinks" v-on:click="setCategory(2)">
+                     <label for="topping" class="button-label">{{ uiLabels.topping }}</label>
+                    
+                   <input id="sauce" type="radio" name="category"  class="tablinks" v-on:click="setCategory(3)">
+                     <label for="sauce" class="button-label">{{ uiLabels.sauce }}</label>
+                    
+                  <input id="sides" type="radio" name="category"  class="tablinks" v-on:click="setCategory(5)">
+                     <label for="sides" class="button-label">{{ uiLabels.sides }} </label>
+                    
+                  <input id="drink" type="radio" name="category"  class="tablinks" v-on:click="setCategory(6)">
+                     <label for="drink" class="button-label">{{ uiLabels.drink }} </label>
                 </div>
             </div>
             
-            <!-- {{ uiLabels.puck }} {{ uiLabels.bread }} {{ uiLabels.topping }} {{ uiLabels.sauce }} {{ uiLabels.sides }}{{ uiLabels.drink }} -->
+            <!--  {{ uiLabels.bread }} {{ uiLabels.topping }} {{ uiLabels.sauce }} {{ uiLabels.sides }}{{ uiLabels.drink }} -->
 
 
             <div class="OrderList">
@@ -855,13 +867,13 @@ font-family: 'Dosis', sans-serif;
     /* Style the tab */
     .tab {
         grid-area: top;
-        margin: 0% 5% 0% 0%;
+  
         
     }
     
 
     
-    /* Style the buttons that are used to open the tab content */
+    /* Style the buttons that are used to open the tab content -gammal kod
     .tab button {
         
         background-color: rgba(232, 232, 232, 0.92);
@@ -877,7 +889,7 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid #FFF;
      
     }
-    /* Change background color of buttons on hover */
+    /* Change background color of buttons on hover -gammal kod
     .tab button:hover {
         background-color: whitesmoke;
         border: 3px solid #FFF;
@@ -891,14 +903,12 @@ font-family: 'Dosis', sans-serif;
         background-color: red;
         border: 3px solid #FFF;
     }
-    /* Create an active/current tablink class */
+    /* Create an active/current tablink class 
     .tab button.active {
         background-color: #ddd;
     }
-    
-    tab button:visited {
-      background-color: pink;
-     }
+    */
+  
     /* Style the tab content */
     .tabcontent {
         display: none;
@@ -909,65 +919,38 @@ font-family: 'Dosis', sans-serif;
     }
     
     
-        .tab>label {
-    width: 16.66667%;
-        height: 5.5vw;
-  display: inline-block;
-  background: white;
-
-  border-radius: 20px;
-  padding: 1rem;
- 
-  text-align: center;
-
-  position: relative;
-}     
-    
-           .tab>label:checked {
-    width: 16.66667%;
-        height: 5.5vw;
-  display: inline-block;
-  background: red;
-
-  border-radius: 20px;
-  padding: 1rem;
- 
-  text-align: center;
-
-  position: relative;
-}     
- 
-    
-
-    
-    .tablinks  {
-        z-index: 0;
-        font-family: 'Dosis', sans-serif;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        -webkit-appearance: none;
+   .button-label  {
+        grid-area: Top;
         background-color: rgba(232, 232, 232, 0.92);
-        width: 16.66667%;
-        height: 5.5vw;
-        font-size: 1.2vw;
+        font-size: 1.5vw;
+        width: 200px;
         outline: none;
         cursor: pointer;
+        padding: 2.3vw 0.9vw;
         text-align: center;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
         border: 3px solid #FFF;
-        margin: 0;
-        -webkit-transition: all 0.2s;
+}     
+      input[type=radio]:checked + label{
 
+         background-color: whitesmoke;
+}   
+    
+         input[type=radio]:hover + label{
+
+         background-color: whitesmoke;
+}   
+   
+    
+    .tablinks  {
+        position: absolute;
+        visibility: hidden;
+        display: none;
+        width: 100px;
     }
     
-     .tablinks:checked {
-        background-color: rgb(255, 224, 102, 0.9);
-        border: 3px solid #FFF;
-        border-style: double;
-       
-         
-    }
+ 
     /* För overview-sidan*/
     .grid-containerOverview {
         display: grid;
