@@ -42,7 +42,7 @@
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
-                    
+     
                
                     <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
                     <label for="puck" class="button-label">{{ uiLabels.puck }}</label>
@@ -62,6 +62,7 @@
                     
                   <input id="drink" type="radio" name="category"  class="tablinks" v-on:click="setCategory(6)">
                      <label for="drink" class="button-label">{{ uiLabels.drink }} </label>
+
                 </div>
             </div>
             
@@ -176,12 +177,30 @@
 
             <div class="overviewTop">
                 <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
+
                 <img class="logoOverview" src="@/assets/circle-cropped.png" >
                 <div class="orderText">
                 {{uiLabels.yourOrderOverview}}
                 </div>
+
+            </div>
+            
+            <div class="overviewBottom">
+                
                 <div class="addBurger">
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()">{{uiLabels.addBurger}}</button>
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()"> {{uiLabels.addBurger}}</button>
+                </div>
+
+               
+                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
+
+                <div class="placeOrder">
+                    
+<!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
+                    
+                <button id="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>   
+                
+                
                 </div>
             </div>
 
@@ -239,13 +258,7 @@
 
             </div>
 
-            <div class="overviewBottom">
 
-               
-                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
-
-                <div class="placeOrder"><img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> </div>
-            </div>
             
             <div class="overviewLang">
             
@@ -973,17 +986,20 @@ font-family: 'Dosis', sans-serif;
     .overviewTop {
         display:grid;
         grid-area: "head";
-        grid-template-columns: 20% 50% 30%;
+        grid-template-columns: 20% 80% ;
         grid-template-rows: 100%;
-        grid-template-areas: "logoOverview" "orderText" "addBurger";
+        grid-template-areas: "logoOverview" "orderText";
     }
     
     .orderText {
         font-size: 5.5vw;
         overflow: inherit;
-        text-align: left;
+        margin-left: 2em;
         font-weight: bold;
         padding: 2%;
+        
+        
+        
     }
     
     .logoOverview {
@@ -1008,16 +1024,16 @@ font-family: 'Dosis', sans-serif;
         display: grid;
         position: relative;
         align-items: center;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 30% 40% 30%;
         grid-template-rows: 100%;
-        grid-template-areas: "totalPrice" "placeOrder";
+        grid-template-areas: "addburger" "totalPrice" "placeOrder";
     }
     
     .overviewLang{
         grid-area: "Lang";
     }
     
-    #totalPrice {
+    .totalPrice {
         grid-area: "totalPrice";
         background-color: darkgray;
         padding: 1em;
@@ -1026,8 +1042,8 @@ font-family: 'Dosis', sans-serif;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
-        width: 22vw;
-        margin-left: 1em;
+        width: 26vw;
+        margin-top: -0.6em;
         background-color: rgba(232, 232, 232, 0.92);
         font-family: 'Dosis', sans-serif;
         float: center;
@@ -1036,6 +1052,7 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgb(166, 166, 166);
 
     }
+/*
     #PlaceOrderButton {
         bottom: 2em;
         right: 5em;
@@ -1046,8 +1063,29 @@ font-family: 'Dosis', sans-serif;
         float: right;
         margin-left: 1em;
     }
+*/
+    
+    #placeOrderButton {
+        background-color: darkgray;
+        padding: 1em;
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 2.5vw;
+        max-height: 56vw;
+        height: auto;
+        width: 22vw;
+        margin-top: -0.6em;
+        background-color: rgb(51, 153, 255);
+        font-family: 'Dosis', sans-serif;
+        float: right;
+        cursor: pointer;
+        font-size: 2.5vw;
+        border-radius: 0.2em 0.2em 1em 0.2em;
+        border: 3px solid rgb(0, 26, 102);        
+    }
 
-    #PlaceOrderButton:hover {
+    #placeOrderButton:hover {
+        background-color: rgb(0, 64, 128);
         color: white;
         cursor: pointer;
 }
@@ -1121,14 +1159,13 @@ font-family: 'Dosis', sans-serif;
         max-height: 56vw;
         height: auto;
         width: 22vw;
-
         margin-top: -0.6em;
         background-color: rgb(255, 224, 102);
         font-family: 'Dosis', sans-serif;
-        float: right;
+        float: left;
         cursor: pointer;
         font-size: 2.5vw;
-        border-radius: 0.2em 1em 0.2em 0.2em;
+        border-radius: 0.2em 0.2em 0.2em 1em;
         border: 3px solid rgb(255, 179, 26);
     }
     
@@ -1414,6 +1451,7 @@ font-family: 'Dosis', sans-serif;
         padding: 4% 0% 0% 3%;
         margin-right: 0%;
         overflow-y: scroll;
+        border-radius: 0em 0em 1em 1em;
 
     }
     
@@ -1537,28 +1575,35 @@ font-family: 'Dosis', sans-serif;
 }
  
     /*OVERVIEW APP*/
-    .overview {  
-        
-    }
     
+    .grid-containerOverview {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 10% 55% 30% 5%;
+        grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
+    }
+
     .addBurger {    
-        grid-area: 2/1/2/3;
+        grid-area: 1/1/2/2;
         border-radius: 2em 2em 2em 2em;
         width: 100%;
     }
     
     .burgerAdd {
         width: 100%;
+        max-height: 56vw;
+        height: 15vw;
         padding: 0.1em;
         margin-top: 0px;
         font-size: 4vw;
-        border-radius: 2em 2em 2em 2em;
+        border-radius: 1em 1em 1em 1em;
+        
     }   
     
     .overviewTop {
         display:grid;
-        grid-template-rows: 70% 30%;
-        grid-template-columns: 20% 80%;
+        grid-template-rows: 100%;
+        grid-template-columns: 11% 89%;
         grid-template-areas: "logoOverview" "addBurger";
     }
     
@@ -1566,19 +1611,9 @@ font-family: 'Dosis', sans-serif;
         grid-area: "logo";
         width:100%;
         margin-top: 0.8em;
-        margin-left: 1em;
+        margin-left: 0.3em;
         overflow: inherit;
 
-    }
-    
-    .overviewBottom {
-        grid-area: Bottom;
-        display: grid;
-        position: relative;
-        align-items: center;
-        grid-template-columns: 100%;
-        grid-template-rows: 33% 33% 33%;
-        grid-template-areas: "addBurger" "totalPrice" "placeOrder";
     }
     
     .orderText {
@@ -1588,21 +1623,51 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         font-weight: bold;
         padding: 2%;
+        margin-left: 0em;
     }
     
-        #totalPrice {
-        grid-area: "totalPrice";
+    .burgerScroll {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        
+    }
+    
+    .overviewBottom {
+        grid-area: Bottom;
+        display: grid;
+        position: relative;
+        align-items: center;
+        grid-template-columns: 100%;
+        grid-template-rows: 33% 34% 33%;
+        grid-template-areas: "addBurger" "totalPrice" "placeOrder";
+    }
+
+    
+    #totalPrice {
+        grid-area: 2/1/3/2;
+        text-align:left;
         padding: 1em;
         font-size: 4.5vw;
-        height: 8vw;
-        width: 40vw;
-        margin: 1em;
+        max-height: 56vw;
+        height: 2vw;
+        width: 87%;
+        margin-top: 0em;
         background-color: rgba(232, 232, 232, 0.92);
-        float:  left;
-        border-radius: 0.2em 0.2em 0.2em 0.2em;
+        border-radius: 1em 1em 1em 1em;
         border: 3px solid rgb(166, 166, 166);
-
-
+    }
+    
+    #placeOrderButton {
+        grid-area: 3/1/4/2;
+        float:none;
+        padding: 0em;
+        font-size: 2.5vw;
+        max-height: 56vw;
+        height: 12vw;
+        width: 100%;
+        margin-top: -0.6em;
+        font-size: 4.5vw;
+        border-radius: 1em 1em 1em 1em;      
     }
     
       .burgerScroll {
