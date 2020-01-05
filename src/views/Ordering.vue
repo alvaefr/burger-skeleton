@@ -169,7 +169,7 @@
                 <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="delFromBurger(item.ing); checkBurger()" :disabled="item.category_num == 4"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
+                    <button v-if="item.category_num !== 4" v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-if="item.category_num !== 4" v-on:click="addToBurger(item.ing)"> + </button>
                 </div>
                 </div>
             </div>
