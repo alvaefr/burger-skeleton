@@ -7,10 +7,15 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
+<<<<<<< HEAD
+  <input type="checkbox" id="ossm" name="ossm" v-on:click = "orderDone">
+  <label for="ossm"> DONE! </label>
+=======
     
     
  <input type="checkbox" id="ossm" name="ossm"> 
 <label for="ossm"> DONE </label> 
+>>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
   </div>
     
     
@@ -43,19 +48,14 @@ export default {
 }
 </script>
 <style scoped>
-.doneButton {
-  background-color: #4CAF50;
-border: none;
-color: white;
-padding: 15px 32px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-font-family: "Courier new", monospace;
-}
+  #ossm {
+          display: none;
+                margin: 5%;
+      }
 
+<<<<<<< HEAD
+  input[type=checkbox] + label {
+=======
     #ossm {
         display: none;
     }
@@ -70,5 +70,11 @@ input[type=checkbox]:checked + label {
   background-color: green;
   font-style: normal;
 }
+>>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
 
+    color: black;
+      background-color: green;
+    font-family: "Courier new", monospace;
+    border: 2px solid darkgreen;
+  }
 </style>

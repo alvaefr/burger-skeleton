@@ -65,15 +65,11 @@
             <div class='head'>Sides and drinks</div>
 
             <!-- Undo Button -->
-            <div v-if='undoList.length >= 1'>
-                  <div v-if = 'isCategory(category_drSi, undoList[undoList.length-1].burgers)'>
-                    <div v-if = "undoList[undoList.length-1].drinkSidesDone === true">
-                <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
-                    Undo: {{undoList[undoList.length-1].orderId}}
+            <div v-if='undoList.Sides.length >= 1'>
+                <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides()">
+                    Undo: {{undoList.Sides.orderid}}
                 </button>
             </div>
-                        </div>
-                        </div>
             <!-- <div v-for="(order, key) in undoList" :key="key">
               <div v-show ="unDoButton === true">
                 <button id= 'button' v-on:click="orderUnDone(order.orderId)">
@@ -210,7 +206,10 @@
                 category_all: [1, 2, 3, 4, 5, 6],
                 category_view: '',
                 change: 0,
-                undoList: [],
+                undoList: {
+                  Burger: [],
+                  Sides: []
+                },
                 unDoButton: true,
                 addingIngredient: false,
                 newIngredient: {
@@ -272,7 +271,7 @@
               }
                 if (this.exsitsinList(orderid) === true) {
                     console.log("pushaBurger!")
-                    this.undoList.push(this.orders[orderid])
+                    this.undoList.Burger.push(this.orders[orderid])
                 }
                 // if (this.undoList.length >3){
             },
@@ -282,7 +281,7 @@
               if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)){
                 this.$store.state.socket.emit("orderDone", orderid);}
                 if (this.exsitsinList(orderid) === true) {
-                    this.undoList.push(this.orders[orderid])
+                    this.undoList.Sides.push(this.orders[orderid])
                 }
                 // if (this.undoList.length >3){
             },
@@ -302,13 +301,14 @@
             },
             orderUnDoneBurger: function (order, orderid) {
                 this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.undoList.pop();
+                this.undoList.undoBurger.pop();
                 order.burgerDone = false;
             },
             orderUnDoneDrinkSides: function (order, orderid) {
               this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.undoList.pop();
-                order.drinkSidesDone = false;
+              console.log("hej")
+                this.undoList.Sides.pop();
+                //order.drinkSidesDone = false;
             },
 
             setCategory_view: function (view) {

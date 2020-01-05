@@ -113,31 +113,44 @@
                 <!-- BURGARNA -->
                 <div class="ingredientsPics">
 
-
-                    <div class="burgerImage" v-for="item in chosenIngredients">
+                    <div class="burgerImage">
+                         <div v-for="item in chosenIngredients">
                         <div v-if="item.category == 1 || item.category == 2 || item.category == 3">
 <!--                            <div  v-for="item in chosenIngredients">-->
                             <img :src="require('../assets/' + item.img)" width="150" height="35"/>
 <!--                            </div>    -->
                         </div>
+                         </div>
                     </div>
                     
+
+                    <div class="breadImageLow" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
                     
-                <div v-for="item in chosenIngredients">    
-                    <div class="breadImage" v-if="item.category == 4">
-                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
-                        <img :src="require('../assets/' + item.img2)" width="50" height="50"/>
+                        <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
+                        </div>
                     </div>
-                    <div class="sidesImage" v-if="item.category == 5">
-                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                    
+                     <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                    
+                        <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
                     </div>
-                    <div class="drinkImage" v-if="item.category == 6">
+                    
+                    <div class="sidesImage" v-for="item in chosenIngredients">
+                         <div v-if="item.category == 5">
+                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                         </div>
+                    </div>
+
+                    <div class="drinkImage" v-for="item in chosenIngredients">
+                         <div v-if="item.category == 6">
                         <img :src="require('../assets/' + item.img)" width="40" height="40"/>
+                         </div>
                     </div>
                 </div>
-                </div>
-                
-                
+
                 <div class="ingredientsList">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
@@ -196,7 +209,7 @@
 
 
 
-                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" > {{uiLabels.yourOrder}}</button>
 
 
 
@@ -246,7 +259,7 @@
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
                     <hr class="burgerScrollLine">
-                    
+
                     <div class="scrollForIng">
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
@@ -547,12 +560,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
 
 
+<<<<<<< HEAD
+         addToOrder: function () {   //Lägg till burgaren till order!
+           console.log(this.lang);
+           if (!this.buttonClickable){
+             if (this.lang === 'sv'){
+               alert("En burgare måste minst innehålla en puck och ett bröd");
+             }
+             if (this.lang === 'en'){
+               alert("A burger must at least consist of one patty and one bread");
+             }
+           }
+           else {
+=======
          addToOrder: function () {
              if (!this.buttonClickable) {
                  
              }
              else {
              //Lägg till burgaren till order!
+>>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -903,7 +930,6 @@ font-family: 'Dosis', sans-serif;
         border-left: 0.3vw solid #FFF;
         border-right: 0.3vw solid #FFF;
         border-bottom: 0.3vw solid #FFF;
-
         border-radius: 0em 0em 3em 3em;
 
     }
@@ -964,8 +990,9 @@ font-family: 'Dosis', sans-serif;
 .burgerImage {
     grid-area: 2/1/3/3;
     display: grid;
-    grid-gap: 2vw;
+    grid-gap: 3%;
     grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
     overflow-x: inherit;
     text-align: center;    
 }
@@ -973,16 +1000,26 @@ font-family: 'Dosis', sans-serif;
     
 .breadImageTop {
     grid-area: 1/1/2/3;
+    text-align: center;
+    
 }
     
 .breadImageLow {
         grid-area: 3/1/4/3; 
+    text-align: center;
+        
     }
 .sidesImage {
     grid-area: 4/1/5/2;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,5%);
 }
 .drinkImage {
     grid-area: 4/2/5/3;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,8%);
 }
 .ingredientsList {
     grid-area: ingList;
@@ -1260,25 +1297,25 @@ font-family: 'Dosis', sans-serif;
     .burgerScrollLine {
           border: 1px solid  rgb(166, 166, 166);
     }
-    
+
     .scrollForIng {
         background-color: rgba(232, 232, 232, 0);
         height: 8vw;
         overflow-y: scroll;
-      
-        
+
+
     }
 #burgerNo {
     text-align: center;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-   
+
 
 }
-    
-  
-    
+
+
+
 #burgerTotal {
     position: relative;
     bottom: 0.2vw;
@@ -1412,11 +1449,11 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-
+/* <!--
     .nextPage:disabled {
         cursor: not-allowed;
         opacity: 0.8;
-    }
+    } --> */
 
     .grid-containerPayment {
         display: grid;
