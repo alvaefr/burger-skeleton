@@ -4,29 +4,37 @@
             <h3 class="head"> {{item["ingredient_"+ lang]}} </h3>
 
         <div class="buttons">
+
             <div v-if="item.category != 4">
                 
-                <div id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</div>
+                <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
 
-               <div class="count"> {{  itemCount  }}</div>
-                <div id="inc" v-on:click="incrementCounter($event)">+</div>
+               <button class="count"> {{  itemCount  }}</button>
+                <button id="inc" v-on:click="incrementCounter($event)">+</button>
                 <br>
             </div>
 
+
             <div class="radioButton" v-else-if="item.category == 4 && itemCount == 1">
+
                 <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1"
                        checked="checked">
             </div>
+
             <div class="radioButton" v-else>
-                <input type="radio" name="radioButton" v-on:click="breadItem()" :disabled="itemCount >=1">
+
+                <input type="radio" name="radioButton" id="breadBox" v-on:click="breadItem()" :disabled="itemCount >=1">
             </div>
+
+
+
             </div>
 
      
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
-        <img class="image" :src="require('../assets/' + item.img)" width="60" height="60"/>
+        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="60"/>
 
 
         <div class="filter">
@@ -149,6 +157,7 @@
         border-top: 0.1vw solid rgb(255, 179, 26);
         border-right: 0.1vw solid rgb(255, 179, 26);
         border-bottom: 0.1vw solid rgb(255, 179, 26);
+        border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 25%;
@@ -162,6 +171,8 @@
         background-color: rgb(255, 224, 102, 0.9);
         border-top: 0.1vw solid  rgb(255, 179, 26);
         border-bottom: 0.1vw solid  rgb(255, 179, 26);
+          border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
+          border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 39%;
@@ -178,6 +189,7 @@
         border-top: 0.1vw solid rgb(255, 179, 26);
         border-left: 0.1vw solid rgb(255, 179, 26);
         border-bottom: 0.1vw solid rgb(255, 179, 26);
+        border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 25%;
@@ -197,7 +209,7 @@
         margin-bottom: 8vw;
         margin-left: auto;
         margin-top: auto;
-        transform: scale(6);
+        transform: scale(5.8);
         border-radius: 0.2vw;
         -webkit-transition: all 0.2s;
         opacity: 0;
@@ -207,9 +219,18 @@
         border: 1px green;
         border-style: double;
         opacity: 0.2;
-
+    }
+    .buttons input:hover {
+        background: yellowgreen;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        transform: scale(6);
+        border-radius: 0.2vw;
+        -webkit-transition: all 0.2s;
+        opacity: 0.2;
 
     }
+
 
     .price {
         grid-area: 2 / 1 / 3 / 2; 
@@ -317,6 +338,7 @@
 
 
         }
+
         
         
         .price {

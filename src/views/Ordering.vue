@@ -10,7 +10,7 @@
 -->
 
 
-        <!--        Välkomstsida  div -->
+<!--       WELCOME PAGE -->
         <div v-show="showFront === this.view" class="grid-containerFront"  >
         
 
@@ -23,7 +23,7 @@
             </div>
 
             <div class="mealLocation">
-                <p>{{ uiLabels.beginOrder }}</p><br>
+                <p class="beginOrder">{{ uiLabels.beginOrder }}</p><br>
                 <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.eathere }}</button>
                 <button class="mealButton" v-on:click="setView(showOverview), takeAway(); popUp()">{{ uiLabels.togo }}</button>
             </div>
@@ -35,17 +35,18 @@
             </div>
         </div>
 
-<!--        Ordersida div -->
+<!--        ORDER PAGE  -->
         <div v-show="showMenu === this.view" class="grid-container">
             
       
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
-     
-               
-                    <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
+
+
+                    <input v-if="this.view===showMenu" type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)" checked="checked">
                     <label for="puck" class="button-label">{{ uiLabels.puck }}</label>
+
                  
                     
                     <input id="bread" type="radio" name="category"  class="tablinks" v-on:click="setCategory(4)">
@@ -183,7 +184,7 @@
 
             
 
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 
    
 
@@ -206,42 +207,23 @@
 
             </div>
             
-            <div class="overviewBottom">
-                
-                <div class="addBurger">
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()"> {{uiLabels.addBurger}}</button>
-                </div>
 
-               
-                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
-
-                <div class="placeOrder">
-                    
-<!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
-                    
-                <button id="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>   
-                
-                
-                </div>
-            </div>
-
+<!--OVERVIEW PAGE -->
             <div class="burgerOverview">
 
-               
-
-                
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
-                    <hr>
+                    <hr class="burgerScrollLine">
 
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
+                        <hr class="burgerScrollLine"> 
+                        <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
                     </div>
 
 
@@ -256,8 +238,11 @@
 
 
                     <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
+                    
                     <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
-                    <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> {{uiLabels.dublicate}}</button>
+                    
+                    <button id=duplicateButton v-on:click="duplicateBurger(burger)">{{uiLabels.duplicate}}</button>
+
 
 
 
@@ -275,8 +260,25 @@
                 <!-- Button that adds new burgers -->
 
 
+            </div>
+            
+           
+            
+            <div class="overviewBottom">
+                
+                <div class="addBurger">
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()"> {{uiLabels.addBurger}}</button>
+                </div>
 
+               
+                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
 
+                <div class="placeOrder">
+                    
+                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)"  :disabled="payClickable===false">{{uiLabels.pay}}</button>   
+                
+                
+                </div>
             </div>
 
 
@@ -292,6 +294,7 @@
             </div>
         </div>
         
+<!--THANKS FOR YOUR ORDER/PAYMENT PAGE-->
         <div v-show="showPayment === this.view" class="grid-containerPayment">
             
             <img class="logoThanks" src="@/assets/circle-cropped.png" >
@@ -310,6 +313,8 @@
 
     </section>
 </template>
+
+<!--HMTL KOD SLUT-->
 
 <script>
 //import the components that are used in the template, the name that you
@@ -336,6 +341,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              chosenIngredients: [],
              price: 0,
              buttonClickable: false,
+             payClickable: false,
              orderNumber: "",
              name: "LoadingScreen",
              props: ["isLoading"],
@@ -502,6 +508,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          addBurger: function() {   //Lägg till nny burgare
              this.buttonClickable=false;
              this.chosenIngredients = [];
+             this.categoryNumber = 1;
          },
          
          
@@ -561,6 +568,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
+             this.categoryNumber = 1;
          
          },
          deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
@@ -569,10 +577,23 @@ necessary Vue instance (found in main.js) to import your data and methods */
               console.log(this.currentOrder)
               this.totalPrice -= burger.price;
          },
+
          
-           cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
+        payBurger: function (){
+            this.payClickable = true;           
+        }, 
+         
+
+        cancelOrder: function () {     //FUNKTION SOM AVRBYTER ORDER
+             //måste räkna ingredienserna först
+
+               console.log(this.currentOrder)
+               for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+                   this.$refs.ingredient[i].resetCounter();
+               }
              this.currentOrder.burgers= [];
              this.currentOrder.editinBurger=false;
+
              this.chosenIngredients = [];
              this.buttonClickable= false;
              this.orderNumber= "";
@@ -585,6 +606,8 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.totalPrice = 0;
              this.currentOrder.burgers.price = 0;
              this.price = 0;
+             this.categoryNumber = 1;
+
          },
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
                                                 // att om man ska redigera en, redigeras ALLA duplicerade.
@@ -710,9 +733,10 @@ font-family: 'Dosis', sans-serif;
 
     .grid-container {
         display: grid;
+        align-items: end;
         grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 15% 5%;
-        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "filterGrid nextPage" "Lang Lang";
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Filter nextPage" "Lang Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -762,7 +786,11 @@ font-family: 'Dosis', sans-serif;
         font-size: 6vw;
         overflow: inherit;
         text-align: center;
-        font-weight: bold;
+        font-weight: bold; 
+    }
+    
+    .beginOrder {
+        color: rgb(73, 62, 54);
     }
 
     .mealLocation {
@@ -797,7 +825,7 @@ font-family: 'Dosis', sans-serif;
     .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
         font-family: 'Dosis', sans-serif;
-        color: black;
+        color: rgb(73, 62, 54);
         font-size: 4vw;
         border-radius: 0.25em;
         padding: 0.6em;
@@ -805,7 +833,7 @@ font-family: 'Dosis', sans-serif;
         margin-right: 1em;
     }
     .mealButton:hover {
-        background-color: black;
+        background-color: rgb(157, 137, 123);
         color: white;
         cursor: pointer;
     }
@@ -819,27 +847,27 @@ font-family: 'Dosis', sans-serif;
     .OrderList {
         grid-area: OrderList;
         background-color: rgba(232, 232, 232, 0.92);
-        padding: 4% 0% 0% 3%;
-        margin-right: 5%;
+        padding: 0% 0% 0% 3%;
+        height: 100%;
+        width: 85%;
         padding-left: 10%;
         overflow-y: scroll;
-        border-left: 3px solid #FFF;
-        border-right: 3px solid #FFF;
-        border-bottom: 3px solid #FFF;
+        border-left: 0.3vw solid #FFF;
+        border-right: 0.3vw solid #FFF;
+        border-bottom: 0.3vw solid #FFF;
+
         border-radius: 0em 0em 3em 3em;
 
     }
     .menuItems {
+        margin-top: 1em;
         display: grid;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
     }
 
-    .filterGrid {
-        grid-area: "filterGrid";
-    }
-    
+
 
     /*
         border-bottom: 3px solid #FFF;
@@ -865,6 +893,7 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         font-size: 1.5vw;
         overflow-y: scroll;
+        height: 90%;
     }
     .Burger button {
         font-size: 0.7vw;
@@ -905,6 +934,7 @@ font-family: 'Dosis', sans-serif;
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
+        height: 100%;
         border-bottom: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-left: 3px solid #FFF;
@@ -937,8 +967,6 @@ font-family: 'Dosis', sans-serif;
     /* Style the tab */
     .tab {
         grid-area: top;
-
-
     }
     
 
@@ -982,7 +1010,7 @@ font-family: 'Dosis', sans-serif;
     /* Style the tab content */
     .tabcontent {
         display: none;
-        padding: 6px 12px;
+ 
         border: 3em solid #ddd;
         border-top: none;
         background-color: #ddd;
@@ -990,26 +1018,32 @@ font-family: 'Dosis', sans-serif;
     
     
    .button-label  {
-        grid-area: Top;
-        background-color: rgba(232, 232, 232, 0.92);
-        font-size: 1.5vw;
-        width: 200px;
+
+       display: inline-block;
+       position: relative;
+       margin-bottom: 0;
+       width: 14.99%;
+       padding-top: 2vw; 
+       padding-bottom: 2vw;
+       background-color: rgba(232, 232, 232, 0.92);
+        font-size:1.5vw;
         outline: none;
         cursor: pointer;
-        padding: 2.3vw 0.9vw;
         text-align: center;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
-        border: 3px solid #FFF;
+        border: 0.3vw solid #FFF;
 }     
       input[type=radio]:checked + label{
 
          background-color: whitesmoke;
+         color:darkseagreen;
 }   
     
          input[type=radio]:hover + label{
 
          background-color: whitesmoke;
+         color:darkseagreen;
 }   
    
     
@@ -1017,7 +1051,7 @@ font-family: 'Dosis', sans-serif;
         position: absolute;
         visibility: hidden;
         display: none;
-        width: 100px;
+
     }
     
  
@@ -1122,40 +1156,40 @@ font-family: 'Dosis', sans-serif;
     }
 */
     
-    #placeOrderButton {
-        background-color: darkgray;
+    .placeOrderButton {
         padding: 1em;
         font-family: 'Dosis', sans-serif;
-        color: black;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(51, 153, 255);
+        background-color: rgb(51, 102, 204);
+        font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
         font-size: 2.5vw;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgb(0, 26, 102);        
     }
-
-    #placeOrderButton:hover {
-        background-color: rgb(0, 64, 128);
-        color: white;
-        cursor: pointer;
-}
+    
+    
     .burgerScroll {
-        background-color: #1B686A;
+        color: black;
+        background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
         width: 22vw;
         max-height: 320px;
         max-width: 200px;
         border-radius: 4vw;
-        border: 5px solid #35A855;
+        border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
         font-size: calc(6e10px + 1vw - 6e10px);
+    }
+    
+    .burgerScrollLine {
+          border: 1px solid  rgb(166, 166, 166);
     }
 #burgerNo {
     text-align: center;
@@ -1182,28 +1216,55 @@ font-family: 'Dosis', sans-serif;
     }
 #editBurgerButton {
     width: 100%;
-    background-color: #82ceab;
-    margin-left: -5%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5vw;
+    background-color: rgb(212, 202, 196);
+    margin-left: -5.7%;
     position: absolute;
     bottom: 0px;
     height: 50px;
-    border-top: 5px solid #35A855;
-    border-color: #35A855;
+    border-color: transparent;
+    border-top: 4px dashed rgb(166, 166, 166);
     border-radius: 0em 0em 3.5vw 3.5vw;
-       font-family: 'Dosis', sans-serif;
+    font-family: 'Dosis', sans-serif;
+    cursor: pointer;
 }
+    
+    #editBurgerButton:hover {
+        background-color:rgb(157, 137, 123);
+    } 
+    
+    
     #duplicateButton {
-    position: absolute;
-    bottom: 6vw;
-    right: 1vw;
-
-    font-size: 1.1vw;
+        position: absolute;
+        bottom: 6vw;
+        right: 1vw;
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 1vw;
+        height: 3vw;
+        width: 6vw;
+        margin-top: -0.6em;
+        background-color: rgba(177, 160, 149, 0.65);
+        float: left;
+        cursor: pointer;
+        border-radius: 0.4em 0.4em 0.4em 0.4em;
+        border: 3px solid rgb(166, 166, 166);    
 }
+    
+    #duplicateButton:hover {
+        background-color: rgb(157, 137, 123);
+        
+        
+    }
 
+/*
     #duplicateButton img{
         height: 1.5vw;
         width: 1.9vw;
     }
+*/
     .burgerAdd {
         /* grid-area: Done; */
         grid-area: "addBurger";
@@ -1216,13 +1277,13 @@ font-family: 'Dosis', sans-serif;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(255, 224, 102);
+        background-color: rgb(255, 255, 102);
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
         font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
-        border: 3px solid rgb(255, 179, 26);
+        border: 3px solid rgb(255, 255, 153);
     }
     
     .loader {
@@ -1240,8 +1301,7 @@ font-family: 'Dosis', sans-serif;
           top: 0;
     }
     .burgerAdd:hover {
-        background-color: rgb(255, 204, 0);
-        color: white;
+        background-color: rgb(255, 255, 51);
         cursor: pointer;
     }
 .fadeout {
@@ -1265,22 +1325,11 @@ font-family: 'Dosis', sans-serif;
         cursor: pointer;
         font-size: 2.5vw;
         width: 100%;
-        height: 100%;
+        height: 90%;
+        margin-top: 1em;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-    .nextPageNotClick {
-        background-color: rgba(135, 211, 124, 0.9);
-        margin-top: 0.5em;
-        font-family: 'Dosis', sans-serif;
-        float: right;
-        font-size: 2em;
-        width: 20%;
-        height: 80%;
-        border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(30, 130, 76, 1);
-    }
-
     
     
     .grid-containerPayment {
@@ -1339,23 +1388,30 @@ font-family: 'Dosis', sans-serif;
     }
     
     /* Designing of Foodfilter*/
+    
+     .filterGrid { 
+        grid-area: Filter;
+    
+    }
+   
     .label__checkbox {
       display: none;
 }
     .positionVegan {
-    
-       margin-left: 30%;
+     margin-top: -5em;
+        margin-left: 30%;
     }
     .positionGluten {
-
+       margin-top: -5em;
        margin-left: 45%;
     }
      .positionMilk {
-
+        margin-top: -5em;
         margin-left: 60%;
     }
     .label__check {
-          display: block;
+ 
+          
           position: absolute;
           border-radius: 50%;
           border: 5px solid rgba(0,0,0,0.1);
@@ -1471,6 +1527,7 @@ font-family: 'Dosis', sans-serif;
     /*ny grid-design*/
     .grid-container {
        display: grid;
+        align-items: end;
        grid-template-columns: 1fr;
         grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr 0.2fr;
         grid-column-gap: 0px;
@@ -1484,7 +1541,7 @@ font-family: 'Dosis', sans-serif;
     }
     
     .tab button {
-        height: 10vw;
+
         font-size: 3.2vw;
    
     }
@@ -1504,12 +1561,32 @@ font-family: 'Dosis', sans-serif;
     
     .OrderList {
         grid-area: 2 / 1 / 3 / 2;
-        padding: 4% 0% 0% 3%;
+        padding: 0% 0% 0% 3%;
         margin-right: 0%;
         overflow-y: scroll;
+        width: 95%;
         border-radius: 0em 0em 1em 1em;
-
+            border: 0.4vw solid #FFF;
     }
+    
+       .button-label  {
+
+       display: inline-block;
+       position: relative;
+       margin-bottom: 0;
+       width: 11.88vw;
+       height: 4vw;
+       padding-top: 2vw; 
+       padding-bottom: 2vw;
+       background-color: rgba(232, 232, 232, 0.92);
+       font-size:3.5vw;
+       outline: none;
+       cursor: pointer;
+       text-align: center;
+       transition: 0.3s;
+       border-radius: 1em 1em 0em 0em;
+       border: 0.4vw solid #FFF;
+}     
     
 
       .Done {
@@ -1520,7 +1597,8 @@ font-family: 'Dosis', sans-serif;
   
     .Burger {
         font-size: 3vw;
-        grid-area: 4 / 1 / 5 / 2; 
+        grid-area: 4 / 1 / 5 / 2;
+
 
         
     }
@@ -1588,13 +1666,18 @@ font-family: 'Dosis', sans-serif;
     
     
     .positionVegan {
+      margin-top: -4em;
        margin-left: 25%;
     }
     .positionGluten {
+      margin-top: -4em;
        margin-left: 45%;
+ 
     }
      .positionMilk {
+ margin-top: 0em;
        margin-left: 65%;
+
     }
     
     @keyframes check {
@@ -1712,7 +1795,7 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgb(166, 166, 166);
     }
     
-    #placeOrderButton {
+    .placeOrderButton {
         grid-area: 3/1/4/2;
         float:none;
         padding: 0em;
@@ -1726,7 +1809,7 @@ font-family: 'Dosis', sans-serif;
     }
     
       .burgerScroll {
-        background-color: #1B686A;
+        background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
         width: 30vw;
