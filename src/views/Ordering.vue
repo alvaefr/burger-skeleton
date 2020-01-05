@@ -122,22 +122,22 @@
                         </div>
                          </div>
                     </div>
-                    
+
 
                     <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                    
+
                         <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
-                    
+
                      <div class="breadImageTop" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                    
+
                         <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
                         </div>
                     </div>
-                    
+
                     <div class="sidesImage" v-for="item in chosenIngredients">
                          <div v-if="item.category == 5">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
@@ -557,9 +557,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients = [];
              this.categoryNumber = 1;
          },
-
-
-<<<<<<< HEAD
          addToOrder: function () {   //Lägg till burgaren till order!
            console.log(this.lang);
            if (!this.buttonClickable){
@@ -571,14 +568,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
            }
            else {
-=======
-         addToOrder: function () {
-             if (!this.buttonClickable) {
-                 
-             }
-             else {
-             //Lägg till burgaren till order!
->>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -985,7 +974,7 @@ font-family: 'Dosis', sans-serif;
     grid-template-areas: "breadTop" "burgerIng" "breadLow" "sides drinks";
     position: relative;
 }
-    
+
 .burgerImage {
     grid-area: 2/1/3/3;
     display: grid;
@@ -993,20 +982,20 @@ font-family: 'Dosis', sans-serif;
     grid-auto-rows: min-content;
     grid-template-rows: repeat(auto-fill, 8%);
     overflow-x: inherit;
-    text-align: center;    
+    text-align: center;
 }
-    
-    
+
+
 .breadImageTop {
     grid-area: 1/1/2/3;
     text-align: center;
-    
+
 }
-    
+
 .breadImageLow {
-        grid-area: 3/1/4/3; 
+        grid-area: 3/1/4/3;
     text-align: center;
-        
+
     }
 .sidesImage {
     grid-area: 4/1/5/2;
@@ -1732,11 +1721,11 @@ font-family: 'Dosis', sans-serif;
         height: 80%;
 
     }
-    
+
     .Total h2 {
         font-size: 4vw;
     }
-    
+
     .Total p {
         font-size: 4vw;
     }
@@ -1852,12 +1841,12 @@ font-family: 'Dosis', sans-serif;
         grid-template-rows: 10% 55% 30% 5%;
         grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
     }
-    
+
     #editBurgerButton {
         font-size: 3vw;
         margin-left: -8.2%;
     }
-    
+
     #duplicateButton {
         font-size: 2.8vw;
         width: 11vw;
@@ -1963,12 +1952,12 @@ font-family: 'Dosis', sans-serif;
         font-size: 2.8vw;
     }
 
-    
+
     .scrollForIng {
         height: 14vw;
     }
-    
-    
+
+
 
      #deleteBurgerButton {
         position: absolute;
