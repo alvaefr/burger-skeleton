@@ -1041,7 +1041,7 @@ font-family: 'Dosis', sans-serif;
 
     }
     .burgerOverview {
-        grid-area: Burgers;
+        grid-area: "Burgers";
         display: grid;
         grid-gap: 2vw;
         grid-auto-flow: column;
@@ -1103,7 +1103,7 @@ font-family: 'Dosis', sans-serif;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(51, 102, 204);
+        background-color: rgb(83, 135, 198);
         font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
@@ -1112,6 +1112,12 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgb(0, 26, 102);        
     }
     
+    .placeOrderButton:disabled{
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+    
+
     
     .burgerScroll {
         color: black;
@@ -1125,6 +1131,7 @@ font-family: 'Dosis', sans-serif;
         border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
         font-size: calc(6e10px + 1vw - 6e10px);
+
     }
     
     .burgerScrollLine {
@@ -1171,7 +1178,7 @@ font-family: 'Dosis', sans-serif;
 }
     
     #editBurgerButton:hover {
-        background-color:rgb(157, 137, 123);
+        background-color: rgba(232, 232, 232, 0.92);
     } 
     
     
@@ -1193,7 +1200,7 @@ font-family: 'Dosis', sans-serif;
 }
     
     #duplicateButton:hover {
-        background-color: rgb(157, 137, 123);
+        background-color: rgba(232, 232, 232, 0.92);
         
         
     }
@@ -1205,9 +1212,7 @@ font-family: 'Dosis', sans-serif;
     }
 */
     .burgerAdd {
-        /* grid-area: Done; */
         grid-area: "addBurger";
-        background-color: darkgray;
         padding: 1em;
         font-family: 'Dosis', sans-serif;
         color: black;
@@ -1216,13 +1221,18 @@ font-family: 'Dosis', sans-serif;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(255, 255, 102);
+        background-color: rgb(255, 255, 153);
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
         font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
-        border: 3px solid rgb(255, 255, 153);
+        border: 3px solid rgb(255, 255, 51);
+    }
+    
+    .burgerAdd:hover {
+        background-color: rgb(255, 255, 102) ;
+        cursor: pointer;
     }
     
     .loader {
@@ -1239,10 +1249,7 @@ font-family: 'Dosis', sans-serif;
           text-align: center;
           top: 0;
     }
-    .burgerAdd:hover {
-        background-color: rgb(255, 255, 51);
-        cursor: pointer;
-    }
+
 .fadeout {
   animation: fadeout 2s forwards;
 }
@@ -1258,7 +1265,6 @@ font-family: 'Dosis', sans-serif;
     .nextPage {
         grid-area: "nextPage";
         background-color: rgba(135, 211, 124, 1);
-        margin-top: 0.5em;
         font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
@@ -1270,6 +1276,10 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgba(30, 130, 76, 1);
     }
     
+    .nextPage:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
     
     .grid-containerPayment {
         display: grid;
