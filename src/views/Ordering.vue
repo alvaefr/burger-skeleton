@@ -112,22 +112,35 @@
 
                 <!-- BURGARNA -->
                 <div class="ingredientsPics">
-                    <div class="burgerImage" v-for="item in chosenIngredients">
+
+                    <div class="burgerImage">
+                         <div v-for="item in chosenIngredients">
                         <div v-if="item.category == 1 || item.category == 2 || item.category == 3">
-                        <img :src="require('../assets/' + item.img)" width="150" height="35"/>
+<!--                            <div  v-for="item in chosenIngredients">-->
+                            <img :src="require('../assets/' + item.img)" width="150" height="35"/>
+<!--                            </div>    -->
+                        </div>
+                         </div>
+                    </div>
+                    
+
+                    <div class="breadImage" v-for="item in chosenIngredients">
+                        <div v-if="item.category == 4">
+                        <img id="upperBread" :src="require('../assets/' + item.img)" width="50" height="50"/>
+                        <img id="underBread" :src="require('../assets/' + item.img2)" width="50" height="50"/>
                         </div>
                     </div>
+                    <div class="sidesImage" v-for="item in chosenIngredients">
+                         <div v-if="item.category == 5">
+                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                         </div>
+                    </div>
 
-<!--                    <div class="breadImage" v-if="item.category == 4">-->
-<!--                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>-->
-<!--                        <img :src="require('../assets/' + item.img2)" width="50" height="50"/>-->
-<!--                    </div>-->
-<!--                    <div class="sidesImage" v-if="item.category == 5">-->
-<!--                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>-->
-<!--                    </div>-->
-<!--                    <div class="drinkImage" v-if="item.category == 6">-->
-<!--                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>-->
-<!--                    </div>-->
+                    <div class="drinkImage" v-for="item in chosenIngredients">
+                         <div v-if="item.category == 6">
+                        <img :src="require('../assets/' + item.img)" width="40" height="40"/>
+                         </div>
+                    </div>
                 </div>
 
                 <div class="ingredientsList">
@@ -889,7 +902,6 @@ font-family: 'Dosis', sans-serif;
         border-left: 0.3vw solid #FFF;
         border-right: 0.3vw solid #FFF;
         border-bottom: 0.3vw solid #FFF;
-
         border-radius: 0em 0em 3em 3em;
 
     }
@@ -941,22 +953,41 @@ font-family: 'Dosis', sans-serif;
 .ingredientsPics {
     grid-area: ingPics;
     display: grid;
-    grid-template-rows: 15% 40% 15% 30%;
-    grid-template-columns: 100%;
-    grid-template-areas: "bread" "burgerIng" "bread" "sides";
+    grid-template-rows: 15% 50% 15% 20%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "breadTop" "burgerIng" "breadLow" "sides drinks";
     position: relative;
 }
+    
 .burgerImage {
-    grid-area: burgerIng;
+    grid-area: 2/1/3/3;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    overflow-x: inherit;
+    text-align: center;    
 }
-.breadImage {
-    grid-area: bread;
+    
+    
+.breadImageTop {
+    grid-area: 1/1/2/3;
 }
+    
+.breadImageLow {
+        grid-area: 3/1/4/3; 
+    }
 .sidesImage {
-    grid-area: sides;
+    grid-area: 4/1/5/2;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,5%);
 }
 .drinkImage {
-    grid-area: drinks;
+    grid-area: 4/2/5/3;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,8%);
 }
 .ingredientsList {
     grid-area: ingList;
