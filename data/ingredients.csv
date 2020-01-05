@@ -23,7 +23,7 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 22,jalapeño,jalapeño,2,1,1,1,5,Jalapeno_single.png
 23,kimchi,kimchi,2,1,1,1,10,jalapeno.png
 24,krispsallad,lettuce,2,1,1,1,5,lettuce.png
-25,svampstuvning,mushroom stew,2,0,1,0,15,mushroom_stew.png
+25,svampstuvning,mushroom stew,2,0,1,0,15,Mushroom_stew.png
 26,pepper jack-ost,pepper jack cheese,2,0,1,0,10,Pepper_jack_cheese.png
 27,inlagd gurka,pickled cucumber,2,1,1,1,5,pickled_cucumber.png
 28,inlagd rödlök,pickled red onion,2,1,1,1,5,Pickled_onions.png
@@ -31,8 +31,8 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 30,rå gul lök,raw yellow onion,2,1,1,1,5,Raw_onions.png
 31,salami,salami,2,1,1,0,10,Salamis.png
 32,surkål,sauerkraut,2,1,1,1,5,lettuce.png
-33,tomat,tomato,2,1,1,1,5,Tomat_single.png
-34,vegansk ost,vegan cheese,2,1,1,1,10,vegansk_ost.png
+33,tomat,tomato,2,1,1,1,5,Tomat_Single.png
+34,vegansk ost,vegan cheese,2,1,1,1,10,Vegansk_ost.png
 35,aioli,aioli,3,1,1,0,5,Aioli.png
 36,ajvar,ajvar,3,1,1,1,5,Ajvar.png
 37,barbecuesås,barbecue sauce,3,1,1,1,0,Barbecue_sauce.png
