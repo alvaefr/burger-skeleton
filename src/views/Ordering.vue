@@ -113,12 +113,22 @@
                 <!-- BURGARNA -->
                 <div class="ingredientsPics">
 
+                    <div class="breadImageLow" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                            <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
+                        </div>
+                    </div>
+                    <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
+                    </div>
+
+
                     <div class="burgerImage">
                          <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 1">
-<!--                            <div  v-for="item in chosenIngredients">-->
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-<!--                            </div>    -->
                             </div>
                          </div>
                     </div>
@@ -140,20 +150,6 @@
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
                                 <!--                            </div>    -->
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="breadImageLow" v-for="item in chosenIngredients" >
-                        <div v-if="item.category == 4">
-                    
-                        <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
-                        </div>
-                    </div>
-                    
-                     <div class="breadImageTop" v-for="item in chosenIngredients" >
-                        <div v-if="item.category == 4">
-                    
-                        <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
                         </div>
                     </div>
                     
@@ -577,8 +573,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.categoryNumber = 1;
          },
 
-
-<<<<<<< HEAD
          addToOrder: function () {   //Lägg till burgaren till order!
            console.log(this.lang);
            if (!this.buttonClickable){
@@ -590,14 +584,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
            }
            else {
-=======
-         addToOrder: function () {
-             if (!this.buttonClickable) {
-                 
-             }
-             else {
-             //Lägg till burgaren till order!
->>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -1001,7 +987,7 @@ font-family: 'Dosis', sans-serif;
     display: grid;
     grid-template-rows: 16% 16% 16% 16% 16% 20%;
     grid-template-columns: 50% 50%;
-    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "sides drinks";
+    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
 }
     
@@ -1027,32 +1013,29 @@ font-family: 'Dosis', sans-serif;
 .sauceImage {
     grid-area: sauce;
     display: grid;
-    grid-gap: 8%;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 13%);
-    overflow-x: inherit;
+    grid-template-rows: repeat(auto-fill, 8%);
     text-align: center;
 }
 
 .breadImageTop {
-    grid-area: 1/1/2/3;
+    grid-area: breadTop;
     text-align: center;
-    
 }
-    
+
 .breadImageLow {
-        grid-area: 3/1/4/3; 
+    grid-area: breadLow;
     text-align: center;
-        
-    }
+}
 .sidesImage {
     grid-area: sides;
     display: grid;
     grid-gap: 3%;
+    grid-auto-columns: min-content;
     grid-template-columns: repeat(auto-fill,5%);
 }
 .drinkImage {
-    grid-area: drink;
+    grid-area: drinks;
     display: grid;
     grid-gap: 3%;
     grid-template-columns: repeat(auto-fill,8%);
