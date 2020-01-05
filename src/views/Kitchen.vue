@@ -134,6 +134,7 @@
                 <ul v-for="(item,key) in ingredients"
                     :key="key">
                     {{item.ingredient_id}}: {{item["ingredient_" + lang]}} -> {{item.stock}}
+                    <input type="number" v-model="item.stock">
                 </ul>
             </div>
             <div v-if="this.addingIngredient">
