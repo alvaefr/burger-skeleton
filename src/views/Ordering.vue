@@ -112,21 +112,32 @@
 
                 <!-- BURGARNA -->
                 <div class="ingredientsPics">
-                <div v-for="item in chosenIngredients">
-                    <div class="burgerImage" v-if="item.category == 1 || item.category == 2 || item.category == 3">
-                        <img :src="require('../assets/' + item.img)" width="150" height="35"/>
+
+
+                    <div class="burgerImage" v-for="item in chosenIngredients">
+                        <div v-if="item.category == 1 || item.category == 2 || item.category == 3">
+<!--                            <div  v-for="item in chosenIngredients">-->
+                            <img :src="require('../assets/' + item.img)" width="150" height="35"/>
+<!--                            </div>    -->
+                        </div>
                     </div>
+                    
+                    
+                <div v-for="item in chosenIngredients">    
                     <div class="breadImage" v-if="item.category == 4">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img2)" width="50" height="50"/>
                     </div>
                     <div class="sidesImage" v-if="item.category == 5">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
                     </div>
                     <div class="drinkImage" v-if="item.category == 6">
-                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img)" width="40" height="40"/>
                     </div>
                 </div>
                 </div>
+                
+                
                 <div class="ingredientsList">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
@@ -943,22 +954,34 @@ font-family: 'Dosis', sans-serif;
 .ingredientsPics {
     grid-area: ingPics;
     display: grid;
-    grid-template-rows: 15% 40% 15% 30%;
-    grid-template-columns: 100%;
-    grid-template-areas: "bread" "burgerIng" "bread" "sides";
+    grid-template-rows: 15% 50% 15% 20%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "breadTop" "burgerIng" "breadLow" "sides drinks";
     position: relative;
 }
+    
 .burgerImage {
-    grid-area: burgerIng;
+    grid-area: 2/1/3/3;
+    display: grid;
+    grid-gap: 2vw;
+    grid-auto-rows: min-content;
+    overflow-x: inherit;
+    text-align: center;    
 }
-.breadImage {
-    grid-area: bread;
+    
+    
+.breadImageTop {
+    grid-area: 1/1/2/3;
 }
+    
+.breadImageLow {
+        grid-area: 3/1/4/3; 
+    }
 .sidesImage {
-    grid-area: sides;
+    grid-area: 4/1/5/2;
 }
 .drinkImage {
-    grid-area: drinks;
+    grid-area: 4/2/5/3;
 }
 .ingredientsList {
     grid-area: ingList;
