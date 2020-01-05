@@ -143,12 +143,20 @@
                         </div>
                     </div>
 
-                    <div class="breadImage" v-for="item in chosenIngredients">
+                    <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                        <img id="upperBread" :src="require('../assets/' + item.img)" width="50" height="50"/>
-                        <img id="underBread" :src="require('../assets/' + item.img2)" width="50" height="50"/>
+                    
+                        <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
+                    
+                     <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                    
+                        <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
+                    </div>
+                    
                     <div class="sidesImage" v-for="item in chosenIngredients">
                          <div v-if="item.category == 5">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
@@ -219,7 +227,7 @@
 
 
 
-                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" > {{uiLabels.yourOrder}}</button>
 
 
 
@@ -269,7 +277,7 @@
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
                     <hr class="burgerScrollLine">
-                    
+
                     <div class="scrollForIng">
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
@@ -570,12 +578,26 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
 
 
+<<<<<<< HEAD
+         addToOrder: function () {   //Lägg till burgaren till order!
+           console.log(this.lang);
+           if (!this.buttonClickable){
+             if (this.lang === 'sv'){
+               alert("En burgare måste minst innehålla en puck och ett bröd");
+             }
+             if (this.lang === 'en'){
+               alert("A burger must at least consist of one patty and one bread");
+             }
+           }
+           else {
+=======
          addToOrder: function () {
              if (!this.buttonClickable) {
                  
              }
              else {
              //Lägg till burgaren till order!
+>>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -1014,10 +1036,14 @@ font-family: 'Dosis', sans-serif;
 
 .breadImageTop {
     grid-area: 1/1/2/3;
+    text-align: center;
+    
 }
     
 .breadImageLow {
         grid-area: 3/1/4/3; 
+    text-align: center;
+        
     }
 .sidesImage {
     grid-area: sides;
@@ -1306,25 +1332,25 @@ font-family: 'Dosis', sans-serif;
     .burgerScrollLine {
           border: 1px solid  rgb(166, 166, 166);
     }
-    
+
     .scrollForIng {
         background-color: rgba(232, 232, 232, 0);
         height: 8vw;
         overflow-y: scroll;
-      
-        
+
+
     }
 #burgerNo {
     text-align: center;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-   
+
 
 }
-    
-  
-    
+
+
+
 #burgerTotal {
     position: relative;
     bottom: 0.2vw;
@@ -1458,11 +1484,11 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-
+/* <!--
     .nextPage:disabled {
         cursor: not-allowed;
         opacity: 0.8;
-    }
+    } --> */
 
     .grid-containerPayment {
         display: grid;
