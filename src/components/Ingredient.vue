@@ -34,7 +34,7 @@
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
-        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="60"/>
+        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
 
 
         <div class="filter">
@@ -246,7 +246,7 @@
 
     .image {
         grid-area: 1 / 1 / 2 / 2;
-        height: 4vw;
+        height: 2vw;
         width: 4vw;
     }
 

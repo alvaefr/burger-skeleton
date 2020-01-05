@@ -114,16 +114,16 @@
                 <div class="ingredientsPics">
                 <div v-for="item in chosenIngredients">
                     <div class="burgerImage" v-if="item.category == 1 || item.category == 2 || item.category == 3">
-                        <img :src="require('../assets/' + item.burgerPic)" width="150" height="35"/>
+                        <img :src="require('../assets/' + item.img)" width="150" height="35"/>
                     </div>
                     <div class="breadImage" v-if="item.category == 4">
-                        <img :src="require('../assets/' + item.burgerPic)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
                     </div>
                     <div class="sidesImage" v-if="item.category == 5">
-                        <img :src="require('../assets/' + item.burgerPic)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
                     </div>
                     <div class="drinkImage" v-if="item.category == 6">
-                        <img :src="require('../assets/' + item.burgerPic)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
                     </div>
                 </div>
                 </div>
