@@ -478,6 +478,7 @@
         grid-template-columns: 33% 33% 33% 33%;
         font-size: 10px;
         overflow: scroll;
+        text-align: left;
 
     }
     .grid-container-showIngredients ul {

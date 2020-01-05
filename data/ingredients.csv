@@ -1,5 +1,5 @@
-ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img
-1,bönburgare,bean patty,1,1,1,1,40,BeanPatty.png
+ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img,img2
+1,bönburgare,bean patty,1,1,1,1,40,BeanPatty.png,
 2,nötfärsburgare 100g,beef patty 100g,1,1,1,0,40,BeefPatty.png
 3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,BeefPatty200.png
 4,kycklingburgare,chicken patty,1,1,0,0,40,ChickenPatty.png
