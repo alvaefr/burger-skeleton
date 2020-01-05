@@ -113,28 +113,43 @@
                 <!-- BURGARNA -->
                 <div class="ingredientsPics">
 
-                    <div class="burgerImage">
-                         <div v-for="item in chosenIngredients">
-                        <div v-if="item.category == 1 || item.category == 2 || item.category == 3">
-<!--                            <div  v-for="item in chosenIngredients">-->
-                            <img :src="require('../assets/' + item.img)" width="150" height="35"/>
-<!--                            </div>    -->
-                        </div>
-                         </div>
-                    </div>
-                    
-
                     <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                    
-                        <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
+                            <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
-                    
-                     <div class="breadImageTop" v-for="item in chosenIngredients" >
+                    <div class="breadImageTop" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                    
-                        <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
+                    </div>
+
+
+                    <div class="burgerImage">
+                         <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 1">
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                            </div>
+                         </div>
+                    </div>
+
+                    <div class="toppingImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 2">
+                                <!--                            <div  v-for="item in chosenIngredients">-->
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                                <!--                            </div>    -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sauceImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 3">
+                                <!--                            <div  v-for="item in chosenIngredients">-->
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                                <!--                            </div>    -->
+                            </div>
                         </div>
                     </div>
                     
@@ -154,7 +169,7 @@
                 <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
+                    <button v-on:click="delFromBurger(item.ing); checkBurger()" :disabled="item.category_num == 4"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
                 </div>
                 </div>
             </div>
@@ -171,7 +186,8 @@
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center  >{{uiLabels.glutenFilter}}</p>
+                           
+                        <p  class="textFilter" align=center> <img width=50% align=center src="@/assets/gluten2.png"> <br>{{uiLabels.glutenFilter}}</p>
                         </span>
                         </span>
                     </label>
@@ -182,7 +198,7 @@
                     <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center >{{uiLabels.veganFilter}}</p>
+                        <p  class="textFilter" align=center> <img width=40% align=center src="@/assets/vegan2.png"> <br>{{uiLabels.veganFilter}}</p>
                         </span>
                         </span>
                     </label>
@@ -193,7 +209,7 @@
                     <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center >{{uiLabels.lactoseFilter}}</p>
+                        <p class="textFilter" margin-block-start=0em; align=center> <img width=40% src="@/assets/milk2.png"> {{uiLabels.lactoseFilter}}</p>
                         </span>
                         </span>
                 </label>
@@ -208,7 +224,7 @@
 
 
 
-                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" > {{uiLabels.yourOrder}}</button>
 
 
 
@@ -258,7 +274,7 @@
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
                     <hr class="burgerScrollLine">
-                    
+
                     <div class="scrollForIng">
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
@@ -558,13 +574,17 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.categoryNumber = 1;
          },
 
-
-         addToOrder: function () {
-             if (!this.buttonClickable) {
-                 
+         addToOrder: function () {   //Lägg till burgaren till order!
+           console.log(this.lang);
+           if (!this.buttonClickable){
+             if (this.lang === 'sv'){
+               alert("En burgare måste minst innehålla en puck och ett bröd");
              }
-             else {
-             //Lägg till burgaren till order!
+             if (this.lang === 'en'){
+               alert("A burger must at least consist of one patty and one bread");
+             }
+           }
+           else {
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -970,41 +990,56 @@ font-family: 'Dosis', sans-serif;
     grid-area: ingPics;
 
     display: grid;
-    grid-template-rows: 15% 50% 15% 20%;
+    grid-template-rows: 16% 16% 16% 16% 16% 20%;
     grid-template-columns: 50% 50%;
-    grid-template-areas: "breadTop" "burgerIng" "breadLow" "sides drinks";
+    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
 }
     
 .burgerImage {
-    grid-area: 2/1/3/3;
+    grid-area: patty;
     display: grid;
     grid-auto-rows: min-content;
     grid-template-rows: repeat(auto-fill,5%);
     overflow-x: inherit;
     text-align: center;    
 }
-    
-    
-.breadImageTop {
-    grid-area: 1/1/2/3;
-    text-align: center;
-    
-}
-    
-.breadImageLow {
-        grid-area: 3/1/4/3; 
-    text-align: center;
-        
-    }
-.sidesImage {
-    grid-area: 4/1/5/2;
+
+.toppingImage {
+    grid-area: topping;
     display: grid;
     grid-gap: 3%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    overflow-x: inherit;
+    text-align: center;
+}
+.sauceImage {
+    grid-area: sauce;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    text-align: center;
+}
+
+.breadImageTop {
+    grid-area: breadTop;
+    text-align: center;
+}
+
+.breadImageLow {
+    grid-area: breadLow;
+    text-align: center;
+}
+.sidesImage {
+    grid-area: sides;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-columns: min-content;
     grid-template-columns: repeat(auto-fill,5%);
 }
 .drinkImage {
-    grid-area: 4/2/5/3;
+    grid-area: drinks;
     display: grid;
     grid-gap: 3%;
     grid-template-columns: repeat(auto-fill,8%);
@@ -1110,7 +1145,6 @@ font-family: 'Dosis', sans-serif;
 
 
    .button-label  {
-
        display: inline-block;
        position: relative;
        margin-bottom: 0;
@@ -1292,25 +1326,25 @@ font-family: 'Dosis', sans-serif;
     .burgerScrollLine {
           border: 1px solid  rgb(166, 166, 166);
     }
-    
+
     .scrollForIng {
         background-color: rgba(232, 232, 232, 0);
         height: 8vw;
         overflow-y: scroll;
-      
-        
+
+
     }
 #burgerNo {
     text-align: center;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-   
+
 
 }
-    
-  
-    
+
+
+
 #burgerTotal {
     position: relative;
     bottom: 0.2vw;
@@ -1444,11 +1478,11 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-
+/* <!--
     .nextPage:disabled {
         cursor: not-allowed;
         opacity: 0.8;
-    }
+    } --> */
 
     .grid-containerPayment {
         display: grid;
@@ -1534,15 +1568,21 @@ font-family: 'Dosis', sans-serif;
           border-radius: 50%;
           border: 5px solid rgba(0,0,0,0.1);
           background: rgba(255,255,255, 0.9);
-          width: 5vw;
-          height: 5vw;
+          width: 6vw;
+          height: 6vw;
           font-size: 1.4vw;
           cursor: pointer;
           transition: border .001s ease;
-          text-align: center;
-          margin-top: 2%;
+          margin-top: 1%;
           line-height: 1;
     }
+    
+    .textFilter {
+        position: absolute; 
+        
+        
+        
+    }    
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }

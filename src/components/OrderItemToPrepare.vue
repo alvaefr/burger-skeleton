@@ -7,10 +7,10 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
-    
-    
- <input type="checkbox" id="ossm" name="ossm"> 
-<label for="ossm"> DONE </label> 
+
+  <input type="checkbox" id="ossm" name="ossm" v-on:click = "orderDone">
+  <label for="ossm"> DONE! </label>
+
   </div>
     
     
@@ -43,22 +43,11 @@ export default {
 }
 </script>
 <style scoped>
-.doneButton {
-  background-color: #4CAF50;
-border: none;
-color: white;
-padding: 15px 32px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-font-family: "Courier new", monospace;
-}
+  #ossm {
+          display: none;
+                margin: 5%;
+      }
 
-    #ossm {
-        display: none;
-    }
 input[type=checkbox] + label {
 
   color: #ccc;

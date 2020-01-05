@@ -33,6 +33,7 @@
      
 
         <h3 class="price">{{item.selling_price}}:- </h3>
+<<<<<<< HEAD
             <div v-if="item.category == 6 || item.category == 5">
         <img class="image1" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
         </div>
@@ -44,6 +45,11 @@
         <div v-if="item.category == 1 || item.category == 2 || item.category == 3 ">
         <img class="image2" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
         </div>
+=======
+
+        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width=auto/>
+
+>>>>>>> c21ee6671fb03ad7a0db82084e9b1d289dad9504
 
         <div class="filter">
             <span v-if="item.gluten_free"> <img class="gluten" src="@/assets/gluten2.png" height="33"> </span>
