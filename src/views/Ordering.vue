@@ -236,7 +236,7 @@
 
 <!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
 
-                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>
+                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} </button>
 
 
                 </div>
@@ -551,7 +551,12 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
 
 
-         addToOrder: function () {   //Lägg till burgaren till order!
+         addToOrder: function () {
+             if (!this.buttonClickable) {
+                 
+             }
+             else {
+             //Lägg till burgaren till order!
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
@@ -573,7 +578,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price = 0;
              this.currentOrder.editingBurger = false;
              this.view = "showOverview";
-         },
+         }},
          // countNumberOfIngredients: function (id) {   //OBS. Gammal ingredienscounter till sidovyn i ordering.
          //     let counter = 0;
          //     for (let order in this.chosenIngredients) {
@@ -1160,7 +1165,7 @@ font-family: 'Dosis', sans-serif;
 
     .logoOverview {
         grid-area: "logo";
-        width:70%;
+        width:100%;
         margin-top: -0.8em;
         margin-left: 1em;
         overflow: inherit;
@@ -1689,14 +1694,25 @@ font-family: 'Dosis', sans-serif;
     .Burger {
         font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2;
-
+        height: 75%;
 
     }
 
     .Total {
-        font-size: 2vw;
-        grid-area: 5 / 1 / 6 / 2;
 
+        grid-area: 5 / 1 / 6 / 2;
+        padding-top: 4px;
+        padding-left: 24px;
+        height: 80%;
+
+    }
+    
+    .Total h2 {
+        font-size: 4vw;
+    }
+    
+    .Total p {
+        font-size: 4vw;
     }
 
       .flag {

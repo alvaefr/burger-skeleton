@@ -7,13 +7,13 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
-              <label class="label">
-  <input class ='Button' type = "checkbox" id= 'button' v-on:click="orderDone"/>
-  <span class = 'donebutton'>
-Done!
-</span>
-</label>
+    
+    
+ <input type="checkbox" id="ossm" name="ossm"> 
+<label for="ossm"> DONE </label> 
   </div>
+    
+    
 </template>
 <script>
 import OrderItem from '@/components/OrderItem.vue'
@@ -56,8 +56,19 @@ margin: 4px 2px;
 font-family: "Courier new", monospace;
 }
 
-.doneButton:hover {
-      background-color: red;
-  }
+    #ossm {
+        display: none;
+    }
+input[type=checkbox] + label {
+
+  color: #ccc;
+    background-color: grey;
+  font-style: italic;
+} 
+input[type=checkbox]:checked + label {
+  color: #f00;
+  background-color: green;
+  font-style: normal;
+}
 
 </style>

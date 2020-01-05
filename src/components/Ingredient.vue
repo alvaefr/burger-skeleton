@@ -263,7 +263,7 @@
 
 
         .image {
-            height: 11vw;
+            height: 6vw;
             width: 11vw;
         }
         
