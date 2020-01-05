@@ -23,14 +23,6 @@
         </div>
         <!-- Overview End -->
 
-        <!-- <div v-for ="order in orders">
-          <div v-for ="burgers in order">
-          <div v-for = "ingredient in burgers.ingredients">
-                  category_vue: {{ingredient}}
-          </div>
-          </div>
-        </div> -->
-
         <!-- Burgers overview  -->
         <div class='grid-container' v-show="category_view === 'Burger'">
 
@@ -38,26 +30,22 @@
 
             <!-- Undo Button -->
             <div v-if='undoList.length >= 1'>
-                <button class='undo' v-on:click="orderUnDone(undoList[undoList.length-1].orderId)">
+              <div v-if = 'isCategory(category_burger, undoList[undoList.length-1].burgers)'>
+                                  <div v-if = "undoList[undoList.length-1].burgerDone === true">
+                <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
                     Undo: {{undoList[undoList.length-1].orderId}}
                 </button>
             </div>
-            <!-- <div class = 'undo'>
-              <div v-for="(order, key) in undoList" :key="key">
-                <div v-show ="unDoButton === true">
-                  <button id= 'button' v-on:click="orderUnDone(order.orderId)">
-                    Undo: {{order.orderId}}
-                  </button>
-                </div>
-                </div>
-              </div> -->
+                  </div>
+                    </div>
+                      <!-- Undo Button End -->
 
             <div class='items'>
                 <div class='grid-container-burgers'>
                     <OrderItemToPrepare
                             v-for="(order, key) in orders"
-                            v-if="order.status !== 'done' && isCategory(category_burger, order.burgers)"
-                            v-on:done="markDone(key)"
+                            v-if="order.status !== 'done' && isCategory(category_burger, order.burgers) && order.burgerDone === false"
+                            v-on:done="markDoneBurger(order, key)"
                             :order-id="key"
                             :order="order"
                             :ui-labels="uiLabels"
@@ -65,8 +53,8 @@
                             :key="key"
                             :categoryNum="category_burger">
                     </OrderItemToPrepare>
-                </div> <!-- grid-container-burgers -->
-            </div> <!-- items -->
+                </div>
+            </div> 
 
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
         </div> <!-- Burger Overview End -->
@@ -78,10 +66,14 @@
 
             <!-- Undo Button -->
             <div v-if='undoList.length >= 1'>
-                <button class='undo' id='button' v-on:click="orderUnDone(undoList[undoList.length-1].orderId)">
+                  <div v-if = 'isCategory(category_drSi, undoList[undoList.length-1].burgers)'>
+                    <div v-if = "undoList[undoList.length-1].drinkSidesDone === true">
+                <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
                     Undo: {{undoList[undoList.length-1].orderId}}
                 </button>
             </div>
+                        </div>
+                        </div>
             <!-- <div v-for="(order, key) in undoList" :key="key">
               <div v-show ="unDoButton === true">
                 <button id= 'button' v-on:click="orderUnDone(order.orderId)">
@@ -94,8 +86,8 @@
                 <div class='grid-container-burgers'>
                     <OrderItemToPrepare
                             v-for="(order, key) in orders"
-                            v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers)"
-                            v-on:done="markDone(key)"
+                            v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers) && order.drinkSidesDone === false"
+                            v-on:done="markDoneDrSi(order, key)"
                             :order-id="key"
                             :order="order"
                             :ui-labels="uiLabels"
@@ -272,13 +264,25 @@
                 }
                 return false;
             },
-            markDone: function (orderid) {
+            markDoneBurger: function (order, orderid) {
+              order.burgerDone = true;
+              if (order.drinkSidesDone === true || !this.isCategory(this.category_drSi, order.burgers)){
                 this.$store.state.socket.emit("orderDone", orderid);
+              }
                 if (this.exsitsinList(orderid) === true) {
-                    console.log("pusha!")
+                    console.log("pushaBurger!")
                     this.undoList.push(this.orders[orderid])
                 }
-                this.unDoButton = true;
+                // if (this.undoList.length >3){
+            },
+
+            markDoneDrSi: function (order, orderid) {
+              order.drinkSidesDone = true;
+              if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)){
+                this.$store.state.socket.emit("orderDone", orderid);}
+                if (this.exsitsinList(orderid) === true) {
+                    this.undoList.push(this.orders[orderid])
+                }
                 // if (this.undoList.length >3){
             },
             exsitsinList: function (orderid) {
@@ -295,13 +299,17 @@
                 }
                 return true;
             },
-            orderUnDone: function (orderid) {
+            orderUnDoneBurger: function (order, orderid) {
                 this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.unDoButton = false;
-                console.log("before", this.undoList);
                 this.undoList.pop();
-                console.log("after", this.undoList);
+                order.burgerDone = false;
             },
+            orderUnDoneDrinkSides: function (order, orderid) {
+              this.$store.state.socket.emit("orderNotStarted", orderid);
+                this.undoList.pop();
+                order.drinkSidesDone = false;
+            },
+
             setCategory_view: function (view) {
                 this.category_view = view;
                 this.addingIngredient = false;

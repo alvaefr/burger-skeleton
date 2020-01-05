@@ -7,9 +7,12 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
-  <button class ='doneButton' id= 'button' v-on:click="orderDone">
+              <label class="label">
+  <input class ='Button' type = "checkbox" id= 'button' v-on:click="orderDone"/>
+  <span class = 'donebutton'>
 Done!
-</button>
+</span>
+</label>
   </div>
 </template>
 <script>
@@ -54,7 +57,7 @@ font-family: "Courier new", monospace;
 }
 
 .doneButton:hover {
-      background-color: darkgreen;
+      background-color: red;
   }
 
 </style>
