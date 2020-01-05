@@ -1311,7 +1311,7 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
-        width: 15vw;
+        width: 22vw;
         max-height: 320px;
         max-width: 200px;
         border-radius: 4vw;
