@@ -6,12 +6,12 @@
         <div class="buttons">
             <div v-if="item.category != 4">
                 
-                <div id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</div>
+                <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
 
-               <div class="count"> {{  itemCount  }}</div>
-                <div id="inc" v-on:click="incrementCounter($event)"
+               <button class="count"> {{  itemCount  }}</button>
+                <button id="inc" v-on:click="incrementCounter($event)"
                         :disabled="item.category === 4 && itemCount >= 1">+
-                </div>
+                </button>
                 <br>
             </div>
 
@@ -151,6 +151,7 @@
         border-top: 0.1vw solid rgb(255, 179, 26);
         border-right: 0.1vw solid rgb(255, 179, 26);
         border-bottom: 0.1vw solid rgb(255, 179, 26);
+        border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 25%;
@@ -164,6 +165,8 @@
         background-color: rgb(255, 224, 102, 0.9);
         border-top: 0.1vw solid  rgb(255, 179, 26);
         border-bottom: 0.1vw solid  rgb(255, 179, 26);
+          border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
+          border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 39%;
@@ -180,6 +183,7 @@
         border-top: 0.1vw solid rgb(255, 179, 26);
         border-left: 0.1vw solid rgb(255, 179, 26);
         border-bottom: 0.1vw solid rgb(255, 179, 26);
+        border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
         color: rgba(103, 87, 76, 1);
         font-size: 1.5vw;
         width: 25%;
