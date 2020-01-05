@@ -18,6 +18,7 @@ Data.prototype.getUILabels = function (lang) {
   return ui;
 };
 
+/* eslint-disable no-console */
 /*
   Returns a JSON object array of ingredients with the fields from
   the CSV file, plus a calculated amount in stock, based on
@@ -82,19 +83,31 @@ Data.prototype.addOrder = function (order) {
       transId += 1;
       transactions.push({transaction_id: transId,
         ingredient_id: i[k].ingredient_id,
-        change: - 2});
+        change: - 1});
     }
   }
   return orderId;
 };
 
-Data.prototype.changeStock = function (item, saldo) {
+Data.prototype.changeStock = function (item) {
   var transactions = this.data[transactionsDataName]
   var transId = transactions[transactions.length - 1].transaction_id
   transactions.push({transaction_id: transId,
                      ingredient_id: item.ingredient.ingredient_id,
-                     change: saldo - item.ingredient.stock});
+                     change: item.ingredient.stock});
 };
+
+
+
+Data.prototype.addIngredient = function (item) { /* Kopierat changestock ovanför, ska göras om till addingredient */
+
+  var ingredients = this.data[ingredientsDataName];
+  ingredients.push(item)
+  console.log(ingredients);
+  var thisIngredient = ingredients[item.ingredient_id - 1];
+  this.changeStock({ingredient: thisIngredient});
+}
+
 
 Data.prototype.getAllOrders = function () {
   return this.orders;

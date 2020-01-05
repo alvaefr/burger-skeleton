@@ -553,14 +553,23 @@ necessary Vue instance (found in main.js) to import your data and methods */
               console.log(this.currentOrder)
               this.totalPrice -= burger.price;
          },
+
          
         payBurger: function (){
             this.payClickable = true;           
         }, 
          
-        cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
+
+        cancelOrder: function () {     //FUNKTION SOM AVRBYTER ORDER
+             //måste räkna ingredienserna först
+
+               console.log(this.currentOrder)
+               for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+                   this.$refs.ingredient[i].resetCounter();
+               }
              this.currentOrder.burgers= [];
              this.currentOrder.editinBurger=false;
+
              this.chosenIngredients = [];
              this.buttonClickable= false;
              this.orderNumber= "";
@@ -573,6 +582,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.totalPrice = 0;
              this.currentOrder.burgers.price = 0;
              this.price = 0;
+
          },
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
                                                 // att om man ska redigera en, redigeras ALLA duplicerade.
@@ -695,9 +705,10 @@ font-family: 'Dosis', sans-serif;
 
     .grid-container {
         display: grid;
+        align-items: end;
         grid-template-columns: 74% 25%;
         grid-template-rows: 13% 55% 12% 15% 5%;
-        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "filterGrid nextPage" "Lang Lang";
+        grid-template-areas: "Top Burger" "OrderList Burger" "OrderList Total" "Filter nextPage" "Lang Lang";
         background-image: url("wood.jpg");
         background-attachment: fixed;
         background-position: center;
@@ -811,31 +822,33 @@ font-family: 'Dosis', sans-serif;
     .OrderList {
         grid-area: OrderList;
         background-color: rgba(232, 232, 232, 0.92);
-        padding: 4% 0% 0% 3%;
-        margin-right: 5%;
+        padding: 0% 0% 0% 3%;
+        height: 100%;
+        width: 50.6vw;
         padding-left: 10%;
         overflow-y: scroll;
-        border-left: 3px solid #FFF;
-        border-right: 3px solid #FFF;
-        border-bottom: 3px solid #FFF;
+        border-left: 0.3vw solid #FFF;
+        border-right: 0.3vw solid #FFF;
+        border-bottom: 0.3vw solid #FFF;
+
         border-radius: 0em 0em 3em 3em;
 
     }
     .menuItems {
+        margin-top: 1em;
         display: grid;
         grid-gap: 2vw;
         grid-template-columns: repeat(auto-fill, 13vw);
         height: 10vw;
     }
 
-    .filterGrid {
-        grid-area: "filterGrid";
-    }
+    
     
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
+        height: 100%;
         border-bottom: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-left: 3px solid #FFF;
@@ -873,7 +886,7 @@ font-family: 'Dosis', sans-serif;
         margin-left: -2em;
       }*/
     .Burger {
-        padding: 1em;
+        padding: 0em 1em 1em 1em;
         grid-area: Burger;
         border-top: 3px solid #FFFFFF;
         border-right: 3px solid #FFF;
@@ -882,6 +895,7 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         font-size: 1.5vw;
         overflow-y: scroll;
+        height: 90%;
     }
 
     .Burger button {
@@ -938,7 +952,7 @@ font-family: 'Dosis', sans-serif;
     /* Style the tab content */
     .tabcontent {
         display: none;
-        padding: 6px 12px;
+ 
         border: 3em solid #ddd;
         border-top: none;
         background-color: #ddd;
@@ -946,26 +960,32 @@ font-family: 'Dosis', sans-serif;
     
     
    .button-label  {
-        grid-area: Top;
-        background-color: rgba(232, 232, 232, 0.92);
-        font-size: 1.5vw;
-        width: 200px;
+
+       display: inline-block;
+       position: relative;
+       margin-bottom: 0;
+       width: 8.9vw;
+       padding-top: 2vw; 
+       padding-bottom: 2vw;
+       background-color: rgba(232, 232, 232, 0.92);
+        font-size:1.5vw;
         outline: none;
         cursor: pointer;
-        padding: 2.3vw 0.9vw;
         text-align: center;
         transition: 0.3s;
         border-radius: 1.5em 1.5em 0em 0em;
-        border: 3px solid #FFF;
+        border: 0.3vw solid #FFF;
 }     
       input[type=radio]:checked + label{
 
          background-color: whitesmoke;
+         color:darkseagreen;
 }   
     
          input[type=radio]:hover + label{
 
          background-color: whitesmoke;
+         color:darkseagreen;
 }   
    
     
@@ -973,7 +993,7 @@ font-family: 'Dosis', sans-serif;
         position: absolute;
         visibility: hidden;
         display: none;
-        width: 100px;
+
     }
     
  
@@ -1141,21 +1161,20 @@ font-family: 'Dosis', sans-serif;
     text-align: center;
     font-weight: bold;
     font-size: 1.5vw;
-    background-color: rgba(232, 232, 232, 0.92);
+    background-color: rgb(212, 202, 196);
     margin-left: -5.7%;
     position: absolute;
     bottom: 0px;
     height: 50px;
     border-color: transparent;
     border-top: 4px dashed rgb(166, 166, 166);
-
     border-radius: 0em 0em 3.5vw 3.5vw;
     font-family: 'Dosis', sans-serif;
     cursor: pointer;
 }
     
     #editBurgerButton:hover {
-        background-color:rgb(150, 217, 140);
+        background-color:rgb(157, 137, 123);
     } 
     
     
@@ -1169,7 +1188,7 @@ font-family: 'Dosis', sans-serif;
         height: 3vw;
         width: 6vw;
         margin-top: -0.6em;
-        background-color: rgba(232, 232, 232, 0.92);
+        background-color: rgba(177, 160, 149, 0.65);
         float: left;
         cursor: pointer;
         border-radius: 0.4em 0.4em 0.4em 0.4em;
@@ -1177,7 +1196,7 @@ font-family: 'Dosis', sans-serif;
 }
     
     #duplicateButton:hover {
-        background-color: rgb(150, 217, 140);
+        background-color: rgb(157, 137, 123);
         
         
     }
@@ -1248,7 +1267,8 @@ font-family: 'Dosis', sans-serif;
         cursor: pointer;
         font-size: 2.5vw;
         width: 100%;
-        height: 100%;
+        height: 90%;
+        margin-top: 1em;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
@@ -1310,23 +1330,30 @@ font-family: 'Dosis', sans-serif;
     }
     
     /* Designing of Foodfilter*/
+    
+     .filterGrid { 
+        grid-area: Filter;
+    
+    }
+   
     .label__checkbox {
       display: none;
 }
     .positionVegan {
-    
-       margin-left: 30%;
+     margin-top: -5em;
+        margin-left: 30%;
     }
     .positionGluten {
-
+       margin-top: -5em;
        margin-left: 45%;
     }
      .positionMilk {
-
+        margin-top: -5em;
         margin-left: 60%;
     }
     .label__check {
-          display: block;
+ 
+          
           position: absolute;
           border-radius: 50%;
           border: 5px solid rgba(0,0,0,0.1);
@@ -1442,6 +1469,7 @@ font-family: 'Dosis', sans-serif;
     /*ny grid-design*/
     .grid-container {
        display: grid;
+        align-items: end;
        grid-template-columns: 1fr;
         grid-template-rows: 0.4fr 1.7fr 0.6fr 1.5fr 0.5fr 0.4fr 0.2fr;
         grid-column-gap: 0px;
@@ -1455,7 +1483,7 @@ font-family: 'Dosis', sans-serif;
     }
     
     .tab button {
-        height: 10vw;
+
         font-size: 3.2vw;
    
     }
@@ -1475,12 +1503,32 @@ font-family: 'Dosis', sans-serif;
     
     .OrderList {
         grid-area: 2 / 1 / 3 / 2;
-        padding: 4% 0% 0% 3%;
+        padding: 0% 0% 0% 3%;
         margin-right: 0%;
         overflow-y: scroll;
+        width: 95%;
         border-radius: 0em 0em 1em 1em;
-
+            border: 0.4vw solid #FFF;
     }
+    
+       .button-label  {
+
+       display: inline-block;
+       position: relative;
+       margin-bottom: 0;
+       width: 11.88vw;
+       height: 4vw;
+       padding-top: 2vw; 
+       padding-bottom: 2vw;
+       background-color: rgba(232, 232, 232, 0.92);
+       font-size:3.5vw;
+       outline: none;
+       cursor: pointer;
+       text-align: center;
+       transition: 0.3s;
+       border-radius: 1em 1em 0em 0em;
+       border: 0.4vw solid #FFF;
+}     
     
 
       .Done {
@@ -1560,13 +1608,18 @@ font-family: 'Dosis', sans-serif;
     
     
     .positionVegan {
+      margin-top: -4em;
        margin-left: 25%;
     }
     .positionGluten {
+      margin-top: -4em;
        margin-left: 45%;
+ 
     }
      .positionMilk {
+ margin-top: 0em;
        margin-left: 65%;
+
     }
     
     @keyframes check {
