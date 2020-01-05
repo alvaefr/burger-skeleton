@@ -10,7 +10,7 @@
 -->
 
 
-        <!--        Välkomstsida  div -->
+<!--       WELCOME PAGE -->
         <div v-show="showFront === this.view" class="grid-containerFront"  >
         
 
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-<!--        Ordersida div -->
+<!--        ORDER PAGE  -->
         <div v-show="showMenu === this.view" class="grid-container">
             
       
@@ -162,7 +162,7 @@
 
             
 
-                 <button class="nextPage"  v-on:click="addToOrder()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
+                 <button class="nextPage"  v-on:click="addToOrder(); payBurger()" :disabled="buttonClickable===false"> {{uiLabels.yourOrder}}</button>
                 
    
 
@@ -185,42 +185,23 @@
 
             </div>
             
-            <div class="overviewBottom">
-                
-                <div class="addBurger">
-                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()"> {{uiLabels.addBurger}}</button>
-                </div>
 
-               
-                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
-
-                <div class="placeOrder">
-                    
-<!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
-                    
-                <button id="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>   
-                
-                
-                </div>
-            </div>
-
+<!--OVERVIEW PAGE -->
             <div class="burgerOverview">
 
-               
-                
-                
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
-                    <hr>
+                    <hr class="burgerScrollLine">
 
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
                     </div>
 
                     <div id="burgerTotal">
-                        <hr> <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
+                        <hr class="burgerScrollLine"> 
+                        <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
                     </div>
 
 
@@ -235,8 +216,11 @@
 
 
                     <button id=editBurgerButton v-on:click="editBurger(burger, burger.no); checkBurger()"> {{uiLabels.editBurger}}</button>
+                    
                     <img id=deleteBurgerButton v-on:click="deleteBurger(burger.no, burger)" src="Delete-Button.png" width="35">
-                    <button id=duplicateButton v-on:click="duplicateBurger(burger)"> <img src="Yum-Button.png" width="30"> {{uiLabels.dublicate}}</button>
+                    
+                    <button id=duplicateButton v-on:click="duplicateBurger(burger)">{{uiLabels.duplicate}}</button>
+
 
 
 
@@ -254,8 +238,25 @@
                 <!-- Button that adds new burgers -->
 
 
-              
+            </div>
+            
+           
+            
+            <div class="overviewBottom">
+                
+                <div class="addBurger">
+                <button class="burgerAdd" v-on:click="setView(showMenu); addBurger()"> {{uiLabels.addBurger}}</button>
+                </div>
 
+               
+                <div class="totalPrice" id="totalPrice">{{ uiLabels.total }}: {{totalPrice}} :-</div>
+
+                <div class="placeOrder">
+                    
+                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)"  :disabled="payClickable===false">{{uiLabels.pay}}</button>   
+                
+                
+                </div>
             </div>
 
 
@@ -271,6 +272,7 @@
             </div>
         </div>
         
+<!--THANKS FOR YOUR ORDER/PAYMENT PAGE-->
         <div v-show="showPayment === this.view" class="grid-containerPayment">
             
             <img class="logoThanks" src="@/assets/circle-cropped.png" >
@@ -289,6 +291,8 @@
 
     </section>
 </template>
+
+<!--HMTL KOD SLUT-->
 
 <script>
 //import the components that are used in the template, the name that you
@@ -315,6 +319,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              chosenIngredients: [],
              price: 0,
              buttonClickable: false,
+             payClickable: false,
              orderNumber: "",
              name: "LoadingScreen",
              props: ["isLoading"],
@@ -549,7 +554,11 @@ necessary Vue instance (found in main.js) to import your data and methods */
               this.totalPrice -= burger.price;
          },
          
-           cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
+        payBurger: function (){
+            this.payClickable = true;           
+        }, 
+         
+        cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
              this.currentOrder.burgers= [];
              this.currentOrder.editinBurger=false;
              this.chosenIngredients = [];
@@ -1069,17 +1078,15 @@ font-family: 'Dosis', sans-serif;
     }
 */
     
-    #placeOrderButton {
-        background-color: darkgray;
+    .placeOrderButton {
         padding: 1em;
         font-family: 'Dosis', sans-serif;
-        color: black;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(51, 153, 255);
+        background-color: rgb(51, 102, 204);
         font-family: 'Dosis', sans-serif;
         float: right;
         cursor: pointer;
@@ -1087,23 +1094,24 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgb(0, 26, 102);        
     }
-
-    #placeOrderButton:hover {
-        background-color: rgb(0, 64, 128);
-        color: white;
-        cursor: pointer;
-}
+    
+    
     .burgerScroll {
-        background-color: #1B686A;
+        color: black;
+        background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
         width: 22vw;
         max-height: 320px;
         max-width: 200px;
         border-radius: 4vw;
-        border: 5px solid #35A855;
+        border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
         font-size: calc(6e10px + 1vw - 6e10px);
+    }
+    
+    .burgerScrollLine {
+          border: 1px solid  rgb(166, 166, 166);
     }
 #burgerNo {
     text-align: center;
@@ -1130,28 +1138,56 @@ font-family: 'Dosis', sans-serif;
     }
 #editBurgerButton {
     width: 100%;
-    background-color: #82ceab;
-    margin-left: -5%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5vw;
+    background-color: rgba(232, 232, 232, 0.92);
+    margin-left: -5.7%;
     position: absolute;
     bottom: 0px;
     height: 50px;
-    border-top: 5px solid #35A855;
-    border-color: #35A855;
+    border-color: transparent;
+    border-top: 4px dashed rgb(166, 166, 166);
+
     border-radius: 0em 0em 3.5vw 3.5vw;
-       font-family: 'Dosis', sans-serif;
+    font-family: 'Dosis', sans-serif;
+    cursor: pointer;
 }
+    
+    #editBurgerButton:hover {
+        background-color:rgb(150, 217, 140);
+    } 
+    
+    
     #duplicateButton {
-    position: absolute;
-    bottom: 6vw;
-    right: 1vw;
-
-    font-size: 1.1vw;
+        position: absolute;
+        bottom: 6vw;
+        right: 1vw;
+        font-family: 'Dosis', sans-serif;
+        color: black;
+        font-size: 1vw;
+        height: 3vw;
+        width: 6vw;
+        margin-top: -0.6em;
+        background-color: rgba(232, 232, 232, 0.92);
+        float: left;
+        cursor: pointer;
+        border-radius: 0.4em 0.4em 0.4em 0.4em;
+        border: 3px solid rgb(166, 166, 166);    
 }
+    
+    #duplicateButton:hover {
+        background-color: rgb(150, 217, 140);
+        
+        
+    }
 
+/*
     #duplicateButton img{
         height: 1.5vw;
         width: 1.9vw;
     }
+*/
     .burgerAdd {
         /* grid-area: Done; */
         grid-area: "addBurger";
@@ -1164,13 +1200,13 @@ font-family: 'Dosis', sans-serif;
         height: auto;
         width: 22vw;
         margin-top: -0.6em;
-        background-color: rgb(255, 224, 102);
+        background-color: rgb(255, 255, 102);
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
         font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
-        border: 3px solid rgb(255, 179, 26);
+        border: 3px solid rgb(255, 255, 153);
     }
     
     .loader {
@@ -1188,8 +1224,7 @@ font-family: 'Dosis', sans-serif;
           top: 0;
     }
     .burgerAdd:hover {
-        background-color: rgb(255, 204, 0);
-        color: white;
+        background-color: rgb(255, 255, 51);
         cursor: pointer;
     }
 .fadeout {
@@ -1217,18 +1252,6 @@ font-family: 'Dosis', sans-serif;
         border-radius: 0.2em 0.2em 1em 0.2em;
         border: 3px solid rgba(30, 130, 76, 1);
     }
-    .nextPageNotClick {
-        background-color: rgba(135, 211, 124, 0.9);
-        margin-top: 0.5em;
-        font-family: 'Dosis', sans-serif;
-        float: right;
-        font-size: 2em;
-        width: 20%;
-        height: 80%;
-        border-radius: 0.2em 0.2em 1em 0.2em;
-        border: 3px solid rgba(30, 130, 76, 1);
-    }
-
     
     
     .grid-containerPayment {
@@ -1661,7 +1684,7 @@ font-family: 'Dosis', sans-serif;
         border: 3px solid rgb(166, 166, 166);
     }
     
-    #placeOrderButton {
+    .placeOrderButton {
         grid-area: 3/1/4/2;
         float:none;
         padding: 0em;
@@ -1675,7 +1698,7 @@ font-family: 'Dosis', sans-serif;
     }
     
       .burgerScroll {
-        background-color: #1B686A;
+        background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
         width: 30vw;
