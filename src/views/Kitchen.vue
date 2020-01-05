@@ -424,6 +424,7 @@
         height: 80%;
         margin: 3% 20% 3% 5%;
         text-align: center;
+        cursor:pointer;
     }
 
     .startButton:hover {
@@ -463,6 +464,7 @@
         display: inline-block;
         font-size: 16px;
         margin: 1%;
+        cursor: pointer;
     }
 
     .addIngredients {
@@ -478,8 +480,14 @@
         display: inline-block;
         font-size: 16px;
         margin: 1%;
+        cursor: pointer;
 
     }
+    
+    .addIngredients:hover {
+        background-color: darkblue;
+    }
+    
 
     .grid-container-showIngredients {
         grid-area: main;
@@ -508,7 +516,7 @@
         grid-template-columns: 50% 50%;
         width: 1fr;
         height: 15em;
-        text-align: center;
+        text-align: left;
         padding: 10px;
     }
 
@@ -522,7 +530,6 @@
 
      }
     .grid-container-addIngredients select:after{
-
         content: "";
         top: 14px;
         right: 10px;
@@ -530,7 +537,6 @@
         height: 0;
         border: 6px solid transparent;
         border-color: #fff transparent transparent transparent;
-
     }
 
 
