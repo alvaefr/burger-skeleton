@@ -1569,7 +1569,7 @@ font-family: 'Dosis', sans-serif;
           background: rgba(255,255,255, 0.9);
           width: 6vw;
           height: 6vw;
-          font-size: 1.4vw;
+          font-size: 1.2vw;
           cursor: pointer;
           transition: border .001s ease;
           margin-top: 1%;
@@ -1630,8 +1630,8 @@ font-family: 'Dosis', sans-serif;
       font-size: 1vw;
   }
   100% {
-      width: 5vw;
-      height: 5vw;
+      width: 6.2vw;
+      height: 6.2vw;
     background: rgba(144, 198, 149, 0.9);
     border: 4px solid rgba(38, 166, 91, 1);
     text-align: center;
