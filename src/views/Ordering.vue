@@ -1199,6 +1199,8 @@ font-family: 'Dosis', sans-serif;
         overflow-x: scroll;
         text-align: center;
         margin: 1em;
+        padding-top: 2vw;
+        padding-bottom: 2vw;
     }
     .overviewBottom {
         grid-area: Bottom;
@@ -1253,7 +1255,7 @@ font-family: 'Dosis', sans-serif;
         font-size: 2.5vw;
         max-height: 56vw;
         height: auto;
-        width: 22vw;
+        width: 40vw;
         margin-top: -0.6em;
         background-color: rgb(83, 135, 198);
         font-family: 'Dosis', sans-serif;
@@ -1543,6 +1545,7 @@ font-family: 'Dosis', sans-serif;
     
     .textFilter {
         position: absolute; 
+
         
         
         
@@ -1608,16 +1611,35 @@ font-family: 'Dosis', sans-serif;
 
     /*FÖRSTA SIDAN*/
     .grid-containerFront {
-        grid-template-rows: 20% 70% 10%;
+        grid-template-rows: 40% 50% 10%;
     }
 
 
     .welcome {
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 100%;
+        grid-template-areas: "logo" "headText";
         font-size: 8vw;
         overflow: inherit;
         text-align: center;
         font-weight: bold;
         padding: 2%;
+        
+    }
+    
+    .logo {
+        grid-area: 1/1/2/2;
+        width:40%;
+        margin-top: 0em;
+        margin-left: 2vw;
+    }
+
+    .headerText {
+        grid-area: 2/1/3/4;
+        font-size: 10vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
     }
 
 
@@ -1877,7 +1899,7 @@ font-family: 'Dosis', sans-serif;
     .burgerAdd {
         width: 100%;
         max-height: 56vw;
-        height: 95%;
+        height: 10vw;
         padding: 0.1em;
         margin-top: 0px;
         font-size: 4vw;
@@ -1943,7 +1965,7 @@ font-family: 'Dosis', sans-serif;
         padding: 0em;
         font-size: 2.5vw;
         max-height: 56vw;
-        height: 20%;
+        height: 10vw;
         width: 100%;
         margin-top: -0.6em;
         font-size: 4.5vw;
@@ -1997,7 +2019,7 @@ font-family: 'Dosis', sans-serif;
             margin-top: 2em;
             cursor: pointer;
             font-size: 10vw;
-            height: 50%;
+            height: 20vw;
             width: 100%;
             border-radius: 1em 1em 1em 1em;
             margin-left: 0em;
