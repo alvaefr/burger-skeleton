@@ -9,9 +9,7 @@
                 <div id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</div>
 
                <div class="count"> {{  itemCount  }}</div>
-                <div id="inc" v-on:click="incrementCounter($event)"
-                        :disabled="item.category === 4 && itemCount >= 1">+
-                </div>
+                <div id="inc" v-on:click="incrementCounter($event)">+</div>
                 <br>
             </div>
 
