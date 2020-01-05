@@ -548,10 +548,15 @@ necessary Vue instance (found in main.js) to import your data and methods */
               console.log(this.currentOrder)
               this.totalPrice -= burger.price;
          },
-         
-           cancelOrder: function (index, burger) {     //FUNKTION SOM AVRBYTER ORDER
-             this.currentOrder.burgers= [];
-             this.currentOrder.editinBurger=false;
+           cancelOrder: function () {     //FUNKTION SOM AVRBYTER ORDER
+             //måste räkna ingredienserna först
+
+               console.log(this.currentOrder)
+               for (let i = 0; i < this.$refs.ingredient.length; i += 1) {
+                   this.$refs.ingredient[i].resetCounter();
+               }
+               this.currentOrder.burgers= [];
+               this.currentOrder.editinBurger=false;
              this.chosenIngredients = [];
              this.buttonClickable= false;
              this.orderNumber= "";
@@ -564,6 +569,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.totalPrice = 0;
              this.currentOrder.burgers.price = 0;
              this.price = 0;
+
          },
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
                                                 // att om man ska redigera en, redigeras ALLA duplicerade.
