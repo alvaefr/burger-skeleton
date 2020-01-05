@@ -220,7 +220,7 @@
 
 <!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
 
-                <button id="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>
+                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>
 
 
                 </div>
@@ -293,7 +293,8 @@
 
                 <div class="placeOrder">
 
-                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)"  :disabled="payClickable===false">{{uiLabels.pay}}</button>
+                  <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)"  :disabled="payClickable===false">{{uiLabels.pay}}</button>
+
 
 
                 </div>
@@ -1184,7 +1185,7 @@ font-family: 'Dosis', sans-serif;
     }
 */
 
-    #placeOrderButton {
+    .placeOrderButton {
         background-color: darkgray;
         padding: 1em;
         font-family: 'Dosis', sans-serif;
@@ -1295,12 +1296,13 @@ font-family: 'Dosis', sans-serif;
 
     }
 
-/*
-    #duplicateButton img{
-        height: 1.5vw;
-        width: 1.9vw;
-    }
-*/
+    /*
+        #duplicateButton img{
+            height: 1.5vw;
+            width: 1.9vw;
+        }
+    */
+
     .burgerAdd {
         grid-area: "addBurger";
         padding: 1em;
