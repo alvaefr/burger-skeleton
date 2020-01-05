@@ -231,7 +231,7 @@
 
 <!--                <img id=PlaceOrderButton v-on:click="placeOrder(); cancelOrder(); setView(showPayment)" src="PlaceOrder-Button.png" width="200" height="150"> -->
 
-                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} <span>&#10145;</span></button>
+                <button class="placeOrderButton" v-on:click="placeOrder(); cancelOrder(); setView(showPayment)">{{uiLabels.pay}} </button>
 
 
                 </div>
