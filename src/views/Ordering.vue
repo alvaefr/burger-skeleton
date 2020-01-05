@@ -42,10 +42,11 @@
             <div class="Top">
              <img id="cancelOrder" v-on:click="cancelOrder(); setView(showFront)" src="Delete-Button.png" width="65">
                 <div class="tab">
-     
-               
-                    <input type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)">
+
+
+                    <input v-if="this.view===showMenu" type="radio" id="puck" name="category" class="tablinks" v-on:click="setCategory(1)" checked="checked">
                     <label for="puck" class="button-label">{{ uiLabels.puck }}</label>
+
                  
                     
                     <input id="bread" type="radio" name="category"  class="tablinks" v-on:click="setCategory(4)">
@@ -481,6 +482,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          addBurger: function() {   //Lägg till nny burgare
              this.buttonClickable=false;
              this.chosenIngredients = [];
+             this.categoryNumber = 1;
          },
          
          
@@ -540,6 +542,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
              this.view = "showMenu"
+             this.categoryNumber = 1;
          
          },
          deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
@@ -569,6 +572,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.totalPrice = 0;
              this.currentOrder.burgers.price = 0;
              this.price = 0;
+             this.categoryNumber = 1;
 
          },
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
