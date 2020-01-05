@@ -124,12 +124,20 @@
                     </div>
                     
 
-                    <div class="breadImage" v-for="item in chosenIngredients">
+                    <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
-                        <img id="upperBread" :src="require('../assets/' + item.img)" width="50" height="50"/>
-                        <img id="underBread" :src="require('../assets/' + item.img2)" width="50" height="50"/>
+                    
+                        <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
+                    
+                     <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                    
+                        <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
+                    </div>
+                    
                     <div class="sidesImage" v-for="item in chosenIngredients">
                          <div v-if="item.category == 5">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
@@ -977,10 +985,14 @@ font-family: 'Dosis', sans-serif;
     
 .breadImageTop {
     grid-area: 1/1/2/3;
+    text-align: center;
+    
 }
     
 .breadImageLow {
         grid-area: 3/1/4/3; 
+    text-align: center;
+        
     }
 .sidesImage {
     grid-area: 4/1/5/2;
