@@ -49,7 +49,7 @@
       <OrderItemToPrepare
       v-for="(order, key) in orders"
       v-if="order.status !== 'done' && isCategory(category_burger, order.burgers)"
-      v-on:done="markDone(key)"
+      v-on:done="markDone(key), existInCatBurgers(order)"
       :order-id="key"
       :order="order"
       :ui-labels="uiLabels"
@@ -86,7 +86,7 @@
       <div class = 'grid-container-burgers'>
         <OrderItemToPrepare
           v-for="(order, key) in orders"
-          v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers)"
+          v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers) && existInCatBurgers(order) === true"
           v-on:done="markDone(key)"
           :order-id="key"
           :order="order"
@@ -147,7 +147,9 @@
             category_all:[1,2,3,4,5,6],
             category_view: '',
             undoList: [],
-            unDoButton: true
+            unDoButton: true,
+            doneOrder: 0,
+            ingredientsCat: {}
       }
     },
     computed:{
@@ -181,7 +183,6 @@
           for(let j = 0; j < itemArray.length; j += 1){
             for(let k = 0; k < itemArray[j].ingredients.length; k += 1){
              if (arr[i] === itemArray[j].ingredients[k].category){
-                //console.log("itemArray", itemArray[j].ingredients[k].category);
                 return true;
               }
             }
@@ -192,19 +193,15 @@
       markDone: function (orderid) {
         this.$store.state.socket.emit("orderDone", orderid);
         if (this.exsitsinList(orderid) === true){
-          console.log("pusha!")
-  this.undoList.push(this.orders[orderid])}
+          this.undoList.push(this.orders[orderid])}
         this.unDoButton = true;
         // if (this.undoList.length >3){
       },
       exsitsinList: function(orderid){
         if (this.undoList.length >= 1){
         for (let i = 0; i < this.undoList.length; i +=1){
-          console.log("this",this.undoList[i].orderId);
           let listId = this.undoList[i].orderId;
-          console.log("orderid", orderid);
           if (listId == orderid){
-            console.log("falskt!")
           return false;
         }
       }
@@ -214,13 +211,21 @@
       orderUnDone: function (orderid) {
           this.$store.state.socket.emit("orderNotStarted", orderid);
           this.unDoButton = false;
-              console.log("before",this.undoList);
           this.undoList.pop();
-          console.log("after",this.undoList);
       },
       setCategory_view: function(view) {
       				this.category_view = view;
+      },
+      ingredientsCat: function(order){
+        let burgers = order.burgers;
+      	for (let j = 0; j < burgers.length; j += 1) {
+      		for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
+            this.ingredientsCat.push(burgers[j].ingredients[i].category)
       }
+    }
+},
+
+
       // countNumberOfIngredients: function (id) {
       //   let counter = 0;
       //   for (let order in this.orders) {
