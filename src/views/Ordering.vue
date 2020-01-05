@@ -1251,7 +1251,7 @@ font-family: 'Dosis', sans-serif;
     font-weight: bold;
     font-size: 1.5vw;
     background-color: rgb(212, 202, 196);
-    margin-left: -5.7%;
+    margin-left: -5.9%;
     position: absolute;
     bottom: 0px;
     height: 50px;
@@ -1754,17 +1754,33 @@ font-family: 'Dosis', sans-serif;
         grid-template-rows: 10% 55% 30% 5%;
         grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
     }
+    
+    #editBurgerButton {
+        font-size: 3vw;
+        margin-left: -8.2%;
+    }
+    
+    #duplicateButton {
+        font-size: 2.8vw;
+        width: 11vw;
+        height: 9vw;
+        margin-bottom: 8vw;
+    }
 
+   
+  
+    
     .addBurger {    
         grid-area: 1/1/2/2;
         border-radius: 2em 2em 2em 2em;
         width: 100%;
+        height: 70%;
     }
     
     .burgerAdd {
         width: 100%;
         max-height: 56vw;
-        height: 15vw;
+        height: 95%;
         padding: 0.1em;
         margin-top: 0px;
         font-size: 4vw;
@@ -1798,11 +1814,7 @@ font-family: 'Dosis', sans-serif;
         margin-left: 0em;
     }
     
-    .burgerScroll {
-        margin-top: 1em;
-        margin-bottom: 1em;
-        
-    }
+ 
     
     .overviewBottom {
         grid-area: Bottom;
@@ -1811,9 +1823,10 @@ font-family: 'Dosis', sans-serif;
         align-items: center;
         grid-template-columns: 100%;
         grid-template-rows: 33% 34% 33%;
+        grid-gap: 1vw;
         grid-template-areas: "addBurger" "totalPrice" "placeOrder";
     }
-
+ 
     
     #totalPrice {
         grid-area: 2/1/3/2;
@@ -1821,9 +1834,10 @@ font-family: 'Dosis', sans-serif;
         padding: 1em;
         font-size: 4.5vw;
         max-height: 56vw;
-        height: 2vw;
+        height: 20%;
         width: 87%;
         margin-top: 0em;
+        padding-bottom: 5vw;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em 1em 1em 1em;
         border: 3px solid rgb(166, 166, 166);
@@ -1835,7 +1849,7 @@ font-family: 'Dosis', sans-serif;
         padding: 0em;
         font-size: 2.5vw;
         max-height: 56vw;
-        height: 12vw;
+        height: 20%;
         width: 100%;
         margin-top: -0.6em;
         font-size: 4.5vw;
@@ -1850,10 +1864,15 @@ font-family: 'Dosis', sans-serif;
         max-height: 320px;
         max-width: 200px;
         border-radius: 4vw;
-        border: 5px solid #35A855;
+        border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
         font-size: 2.8vw;
     }
+    
+    .scrollForIng {
+        height: 14vw;
+    }
+    
     
      #deleteBurgerButton {
         position: absolute;
@@ -1861,7 +1880,7 @@ font-family: 'Dosis', sans-serif;
         right: -10px;
     }
     
-    #ingredient
+
     
 /*    THANKS FOR ORDERING - SIDAN */
     
