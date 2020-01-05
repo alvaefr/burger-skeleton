@@ -325,9 +325,6 @@
                     selling_price: 0,
                     stock: 0,
                 };
-
-
-
             },
             updateStock: function (item) {
                 this.$store.state.socket.emit("updateStock", {ingredient: item}, this.change);
@@ -349,7 +346,43 @@
             //   }
             //   return counter;
             // }
+    },
+    orderUnDone: function (orderid) {
+        this.$store.state.socket.emit("orderNotStarted", orderid);
+        this.unDoButton = false;
+        this.undoList.pop();
+    },
+    setCategory_view: function(view) {
+        this.category_view = view;
+    },
+    ingredientsCat: function(order){
+        let burgers = order.burgers;
+        for (let j = 0; j < burgers.length; j += 1) {
+            for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
+                this.ingredientsCat.push(burgers[j].ingredients[i].category)
+            }
         }
+    },
+
+
+    // countNumberOfIngredients: function (id) {
+    //   let counter = 0;
+    //   for (let order in this.orders) {
+    //     //Now we have an array of burgers in an order so we need to add a loop
+    //     let burgers = this.orders[order].burgers;
+    //     for (let j = 0; j < burgers.length; j += 1) {
+    //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
+    //         if (this.orders[order].status !== "done" &&
+    //             burgers[j].ingredients[i].ingredient_id === id) {
+    //           counter +=1;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return counter;
+    // }
+
+
     }
 </script>
 <style scoped>
