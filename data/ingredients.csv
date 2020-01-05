@@ -55,9 +55,9 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 54,nachochips,nachos,5,1,0,1,20,Nachos.png
 55,potatisstrips,potato fries,5,1,1,1,20,Pommes.png
 56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,Sweet_potato_fries.png
-57,chokladmilkshake,chocolate milk shake,6,0,1,0,40,Chocolate_milkshake.png
+57,choklad milkshake,chocolate milk shake,6,0,1,0,40,Chocolate_milkshake.png
 58,pucko,pucko,6,0,1,0,25,Pucko.png
 59,läsk,soda,6,1,1,1,20,Läsk.png
-60,jordgubbsmilkshake,strawberry milk shake,6,0,1,0,40,Straberry_milkshake.png
+60,jordgubbs milkshake,strawberry milk shake,6,0,1,0,40,Straberry_milkshake.png
 61,vegansk mango lassi,vegan mango lassi,6,1,1,1,40,Lassi.png
 
