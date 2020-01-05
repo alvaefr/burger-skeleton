@@ -1,4 +1,4 @@
-ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img
+ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img,img2
 1,bönburgare,bean patty,1,1,1,1,40,BeanPatty.png
 2,nötfärsburgare 100g,beef patty 100g,1,1,1,0,40,BeefPatty.png
 3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,BeefPatty200.png
@@ -48,10 +48,10 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 47,teriyakisås,teriyaki sauce,3,1,1,1,5,Teriyaki_sauce.png
 48,tryffelmajonnäs,truffle mayonnaise,3,1,1,0,5,Truffle_mayonnaise.png
 49,tzatziki,tzatziki,3,0,1,0,5,Tzatziki.png
-50,brioche,brioche,4,0,0,0,10,Aioli.png
-51,glutenfritt bröd,gluten free bread,4,1,1,1,10,Aioli.png
-52,veganskt bröd,vegan bun,4,0,0,1,10,Aioli.png
-53,fullkornsbrioche,whole wheat brioche,4,0,0,0,10,Aioli.png
+50,brioche,brioche,4,0,0,0,10,UpperBriocheBread.png,UnderBriocheBread.png
+51,glutenfritt bröd,gluten free bread,4,1,1,1,10,UpperGlutenFreeBread.png,UnderGlutenFreeBread.png
+52,veganskt bröd,vegan bun,4,0,0,1,10,UpperveganBread.png,UnderVeganBread.png
+53,fullkornsbrioche,whole wheat brioche,4,0,0,0,10,WholeWeatBreadUpper.png,WholeWeatBredUnder.png
 54,nachochips,nachos,5,1,0,1,20,Nachos.png
 55,potatisstrips,potato fries,5,1,1,1,20,Pommes.png
 56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,Sweet_potato_fries.png

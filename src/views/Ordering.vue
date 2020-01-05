@@ -118,6 +118,7 @@
                     </div>
                     <div class="breadImage" v-if="item.category == 4">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                        <img :src="require('../assets/' + item.img2)" width="50" height="50"/>
                     </div>
                     <div class="sidesImage" v-if="item.category == 5">
                         <img :src="require('../assets/' + item.img)" width="50" height="50"/>
