@@ -906,9 +906,6 @@ font-family: 'Dosis', sans-serif;
     /* Style the tab */
     .tab {
         grid-area: top;
-
-        margin: 0% 5% 0% 0%;
-
     }
     
 
@@ -964,7 +961,7 @@ font-family: 'Dosis', sans-serif;
        display: inline-block;
        position: relative;
        margin-bottom: 0;
-       width: 8.9vw;
+       width: 15.5%;
        padding-top: 2vw; 
        padding-bottom: 2vw;
        background-color: rgba(232, 232, 232, 0.92);
