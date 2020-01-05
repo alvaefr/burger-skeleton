@@ -34,7 +34,7 @@
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
-        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
+        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width=auto/>
 
 
         <div class="filter">
