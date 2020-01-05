@@ -560,7 +560,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
 
 
-<<<<<<< HEAD
+
          addToOrder: function () {   //Lägg till burgaren till order!
            console.log(this.lang);
            if (!this.buttonClickable){
@@ -572,14 +572,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              }
            }
            else {
-=======
-         addToOrder: function () {
-             if (!this.buttonClickable) {
-                 
-             }
-             else {
-             //Lägg till burgaren till order!
->>>>>>> f6588be30fbc6d06ec28b3b043bd1fa4417acefd
+
              // Add the burger to an order array
              console.log(this.currentOrder)
              // kollar om currentOrder håller på att Edit en burgare, i så fall: uppdatera priset
