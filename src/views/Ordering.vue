@@ -115,14 +115,33 @@
 
                     <div class="burgerImage">
                          <div v-for="item in chosenIngredients">
-                        <div v-if="item.category == 1 || item.category == 2 || item.category == 3">
+                            <div v-if="item.category == 1">
 <!--                            <div  v-for="item in chosenIngredients">-->
-                            <img :src="require('../assets/' + item.img)" width="150" height="35"/>
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
 <!--                            </div>    -->
-                        </div>
+                            </div>
                          </div>
                     </div>
-                    
+
+                    <div class="toppingImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 2">
+                                <!--                            <div  v-for="item in chosenIngredients">-->
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                                <!--                            </div>    -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sauceImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 3">
+                                <!--                            <div  v-for="item in chosenIngredients">-->
+                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                                <!--                            </div>    -->
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="breadImage" v-for="item in chosenIngredients">
                         <div v-if="item.category == 4">
@@ -958,14 +977,14 @@ font-family: 'Dosis', sans-serif;
 .ingredientsPics {
     grid-area: ingPics;
     display: grid;
-    grid-template-rows: 15% 50% 15% 20%;
+    grid-template-rows: 16% 16% 16% 16% 16% 20%;
     grid-template-columns: 50% 50%;
-    grid-template-areas: "breadTop" "burgerIng" "breadLow" "sides drinks";
+    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "sides drinks";
     position: relative;
 }
     
 .burgerImage {
-    grid-area: 2/1/3/3;
+    grid-area: patty;
     display: grid;
     grid-gap: 3%;
     grid-auto-rows: min-content;
@@ -973,8 +992,26 @@ font-family: 'Dosis', sans-serif;
     overflow-x: inherit;
     text-align: center;    
 }
-    
-    
+
+.toppingImage {
+    grid-area: topping;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    overflow-x: inherit;
+    text-align: center;
+}
+.sauceImage {
+    grid-area: sauce;
+    display: grid;
+    grid-gap: 8%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 13%);
+    overflow-x: inherit;
+    text-align: center;
+}
+
 .breadImageTop {
     grid-area: 1/1/2/3;
 }
@@ -983,13 +1020,13 @@ font-family: 'Dosis', sans-serif;
         grid-area: 3/1/4/3; 
     }
 .sidesImage {
-    grid-area: 4/1/5/2;
+    grid-area: sides;
     display: grid;
     grid-gap: 3%;
     grid-template-columns: repeat(auto-fill,5%);
 }
 .drinkImage {
-    grid-area: 4/2/5/3;
+    grid-area: drink;
     display: grid;
     grid-gap: 3%;
     grid-template-columns: repeat(auto-fill,8%);
@@ -1088,7 +1125,6 @@ font-family: 'Dosis', sans-serif;
 
 
    .button-label  {
-
        display: inline-block;
        position: relative;
        margin-bottom: 0;
