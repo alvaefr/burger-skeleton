@@ -866,7 +866,7 @@ font-family: 'Dosis', sans-serif;
     .tab {
         grid-area: top;
         margin: 0% 5% 0% 0%;
-        
+
     }
     
 
