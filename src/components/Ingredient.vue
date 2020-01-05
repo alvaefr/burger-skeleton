@@ -172,10 +172,7 @@
     .count {
        display: inline-block;
         background-color: rgb(168, 223, 159);
-        border-top: 0.11vw solid  rgba(30, 130, 76, 1);
-        border-bottom: 0.11vw solid  rgba(30, 130, 76, 1);
-        border-left: 0.11vw solid rgba(135, 211, 124, 1);
-        border-right: 0.11vw solid rgba(135, 211, 124, 1);
+      
         border: 0.11vw solid  rgba(30, 130, 76, 1);
         color: black;
         font-size: 1.5vw;
@@ -266,7 +263,7 @@
 
 
         .image {
-            height: 11vw;
+            height: 6vw;
             width: 11vw;
         }
         
@@ -284,6 +281,12 @@
         height: 4.5vw;
         margin-bottom: 1.5vw;
         padding-bottom: 0.2vw;
+        text-align: center;
+        border-top: 0.21vw solid rgba(30, 130, 76, 1);
+        border-right: 0.21vw solid rgba(30, 130, 76, 1);
+        border-bottom: 0.21vw solid rgba(30, 130, 76, 1);
+        border-left: 0.21vw solid rgba(135, 211, 124, 1);
+        
     }
 
     .count {
@@ -292,7 +295,8 @@
         width: 39%;
         height: 4.5vw;
         margin-bottom: 1.5vw;
-        padding-bottom: 0.2vw;
+        padding-bottom: 1vw;
+        border: 0.21vw solid  rgba(30, 130, 76, 1);
     }
     
     #dec {
@@ -302,8 +306,15 @@
         font-size: 4vw;
         width: 25%;
         height: 4.5vw;
+        background-color: rgba(135, 211, 124, 1);
+        border-radius: 1em 0em 0em 1em;
+        border-top: 0.21vw solid rgba(30, 130, 76, 1);
+        border-left: 0.21vw solid rgba(30, 130, 76, 1);
+        border-bottom: 0.21vw solid rgba(30, 130, 76, 1);
+        border-right: 0.21vw solid rgba(135, 211, 124, 1);
         margin-bottom: 1.5vw;
         padding-bottom: 0.2vw;
+        
     }
         .radioButton input[type='radio'] {
             -webkit-box-sizing: border-box;
