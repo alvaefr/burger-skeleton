@@ -234,9 +234,11 @@
                     <h1 id="burgerNo"> Burger {{ burger.no + 1}} </h1>
 
                     <hr class="burgerScrollLine">
-
+                    
+                    <div class="scrollForIng">
                     <div id=ingredientsInBurger v-for="countIng in burger.ingredientsShow" :key="burger.ingredientsShow.indexOf(countIng)">
                         {{countIng.count}}x  {{ countIng.name }}: {{countIng.ingPrice*countIng.count}} :-
+                    </div>
                     </div>
 
                     <div id="burgerTotal">
@@ -1221,22 +1223,36 @@ font-family: 'Dosis', sans-serif;
         border-radius: 4vw;
         border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
-        font-size: calc(6e10px + 1vw - 6e10px);
+
+        font-size: calc(9px + .5vw);
 
     }
 
     .burgerScrollLine {
           border: 1px solid  rgb(166, 166, 166);
     }
+    
+    .scrollForIng {
+        background-color: rgba(232, 232, 232, 0);
+        height: 8vw;
+        overflow-y: scroll;
+      
+        
+    }
 #burgerNo {
     text-align: center;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
+   
+
 }
+    
+  
+    
 #burgerTotal {
-    position: absolute;
-    bottom: 4em;
+    position: relative;
+    bottom: 0.2vw;
 }
     #deleteBurgerButton {
         position: absolute;
