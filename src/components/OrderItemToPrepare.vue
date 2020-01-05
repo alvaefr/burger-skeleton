@@ -7,8 +7,10 @@
     :order="order"
     :categoryNum ="categoryNum">
   </OrderItem>
+
   <input type="checkbox" id="ossm" name="ossm" v-on:click = "orderDone">
   <label for="ossm"> DONE! </label>
+
   </div>
 
 
@@ -45,6 +47,7 @@ export default {
           display: none;
                 margin: 5%;
       }
+
 input[type=checkbox] + label {
 
   color: #ccc;
@@ -56,4 +59,5 @@ input[type=checkbox]:checked + label {
   background-color: green;
   font-style: normal;
 }
+
 </style>
