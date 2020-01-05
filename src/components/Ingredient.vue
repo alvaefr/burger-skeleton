@@ -33,9 +33,17 @@
      
 
         <h3 class="price">{{item.selling_price}}:- </h3>
-
-        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
-
+            <div v-if="item.category == 6 || item.category == 5">
+        <img class="image1" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
+        </div>
+        
+         <div v-if="item.category == 4">
+        <img class="image3" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
+        </div>
+        
+        <div v-if="item.category == 1 || item.category == 2 || item.category == 3 ">
+        <img class="image2" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
+        </div>
 
         <div class="filter">
             <span v-if="item.gluten_free"> <img class="gluten" src="@/assets/gluten2.png" height="33"> </span>
@@ -241,10 +249,22 @@
 
     }
 
-    .image {
+    .image1 {
+        grid-area: 1 / 1 / 2 / 2;
+        height: 4vw;
+        width: 3vw;
+    }
+    
+    .image2 {
         grid-area: 1 / 1 / 2 / 2;
         height: 2vw;
         width: 4vw;
+    }
+    
+     .image3 {
+        grid-area: 1 / 1 / 2 / 2;
+        height: 1vw;
+        width: 5vw;
     }
 
     .filter {
@@ -262,9 +282,19 @@
     @media only screen and (max-width: 500px) {
 
 
-        .image {
-            height: 6vw;
-            width: 11vw;
+        .image1 {
+            height: 8vw;
+            width: 6vw;
+        }
+        
+          .image2 {
+            height: 4vw;
+            width: 8vw;
+        }
+        
+          .image3 {
+            height: 2vw;
+            width: 10vw;
         }
         
         .head {

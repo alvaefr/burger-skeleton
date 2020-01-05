@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <div class="ingredientsList">
+                <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
                     <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
@@ -939,7 +939,10 @@ font-family: 'Dosis', sans-serif;
 
     /*                          SIDEVIEW WITH THE BURGERS INGREDIENTS               */
     .Burger {
-        padding: 1em;
+        padding-top: 1vw;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-bottom: 0.2em;
         grid-area: Burger;
         display: grid;
         grid-template-columns: 100%;
@@ -965,6 +968,7 @@ font-family: 'Dosis', sans-serif;
 /*                            CSS EDITS FOR THE IMAGES OF THE INGREDIENTS             */
 .ingredientsPics {
     grid-area: ingPics;
+
     display: grid;
     grid-template-rows: 15% 50% 15% 20%;
     grid-template-columns: 50% 50%;
@@ -975,9 +979,8 @@ font-family: 'Dosis', sans-serif;
 .burgerImage {
     grid-area: 2/1/3/3;
     display: grid;
-    grid-gap: 3%;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 8%);
+    grid-template-rows: repeat(auto-fill,5%);
     overflow-x: inherit;
     text-align: center;    
 }
@@ -1008,15 +1011,22 @@ font-family: 'Dosis', sans-serif;
 }
 .ingredientsList {
     grid-area: ingList;
-    font-size: 1vw;
+    font-size: 1.2vw;
 
 }
+    
+    .ingredientsListContent {
+        background-color: transparent;
+        overflow-y: scroll;
+    
+    }
  /*                     EDITS FOR THE >>TOTAL<< GRID                    */
     .Total {
         grid-area: Total;
         background-color: rgba(232, 232, 232, 0.92);
         border-radius: 1em;
-        height: 100%;
+        height: 87%;
+        padding-top: 4px;
         border-bottom: 3px solid #FFF;
         border-right: 3px solid #FFF;
         border-left: 3px solid #FFF;
