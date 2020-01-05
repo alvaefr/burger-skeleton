@@ -1,6 +1,6 @@
 <template>
     <section class="example-panel">
-        
+
 <!--
     <div v-if="loading">
         
@@ -546,7 +546,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.currentOrder.editingBurger = true;  // Denna visar bara att användaren redigerar någon burgare
              this.chosenIngredients = burger.ingredients;
              this.price = burger.price;
-             this.view = "showMenu"
+             this.view = "showMenu";
              this.categoryNumber = 1;
          
          },
@@ -572,7 +572,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
                }
              this.currentOrder.burgers= [];
              this.currentOrder.editinBurger=false;
-
              this.chosenIngredients = [];
              this.buttonClickable= false;
              this.orderNumber= "";
@@ -590,10 +589,19 @@ necessary Vue instance (found in main.js) to import your data and methods */
          },
          duplicateBurger: function (burger) {   // FUNKTION SOM FIXAR NY BURGARE EXAKT LIKADAN. Just nu problem med
                                                 // att om man ska redigera en, redigeras ALLA duplicerade.
-             var newBurger,
-                 newBurger = burger;
-             this.currentOrder.burgers.push(newBurger)
-             this.totalPrice += burger.price;
+             this.addBurger()
+             for (let i=0;i<burger.ingredients.length;i+=1) {
+                 this.addToBurger(burger.ingredients[i])
+             }
+
+             this.price = burger.price;
+             this.currentOrder.burgers.push({
+                 ingredients: this.chosenIngredients,
+                 price: this.price,
+                 editingThisBurger: false
+             });
+
+
          },
          updatePrice: function () {     //Här uppdateras priset
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
