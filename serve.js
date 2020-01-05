@@ -4,7 +4,7 @@
 
 // Generate webpack config with CLI service
 const webpackConfig = require("@vue/cli-service/webpack.config.js");
-
+/* eslint-disable no-console */
 // Create express app
 const express = require("express");
 const app = express();
@@ -77,10 +77,15 @@ io.on('connection', function (socket) {
     io.emit('currentQueue', {orders: data.getAllOrders() });
   });
 
-  socket.on('updateStock', function (item, saldo) {
-    data.changeStock(item, saldo);
+  socket.on('updateStock', function (item) {
+    data.changeStock(item);
     io.emit('currentQueue', {ingredients: data.getIngredients() });
   });
+    socket.on('addIngredient', function (ingredient) {
+        data.addIngredient(ingredient);
+        io.emit('currentQueue', {ingredients: data.getIngredients()});
+        console.log(ingredient)
+    });
 });
 
 const port = 8080;

@@ -38,5 +38,11 @@
   "backfirstpage": "Back to the first page",
   "editBurger": "Edit this burger",
   "price": "Price",
-  "duplicate": "One more!"
+  "duplicate": "One more!",
+  "svIngName": "Swedish name",
+  "enIngName": "English name",
+  "gluten": "With gluten",
+  "lactose": "With lactose",
+  "notVegan": "Not vegan",
+  "stock": "Stock"
 }

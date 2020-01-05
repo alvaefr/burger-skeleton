@@ -38,5 +38,11 @@
   "backfirstpage": "Tillbaka till förstasidan",
   "editBurger": "Ändra denna burgare",
   "price": "Pris",
-  "duplicate": "En till!"
+  "duplicate": "En till!",
+  "svIngName": "Svenskt namn",
+  "enIngName": "Engelskt namn",
+  "gluten": "Innehåller gluten",
+  "lactose": "Innehåller laktos",
+  "notVegan": "Ej vegansk",
+  "stock": "I lager"
 }
