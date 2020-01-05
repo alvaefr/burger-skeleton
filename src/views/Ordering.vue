@@ -169,7 +169,7 @@
                 <div class="ingredientsList">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
+                    <button v-on:click="delFromBurger(item.ing); checkBurger()" :disabled="item.category_num == 4"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
                 </div>
                 </div>
             </div>
@@ -186,7 +186,8 @@
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center  >{{uiLabels.glutenFilter}}</p>
+                           
+                        <p  class="textFilter" align=center> <img width=50% align=center src="@/assets/gluten2.png"> <br>{{uiLabels.glutenFilter}}</p>
                         </span>
                         </span>
                     </label>
@@ -197,7 +198,7 @@
                     <input  class="label__checkbox" type="checkbox"  v-model="vegan" v-on:change="showVeganFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center >{{uiLabels.veganFilter}}</p>
+                        <p  class="textFilter" align=center> <img width=40% align=center src="@/assets/vegan2.png"> <br>{{uiLabels.veganFilter}}</p>
                         </span>
                         </span>
                     </label>
@@ -208,7 +209,7 @@
                     <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p align=center >{{uiLabels.lactoseFilter}}</p>
+                        <p class="textFilter" margin-block-start=0em; align=center> <img width=40% src="@/assets/milk2.png"> {{uiLabels.lactoseFilter}}</p>
                         </span>
                         </span>
                 </label>
@@ -1557,15 +1558,21 @@ font-family: 'Dosis', sans-serif;
           border-radius: 50%;
           border: 5px solid rgba(0,0,0,0.1);
           background: rgba(255,255,255, 0.9);
-          width: 5vw;
-          height: 5vw;
+          width: 6vw;
+          height: 6vw;
           font-size: 1.4vw;
           cursor: pointer;
           transition: border .001s ease;
-          text-align: center;
-          margin-top: 2%;
+          margin-top: 1%;
           line-height: 1;
     }
+    
+    .textFilter {
+        position: absolute; 
+        
+        
+        
+    }    
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
