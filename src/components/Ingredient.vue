@@ -10,9 +10,7 @@
                 <button id="dec" v-on:click="decrementCounter($event)" :disabled="itemCount === 0">-</button>
 
                <button class="count"> {{  itemCount  }}</button>
-                <button id="inc" v-on:click="incrementCounter($event)"
-                        :disabled="item.category === 4 && itemCount >= 1">+
-                </button>
+                <button id="inc" v-on:click="incrementCounter($event)">+</button>
                 <br>
             </div>
 
@@ -36,7 +34,7 @@
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
-        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="60"/>
+        <img class="image" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
 
 
         <div class="filter">
@@ -146,6 +144,8 @@
 
     .head {
              grid-area: 1 / 2 / 2 / 3; 
+            color: black;
+            opacity: 0.7;
 
     }
 
@@ -153,46 +153,50 @@
 
     #inc {
         display: inline-block;
-       cursor: pointer;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-radius: 0em 5em 5em 0em;
-        border-top: 0.1vw solid rgb(255, 179, 26);
-        border-right: 0.1vw solid rgb(255, 179, 26);
-        border-bottom: 0.1vw solid rgb(255, 179, 26);
-        border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
-        color: rgba(103, 87, 76, 1);
+        cursor: pointer;
+        background-color: rgba(135, 211, 124, 1);
+        border-radius: 0em 1em 1em 0em;
+        border-top: 0.11vw solid rgba(30, 130, 76, 1);
+        border-right: 0.11vw solid rgba(30, 130, 76, 1);
+        border-bottom: 0.11vw solid rgba(30, 130, 76, 1);
+        border-left: 0.11vw solid rgba(135, 211, 124, 1);
+        color: black;
         font-size: 1.5vw;
         width: 25%;
         height: 2vw;
         margin-bottom: 1vw;
         padding-bottom: 0.2vw;
+        opacity: 0.7;
     }
 
     .count {
        display: inline-block;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-top: 0.1vw solid  rgb(255, 179, 26);
-        border-bottom: 0.1vw solid  rgb(255, 179, 26);
-          border-left: 0.1vw solid rgb(255, 224, 102, 0.9);
-          border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
-        color: rgba(103, 87, 76, 1);
+        background-color: rgb(168, 223, 159);
+        border-top: 0.11vw solid  rgba(30, 130, 76, 1);
+        border-bottom: 0.11vw solid  rgba(30, 130, 76, 1);
+        border-left: 0.11vw solid rgba(135, 211, 124, 1);
+        border-right: 0.11vw solid rgba(135, 211, 124, 1);
+        border: 0.11vw solid  rgba(30, 130, 76, 1);
+        color: black;
         font-size: 1.5vw;
         width: 39%;
         height: 2vw;
         padding-bottom: 0.2vw;
         margin-bottom: 1vw;
+        opacity: 0.7;
     }
     
     #dec {
-         display: inline-block;
+        display: inline-block;
         cursor: pointer;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-radius: 5em 0em 0em 5em;
-        border-top: 0.1vw solid rgb(255, 179, 26);
-        border-left: 0.1vw solid rgb(255, 179, 26);
-        border-bottom: 0.1vw solid rgb(255, 179, 26);
-        border-right: 0.1vw solid rgb(255, 224, 102, 0.9);
-        color: rgba(103, 87, 76, 1);
+        background-color: rgba(135, 211, 124, 1);
+        border-radius: 1em 0em 0em 1em;
+        border-top: 0.11vw solid rgba(30, 130, 76, 1);
+        border-left: 0.11vw solid rgba(30, 130, 76, 1);
+        border-bottom: 0.11vw solid rgba(30, 130, 76, 1);
+        border-right: 0.11vw solid rgba(135, 211, 124, 1);
+        opacity: 0.7;
+        color: black;
         font-size: 1.5vw;
         width: 25%;
         height: 2vw;
@@ -209,21 +213,21 @@
         width: 2.3vw;
         height: 1.8vw;
         margin-bottom: 8vw;
-        margin-left: auto;
-        margin-top: auto;
+        margin-left: 0.3em;
+        margin-top: 0.2em;
         transform: scale(5.8);
         border-radius: 0.2vw;
         -webkit-transition: all 0.2s;
         opacity: 0;
     }
     .radioButton input[type='radio']:checked {
-        background: forestgreen;
-        border: 1px green;
+        background: rgba(135, 211, 124, 1);
+        border: 1px rgba(30, 130, 76, 1);
         border-style: double;
-        opacity: 0.2;
+        opacity: 0.4;
     }
     .buttons input:hover {
-        background: yellowgreen;
+        background: rgba(135, 211, 124, 1);
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         transform: scale(6);
@@ -242,7 +246,7 @@
 
     .image {
         grid-area: 1 / 1 / 2 / 2;
-        height: 4vw;
+        height: 2vw;
         width: 4vw;
     }
 
@@ -275,11 +279,6 @@
     #inc {
         display: inline-block;
        cursor: pointer;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-radius: 0em 5em 5em 0em;
-        border-top: 0.3vw solid rgb(255, 179, 26);
-        border-right: 0.3vw solid rgb(255, 179, 26);
-        border-bottom: 0.3vw solid rgb(255, 179, 26);
         font-size: 4vw;
         width: 25%;
         height: 4.5vw;
@@ -289,9 +288,6 @@
 
     .count {
        display: inline-block;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-bottom: 0.3vw solid rgb(255, 179, 26);
-        border-top: 0.3vw solid rgb(255, 179, 26);
         font-size: 4vw;
         width: 39%;
         height: 4.5vw;
@@ -302,11 +298,6 @@
     #dec {
          display: inline-block;
         cursor: pointer;
-        background-color: rgb(255, 224, 102, 0.9);
-        border-radius: 5em 0em 0em 5em;
-        border-top: 0.3vw solid rgb(255, 179, 26);
-        border-left: 0.3vw solid rgb(255, 179, 26);
-        border-bottom: 0.3vw solid rgb(255, 179, 26);
         color: rgba(103, 87, 76, 1);
         font-size: 4vw;
         width: 25%;
@@ -333,11 +324,8 @@
             opacity: 0;
         }
         .radioButton input[type='radio']:checked {
-            background: forestgreen;
-            border: 1px green;
             border-style: double;
             opacity: 0.2;
-
 
         }
 

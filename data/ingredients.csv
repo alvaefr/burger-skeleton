@@ -1,62 +1,63 @@
 ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,selling_price,img
-1,bönburgare,bean patty,1,1,1,1,40,grilled-eggplant.png,
-2,nötfärsburgare 100g,beef patty 100g,1,1,1,0,40,beef_patty_100.png
-3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,beef_patty_100.png
-4,kycklingburgare,chicken patty,1,1,0,0,40,chicken_patty.png
-5,friterad halloumi,deep-fried halloumi,1,0,0,0,40,halloumi.png
-6,fiskfilé,fish filet,1,1,0,0,40,fish_filet.png
-7,grillad aubergine,grilled eggplant,1,1,1,1,30,grilled-eggplant.png
-8,hummer,lobster,1,1,1,0,80,lobster.png
-9,pulled jackfruit,pulled jackfruit,1,1,1,1,40,jackfruit.png
-10,pulled pork,pulled pork,1,1,1,0,40,pulled_pork.png
-11,avocado,avocado,2,1,1,1,10,avocado.png
-12,bacon,bacon,2,1,1,0,10,bacon.png
-13,banan,banana,2,1,1,1,5,banana.png
-14,löjrom,bleak caviar,2,1,1,0,50,bleak_caviar.png
-15,karamelliserad lök,candied onions,2,1,1,1,5,vegan.png
-16,cheddar,cheddar cheese,2,0,1,0,10,cheddar.png
-17,koriander,cilantro,2,1,1,1,5,coriander.png
-18,coleslaw,coleslaw,2,1,1,0,5,coleslaw.png
-19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,onion_rings.png
-20,stekt ägg,fried egg,2,1,1,0,10,fried_eggs.png
-21,chèvre,goat cheese,2,0,1,0,10,chevre.png
-22,jalapeño,jalapeño,2,1,1,1,5,jalapeno.png
-23,kimchi,kimchi,2,1,1,1,10,kimchi.png
+1,bönburgare,bean patty,1,1,1,1,40,BeanPatty.png
+2,nötfärsburgare 100g,beef patty 100g,1,1,1,0,40,BeefPatty.png
+3,nötfärsburgare 200g,beef patty 200g,1,1,1,0,60,BeefPatty200.png
+4,kycklingburgare,chicken patty,1,1,0,0,40,ChickenPatty.png
+5,friterad halloumi,deep-fried halloumi,1,0,0,0,40,DeepFried_halloumi.png
+6,fiskfilé,fish filet,1,1,0,0,40,FishPatty.png
+7,grillad aubergine,grilled eggplant,1,1,1,1,30,AuberginePatty.png
+8,hummer,lobster,1,1,1,0,80,LobsterPatty.png
+9,pulled jackfruit,pulled jackfruit,1,1,1,1,40,JackfruitPatty.png
+10,pulled pork,pulled pork,1,1,1,0,40,PorkPatty.png
+11,avocado,avocado,2,1,1,1,10,Avocado.png
+12,bacon,bacon,2,1,1,0,10,Bacon.png
+13,banan,banana,2,1,1,1,5,Banana.png
+14,löjrom,bleak caviar,2,1,1,0,50,Bleak_caviar.png
+15,karamelliserad lök,candied onions,2,1,1,1,5,candied_onions.png
+16,cheddar,cheddar cheese,2,0,1,0,10,Cheddar.png
+17,koriander,cilantro,2,1,1,1,5,Coriander.png
+18,coleslaw,coleslaw,2,1,1,0,5,Coleslaw.png
+19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,Onion_rings.png
+20,stekt ägg,fried egg,2,1,1,0,10,Egg.png
+21,chèvre,goat cheese,2,0,1,0,10,Goat_cheese.png
+22,jalapeño,jalapeño,2,1,1,1,5,Jalapeno_single.png
+23,kimchi,kimchi,2,1,1,1,10,jalapeno.png
 24,krispsallad,lettuce,2,1,1,1,5,lettuce.png
-25,svampstuvning,mushroom stew,2,0,1,0,15,mushroom.png
-26,pepper jack-ost,pepper jack cheese,2,0,1,0,10,vegan.png
+25,svampstuvning,mushroom stew,2,0,1,0,15,Mushroom_stew.png
+26,pepper jack-ost,pepper jack cheese,2,0,1,0,10,Pepper_jack_cheese.png
 27,inlagd gurka,pickled cucumber,2,1,1,1,5,pickled_cucumber.png
-28,inlagd rödlök,pickled red onion,2,1,1,1,5,vegan.png
-29,rå rödlök,raw red onion,2,1,1,1,5,raw_red_onion.png
-30,rå gul lök,raw yellow onion,2,1,1,1,5,yellow_onion.png
-31,salami,salami,2,1,1,0,10,salami.png
-32,surkål,sauerkraut,2,1,1,1,5,vegan.png
-33,tomat,tomato,2,1,1,1,5,vegan.png
-34,vegansk ost,vegan cheese,2,1,1,1,10,vegan.png
-35,aioli,aioli,3,1,1,0,5,vegan.png
-36,ajvar,ajvar,3,1,1,1,5,vegan.png
-37,barbecuesås,barbecue sauce,3,1,1,1,0,vegan.png
-38,klassisk hamburgarsås,classic hamburger dressing,3,1,1,0,5,vegan.png
-39,dijonsås,dijon sauce,3,1,1,0,5,vegan.png
-40,guacamole,guacamole,3,1,1,1,10,vegan.png
-41,hot salsa,hot salsa,3,1,1,1,5,vegan.png
-42,hummus,hummus,3,1,1,1,10,vegan.png
-43,ketchup,ketchup,3,1,1,1,0,vegan.png
-44,majonnäs,mayonnaise,3,1,1,0,5,vegan.png
-45,senap,mustard,3,1,1,1,0,vegan.png
-46,sriracha,sriracha,3,1,1,1,0,vegan.png
-47,teriyakisås,teriyaki sauce,3,1,1,1,5,vegan.png
-48,tryffelmajonnäs,truffle mayonnaise,3,1,1,0,5,vegan.png
-49,tzatziki,tzatziki,3,0,1,0,5,vegan.png
-50,brioche,brioche,4,0,0,0,10,brioche.png
-51,glutenfritt bröd,gluten free bread,4,1,1,1,10,gluten_free_bread.png
-52,veganskt bröd,vegan bun,4,0,0,1,10,vegan_bread.png
-53,fullkornsbrioche,whole wheat brioche,4,0,0,0,10,whole_wheat.png
-54,nachochips,nachos,5,1,0,1,20,nachos.png
-55,potatisstrips,potato fries,5,1,1,1,20,french_fries.png
-56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,sweet_potato_fries.png
-57,chokladmilkshake,chocolate milk shake,6,0,1,0,40,vegan.png
-58,pucko,pucko,6,0,1,0,25,pucko.png
-59,läsk,soda,6,1,1,1,20,vegan.png
-60,jordgubbsmilkshake,strawberry milk shake,6,0,1,0,40,vegan.png
-61,vegansk mango lassi,vegan mango lassi,6,1,1,1,40,vegan.png
+28,inlagd rödlök,pickled red onion,2,1,1,1,5,Pickled_onions.png
+29,rå rödlök,raw red onion,2,1,1,1,5,Red_onions.png
+30,rå gul lök,raw yellow onion,2,1,1,1,5,Raw_onions.png
+31,salami,salami,2,1,1,0,10,Salamis.png
+32,surkål,sauerkraut,2,1,1,1,5,lettuce.png
+33,tomat,tomato,2,1,1,1,5,Tomat_Single.png
+34,vegansk ost,vegan cheese,2,1,1,1,10,Vegansk_ost.png
+35,aioli,aioli,3,1,1,0,5,Aioli.png
+36,ajvar,ajvar,3,1,1,1,5,Ajvar.png
+37,barbecuesås,barbecue sauce,3,1,1,1,0,Barbecue_sauce.png
+38,klassisk hamburgarsås,classic hamburger dressing,3,1,1,0,5,classic_hamburger_dressing.png
+39,dijonsås,dijon sauce,3,1,1,0,5,DijonSauce.png
+40,guacamole,guacamole,3,1,1,1,10,Guacamole.png
+41,hot salsa,hot salsa,3,1,1,1,5,HotSauce.png
+42,hummus,hummus,3,1,1,1,10,Hommus.png
+43,ketchup,ketchup,3,1,1,1,0,Ketchup.png
+44,majonnäs,mayonnaise,3,1,1,0,5,mayonnaise.png
+45,senap,mustard,3,1,1,1,0,Mustard.png
+46,sriracha,sriracha,3,1,1,1,0,Sriracha.png
+47,teriyakisås,teriyaki sauce,3,1,1,1,5,Teriyaki_sauce.png
+48,tryffelmajonnäs,truffle mayonnaise,3,1,1,0,5,Truffle_mayonnaise.png
+49,tzatziki,tzatziki,3,0,1,0,5,Tzatziki.png
+50,brioche,brioche,4,0,0,0,10,Aioli.png
+51,glutenfritt bröd,gluten free bread,4,1,1,1,10,Aioli.png
+52,veganskt bröd,vegan bun,4,0,0,1,10,Aioli.png
+53,fullkornsbrioche,whole wheat brioche,4,0,0,0,10,Aioli.png
+54,nachochips,nachos,5,1,0,1,20,Nachos.png
+55,potatisstrips,potato fries,5,1,1,1,20,Pommes.png
+56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,Sweet_potato_fries.png
+57,chokladmilkshake,chocolate milk shake,6,0,1,0,40,Chocolate_milkshake.png
+58,pucko,pucko,6,0,1,0,25,Pucko.png
+59,läsk,soda,6,1,1,1,20,Läsk.png
+60,jordgubbsmilkshake,strawberry milk shake,6,0,1,0,40,Straberry_milkshake.png
+61,vegansk mango lassi,vegan mango lassi,6,1,1,1,40,Lassi.png
+
