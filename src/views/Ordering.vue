@@ -23,7 +23,7 @@
             </div>
 
             <div class="mealLocation">
-                <p>{{ uiLabels.beginOrder }}</p><br>
+                <p class="beginOrder">{{ uiLabels.beginOrder }}</p><br>
                 <button class="mealButton" v-on:click="setView(showOverview); popUp()">{{ uiLabels.eathere }}</button>
                 <button class="mealButton" v-on:click="setView(showOverview), takeAway(); popUp()">{{ uiLabels.togo }}</button>
             </div>
@@ -738,8 +738,11 @@ font-family: 'Dosis', sans-serif;
         font-size: 6vw;
         overflow: inherit;
         text-align: center;
-        font-weight: bold;
-        
+        font-weight: bold; 
+    }
+    
+    .beginOrder {
+        color: rgb(73, 62, 54);
     }
 
     .mealLocation {
@@ -776,7 +779,7 @@ font-family: 'Dosis', sans-serif;
     .mealButton {
         background-color: rgba(177, 160, 149, 0.65);
         font-family: 'Dosis', sans-serif;
-        color: black;
+        color: rgb(73, 62, 54);
         font-size: 4vw;
         border-radius: 0.25em;
         padding: 0.6em;
@@ -785,7 +788,7 @@ font-family: 'Dosis', sans-serif;
       
     }
     .mealButton:hover {
-        background-color: black;
+        background-color: rgb(157, 137, 123);
         color: white;
         cursor: pointer;
     }
