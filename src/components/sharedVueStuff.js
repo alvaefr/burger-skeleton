@@ -1,3 +1,4 @@
+
 'use strict';
 
 // Stuff that is used both in the ordering system and in the kitchen

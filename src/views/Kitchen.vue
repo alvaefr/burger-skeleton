@@ -49,7 +49,7 @@
       <OrderItemToPrepare
       v-for="(order, key) in orders"
       v-if="order.status !== 'done' && isCategory(category_burger, order.burgers)"
-      v-on:done="markDone(key), existInCatBurgers(order)"
+      v-on:done="markDone(key)"
       :order-id="key"
       :order="order"
       :ui-labels="uiLabels"
@@ -86,7 +86,7 @@
       <div class = 'grid-container-burgers'>
         <OrderItemToPrepare
           v-for="(order, key) in orders"
-          v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers) && existInCatBurgers(order) === true"
+          v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers)"
           v-on:done="markDone(key)"
           :order-id="key"
           :order="order"
@@ -149,8 +149,7 @@
             undoList: [],
             unDoButton: true,
             doneOrder: 0,
-            ingredientsCat: {}
-      }
+                }
     },
     computed:{
       // let newUndoList = {};
