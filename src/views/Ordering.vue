@@ -131,12 +131,12 @@
 
                     <div class="sidesImage">
                         <div v-for="item in burgerDisplay.sides">
-                                <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                                <img :src="require('../assets/' + item.img)" width="45" height="60"/>
                         </div>
                     </div>
                     <div class="drinkImage">
                         <div v-for="item in burgerDisplay.drinks">
-                                <img :src="require('../assets/' + item.img)" width="40" height="40"/>
+                                <img :src="require('../assets/' + item.img)" width="45" height="60"/>
                         </div>
                     </div>
 
