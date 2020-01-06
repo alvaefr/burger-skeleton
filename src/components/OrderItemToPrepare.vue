@@ -38,11 +38,13 @@ export default {
     orderDone: function (order) {
       // sending 'done' message to parent component or view so that it
       // can catch it with v-on:done in the component declaration
+
       if (this.burgers === 1) {
         this.$emit('Bdone', order);
       }else {
         this.$emit('Sdone', order);
       }
+
     },
     cancelOrder: function () {
       // not implemented
@@ -64,7 +66,7 @@ input[type=checkbox] + label {
 }
 input[type=checkbox]:checked + label {
   color: #f00;
-  background-color: green;
+  background-color: red;
   font-style: normal;
 }
 

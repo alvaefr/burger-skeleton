@@ -39,6 +39,7 @@
 
             <!-- Undo Button End -->
 
+
             <div class='items'>
                 <div class='grid-container-burgers'>
                     <OrderItemToPrepare
@@ -67,6 +68,7 @@
             <div class='head'>Sides and drinks</div>
 
             <!-- Undo Button -->
+
             <div v-if='undoList.sLst.length >= 1'>
 
                 <button class='undo' id='button'
@@ -74,6 +76,7 @@
                     Undo: {{undoList.sLst[undoList.sLst.length-1].orderId}}
                 </button>
             </div>
+
 
             <div class='items'>
                 <div class='grid-container-burgers'>
@@ -119,6 +122,7 @@
             <button id=back class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
         </div> <!-- Finished orders End-->
 
+<!-- Ingredients stock-->
         <div class='grid-container' v-show="category_view === 'Add Ingredients'">
             <div class='head'>Ingredients</div>
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
@@ -180,9 +184,8 @@
                 </div>
             </div>
         </div>
-
+<!-- Ingredients stock End-->
     </div> <!-- Orders End -->
-
 
 </template>
 <script>
@@ -224,7 +227,9 @@
                 },
             }
         },
+
         computed: {},
+
         methods: {
             isCategory: function (arr, itemArray) {
 
@@ -279,6 +284,8 @@
                 return true;
             },
             orderUnDoneBurger: function (order, orderid) {
+                order.burgerDone = false;
+              console.log("id: ",orderid, " burgerDone: ",   order.burgerDone);
                 this.$store.state.socket.emit("orderNotStarted", orderid);
                 this.undoList.bList.pop();
                 order.burgerDone = false;
@@ -287,6 +294,7 @@
                 this.$store.state.socket.emit("orderNotStarted", orderid);
                 this.undoList.sLst.pop();
                 order.drinkSidesDone = false;
+
             },
 
             setCategory_view: function (view) {
@@ -316,6 +324,7 @@
                 this.$store.state.socket.emit("updateStock", {ingredient: item}, this.change);
                 this.change = 0;
             },
+
             ingredientsCat: function (order) {
                 let burgers = order.burgers;
                 for (let j = 0; j < burgers.length; j += 1) {
@@ -328,6 +337,7 @@
 
         }
     }
+
 </script>
 <style scoped>
     #orders {
@@ -461,13 +471,11 @@
 
     }
 
-    .grid-container-addIngredients select {
-        background-color: antiquewhite;
+    .grid-container-addIngredients select{
+         background-color: antiquewhite;
+     }
+    .grid-container-addIngredients select:after{
 
-
-    }
-
-    .grid-container-addIngredients select:after {
         content: "";
         top: 14px;
         right: 10px;
@@ -476,7 +484,6 @@
         border: 6px solid transparent;
         border-color: #fff transparent transparent transparent;
     }
-
 
     .items {
         grid-area: main;
