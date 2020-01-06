@@ -29,16 +29,12 @@
             <div class='head'> Burger</div>
 
             <!-- Undo Button -->
-         <div v-if='undoList.length >= 1'>
-           <div v-if = 'isCategory(category_burger, undoList[undoList.length-1].burgers)'>
-                               <div v-if = "undoList[undoList.length-1].burgerDone === true">
-             <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
-                 Undo: {{undoList[undoList.length-1].orderId}}
-             </button>
+           <div v-if='undoList.length >= 1'>
+                 <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
+                   Undo: {{undoList[undoList.length-1].orderId}}
+               </button>
          </div>
-           </div>
-                    </div>
-                      <!-- Undo Button End -->
+         <!-- Undo Button End -->
 
             <div class='items'>
                 <div class='grid-container-burgers'>
@@ -66,21 +62,10 @@
 
             <!-- Undo Button -->
             <div v-if='undoList.length >= 1'>
-                       <div v-if = 'isCategory(category_drSi, undoList[undoList.length-1].burgers)'>
-                         <div v-if = "undoList[undoList.length-1].drinkSidesDone === true">
                      <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
                          Undo: {{undoList[undoList.length-1].orderId}}
                      </button>
-                 </div>
-                 </div>
                       </div>
-            <!-- <div v-for="(order, key) in undoList" :key="key">
-              <div v-show ="unDoButton === true">
-                <button id= 'button' v-on:click="orderUnDone(order.orderId)">
-                  Undo: {{order.orderId}}
-                </button>
-              </div>
-            </div> -->
 
             <div class='items'>
                 <div class='grid-container-burgers'>
@@ -124,6 +109,7 @@
             <button id=back class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
         </div> <!-- Finished orders End-->
 
+<!-- Ingredients stock-->
         <div class='grid-container' v-show="category_view === 'Add Ingredients'">
             <div class='head'>Ingredients</div>
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
@@ -183,9 +169,8 @@
             </div>
             </div>
         </div>
-
+<!-- Ingredients stock End-->
     </div> <!-- Orders End -->
-
 
 </template>
 <script>
@@ -225,28 +210,6 @@
             }
         },
         computed: {
-            // let newUndoList = {};
-            // for (let i = 0; i < this.undoList; i +=1){
-            //   for(let j = 0; i <this.undoList; j +=1){
-            //   if (!newUndolist.includes(this.undoList[j]))
-            //       newUndoList[i] = this.undoList[j];
-            //     }
-            //     }
-            // }
-            // return [...new Set(this.undoList)]}
-            // undoListReverse: function () {return this.undoList.reverse()}
-            //   countBeef100: function() {
-            //     return this.countNumberOfIngredients(2)
-            //   },
-            //   countAllIngredients: function() {
-            //     let ingredientTuples = []
-            //     for (let i = 0; i < this.ingredients.length; i += 1) {
-            //       ingredientTuples[i] = {};
-            //       ingredientTuples[i].name = this.ingredients[i]['ingredient_' + this.lang];
-            //       ingredientTuples[i].count = this.countNumberOfIngredients(this.ingredients[i].ingredient_id);
-            //     }
-            //     return ingredientTuples;
-            //   }
         },
         methods: {
             isCategory: function (arr, itemArray) {
@@ -281,7 +244,6 @@
                   if (this.exsitsinList(orderid) === true) {
                       this.undoList.push(this.orders[orderid])
                   }
-                  // if (this.undoList.length >3){
               },
             exsitsinList: function (orderid) {
                 if (this.undoList.length >= 1) {
@@ -298,14 +260,16 @@
                 return true;
             },
             orderUnDoneBurger: function (order, orderid) {
+                order.burgerDone = false;
+              console.log("id: ",orderid, " burgerDone: ",   order.burgerDone);
                 this.$store.state.socket.emit("orderNotStarted", orderid);
                 this.undoList.pop();
-                order.burgerDone = false;
             },
             orderUnDoneDrinkSides: function (order, orderid) {
+                order.drinkSidesDone = false;
+              console.log("id: ",orderid, " burgerDone: ",   order.drinkSidesDone);
               this.$store.state.socket.emit("orderNotStarted", orderid);
                 this.undoList.pop();
-                order.drinkSidesDone = false;
             },
 
             setCategory_view: function (view) {
@@ -336,28 +300,6 @@
                 this.$store.state.socket.emit("updateStock", {ingredient: item}, this.change);
                 this.change = 0;
             },
-            // countNumberOfIngredients: function (id) {
-            //   let counter = 0;
-            //   for (let order in this.orders) {
-            //     //Now we have an array of burgers in an order so we need to add a loop
-            //     let burgers = this.orders[order].burgers;
-            //     for (let j = 0; j < burgers.length; j += 1) {
-            //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
-            //         if (this.orders[order].status !== "done" &&
-            //             burgers[j].ingredients[i].ingredient_id === id) {
-            //           counter +=1;
-            //         }
-            //       }
-            //     }
-            //   }
-            //   return counter;
-            // }
-    // },
-    // orderUnDone: function (orderid) {
-    //     this.$store.state.socket.emit("orderNotStarted", orderid);
-    //     this.unDoButton = false;
-    //     this.undoList.pop();
-    // },
     setCategory_view: function(view) {
         this.category_view = view;
     },
@@ -369,26 +311,6 @@
             }
         }
     }
-
-
-    // countNumberOfIngredients: function (id) {
-    //   let counter = 0;
-    //   for (let order in this.orders) {
-    //     //Now we have an array of burgers in an order so we need to add a loop
-    //     let burgers = this.orders[order].burgers;
-    //     for (let j = 0; j < burgers.length; j += 1) {
-    //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
-    //         if (this.orders[order].status !== "done" &&
-    //             burgers[j].ingredients[i].ingredient_id === id) {
-    //           counter +=1;
-    //         }
-    //       }
-    //     }
-    //   }
-    //   return counter;
-    // }
-
-
   }
 }
 </script>
@@ -481,11 +403,11 @@
         cursor: pointer;
 
     }
-    
+
     .addIngredients:hover {
         background-color: darkblue;
     }
-    
+
 
     .grid-container-showIngredients {
         grid-area: main;

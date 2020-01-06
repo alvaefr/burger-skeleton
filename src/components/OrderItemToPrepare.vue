@@ -34,6 +34,7 @@ export default {
     orderDone: function () {
       // sending 'done' message to parent component or view so that it
       // can catch it with v-on:done in the component declaration
+
       this.$emit('done');
     },
     cancelOrder: function () {
@@ -56,7 +57,7 @@ input[type=checkbox] + label {
 }
 input[type=checkbox]:checked + label {
   color: #f00;
-  background-color: green;
+  background-color: red;
   font-style: normal;
 }
 
