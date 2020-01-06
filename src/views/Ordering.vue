@@ -98,22 +98,24 @@
             <div class="Burger">
 
                 <section id="ingHeader">
-                    <h1> {{uiLabels.order}}</h1> <hr>
+                    <h1> {{uiLabels.order}}</h1>
                 </section>
 
                 <!-- BURGARNA -->
-                <div class="ingredientsPics">
-
+        
+                  <div class="ingredientsPicsReal">
+                      
                     <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
                             <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
-                    <div class="breadImageTop" v-for="item in chosenIngredients" >
-                        <div v-if="item.category == 4">
-                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
-                        </div>
-                    </div>
+
+                      <div class="sauceImage">
+                          <div v-for="item in burgerDisplay.sauces">
+                              <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                          </div>
+                      </div>
 
                     <div class="burgerImage">
                          <div v-for="item in burgerDisplay.patty">
@@ -123,12 +125,6 @@
 
                     <div class="toppingImage">
                         <div v-for="item in burgerDisplay.toppings">
-                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                        </div>
-                    </div>
-
-                    <div class="sauceImage">
-                        <div v-for="item in burgerDisplay.sauces">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
                         </div>
                     </div>
@@ -143,14 +139,21 @@
                                 <img :src="require('../assets/' + item.img)" width="40" height="40"/>
                         </div>
                     </div>
-                </div>
 
+                  <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
+                    </div>
+                </div>
+               
                 <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
                     <button v-if="item.category_num !== 4" v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-if="item.category_num !== 4" v-on:click="addToBurger(item.ing)"> + </button>
                 </div>
                 </div>
+                    
             </div>
 
 
@@ -991,21 +994,21 @@ font-family: 'Dosis', sans-serif;
     text-align: center;
 }
 /*                            CSS EDITS FOR THE IMAGES OF THE INGREDIENTS             */
-.ingredientsPics {
+.ingredientsPicsReal {
     grid-area: ingPics;
-
     display: grid;
-    grid-template-rows: 14% 18% 16% 16% 16% 20%;
+    grid-template-rows: 10% 16% 16% 16% 10% 20%;
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
+    height: 115%;
 }
 
 .burgerImage {
     grid-area: patty;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,22%);
+    grid-template-rows: repeat(auto-fill,20%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1014,7 +1017,7 @@ font-family: 'Dosis', sans-serif;
     grid-area: topping;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,15%);
+    grid-template-rows: repeat(auto-fill,20%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1022,7 +1025,7 @@ font-family: 'Dosis', sans-serif;
     grid-area: sauce;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,15%);
+    grid-template-rows: repeat(auto-fill,20%);
     text-align: center;
 }
 .breadImageTop {
@@ -1039,13 +1042,15 @@ font-family: 'Dosis', sans-serif;
     grid-template-columns: repeat(auto-fill,22%);
 }
 .drinkImage {
+  
     grid-area: drinks;
     display: grid;
     grid-template-columns: repeat(auto-fill,17%);
 }
 .ingredientsList {
-    grid-area: ingList;
+    grid-area: ingList;    
     font-size: 1.2vw;
+    
 
 }
 
@@ -1764,17 +1769,22 @@ font-family: 'Dosis', sans-serif;
     .Burger {
         font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2;
-        height: 75%;
-
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 15% 65%;
+        grid-template-areas: "ingHeader ingHeader" "ingList ingPics";
+        height: 90%;
     }
 
+    .Burger h1 {
+        font-size: 6vw;
+        margin-top: 0.2vw;
+    }
     .Total {
-
         grid-area: 5 / 1 / 6 / 2;
         padding-top: 4px;
         padding-left: 24px;
         height: 80%;
-
     }
 
     .Total h2 {
@@ -2028,7 +2038,97 @@ font-family: 'Dosis', sans-serif;
         top: -10px;
         right: -10px;
     }
+   
+    /*APP BILDER FÖR BURGARE*/
+    
+    .ingredientsPics {
+    
+    margin-right: 2em;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "Text Picture";
+    position: relative;
+}
 
+    .ingredientsPicsReal {
+    grid-area: ingPics;
+    margin-right: 2em;
+    display: grid;
+    grid-template-rows: 16% 16% 16% 16% 16% 20%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "drinks sides";
+    position: relative;
+}
+    
+.burgerImage {
+    grid-area: patty;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill,5%);
+    overflow-x: inherit;
+    text-align: center;  
+}
+
+.toppingImage {
+    grid-area: topping;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    overflow-x: inherit;
+    text-align: center;
+}
+.sauceImage {
+    grid-area: sauce;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    text-align: center;
+}
+
+.breadImageTop {
+    grid-area: breadTop;
+    text-align: center;
+}
+
+.breadImageLow {
+    grid-area: breadLow;
+    text-align: center;
+}
+.sidesImage {
+    grid-area: sides;
+    text-align: center;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-columns: min-content;
+    grid-template-columns: repeat(auto-fill,5vw);
+}
+.drinkImage {
+    text-align: center;
+    grid-area: drinks;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,5vw);
+}
+.ingredientsList {
+font-size: 4vw;
+
+}
+    .ingredientsListContent {
+        padding-top: 10px;
+       grid-area: ingList;
+        background-color: transparent;
+   
+    }
+    
+    #ingHeader {
+        font-size: 4vw;
+        margin-top: 0em;
+        padding-top: 0em;
+        height: 2vw;
+    }
+    
 
 
 /*    THANKS FOR ORDERING - SIDAN */
