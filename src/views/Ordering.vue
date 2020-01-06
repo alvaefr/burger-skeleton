@@ -988,7 +988,7 @@ font-family: 'Dosis', sans-serif;
         height: 96%;
     }
     .Burger button {
-        font-size: 0.7vw;
+        font-size: 0.5vw;
         float: right;
     }
     .Burger h1 {
@@ -2145,6 +2145,7 @@ font-size: 4vw;
         padding-top: 10px;
        grid-area: ingList;
         background-color: transparent;
+        height: 120%;
    
     }
     

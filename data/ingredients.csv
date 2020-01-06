@@ -9,15 +9,15 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 8,hummer,lobster,1,1,1,0,80,LobsterPatty.png
 9,pulled jackfruit,pulled jackfruit,1,1,1,1,40,JackfruitPatty.png
 10,pulled pork,pulled pork,1,1,1,0,40,PorkPatty.png
-11,avocado,avocado,2,1,1,1,10,Avocado.png
-12,bacon,bacon,2,1,1,0,10,Bacon.png
-13,banan,banana,2,1,1,1,5,Banana.png
-14,löjrom,bleak caviar,2,1,1,0,50,Bleak_caviar.png
+11,avocado,avocado,2,1,1,1,10,avocado.png
+12,bacon,bacon,2,1,1,0,10,bacon.png
+13,banan,banana,2,1,1,1,5,banana.png
+14,löjrom,bleak caviar,2,1,1,0,50,bleak_caviar.png
 15,karamelliserad lök,candied onions,2,1,1,1,5,candied_onions.png
-16,cheddar,cheddar cheese,2,0,1,0,10,Cheddar.png
-17,koriander,cilantro,2,1,1,1,5,Coriander.png
-18,coleslaw,coleslaw,2,1,1,0,5,Coleslaw.png
-19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,Onion_rings.png
+16,cheddar,cheddar cheese,2,0,1,0,10,cheddar.png
+17,koriander,cilantro,2,1,1,1,5,coriander.png
+18,coleslaw,coleslaw,2,1,1,0,5,coleslaw.png
+19,friterade lökringar,deep-fried onion rings,2,1,0,1,15,onion_rings.png
 20,stekt ägg,fried egg,2,1,1,0,10,Egg.png
 21,chèvre,goat cheese,2,0,1,0,10,Goat_cheese.png
 22,jalapeño,jalapeño,2,1,1,1,5,Jalapeno_single.png
