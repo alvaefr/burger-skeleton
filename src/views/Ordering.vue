@@ -97,15 +97,6 @@
 
             <div class="Burger">
 
-<!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
-<!--                <h1>{{ uiLabels.order }}</h1>-->
-<!--                <div v-for="countIng in countAllIngredients"-->
-<!--                     :key="countAllIngredients.indexOf(countIng)">-->
-<!--                    {{countIng.count}}-->
-<!--                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr-->
-<!--                    &lt;!&ndash;<button v-on:click="delFromBurger(countIng)"> - </button> <br> &ndash;&gt;-->
-<!--                    &lt;!&ndash; button that deletes ingredient, måste kopplas till ingredient counter också &ndash;&gt;-->
-<!--                </div>-->
                 <section id="ingHeader">
                     <h1> {{uiLabels.order}}</h1> <hr>
                 </section>
@@ -124,7 +115,6 @@
                         </div>
                     </div>
 
-
                     <div class="burgerImage">
                          <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 1">
@@ -136,9 +126,7 @@
                     <div class="toppingImage">
                         <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 2">
-                                <!--                            <div  v-for="item in chosenIngredients">-->
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                                <!--                            </div>    -->
                             </div>
                         </div>
                     </div>
@@ -146,23 +134,24 @@
                     <div class="sauceImage">
                         <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 3">
-                                <!--                            <div  v-for="item in chosenIngredients">-->
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                                <!--                            </div>    -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="sidesImage" v-for="item in chosenIngredients">
-                         <div v-if="item.category == 5">
-                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
-                         </div>
+                    <div class="sidesImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 5">
+                                <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="drinkImage" v-for="item in chosenIngredients">
-                         <div v-if="item.category == 6">
-                        <img :src="require('../assets/' + item.img)" width="40" height="40"/>
-                         </div>
+                    <div class="drinkImage">
+                        <div v-for="item in chosenIngredients">
+                            <div v-if="item.category == 6">
+                                <img :src="require('../assets/' + item.img)" width="40" height="40"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -407,7 +396,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              name: "LoadingScreen",
              props: ["isLoading"],
              loading: false,
-             count: 0,
              gluten: 0,
              milk: 0,
              vegan: 0,
@@ -439,26 +427,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          this.$store.state.socket.on('')
      },
      computed: {
-         countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
-             // Räknar alla OLIKA ingredienser och hur många av dem
-             let ingredientTuples = []
-             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                 ingredientTuples[i] = {};
-                 ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-                 ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                 ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
-             }
-             var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
-                 .map(name => {
-                     return {
-                         name: name,
-                         count: ingredientTuples.find(o => o.name === name).count,
-                         ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
-                     };
-                 });
-             console.log(difIngredients)
-             return difIngredients;
-         },
          countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
              let severalBurgers = [];
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
@@ -975,22 +943,27 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         font-size: 1.5vw;
         overflow-y: scroll;
-        height: 90%;
+        height: 96%;
     }
     .Burger button {
         font-size: 0.7vw;
         float: right;
     }
+    .Burger h1 {
+        font-size: 2vw;
+        margin-top: 1vw;
+    }
 
 #ingHeader {
     grid-area: ingHeader;
+    text-align: center;
 }
 /*                            CSS EDITS FOR THE IMAGES OF THE INGREDIENTS             */
 .ingredientsPics {
     grid-area: ingPics;
 
     display: grid;
-    grid-template-rows: 16% 16% 16% 16% 16% 20%;
+    grid-template-rows: 14% 18% 16% 16% 16% 20%;
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
@@ -1000,7 +973,7 @@ font-family: 'Dosis', sans-serif;
     grid-area: patty;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,5%);
+    grid-template-rows: repeat(auto-fill,22%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1008,9 +981,8 @@ font-family: 'Dosis', sans-serif;
 .toppingImage {
     grid-area: topping;
     display: grid;
-    grid-gap: 3%;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 8%);
+    grid-template-rows: repeat(auto-fill,15%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1018,15 +990,13 @@ font-family: 'Dosis', sans-serif;
     grid-area: sauce;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 8%);
+    grid-template-rows: repeat(auto-fill,15%);
     text-align: center;
 }
-
 .breadImageTop {
     grid-area: breadTop;
     text-align: center;
 }
-
 .breadImageLow {
     grid-area: breadLow;
     text-align: center;
@@ -1034,15 +1004,12 @@ font-family: 'Dosis', sans-serif;
 .sidesImage {
     grid-area: sides;
     display: grid;
-    grid-gap: 3%;
-    grid-auto-columns: min-content;
-    grid-template-columns: repeat(auto-fill,5%);
+    grid-template-columns: repeat(auto-fill,22%);
 }
 .drinkImage {
     grid-area: drinks;
     display: grid;
-    grid-gap: 3%;
-    grid-template-columns: repeat(auto-fill,8%);
+    grid-template-columns: repeat(auto-fill,17%);
 }
 .ingredientsList {
     grid-area: ingList;
@@ -1165,21 +1132,16 @@ font-family: 'Dosis', sans-serif;
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
          input[type=radio]:hover + label{
-
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
 
     .tablinks  {
         position: absolute;
         visibility: hidden;
         display: none;
-
     }
-
 
     /* För overview-sidan*/
     .grid-containerOverview {
@@ -1337,11 +1299,7 @@ font-family: 'Dosis', sans-serif;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-
-
 }
-
-
 
 #burgerTotal {
     position: relative;
@@ -1427,7 +1385,6 @@ font-family: 'Dosis', sans-serif;
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
-        font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
         border: 3px solid rgb(255, 255, 51);
     }
