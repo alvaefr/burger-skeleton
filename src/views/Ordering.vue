@@ -116,41 +116,31 @@
                     </div>
 
                     <div class="burgerImage">
-                         <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 1">
+                         <div v-for="item in burgerDisplay.patty">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                            </div>
                          </div>
                     </div>
 
                     <div class="toppingImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 2">
+                        <div v-for="item in burgerDisplay.toppings">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                            </div>
                         </div>
                     </div>
 
                     <div class="sauceImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 3">
+                        <div v-for="item in burgerDisplay.sauces">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                            </div>
                         </div>
                     </div>
 
                     <div class="sidesImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 5">
+                        <div v-for="item in burgerDisplay.sides">
                                 <img :src="require('../assets/' + item.img)" width="50" height="50"/>
-                            </div>
                         </div>
                     </div>
                     <div class="drinkImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 6">
+                        <div v-for="item in burgerDisplay.drinks">
                                 <img :src="require('../assets/' + item.img)" width="40" height="40"/>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -416,6 +406,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
                  drinkSidesDone: false,
                  burgerDone:false
              },
+             burgerDisplay: {
+                 patty: [],
+                 bread: [],
+                 toppings: [],
+                 sauces: [],
+                 sides: [],
+                 drinks: []
+             },
              picBool: false,
              totalPrice: 0,
          }
@@ -473,12 +471,44 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
              this.totalPrice += item.selling_price;
+             console.log("hej")
+             this.updateBurgerDisplay(item);
          },
          delFromBurger: function (item) {  //Tar bort ingrediens
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
              this.totalPrice -= item.selling_price;
+             this.updateBurgerDisplay();
+         },
+         updateBurgerDisplay: function () {
+             this.burgerDisplay.patty = [];
+             this.burgerDisplay.toppings = [];
+             this.burgerDisplay.sauces = [];
+             this.burgerDisplay.bread = [];
+             this.burgerDisplay.sides = [];
+             this.burgerDisplay.drinks = [];
 
+             for (let i = 0; i < this.chosenIngredients.length; i ++) {
+                 if (this.chosenIngredients[i].category == 1) {
+                     this.burgerDisplay.patty.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 2) {
+                     this.burgerDisplay.toppings.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 3) {
+                     this.burgerDisplay.sauces.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 4) {
+                     this.burgerDisplay.bread.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 5) {
+                     this.burgerDisplay.sides.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 6) {
+                     this.burgerDisplay.drinks.push(this.chosenIngredients[i]);
+                 }
+             }
+             console.log(this.burgerDisplay)
          },
          ingredientCount: function (item) {  //Räknar ingredienserna.
              let counter = 0;
@@ -540,6 +570,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.buttonClickable=false;
              this.chosenIngredients = [];
              this.categoryNumber = 1;
+             this.updateBurgerDisplay();
          },
 
          addToOrder: function () {   //Lägg till burgaren till order!
@@ -609,6 +640,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price = burger.price;
              this.view = "showMenu";
              this.categoryNumber = 1;
+             this.updateBurgerDisplay();
 
          },
          deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
@@ -1302,8 +1334,8 @@ font-family: 'Dosis', sans-serif;
 }
 
 #burgerTotal {
-    position: relative;
-    bottom: 0.2vw;
+    position: absolute;
+    bottom: 4vw;
 }
 
     #deleteBurgerButton {
@@ -1979,10 +2011,14 @@ font-family: 'Dosis', sans-serif;
         padding: 0 1em;
         font-size: 2.8vw;
     }
+      #burgerTotal {
+          position: absolute;
+          bottom: 11vw;
+      }
 
 
     .scrollForIng {
-        height: 14vw;
+        height: 30vw;
     }
 
 
