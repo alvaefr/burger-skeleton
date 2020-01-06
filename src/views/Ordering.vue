@@ -250,6 +250,11 @@
 
 <!--OVERVIEW PAGE -->
             <div class="burgerOverview">
+                
+                <div id="OV_initialText" v-show="overviewText">
+                    {{uiLabels.overviewText}}
+                </div>
+                
 
                 <div class="burgerScroll" v-for="burger in countAllBurgers"
                      :key="countAllBurgers.indexOf(burger)">
@@ -402,6 +407,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              showOverview: "showOverview",
              showPayment: "showPayment",
              view: "showFront",
+             overviewText: true,
              currentOrder: {
                  burgers: [],
                  editingBurger: false,
@@ -578,6 +584,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
 
          addToOrder: function () {   //Lägg till burgaren till order!
            console.log(this.lang);
+        this.overviewText = false;     
            if (!this.buttonClickable){
              if (this.lang === 'sv'){
                alert("En burgare måste minst innehålla en puck och ett bröd");
@@ -1210,7 +1217,7 @@ font-family: 'Dosis', sans-serif;
     .orderText {
         font-size: 5.5vw;
         overflow: inherit;
-        margin-left: 2em;
+        margin-left: 1em;
         font-weight: bold;
         padding: 2%;
 
@@ -1233,6 +1240,17 @@ font-family: 'Dosis', sans-serif;
         text-align: center;
         margin: 1em;
 
+    }
+    
+    #OV_initialText {
+        font-size: 3vw;
+        overflow: inherit;
+        margin-left: 0em;
+        font-weight: bold;
+        padding: 2%;
+        margin-top: 2em;
+        text-align: center;
+        
     }
     .overviewBottom {
         grid-area: Bottom;
@@ -1965,6 +1983,11 @@ font-family: 'Dosis', sans-serif;
         padding: 2%;
         margin-left: 0em;
     }
+    
+    #OV_initialText {
+        font-size: 6.5vw;
+        margin-left: 0em;
+    }
 
     .overviewBottom {
         grid-area: Bottom;
@@ -2060,6 +2083,7 @@ font-family: 'Dosis', sans-serif;
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "drinks sides";
     position: relative;
+    height: 80%;
 }
     
 .burgerImage {

@@ -44,5 +44,7 @@
   "gluten": "Innehåller gluten",
   "lactose": "Innehåller laktos",
   "notVegan": "Ej vegansk",
-  "stock": "I lager"
+  "stock": "I lager",
+  "overviewText": "Börja din order genom att lägga till burgare"    
+    
 }

@@ -44,5 +44,6 @@
   "gluten": "With gluten",
   "lactose": "With lactose",
   "notVegan": "Not vegan",
-  "stock": "Stock"
+  "stock": "Stock",
+  "overviewText": "Start your order by adding a burger"    
 }
