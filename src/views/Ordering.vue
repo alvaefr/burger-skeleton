@@ -97,81 +97,63 @@
 
             <div class="Burger">
 
-<!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
-<!--                <h1>{{ uiLabels.order }}</h1>-->
-<!--                <div v-for="countIng in countAllIngredients"-->
-<!--                     :key="countAllIngredients.indexOf(countIng)">-->
-<!--                    {{countIng.count}}-->
-<!--                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr-->
-<!--                    &lt;!&ndash;<button v-on:click="delFromBurger(countIng)"> - </button> <br> &ndash;&gt;-->
-<!--                    &lt;!&ndash; button that deletes ingredient, måste kopplas till ingredient counter också &ndash;&gt;-->
-<!--                </div>-->
                 <section id="ingHeader">
-                    <h1> {{uiLabels.order}}</h1> <hr>
+                    <h1> {{uiLabels.order}}</h1>
                 </section>
 
                 <!-- BURGARNA -->
-                <div class="ingredientsPics">
-
+        
+                  <div class="ingredientsPicsReal">
+                      
                     <div class="breadImageLow" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
                             <img id="underBread" :src="require('../assets/' + item.img2)" width="150" height="35"/>
                         </div>
                     </div>
-                    <div class="breadImageTop" v-for="item in chosenIngredients" >
-                        <div v-if="item.category == 4">
-                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
-                        </div>
-                    </div>
 
+                      <div class="sauceImage">
+                          <div v-for="item in burgerDisplay.sauces">
+                              <img :src="require('../assets/' + item.img)" width="150" height="30"/>
+                          </div>
+                      </div>
 
                     <div class="burgerImage">
-                         <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 1">
+                         <div v-for="item in burgerDisplay.patty">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                            </div>
                          </div>
                     </div>
 
                     <div class="toppingImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 2">
-                                <!--                            <div  v-for="item in chosenIngredients">-->
+                        <div v-for="item in burgerDisplay.toppings">
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                                <!--                            </div>    -->
-                            </div>
                         </div>
                     </div>
 
-                    <div class="sauceImage">
-                        <div v-for="item in chosenIngredients">
-                            <div v-if="item.category == 3">
-                                <!--                            <div  v-for="item in chosenIngredients">-->
-                                <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                                <!--                            </div>    -->
-                            </div>
+                    <div class="sidesImage">
+                        <div v-for="item in burgerDisplay.sides">
+                                <img :src="require('../assets/' + item.img)" width="50" height="50"/>
+                        </div>
+                    </div>
+                    <div class="drinkImage">
+                        <div v-for="item in burgerDisplay.drinks">
+                                <img :src="require('../assets/' + item.img)" width="40" height="40"/>
                         </div>
                     </div>
 
-                    <div class="sidesImage" v-for="item in chosenIngredients">
-                         <div v-if="item.category == 5">
-                        <img :src="require('../assets/' + item.img)" width="50" height="50"/>
-                         </div>
-                    </div>
-
-                    <div class="drinkImage" v-for="item in chosenIngredients">
-                         <div v-if="item.category == 6">
-                        <img :src="require('../assets/' + item.img)" width="40" height="40"/>
-                         </div>
+                  <div class="breadImageTop" v-for="item in chosenIngredients" >
+                        <div v-if="item.category == 4">
+                            <img id="upperBread" :src="require('../assets/' + item.img)" width="150" height="35"/>
+                        </div>
                     </div>
                 </div>
-
+               
                 <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
                     <button v-if="item.category_num !== 4" v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-if="item.category_num !== 4" v-on:click="addToBurger(item.ing)"> + </button>
                 </div>
                 </div>
+                    
             </div>
 
 
@@ -407,7 +389,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              name: "LoadingScreen",
              props: ["isLoading"],
              loading: false,
-             count: 0,
              gluten: 0,
              milk: 0,
              vegan: 0,
@@ -428,6 +409,14 @@ necessary Vue instance (found in main.js) to import your data and methods */
                  drinkSidesDone: false,
                  burgerDone:false
              },
+             burgerDisplay: {
+                 patty: [],
+                 bread: [],
+                 toppings: [],
+                 sauces: [],
+                 sides: [],
+                 drinks: []
+             },
              picBool: false,
              totalPrice: 0,
          }
@@ -439,26 +428,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          this.$store.state.socket.on('')
      },
      computed: {
-         countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
-             // Räknar alla OLIKA ingredienser och hur många av dem
-             let ingredientTuples = []
-             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                 ingredientTuples[i] = {};
-                 ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-                 ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                 ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
-             }
-             var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
-                 .map(name => {
-                     return {
-                         name: name,
-                         count: ingredientTuples.find(o => o.name === name).count,
-                         ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
-                     };
-                 });
-             console.log(difIngredients)
-             return difIngredients;
-         },
          countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
              let severalBurgers = [];
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
@@ -505,12 +474,44 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.chosenIngredients.push(item);
              this.price += item.selling_price;
              this.totalPrice += item.selling_price;
+             console.log("hej")
+             this.updateBurgerDisplay(item);
          },
          delFromBurger: function (item) {  //Tar bort ingrediens
              this.chosenIngredients.splice(this.chosenIngredients.indexOf(item), 1);
              this.price -= item.selling_price;
              this.totalPrice -= item.selling_price;
+             this.updateBurgerDisplay();
+         },
+         updateBurgerDisplay: function () {
+             this.burgerDisplay.patty = [];
+             this.burgerDisplay.toppings = [];
+             this.burgerDisplay.sauces = [];
+             this.burgerDisplay.bread = [];
+             this.burgerDisplay.sides = [];
+             this.burgerDisplay.drinks = [];
 
+             for (let i = 0; i < this.chosenIngredients.length; i ++) {
+                 if (this.chosenIngredients[i].category == 1) {
+                     this.burgerDisplay.patty.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 2) {
+                     this.burgerDisplay.toppings.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 3) {
+                     this.burgerDisplay.sauces.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 4) {
+                     this.burgerDisplay.bread.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 5) {
+                     this.burgerDisplay.sides.push(this.chosenIngredients[i]);
+                 }
+                 if (this.chosenIngredients[i].category == 6) {
+                     this.burgerDisplay.drinks.push(this.chosenIngredients[i]);
+                 }
+             }
+             console.log(this.burgerDisplay)
          },
          ingredientCount: function (item) {  //Räknar ingredienserna.
              let counter = 0;
@@ -572,6 +573,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.buttonClickable=false;
              this.chosenIngredients = [];
              this.categoryNumber = 1;
+             this.updateBurgerDisplay();
          },
 
          addToOrder: function () {   //Lägg till burgaren till order!
@@ -641,6 +643,7 @@ necessary Vue instance (found in main.js) to import your data and methods */
              this.price = burger.price;
              this.view = "showMenu";
              this.categoryNumber = 1;
+             this.updateBurgerDisplay();
 
          },
          deleteBurger: function (index, burger) {     //FUNKTION SOM TAR BORT BURGAREN.
@@ -975,32 +978,37 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         font-size: 1.5vw;
         overflow-y: scroll;
-        height: 90%;
+        height: 96%;
     }
     .Burger button {
         font-size: 0.7vw;
         float: right;
     }
+    .Burger h1 {
+        font-size: 2vw;
+        margin-top: 1vw;
+    }
 
 #ingHeader {
     grid-area: ingHeader;
+    text-align: center;
 }
 /*                            CSS EDITS FOR THE IMAGES OF THE INGREDIENTS             */
-.ingredientsPics {
+.ingredientsPicsReal {
     grid-area: ingPics;
-
     display: grid;
-    grid-template-rows: 16% 16% 16% 16% 16% 20%;
+    grid-template-rows: 10% 16% 16% 16% 10% 20%;
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
+    height: 115%;
 }
 
 .burgerImage {
     grid-area: patty;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,5%);
+    grid-template-rows: repeat(auto-fill,20%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1008,9 +1016,8 @@ font-family: 'Dosis', sans-serif;
 .toppingImage {
     grid-area: topping;
     display: grid;
-    grid-gap: 3%;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 8%);
+    grid-template-rows: repeat(auto-fill,20%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1018,15 +1025,13 @@ font-family: 'Dosis', sans-serif;
     grid-area: sauce;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 8%);
+    grid-template-rows: repeat(auto-fill,20%);
     text-align: center;
 }
-
 .breadImageTop {
     grid-area: breadTop;
     text-align: center;
 }
-
 .breadImageLow {
     grid-area: breadLow;
     text-align: center;
@@ -1034,19 +1039,18 @@ font-family: 'Dosis', sans-serif;
 .sidesImage {
     grid-area: sides;
     display: grid;
-    grid-gap: 3%;
-    grid-auto-columns: min-content;
-    grid-template-columns: repeat(auto-fill,5%);
+    grid-template-columns: repeat(auto-fill,22%);
 }
 .drinkImage {
+  
     grid-area: drinks;
     display: grid;
-    grid-gap: 3%;
-    grid-template-columns: repeat(auto-fill,8%);
+    grid-template-columns: repeat(auto-fill,17%);
 }
 .ingredientsList {
-    grid-area: ingList;
+    grid-area: ingList;    
     font-size: 1.2vw;
+    
 
 }
 
@@ -1165,21 +1169,16 @@ font-family: 'Dosis', sans-serif;
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
          input[type=radio]:hover + label{
-
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
 
     .tablinks  {
         position: absolute;
         visibility: hidden;
         display: none;
-
     }
-
 
     /* För overview-sidan*/
     .grid-containerOverview {
@@ -1311,7 +1310,7 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         position: relative;
         text-align: left;
-        width: 15vw;
+        width: 22vw;
         max-height: 320px;
         max-width: 200px;
         border-radius: 4vw;
@@ -1337,15 +1336,11 @@ font-family: 'Dosis', sans-serif;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-
-
 }
 
-
-
 #burgerTotal {
-    position: relative;
-    bottom: 0.2vw;
+    position: absolute;
+    bottom: 4vw;
 }
 
     #deleteBurgerButton {
@@ -1427,7 +1422,6 @@ font-family: 'Dosis', sans-serif;
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
-        font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
         border: 3px solid rgb(255, 255, 51);
     }
@@ -1775,17 +1769,22 @@ font-family: 'Dosis', sans-serif;
     .Burger {
         font-size: 3vw;
         grid-area: 4 / 1 / 5 / 2;
-        height: 75%;
-
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 15% 65%;
+        grid-template-areas: "ingHeader ingHeader" "ingList ingPics";
+        height: 90%;
     }
 
+    .Burger h1 {
+        font-size: 6vw;
+        margin-top: 0.2vw;
+    }
     .Total {
-
         grid-area: 5 / 1 / 6 / 2;
         padding-top: 4px;
         padding-left: 24px;
         height: 80%;
-
     }
 
     .Total h2 {
@@ -2022,10 +2021,14 @@ font-family: 'Dosis', sans-serif;
         padding: 0 1em;
         font-size: 2.8vw;
     }
+      #burgerTotal {
+          position: absolute;
+          bottom: 11vw;
+      }
 
 
     .scrollForIng {
-        height: 14vw;
+        height: 30vw;
     }
 
 
@@ -2035,7 +2038,97 @@ font-family: 'Dosis', sans-serif;
         top: -10px;
         right: -10px;
     }
+   
+    /*APP BILDER FÖR BURGARE*/
+    
+    .ingredientsPics {
+    
+    margin-right: 2em;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "Text Picture";
+    position: relative;
+}
 
+    .ingredientsPicsReal {
+    grid-area: ingPics;
+    margin-right: 2em;
+    display: grid;
+    grid-template-rows: 16% 16% 16% 16% 16% 20%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "drinks sides";
+    position: relative;
+}
+    
+.burgerImage {
+    grid-area: patty;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill,5%);
+    overflow-x: inherit;
+    text-align: center;  
+}
+
+.toppingImage {
+    grid-area: topping;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    overflow-x: inherit;
+    text-align: center;
+}
+.sauceImage {
+    grid-area: sauce;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-rows: repeat(auto-fill, 8%);
+    text-align: center;
+}
+
+.breadImageTop {
+    grid-area: breadTop;
+    text-align: center;
+}
+
+.breadImageLow {
+    grid-area: breadLow;
+    text-align: center;
+}
+.sidesImage {
+    grid-area: sides;
+    text-align: center;
+    display: grid;
+    grid-gap: 3%;
+    grid-auto-columns: min-content;
+    grid-template-columns: repeat(auto-fill,5vw);
+}
+.drinkImage {
+    text-align: center;
+    grid-area: drinks;
+    display: grid;
+    grid-gap: 3%;
+    grid-template-columns: repeat(auto-fill,5vw);
+}
+.ingredientsList {
+font-size: 4vw;
+
+}
+    .ingredientsListContent {
+        padding-top: 10px;
+       grid-area: ingList;
+        background-color: transparent;
+   
+    }
+    
+    #ingHeader {
+        font-size: 4vw;
+        margin-top: 0em;
+        padding-top: 0em;
+        height: 2vw;
+    }
+    
 
 
 /*    THANKS FOR ORDERING - SIDAN */

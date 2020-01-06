@@ -52,9 +52,9 @@ ingredient_id,ingredient_sv,ingredient_en,category,milk_free,gluten_free,vegan,s
 51,glutenfritt bröd,gluten free bread,4,1,1,1,10,UpperGlutenFreeBread.png,UnderGlutenFreeBread.png
 52,veganskt bröd,vegan bun,4,0,0,1,10,UpperveganBread.png,UnderVeganBread.png
 53,fullkornsbrioche,whole wheat brioche,4,0,0,0,10,WholeWeatBreadUpper.png,WholeWeatBredUnder.png
-54,nachochips,nachos,5,1,0,1,20,nachos.png
+54,nachochips,nachos,5,1,0,1,20,Nachos.png
 55,potatisstrips,potato fries,5,1,1,1,20,Pommes.png
-56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,sweet_potato_fries.png
+56,sötpotatisstrips,sweet potato fries,5,1,1,1,30,Sweet_potato_fries.png
 57,choklad milkshake,chocolate milk shake,6,0,1,0,40,Chocolate_milkshake.png
 58,pucko,pucko,6,0,1,0,25,Pucko.png
 59,läsk,soda,6,1,1,1,20,Läsk.png

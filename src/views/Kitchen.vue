@@ -446,8 +446,6 @@
     }
     .grid-container-addIngredients select{
          background-color: antiquewhite;
-
-
      }
     .grid-container-addIngredients select:after{
         content: "";
@@ -458,7 +456,6 @@
         border: 6px solid transparent;
         border-color: #fff transparent transparent transparent;
     }
-
 
     .items {
         grid-area: main;
