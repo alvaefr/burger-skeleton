@@ -29,71 +29,66 @@
             <div class='head'> Burger</div>
 
             <!-- Undo Button -->
-         <div v-if='undoList.length >= 1'>
-           <div v-if = 'isCategory(category_burger, undoList[undoList.length-1].burgers)'>
-                               <div v-if = "undoList[undoList.length-1].burgerDone === true">
-             <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
-                 Undo: {{undoList[undoList.length-1].orderId}}
-             </button>
-         </div>
-           </div>
-                    </div>
-                      <!-- Undo Button End -->
+            <div v-if='undoList.bList.length >= 1'>
+                <button class='undo'
+                        v-on:click="orderUnDoneBurger(undoList.bList[undoList.bList.length-1], undoList.bList[undoList.bList.length-1].orderId)">
+                    Undo: {{undoList.bList[undoList.bList.length-1].orderId}}
+                </button>
+            </div>
+
+
+            <!-- Undo Button End -->
 
             <div class='items'>
                 <div class='grid-container-burgers'>
                     <OrderItemToPrepare
                             v-for="(order, key) in orders"
-                            v-if="order.status !== 'done' && isCategory(category_burger, order.burgers) && order.burgerDone === false"
-                            v-on:done="markDoneBurger(order, key)"
+                            v-if="order.status !== 'done' && isCategory(category_burger, order.burgers) && order.burgerDone === false && exsitsinListB(key)"
+                            v-on:Bdone="markDoneBurger(order, key)"
                             :order-id="key"
                             :order="order"
                             :ui-labels="uiLabels"
                             :lang="lang"
                             :key="key"
-                            :categoryNum="category_burger">
+                            :categoryNum="category_burger"
+                            :burgers="1"
+                            :sides="0"
+                    >
                     </OrderItemToPrepare>
                 </div>
             </div>
 
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
-        </div> <!-- Burger Overview End -->
-
+            <!-- Burger Overview End -->
+        </div>
         <!-- Sides and Drinks Overview -->
         <div class='grid-container' v-show="category_view === 'Drinks and sides'">
 
             <div class='head'>Sides and drinks</div>
 
             <!-- Undo Button -->
-            <div v-if='undoList.length >= 1'>
-                       <div v-if = 'isCategory(category_drSi, undoList[undoList.length-1].burgers)'>
-                         <div v-if = "undoList[undoList.length-1].drinkSidesDone === true">
-                     <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
-                         Undo: {{undoList[undoList.length-1].orderId}}
-                     </button>
-                 </div>
-                 </div>
-                      </div>
-            <!-- <div v-for="(order, key) in undoList" :key="key">
-              <div v-show ="unDoButton === true">
-                <button id= 'button' v-on:click="orderUnDone(order.orderId)">
-                  Undo: {{order.orderId}}
+            <div v-if='undoList.sLst.length >= 1'>
+
+                <button class='undo' id='button'
+                        v-on:click="orderUnDoneDrinkSides(undoList.sLst[undoList.sLst.length-1], undoList.sLst[undoList.sLst.length-1].orderId)">
+                    Undo: {{undoList.sLst[undoList.sLst.length-1].orderId}}
                 </button>
-              </div>
-            </div> -->
+            </div>
 
             <div class='items'>
                 <div class='grid-container-burgers'>
                     <OrderItemToPrepare
                             v-for="(order, key) in orders"
-                            v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers) && order.drinkSidesDone === false"
-                            v-on:done="markDoneDrSi(order, key)"
+                            v-if="order.status !== 'done' && isCategory(category_drSi, order.burgers) && order.drinkSidesDone == false && exsitsinListS(key)"
+                            v-on:Sdone="markDoneDrSi(order, key)"
                             :order-id="key"
                             :order="order"
                             :ui-labels="uiLabels"
                             :lang="lang"
                             :key="key"
-                            :categoryNum="category_drSi">
+                            :categoryNum="category_drSi"
+                            :burgers="0"
+                            :sides="1">
                     </OrderItemToPrepare>
                 </div>
             </div>
@@ -127,7 +122,9 @@
         <div class='grid-container' v-show="category_view === 'Add Ingredients'">
             <div class='head'>Ingredients</div>
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
-            <button v-if="!addingIngredient" id=addIng class='addIngredients' v-on:click="startAdding()">Add ingredients</button>
+            <button v-if="!addingIngredient" id=addIng class='addIngredients' v-on:click="startAdding()">Add
+                ingredients
+            </button>
             <button v-if="addingIngredient" class="addIngredients" v-on:click="addIngredient()">Add ingredient</button>
 
             <div class="grid-container-showIngredients" v-if="!addingIngredient">
@@ -139,48 +136,48 @@
             </div>
             <div v-if="this.addingIngredient">
 
-            <div class="grid-container-addIngredients">
+                <div class="grid-container-addIngredients">
 
-                <span>{{uiLabels.svIngName}}</span>
-                <input type="text" v-model="newIngredient.ingredient_sv" :placeholder="uiLabels.svIngName">
+                    <span>{{uiLabels.svIngName}}</span>
+                    <input type="text" v-model="newIngredient.ingredient_sv" :placeholder="uiLabels.svIngName">
 
-                <span>{{uiLabels.enIngName}}</span>
-                <input type="text" v-model="newIngredient.ingredient_en" :placeholder="uiLabels.enIngName">
+                    <span>{{uiLabels.enIngName}}</span>
+                    <input type="text" v-model="newIngredient.ingredient_en" :placeholder="uiLabels.enIngName">
 
-                <span>Category</span>
-                <select v-model.number="newIngredient.category">
-                    <option value="1">{{uiLabels.puck}}</option>
-                    <option value="2">{{uiLabels.topping}}</option>
-                    <option value="3">{{uiLabels.sauce}}</option>
-                    <option value="4">{{uiLabels.bread}}</option>
-                    <option value="5">{{uiLabels.sides}}</option>
-                    <option value="6">{{uiLabels.drinks}}</option>
-                </select>
+                    <span>Category</span>
+                    <select v-model.number="newIngredient.category">
+                        <option value="1">{{uiLabels.puck}}</option>
+                        <option value="2">{{uiLabels.topping}}</option>
+                        <option value="3">{{uiLabels.sauce}}</option>
+                        <option value="4">{{uiLabels.bread}}</option>
+                        <option value="5">{{uiLabels.sides}}</option>
+                        <option value="6">{{uiLabels.drinks}}</option>
+                    </select>
 
-                <span>{{uiLabels.lactoseFilter}}</span>
-                <select v-model.number="newIngredient.milk_free">
-                    <option value="1">{{uiLabels.lactoseFilter}}</option>
-                    <option value="0">{{uiLabels.lactose}}</option>
-                </select>
+                    <span>{{uiLabels.lactoseFilter}}</span>
+                    <select v-model.number="newIngredient.milk_free">
+                        <option value="1">{{uiLabels.lactoseFilter}}</option>
+                        <option value="0">{{uiLabels.lactose}}</option>
+                    </select>
 
-                <span>{{uiLabels.glutenFilter}}</span>
-                <select v-model.number="newIngredient.gluten_free">
-                    <option value="1">{{uiLabels.glutenFilter}}</option>
-                    <option value="0">{{uiLabels.gluten}}</option>
-                </select>
+                    <span>{{uiLabels.glutenFilter}}</span>
+                    <select v-model.number="newIngredient.gluten_free">
+                        <option value="1">{{uiLabels.glutenFilter}}</option>
+                        <option value="0">{{uiLabels.gluten}}</option>
+                    </select>
 
-                <span>{{uiLabels.veganFilter}}</span>
-                <select v-model.number="newIngredient.vegan">
-                    <option value="1">{{uiLabels.veganFilter}}</option>
-                    <option value="0">{{uiLabels.notVegan}}</option>
-                </select>
+                    <span>{{uiLabels.veganFilter}}</span>
+                    <select v-model.number="newIngredient.vegan">
+                        <option value="1">{{uiLabels.veganFilter}}</option>
+                        <option value="0">{{uiLabels.notVegan}}</option>
+                    </select>
 
-                <span>{{uiLabels.price}}</span>
-                <input type="number" v-model.number="newIngredient.selling_price" :placeholder="uiLabels.price">
+                    <span>{{uiLabels.price}}</span>
+                    <input type="number" v-model.number="newIngredient.selling_price" :placeholder="uiLabels.price">
 
-                <span>{{uiLabels.stock}}</span>
-                <input type="number" v-model.number="newIngredient.stock" :placeholder="uiLabels.stock">
-            </div>
+                    <span>{{uiLabels.stock}}</span>
+                    <input type="number" v-model.number="newIngredient.stock" :placeholder="uiLabels.stock">
+                </div>
             </div>
         </div>
 
@@ -209,7 +206,10 @@
                 category_drSi: [5, 6],
                 category_all: [1, 2, 3, 4, 5, 6],
                 category_view: '',
-                undoList: [],
+                undoList: {
+                    bList: [],
+                    sLst: []
+                },
                 addingIngredient: false,
                 newIngredient: {
                     ingredient_id: 1,
@@ -224,30 +224,7 @@
                 },
             }
         },
-        computed: {
-            // let newUndoList = {};
-            // for (let i = 0; i < this.undoList; i +=1){
-            //   for(let j = 0; i <this.undoList; j +=1){
-            //   if (!newUndolist.includes(this.undoList[j]))
-            //       newUndoList[i] = this.undoList[j];
-            //     }
-            //     }
-            // }
-            // return [...new Set(this.undoList)]}
-            // undoListReverse: function () {return this.undoList.reverse()}
-            //   countBeef100: function() {
-            //     return this.countNumberOfIngredients(2)
-            //   },
-            //   countAllIngredients: function() {
-            //     let ingredientTuples = []
-            //     for (let i = 0; i < this.ingredients.length; i += 1) {
-            //       ingredientTuples[i] = {};
-            //       ingredientTuples[i].name = this.ingredients[i]['ingredient_' + this.lang];
-            //       ingredientTuples[i].count = this.countNumberOfIngredients(this.ingredients[i].ingredient_id);
-            //     }
-            //     return ingredientTuples;
-            //   }
-        },
+        computed: {},
         methods: {
             isCategory: function (arr, itemArray) {
 
@@ -255,7 +232,6 @@
                     for (let j = 0; j < itemArray.length; j += 1) {
                         for (let k = 0; k < itemArray[j].ingredients.length; k += 1) {
                             if (arr[i] === itemArray[j].ingredients[k].category) {
-                                //console.log("itemArray", itemArray[j].ingredients[k].category);
                                 return true;
                             }
                         }
@@ -264,33 +240,38 @@
                 return false;
             },
             markDoneBurger: function (order, orderid) {
-                order.burgerDone = true;
-                if (order.drinkSidesDone === true || !this.isCategory(this.category_drSi, order.burgers)){
-                  this.$store.state.socket.emit("orderDone", orderid);
-                }
-                  if (this.exsitsinList(orderid) === true) {
-                      console.log("pushaBurger!")
-                      this.undoList.push(this.orders[orderid])
-                  }
-              },
+                this.undoList.bList.push(order)
 
-              markDoneDrSi: function (order, orderid) {
+                if (order.drinkSidesDone === true || !this.isCategory(this.category_drSi, order.burgers)) {
+                    this.$store.state.socket.emit("orderDone", orderid);
+                }
+                order.burgerDone = true;
+            },
+
+            markDoneDrSi: function (order, orderid) {
+                this.undoList.sLst.push(order);
+
+                if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)) {
+                    this.$store.state.socket.emit("orderDone", orderid);
+                }
                 order.drinkSidesDone = true;
-                if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)){
-                  this.$store.state.socket.emit("orderDone", orderid);}
-                  if (this.exsitsinList(orderid) === true) {
-                      this.undoList.push(this.orders[orderid])
-                  }
-                  // if (this.undoList.length >3){
-              },
-            exsitsinList: function (orderid) {
-                if (this.undoList.length >= 1) {
-                    for (let i = 0; i < this.undoList.length; i += 1) {
-                        console.log("this", this.undoList[i].orderId);
-                        let listId = this.undoList[i].orderId;
-                        console.log("orderid", orderid);
-                        if (listId == orderid) {
-                            console.log("falskt!")
+
+            },
+            exsitsinListB: function (orderid) {
+                if (this.undoList.bList.length >= 1) {
+                    for (let i = 0; i < this.undoList.bList.length; i += 1) {
+                        if (this.undoList.bList[i].orderId === orderid) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            },
+            exsitsinListS: function (orderid) {
+                if (this.undoList.sLst.length >= 1) {
+                    for (let i = 0; i < this.undoList.sLst.length; i += 1) {
+
+                        if (this.undoList.sLst[i].orderId === orderid) {
                             return false;
                         }
                     }
@@ -299,12 +280,12 @@
             },
             orderUnDoneBurger: function (order, orderid) {
                 this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.undoList.pop();
+                this.undoList.bList.pop();
                 order.burgerDone = false;
             },
             orderUnDoneDrinkSides: function (order, orderid) {
-              this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.undoList.pop();
+                this.$store.state.socket.emit("orderNotStarted", orderid);
+                this.undoList.sLst.pop();
                 order.drinkSidesDone = false;
             },
 
@@ -312,11 +293,10 @@
                 this.category_view = view;
                 this.addingIngredient = false;
             },
-            startAdding: function(){
+            startAdding: function () {
                 this.addingIngredient = true;
             },
-            addIngredient: function(){
-                console.log(this.newIngredient)
+            addIngredient: function () {
                 this.newIngredient.ingredient_id = this.ingredients.length + 1;
                 this.$store.state.socket.emit("addIngredient", this.newIngredient);
                 this.addingIngredient = false;
@@ -336,61 +316,18 @@
                 this.$store.state.socket.emit("updateStock", {ingredient: item}, this.change);
                 this.change = 0;
             },
-            // countNumberOfIngredients: function (id) {
-            //   let counter = 0;
-            //   for (let order in this.orders) {
-            //     //Now we have an array of burgers in an order so we need to add a loop
-            //     let burgers = this.orders[order].burgers;
-            //     for (let j = 0; j < burgers.length; j += 1) {
-            //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
-            //         if (this.orders[order].status !== "done" &&
-            //             burgers[j].ingredients[i].ingredient_id === id) {
-            //           counter +=1;
-            //         }
-            //       }
-            //     }
-            //   }
-            //   return counter;
-            // }
-    // },
-    // orderUnDone: function (orderid) {
-    //     this.$store.state.socket.emit("orderNotStarted", orderid);
-    //     this.unDoButton = false;
-    //     this.undoList.pop();
-    // },
-    setCategory_view: function(view) {
-        this.category_view = view;
-    },
-    ingredientsCat: function(order){
-        let burgers = order.burgers;
-        for (let j = 0; j < burgers.length; j += 1) {
-            for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
-                this.ingredientsCat.push(burgers[j].ingredients[i].category)
+            ingredientsCat: function (order) {
+                let burgers = order.burgers;
+                for (let j = 0; j < burgers.length; j += 1) {
+                    for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
+                        this.ingredientsCat.push(burgers[j].ingredients[i].category)
+                    }
+                }
             }
+
+
         }
     }
-
-
-    // countNumberOfIngredients: function (id) {
-    //   let counter = 0;
-    //   for (let order in this.orders) {
-    //     //Now we have an array of burgers in an order so we need to add a loop
-    //     let burgers = this.orders[order].burgers;
-    //     for (let j = 0; j < burgers.length; j += 1) {
-    //       for (let i = 0; i < burgers[j].ingredients.length; i += 1) {
-    //         if (this.orders[order].status !== "done" &&
-    //             burgers[j].ingredients[i].ingredient_id === id) {
-    //           counter +=1;
-    //         }
-    //       }
-    //     }
-    //   }
-    //   return counter;
-    // }
-
-
-  }
-}
 </script>
 <style scoped>
     #orders {
@@ -422,7 +359,7 @@
         height: 80%;
         margin: 3% 20% 3% 5%;
         text-align: center;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .startButton:hover {
@@ -481,11 +418,11 @@
         cursor: pointer;
 
     }
-    
+
     .addIngredients:hover {
         background-color: darkblue;
     }
-    
+
 
     .grid-container-showIngredients {
         grid-area: main;
@@ -495,6 +432,7 @@
         text-align: left;
 
     }
+
     .grid-container-showIngredients ul {
         font-size: 10px;
 
@@ -518,16 +456,18 @@
         padding: 10px;
     }
 
-    .grid-container-addIngredients input{
+    .grid-container-addIngredients input {
 
 
     }
-    .grid-container-addIngredients select{
-         background-color: antiquewhite;
+
+    .grid-container-addIngredients select {
+        background-color: antiquewhite;
 
 
-     }
-    .grid-container-addIngredients select:after{
+    }
+
+    .grid-container-addIngredients select:after {
         content: "";
         top: 14px;
         right: 10px;

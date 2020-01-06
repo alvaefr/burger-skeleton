@@ -5,10 +5,12 @@
     :ui-labels="uiLabels"
     :lang="lang"
     :order="order"
-    :categoryNum ="categoryNum">
+    :categoryNum ="categoryNum"
+    :burger="burgers"
+    :sides="sides">
   </OrderItem>
 
-  <input type="checkbox" id="ossm" name="ossm" v-on:click = "orderDone">
+  <input type="checkbox" id="ossm" name="ossm" v-on:click = "orderDone(order)">
   <label for="ossm"> DONE! </label>
 
   </div>
@@ -25,16 +27,22 @@ export default {
     order: Object,
     orderId: String,
     lang: String,
-    categoryNum: Array
+    categoryNum: Array,
+    burgers: '',
+    sides: '',
   },
   data: function(){
     return {  button_status: true}
   },
   methods: {
-    orderDone: function () {
+    orderDone: function (order) {
       // sending 'done' message to parent component or view so that it
       // can catch it with v-on:done in the component declaration
-      this.$emit('done');
+      if (this.burgers === 1) {
+        this.$emit('Bdone', order);
+      }else {
+        this.$emit('Sdone', order);
+      }
     },
     cancelOrder: function () {
       // not implemented
