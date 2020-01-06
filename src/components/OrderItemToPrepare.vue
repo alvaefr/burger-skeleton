@@ -12,8 +12,8 @@
   <label for="ossm"> DONE! </label>
 
   </div>
-    
-    
+
+
 </template>
 <script>
 import OrderItem from '@/components/OrderItem.vue'
@@ -51,9 +51,9 @@ export default {
 input[type=checkbox] + label {
 
   color: #ccc;
-    background-color: grey;
+    background-color: green;
   font-style: italic;
-} 
+}
 input[type=checkbox]:checked + label {
   color: #f00;
   background-color: green;

@@ -34,7 +34,9 @@
 
         <h3 class="price">{{item.selling_price}}:- </h3>
 
-            <div v-if="item.category == 6 || item.category == 5">
+
+
+        <div v-if="item.category == 6 || item.category == 5">
         <img class="image1" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
         </div>
         
@@ -45,6 +47,7 @@
         <div v-if="item.category == 1 || item.category == 2 || item.category == 3 ">
         <img class="image2" v-if="item.img != undefined" :src="require('../assets/' + item.img)" width="60" height="30"/>
         </div>
+
 
 
         <div class="filter">

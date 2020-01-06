@@ -97,15 +97,6 @@
 
             <div class="Burger">
 
-<!--                <h1>{{ uiLabels.ordersInQueue }}</h1>-->
-<!--                <h1>{{ uiLabels.order }}</h1>-->
-<!--                <div v-for="countIng in countAllIngredients"-->
-<!--                     :key="countAllIngredients.indexOf(countIng)">-->
-<!--                    {{countIng.count}}-->
-<!--                    {{countIng.name}}  {{countIng.ingPrice*countIng.count}} kr-->
-<!--                    &lt;!&ndash;<button v-on:click="delFromBurger(countIng)"> - </button> <br> &ndash;&gt;-->
-<!--                    &lt;!&ndash; button that deletes ingredient, måste kopplas till ingredient counter också &ndash;&gt;-->
-<!--                </div>-->
                 <section id="ingHeader">
                     <h1> {{uiLabels.order}}</h1>
                 </section>
@@ -131,7 +122,6 @@
                         </div>
                     </div>
 
-
                     <div class="burgerImage">
                          <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 1">
@@ -143,12 +133,11 @@
                     <div class="toppingImage">
                         <div v-for="item in chosenIngredients">
                             <div v-if="item.category == 2">
-                                <!--                            <div  v-for="item in chosenIngredients">-->
                                 <img :src="require('../assets/' + item.img)" width="150" height="30"/>
-                                <!--                            </div>    -->
                             </div>
                         </div>
                     </div>
+
 
                   <div class="breadImageTop" v-for="item in chosenIngredients" >
                         <div v-if="item.category == 4">
@@ -166,13 +155,14 @@
                          <div v-if="item.category == 6">
                         <img :src="require('../assets/' + item.img)" width="45" height="60" />
                          </div>
+
                     </div>
                 </div>
                
                 <div class="ingredientsListContent">
                 <div class="ingredientsList" v-for="(item, key2) in groupIngredients(chosenIngredients)" :key="key2">
                     {{item.count}} x {{ item.ing['ingredient_' + lang] }}
-                    <button v-on:click="delFromBurger(item.ing); checkBurger()" :disabled="item.category_num == 4"> - </button> <button v-on:click="addToBurger(item.ing)" :disabled="item.category_num === 4"> + </button>
+                    <button v-if="item.category_num !== 4" v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-if="item.category_num !== 4" v-on:click="addToBurger(item.ing)"> + </button>
                 </div>
                 </div>
                     
@@ -190,7 +180,7 @@
                     <input  class="label__checkbox" type="checkbox" v-model="gluten" v-on:change="showGlutenFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                           
+
                         <p  class="textFilter" align=center> <img width=50% align=center src="@/assets/gluten2.png"> <br>{{uiLabels.glutenFilter}}</p>
                         </span>
                         </span>
@@ -411,7 +401,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
              name: "LoadingScreen",
              props: ["isLoading"],
              loading: false,
-             count: 0,
              gluten: 0,
              milk: 0,
              vegan: 0,
@@ -443,26 +432,6 @@ necessary Vue instance (found in main.js) to import your data and methods */
          this.$store.state.socket.on('')
      },
      computed: {
-         countAllIngredients: function () {  //inkopierad från git, branch:severalburgers,kitchen
-             // Räknar alla OLIKA ingredienser och hur många av dem
-             let ingredientTuples = []
-             for (let i = 0; i < this.chosenIngredients.length; i += 1) {
-                 ingredientTuples[i] = {};
-                 ingredientTuples[i].name = this.chosenIngredients[i]['ingredient_' + this.lang];
-                 ingredientTuples[i].count = this.countNumberOfIngredients(this.chosenIngredients[i].ingredient_id);
-                 ingredientTuples[i].ingPrice = this.chosenIngredients[i]['selling_price'];
-             }
-             var difIngredients = Array.from(new Set(ingredientTuples.map(o => o.name)))
-                 .map(name => {
-                     return {
-                         name: name,
-                         count: ingredientTuples.find(o => o.name === name).count,
-                         ingPrice: ingredientTuples.find(o => o.name === name).ingPrice,
-                     };
-                 });
-             console.log(difIngredients)
-             return difIngredients;
-         },
          countAllBurgers: function () { //liknande CountAllIngredients, fast för alla ing i en specifik burgare
              let severalBurgers = [];
              for (let j = 0; j < this.currentOrder.burgers.length; j += 1) {
@@ -979,41 +948,47 @@ font-family: 'Dosis', sans-serif;
         background-color: rgba(232, 232, 232, 0.92);
         font-size: 1.5vw;
         overflow-y: scroll;
-        height: 90%;
+        height: 96%;
     }
     .Burger button {
         font-size: 0.7vw;
         float: right;
     }
+    .Burger h1 {
+        font-size: 2vw;
+        margin-top: 1vw;
+    }
 
 #ingHeader {
     grid-area: ingHeader;
+    text-align: center;
 }
 /*                            CSS EDITS FOR THE IMAGES OF THE INGREDIENTS             */
 .ingredientsPicsReal {
     grid-area: ingPics;
     display: grid;
+
     grid-template-rows: 10% 16% 16% 16% 10% 20%;
+
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
 }
-    
+
 .burgerImage {
     grid-area: patty;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill,2%);
+    grid-template-rows: repeat(auto-fill,3%);
     overflow-x: inherit;
-    text-align: center;    
+    text-align: center;
 }
 
 .toppingImage {
     grid-area: topping;
     display: grid;
-    grid-gap: 3%;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 3%);
+    grid-template-rows: repeat(auto-fill,5%);
     overflow-x: inherit;
     text-align: center;
 }
@@ -1021,15 +996,13 @@ font-family: 'Dosis', sans-serif;
     grid-area: sauce;
     display: grid;
     grid-auto-rows: min-content;
-    grid-template-rows: repeat(auto-fill, 3%);
+    grid-template-rows: repeat(auto-fill,5%);
     text-align: center;
 }
-
 .breadImageTop {
     grid-area: breadTop;
     text-align: center;
 }
-
 .breadImageLow {
     grid-area: breadLow;
     text-align: center;
@@ -1037,16 +1010,13 @@ font-family: 'Dosis', sans-serif;
 .sidesImage {
     grid-area: sides;
     display: grid;
-    grid-gap: 3%;
-    grid-auto-columns: min-content;
-    grid-template-columns: repeat(auto-fill,5%);
+    grid-template-columns: repeat(auto-fill,22%);
 }
 .drinkImage {
   
     grid-area: drinks;
     display: grid;
-    grid-gap: 3%;
-    grid-template-columns: repeat(auto-fill,15%);
+    grid-template-columns: repeat(auto-fill,17%);
 }
 .ingredientsList {
     grid-area: ingList;    
@@ -1054,11 +1024,11 @@ font-family: 'Dosis', sans-serif;
     
 
 }
-    
+
     .ingredientsListContent {
         background-color: transparent;
         overflow-y: scroll;
-    
+
     }
  /*                     EDITS FOR THE >>TOTAL<< GRID                    */
     .Total {
@@ -1170,21 +1140,16 @@ font-family: 'Dosis', sans-serif;
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
          input[type=radio]:hover + label{
-
          background-color: whitesmoke;
          color:darkseagreen;
 }
-
 
     .tablinks  {
         position: absolute;
         visibility: hidden;
         display: none;
-
     }
-
 
     /* För overview-sidan*/
     .grid-containerOverview {
@@ -1220,13 +1185,11 @@ font-family: 'Dosis', sans-serif;
         font-weight: bold;
         padding: 2%;
 
-
-
     }
 
     .logoOverview {
         grid-area: "logo";
-        width:100%;
+        width:70%;
         margin-top: -0.8em;
         margin-left: 1em;
         overflow: inherit;
@@ -1240,6 +1203,7 @@ font-family: 'Dosis', sans-serif;
         overflow-x: scroll;
         text-align: center;
         margin: 1em;
+
     }
     .overviewBottom {
         grid-area: Bottom;
@@ -1323,7 +1287,6 @@ font-family: 'Dosis', sans-serif;
         border-radius: 4vw;
         border: 5px solid rgb(166, 166, 166);
         padding: 0 1em;
-
         font-size: calc(9px + .5vw);
 
     }
@@ -1344,16 +1307,13 @@ font-family: 'Dosis', sans-serif;
 }
 #ingredientsInBurger {
     overflow-x: scroll;
-
-
 }
-
-
 
 #burgerTotal {
     position: relative;
     bottom: 0.2vw;
 }
+
     #deleteBurgerButton {
         position: absolute;
         top: -2px;
@@ -1433,7 +1393,6 @@ font-family: 'Dosis', sans-serif;
         font-family: 'Dosis', sans-serif;
         float: left;
         cursor: pointer;
-        font-size: 2.5vw;
         border-radius: 0.2em 0.2em 0.2em 1em;
         border: 3px solid rgb(255, 255, 51);
     }
@@ -1575,19 +1534,20 @@ font-family: 'Dosis', sans-serif;
           background: rgba(255,255,255, 0.9);
           width: 6vw;
           height: 6vw;
-          font-size: 1.4vw;
+          font-size: 1.2vw;
           cursor: pointer;
           transition: border .001s ease;
           margin-top: 1%;
           line-height: 1;
     }
-    
+
     .textFilter {
-        position: absolute; 
-        
-        
-        
-    }    
+        position: absolute;
+
+
+
+
+    }
 .label__checkbox:checked + .label__text .label__check {
   animation: check .2s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
 }
@@ -1635,8 +1595,8 @@ font-family: 'Dosis', sans-serif;
       font-size: 1vw;
   }
   100% {
-      width: 5vw;
-      height: 5vw;
+      width: 6.2vw;
+      height: 6.2vw;
     background: rgba(144, 198, 149, 0.9);
     border: 4px solid rgba(38, 166, 91, 1);
     text-align: center;
@@ -1649,16 +1609,35 @@ font-family: 'Dosis', sans-serif;
 
     /*FÖRSTA SIDAN*/
     .grid-containerFront {
-        grid-template-rows: 20% 70% 10%;
+        grid-template-rows: 40% 50% 10%;
     }
 
 
     .welcome {
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 100%;
+        grid-template-areas: "logo" "headText";
         font-size: 8vw;
         overflow: inherit;
         text-align: center;
         font-weight: bold;
         padding: 2%;
+
+    }
+
+    .logo {
+        grid-area: 1/1/2/2;
+        width:40%;
+        margin-top: 0em;
+        margin-left: 2vw;
+    }
+
+    .headerText {
+        grid-area: 2/1/3/4;
+        font-size: 10vw;
+        overflow: inherit;
+        text-align: center;
+        font-weight: bold;
     }
 
 
@@ -1782,11 +1761,11 @@ font-family: 'Dosis', sans-serif;
         height: 80%;
 
     }
-    
+
     .Total h2 {
         font-size: 4vw;
     }
-    
+
     .Total p {
         font-size: 4vw;
     }
@@ -1902,12 +1881,12 @@ font-family: 'Dosis', sans-serif;
         grid-template-rows: 10% 55% 30% 5%;
         grid-template-areas: "Top" "Burgers" "Bottom" "Lang";
     }
-    
+
     #editBurgerButton {
         font-size: 3vw;
         margin-left: -8.2%;
     }
-    
+
     #duplicateButton {
         font-size: 2.8vw;
         width: 11vw;
@@ -1927,7 +1906,7 @@ font-family: 'Dosis', sans-serif;
     .burgerAdd {
         width: 100%;
         max-height: 56vw;
-        height: 95%;
+        height: 10vw;
         padding: 0.1em;
         margin-top: 0px;
         font-size: 4vw;
@@ -1944,7 +1923,7 @@ font-family: 'Dosis', sans-serif;
 
    .logoOverview {
         grid-area: "logo";
-        width:100%;
+        width:70%;
         margin-top: 0.8em;
         margin-left: 0.3em;
         overflow: inherit;
@@ -1972,6 +1951,11 @@ font-family: 'Dosis', sans-serif;
         grid-template-areas: "addBurger" "totalPrice" "placeOrder";
     }
 
+    .burgerOverview {
+        padding-top: 2vw;
+        padding-bottom: 2vw;
+    }
+
     #totalPrice {
         grid-area: 2/1/3/2;
         text-align:left;
@@ -1993,7 +1977,7 @@ font-family: 'Dosis', sans-serif;
         padding: 0em;
         font-size: 2.5vw;
         max-height: 56vw;
-        height: 20%;
+        height: 10vw;
         width: 100%;
         margin-top: -0.6em;
         font-size: 4.5vw;
@@ -2013,12 +1997,12 @@ font-family: 'Dosis', sans-serif;
         font-size: 2.8vw;
     }
 
-    
+
     .scrollForIng {
         height: 14vw;
     }
-    
-    
+
+
 
      #deleteBurgerButton {
         position: absolute;
@@ -2137,7 +2121,7 @@ font-size: 4vw;
             margin-top: 2em;
             cursor: pointer;
             font-size: 10vw;
-            height: 50%;
+            height: 20vw;
             width: 100%;
             border-radius: 1em 1em 1em 1em;
             margin-left: 0em;

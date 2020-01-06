@@ -29,14 +29,14 @@
             <div class='head'> Burger</div>
 
             <!-- Undo Button -->
-            <div v-if='undoList.length >= 1'>
-              <div v-if = 'isCategory(category_burger, undoList[undoList.length-1].burgers)'>
-                                  <div v-if = "undoList[undoList.length-1].burgerDone === true">
-                <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
-                    Undo: {{undoList[undoList.length-1].orderId}}
-                </button>
-            </div>
-                  </div>
+         <div v-if='undoList.length >= 1'>
+           <div v-if = 'isCategory(category_burger, undoList[undoList.length-1].burgers)'>
+                               <div v-if = "undoList[undoList.length-1].burgerDone === true">
+             <button class='undo' v-on:click="orderUnDoneBurger(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
+                 Undo: {{undoList[undoList.length-1].orderId}}
+             </button>
+         </div>
+           </div>
                     </div>
                       <!-- Undo Button End -->
 
@@ -54,7 +54,7 @@
                             :categoryNum="category_burger">
                     </OrderItemToPrepare>
                 </div>
-            </div> 
+            </div>
 
             <button class='backButton' v-on:click="setCategory_view('')">Back to overview</button>
         </div> <!-- Burger Overview End -->
@@ -65,11 +65,15 @@
             <div class='head'>Sides and drinks</div>
 
             <!-- Undo Button -->
-            <div v-if='undoList.Sides.length >= 1'>
-                <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides()">
-                    Undo: {{undoList.Sides.orderid}}
-                </button>
-            </div>
+            <div v-if='undoList.length >= 1'>
+                       <div v-if = 'isCategory(category_drSi, undoList[undoList.length-1].burgers)'>
+                         <div v-if = "undoList[undoList.length-1].drinkSidesDone === true">
+                     <button class='undo' id='button' v-on:click="orderUnDoneDrinkSides(undoList[undoList.length-1], undoList[undoList.length-1].orderId)">
+                         Undo: {{undoList[undoList.length-1].orderId}}
+                     </button>
+                 </div>
+                 </div>
+                      </div>
             <!-- <div v-for="(order, key) in undoList" :key="key">
               <div v-show ="unDoButton === true">
                 <button id= 'button' v-on:click="orderUnDone(order.orderId)">
@@ -205,12 +209,7 @@
                 category_drSi: [5, 6],
                 category_all: [1, 2, 3, 4, 5, 6],
                 category_view: '',
-                change: 0,
-                undoList: {
-                  Burger: [],
-                  Sides: []
-                },
-                unDoButton: true,
+                undoList: [],
                 addingIngredient: false,
                 newIngredient: {
                     ingredient_id: 1,
@@ -265,26 +264,25 @@
                 return false;
             },
             markDoneBurger: function (order, orderid) {
-              order.burgerDone = true;
-              if (order.drinkSidesDone === true || !this.isCategory(this.category_drSi, order.burgers)){
-                this.$store.state.socket.emit("orderDone", orderid);
-              }
-                if (this.exsitsinList(orderid) === true) {
-                    console.log("pushaBurger!")
-                    this.undoList.Burger.push(this.orders[orderid])
+                order.burgerDone = true;
+                if (order.drinkSidesDone === true || !this.isCategory(this.category_drSi, order.burgers)){
+                  this.$store.state.socket.emit("orderDone", orderid);
                 }
-                // if (this.undoList.length >3){
-            },
+                  if (this.exsitsinList(orderid) === true) {
+                      console.log("pushaBurger!")
+                      this.undoList.push(this.orders[orderid])
+                  }
+              },
 
-            markDoneDrSi: function (order, orderid) {
-              order.drinkSidesDone = true;
-              if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)){
-                this.$store.state.socket.emit("orderDone", orderid);}
-                if (this.exsitsinList(orderid) === true) {
-                    this.undoList.Sides.push(this.orders[orderid])
-                }
-                // if (this.undoList.length >3){
-            },
+              markDoneDrSi: function (order, orderid) {
+                order.drinkSidesDone = true;
+                if (order.burgerDone === true || !this.isCategory(this.category_burger, order.burgers)){
+                  this.$store.state.socket.emit("orderDone", orderid);}
+                  if (this.exsitsinList(orderid) === true) {
+                      this.undoList.push(this.orders[orderid])
+                  }
+                  // if (this.undoList.length >3){
+              },
             exsitsinList: function (orderid) {
                 if (this.undoList.length >= 1) {
                     for (let i = 0; i < this.undoList.length; i += 1) {
@@ -301,14 +299,13 @@
             },
             orderUnDoneBurger: function (order, orderid) {
                 this.$store.state.socket.emit("orderNotStarted", orderid);
-                this.undoList.undoBurger.pop();
+                this.undoList.pop();
                 order.burgerDone = false;
             },
             orderUnDoneDrinkSides: function (order, orderid) {
               this.$store.state.socket.emit("orderNotStarted", orderid);
-              console.log("hej")
-                this.undoList.Sides.pop();
-                //order.drinkSidesDone = false;
+                this.undoList.pop();
+                order.drinkSidesDone = false;
             },
 
             setCategory_view: function (view) {
@@ -355,12 +352,12 @@
             //   }
             //   return counter;
             // }
-    },
-    orderUnDone: function (orderid) {
-        this.$store.state.socket.emit("orderNotStarted", orderid);
-        this.unDoButton = false;
-        this.undoList.pop();
-    },
+    // },
+    // orderUnDone: function (orderid) {
+    //     this.$store.state.socket.emit("orderNotStarted", orderid);
+    //     this.unDoButton = false;
+    //     this.undoList.pop();
+    // },
     setCategory_view: function(view) {
         this.category_view = view;
     },
@@ -371,7 +368,7 @@
                 this.ingredientsCat.push(burgers[j].ingredients[i].category)
             }
         }
-    },
+    }
 
 
     // countNumberOfIngredients: function (id) {
@@ -392,7 +389,8 @@
     // }
 
 
-    }
+  }
+}
 </script>
 <style scoped>
     #orders {
@@ -424,6 +422,7 @@
         height: 80%;
         margin: 3% 20% 3% 5%;
         text-align: center;
+        cursor:pointer;
     }
 
     .startButton:hover {
@@ -463,6 +462,7 @@
         display: inline-block;
         font-size: 16px;
         margin: 1%;
+        cursor: pointer;
     }
 
     .addIngredients {
@@ -478,8 +478,14 @@
         display: inline-block;
         font-size: 16px;
         margin: 1%;
+        cursor: pointer;
 
     }
+    
+    .addIngredients:hover {
+        background-color: darkblue;
+    }
+    
 
     .grid-container-showIngredients {
         grid-area: main;
@@ -508,7 +514,7 @@
         grid-template-columns: 50% 50%;
         width: 1fr;
         height: 15em;
-        text-align: center;
+        text-align: left;
         padding: 10px;
     }
 
@@ -518,11 +524,8 @@
     }
     .grid-container-addIngredients select{
          background-color: antiquewhite;
-
-
      }
     .grid-container-addIngredients select:after{
-
         content: "";
         top: 14px;
         right: 10px;
@@ -530,9 +533,7 @@
         height: 0;
         border: 6px solid transparent;
         border-color: #fff transparent transparent transparent;
-
     }
-
 
     .items {
         grid-area: main;
