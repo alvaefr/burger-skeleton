@@ -1322,6 +1322,7 @@ font-family: 'Dosis', sans-serif;
 
     .burgerScrollLine {
           border: 1px solid  rgb(166, 166, 166);
+          background: rgb(166, 166, 166);
     }
 
     .scrollForIng {
