@@ -191,7 +191,7 @@
                     <input  class="label__checkbox" type="checkbox"  v-model="milk" v-on:change="showMilkFree()"/>
                         <span class="label__text" >
                         <span class="label__check">
-                        <p class="textFilter" margin-block-start=0em; align=center> <img width=40% src="@/assets/milk2.png"> {{uiLabels.lactoseFilter}}</p>
+                        <p class="textFilter" margin-block-start=0em; align=center> <img width=40% src="@/assets/milk2.png"><br> {{uiLabels.lactoseFilter}}</p> 
                         </span>
                         </span>
                 </label>
@@ -1591,6 +1591,7 @@ font-family: 'Dosis', sans-serif;
 
     .textFilter {
         position: absolute;
+        margin:-0;
 
 
 
