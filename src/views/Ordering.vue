@@ -153,7 +153,7 @@
                     <button v-if="item.category_num !== 4" v-on:click="delFromBurger(item.ing); checkBurger()"> - </button> <button v-if="item.category_num !== 4" v-on:click="addToBurger(item.ing)"> + </button>
                 </div>
                 </div>
-                    
+
             </div>
 
 
@@ -269,7 +269,6 @@
                     </div>
 
                     <div id="burgerTotal">
-                        <hr class="burgerScrollLine">
                         <h4> {{uiLabels.price}}: {{ burger.price }} :- </h4>
                     </div>
 
@@ -1008,7 +1007,7 @@ font-family: 'Dosis', sans-serif;
     grid-template-columns: 50% 50%;
     grid-template-areas: "breadTop breadTop" "topping topping" "patty patty" "sauce sauce" "breadLow breadLow" "sides drinks";
     position: relative;
-    height: 115%;
+    height: 100%;
 }
 
 .burgerImage {
@@ -1055,7 +1054,7 @@ font-family: 'Dosis', sans-serif;
     grid-template-columns: repeat(auto-fill,17%);
 }
 .ingredientsList {
-    grid-area: ingList;    
+    grid-area: ingList;
     font-size: 1.2vw;
     
 
@@ -1321,8 +1320,6 @@ font-family: 'Dosis', sans-serif;
         opacity: 0.8;
     }
 
-
-
     .burgerScroll {
         color: black;
         background-color: rgba(232, 232, 232, 0.92);
@@ -1337,12 +1334,6 @@ font-family: 'Dosis', sans-serif;
         font-size: calc(9px + .5vw);
 
     }
-
-    .burgerScrollLine {
-          border: 1px solid  rgb(166, 166, 166);
-          background: rgb(166, 166, 166);
-    }
-
     .scrollForIng {
         background-color: rgba(232, 232, 232, 0);
         height: 8vw;
